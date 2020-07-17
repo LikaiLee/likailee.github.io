@@ -206,7 +206,8 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="并发锁"><a href="#并发锁" class="headerlink" title="并发锁"></a>并发锁</h1><h2 id="乐观锁和悲观锁"><a href="#乐观锁和悲观锁" class="headerlink" title="乐观锁和悲观锁"></a>乐观锁和悲观锁</h2><p>乐观锁和悲观锁是两种思想，用于解决并发场景下的数据竞争问题。</p>
+              <p>[TOC]</p>
+<h1 id="并发锁"><a href="#并发锁" class="headerlink" title="并发锁"></a>并发锁</h1><h2 id="乐观锁和悲观锁"><a href="#乐观锁和悲观锁" class="headerlink" title="乐观锁和悲观锁"></a>乐观锁和悲观锁</h2><p>乐观锁和悲观锁是两种思想，用于解决并发场景下的数据竞争问题。</p>
 <h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p>乐观锁在操作数据时非常乐观，认为别人不会同时修改数据。因此<strong>乐观锁不会上锁</strong>，只是在执行更新的时候判断一下在此期间别人是否修改了数据：如果别人修改了数据则放弃操作，否则执行操作。</p>
 <h4 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h4><ol>
 <li><code>CAS</code> 机制</li>
@@ -623,7 +624,7 @@
     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">signalAll</span><span class="hljs-params">()</span></span>;
 &#125;</code></pre>
 
-<p>其中，await、signal、signalAll 与 wait、notify、notifyAll 相对应，功能也相似。除此以外，Condition 相比内置条件队列（ wait、notify、notifyAll ），提供了更为丰富的功能：</p>
+<p>其中，<code>await</code>、<code>signal</code>、<code>signalAll</code> 与 <code>wait</code>、<code>notify</code>、<code>notifyAll</code> 相对应，功能也相似。除此以外，<code>Condition</code> 相比内置条件队列（<code>wait</code>、<code>notify</code>、<code>notifyAll</code>），提供了更为丰富的功能：</p>
 <ul>
 <li><p>每个锁（<code>Lock</code>）上可以存在多个 <code>Condition</code>，这意味着锁的状态条件可以有多个。</p>
 </li>
@@ -643,9 +644,9 @@
 
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Lock lock = <span class="hljs-keyword">new</span> ReentrantLock();
 
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Condition producedMsg = lock.newCondition();
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Condition consumeCondition = lock.newCondition();
 
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Condition consumedMsg = lock.newCondition();
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Condition produceCondition = lock.newCondition();
 
     <span class="hljs-keyword">private</span> String message;
 
@@ -658,12 +659,14 @@
         lock.lock();
         <span class="hljs-keyword">try</span> &#123;
             <span class="hljs-comment">// no new message wait for new message</span>
-            <span class="hljs-keyword">while</span> (!state) &#123; producedMsg.await(); &#125;
+            <span class="hljs-keyword">while</span> (!state) &#123;
+                consumeCondition.await();
+            &#125;
 
             System.out.println(<span class="hljs-string">"consume message : "</span> + message);
             state = <span class="hljs-keyword">false</span>;
             <span class="hljs-comment">// message consumed, notify waiting thread</span>
-            consumedMsg.signal();
+            produceCondition.signal();
         &#125; <span class="hljs-keyword">catch</span> (InterruptedException ie) &#123;
             System.out.println(<span class="hljs-string">"Thread interrupted - viewMessage"</span>);
         &#125; <span class="hljs-keyword">finally</span> &#123;
@@ -675,13 +678,15 @@
         lock.lock();
         <span class="hljs-keyword">try</span> &#123;
             <span class="hljs-comment">// last message not consumed, wait for it be consumed</span>
-            <span class="hljs-keyword">while</span> (state) &#123; consumedMsg.await(); &#125;
+            <span class="hljs-keyword">while</span> (state) &#123;
+                produceCondition.await();
+            &#125;
 
             System.out.println(<span class="hljs-string">"produce msg: "</span> + message);
             <span class="hljs-keyword">this</span>.message = message;
             state = <span class="hljs-keyword">true</span>;
             <span class="hljs-comment">// new message added, notify waiting thread</span>
-            producedMsg.signal();
+            consumeCondition.signal();
         &#125; <span class="hljs-keyword">catch</span> (InterruptedException ie) &#123;
             System.out.println(<span class="hljs-string">"Thread interrupted - publishMessage"</span>);
         &#125; <span class="hljs-keyword">finally</span> &#123;
