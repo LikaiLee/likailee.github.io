@@ -313,7 +313,7 @@
 <li><p><code>head</code> 和 <code>tail</code> - <code>AQS</code> 维护了一个 <code>Node</code> 类型（<code>AQS</code> 的内部类）的双链表来完成同步状态的管理。这个双链表是一个双向的 <code>FIFO</code> 队列，通过 <code>head</code> 和 <code>tail</code> 指针进行访问。当有线程获取锁失败后，就被添加到队列末尾。</p>
 </li>
 </ul>
-<p><img src="evernotecid://B9A909A5-5CEB-4A6C-8FEA-C9240D458E51/appyinxiangcom/18890726/ENResource/p315" srcset="/img/loading.gif" alt="fd603e4ebf025c17e2a8b51e09c5a0e7.png"></p>
+<p>TODO: 结构图</p>
 <p><code>Node</code> 的源码</p>
 <pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;
     <span class="hljs-comment">/** 该等待同步的节点处于共享模式 */</span>
@@ -361,7 +361,7 @@
 <li><p>接着，不断尝试为等待队列中的线程节点获取独占锁。</p>
 </li>
 </ol>
-<p><img src="evernotecid://B9A909A5-5CEB-4A6C-8FEA-C9240D458E51/appyinxiangcom/18890726/ENResource/p316" srcset="/img/loading.gif" alt="c63bc615859925844c794fbadacc319d.png"><br><img src="evernotecid://B9A909A5-5CEB-4A6C-8FEA-C9240D458E51/appyinxiangcom/18890726/ENResource/p317" srcset="/img/loading.gif" alt="16ab117f8bc8789d3d7d652050ad3d43.png"><br>详细流程可以用下图来表示，请结合源码来理解（一图胜千言）：<br><img src="evernotecid://B9A909A5-5CEB-4A6C-8FEA-C9240D458E51/appyinxiangcom/18890726/ENResource/p318" srcset="/img/loading.gif" alt="c5d7c421c8e011e601521566b65a03c8.png"></p>
+<p>TODO:<br>详细流程可以用下图来表示，请结合源码来理解（一图胜千言）：<br>TODO:</p>
 <h4 id="释放独占锁"><a href="#释放独占锁" class="headerlink" title="释放独占锁"></a>释放独占锁</h4><p><code>AQS</code> 中使用 <code>release(int arg)</code> 方法释放独占锁，其大致流程如下：</p>
 <ol>
 <li><p>先尝试获取解锁线程的同步状态，如果获取同步状态不成功，则结束方法，直接返回。</p>
