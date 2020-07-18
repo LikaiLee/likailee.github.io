@@ -206,8 +206,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>[TOC]</p>
-<h1 id="并发锁"><a href="#并发锁" class="headerlink" title="并发锁"></a>并发锁</h1><h2 id="乐观锁和悲观锁"><a href="#乐观锁和悲观锁" class="headerlink" title="乐观锁和悲观锁"></a>乐观锁和悲观锁</h2><p>乐观锁和悲观锁是两种思想，用于解决并发场景下的数据竞争问题。</p>
+              <h1 id="并发锁"><a href="#并发锁" class="headerlink" title="并发锁"></a>并发锁</h1><h2 id="乐观锁和悲观锁"><a href="#乐观锁和悲观锁" class="headerlink" title="乐观锁和悲观锁"></a>乐观锁和悲观锁</h2><p>乐观锁和悲观锁是两种思想，用于解决并发场景下的数据竞争问题。</p>
 <h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p>乐观锁在操作数据时非常乐观，认为别人不会同时修改数据。因此<strong>乐观锁不会上锁</strong>，只是在执行更新的时候判断一下在此期间别人是否修改了数据：如果别人修改了数据则放弃操作，否则执行操作。</p>
 <h4 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h4><ol>
 <li><code>CAS</code> 机制</li>
