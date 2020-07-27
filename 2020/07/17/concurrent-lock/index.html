@@ -312,7 +312,7 @@
 <li><p><code>head</code> 和 <code>tail</code> - <code>AQS</code> 维护了一个 <code>Node</code> 类型（<code>AQS</code> 的内部类）的双链表来完成同步状态的管理。这个双链表是一个双向的 <code>FIFO</code> 队列，通过 <code>head</code> 和 <code>tail</code> 指针进行访问。当有线程获取锁失败后，就被添加到队列末尾。</p>
 </li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718161601.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718161601.png" srcset="/img/loading.gif" alt="AQS结构"></p>
 <p><code>Node</code> 的源码</p>
 <pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;
     <span class="hljs-comment">/** 该等待同步的节点处于共享模式 */</span>
@@ -333,8 +333,8 @@
     <span class="hljs-keyword">volatile</span> Node next;
     <span class="hljs-comment">/** 等待锁的线程 */</span>
     <span class="hljs-keyword">volatile</span> Thread thread;
-
-  	<span class="hljs-comment">/** 和节点是否共享有关 */</span>
+    
+    <span class="hljs-comment">/** 和节点是否共享有关 */</span>
     Node nextWaiter;
 &#125;</code></pre>
 <p>很显然，<code>Node</code> 是一个双链表结构。</p>
@@ -357,10 +357,9 @@
 </li>
 <li><p>如果获取同步状态不成功，<code>AQS</code> 会不断尝试利用 <code>CAS</code> 操作将当前线程插入等待同步队列的队尾，直到成功为止。</p>
 </li>
-<li><p>接着，不断尝试为等待队列中的线程节点获取独占锁。</p>
+<li><p>接着，不断尝试为等待队列中的线程节点获取独占锁。<br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718161748.png" srcset="/img/loading.gif" alt="获取锁前"><br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718162338.png" srcset="/img/loading.gif" alt="获取锁"><br>详细流程可以用下图来表示，请结合源码来理解（一图胜千言）：<br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718162114.png" srcset="/img/loading.gif" alt="AQS获取锁工作流程"></p>
 </li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718161748.png" srcset="/img/loading.gif" alt=""><br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718162338.png" srcset="/img/loading.gif" alt=""><br>详细流程可以用下图来表示，请结合源码来理解（一图胜千言）：<br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718162114.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="释放独占锁"><a href="#释放独占锁" class="headerlink" title="释放独占锁"></a>释放独占锁</h4><p><code>AQS</code> 中使用 <code>release(int arg)</code> 方法释放独占锁，其大致流程如下：</p>
 <ol>
 <li><p>先尝试获取解锁线程的同步状态，如果获取同步状态不成功，则结束方法，直接返回。</p>
@@ -398,9 +397,9 @@
 </li>
 <li><p><code>ReentrantLock</code> 实现了 <code>Lock</code> 接口，支持了 <code>synchronized</code> 所不具备的灵活性。</p>
 <ul>
-<li><p>synchronized 无法中断一个正在等待获取锁的线程</p>
+<li><p><code>synchronized</code> 无法中断一个正在等待获取锁的线程</p>
 </li>
-<li><p>synchronized 无法在请求获取一个锁时无休止地等待</p>
+<li><p><code>synchronized</code> 无法在请求获取一个锁时无休止地等待</p>
 </li>
 </ul>
 </li>
@@ -505,7 +504,7 @@
 <p>示例：基于 <code>ReentrantReadWriteLock</code> 实现一个简单的本地缓存</p>
 <pre><code class="hljs java"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * 简单的无界缓存实现</span>
-<span class="hljs-comment"> * &lt;p&gt;</span>
+<span class="hljs-comment"> *</span>
 <span class="hljs-comment"> * 使用 WeakHashMap 存储键值对。WeakHashMap 中存储的对象是弱引用，JVM GC 时会自动清除没有被引用的弱引用对象。</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UnboundedCache</span>&lt;<span class="hljs-title">K</span>, <span class="hljs-title">V</span>&gt; </span>&#123;
@@ -783,7 +782,7 @@
                     
                       <a class="hover-with-bg" href="/tags/%E5%B9%B6%E5%8F%91/">并发</a>
                     
-                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                      <a class="hover-with-bg" href="/tags/%E9%94%81/">锁</a>
                     
                   </div>
                 
