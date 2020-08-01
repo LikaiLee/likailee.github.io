@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>VIM 指令记录</title>
+    <link href="/2020/08/01/vim-command/"/>
+    <url>/2020/08/01/vim-command/</url>
+    
+    <content type="html"><![CDATA[<p><code>vim</code> 常用指令记录</p><h1 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h1><h2 id="光标移动"><a href="#光标移动" class="headerlink" title="光标移动"></a>光标移动</h2><table><thead><tr><th align="center">cmd</th><th align="center">description</th></tr></thead><tbody><tr><td align="center"><code>h</code></td><td align="center">左移一个字符</td></tr><tr><td align="center"><code>l</code></td><td align="center">右移</td></tr><tr><td align="center"><code>k</code></td><td align="center">上移</td></tr><tr><td align="center"><code>j</code></td><td align="center">下移</td></tr><tr><td align="center"><code>{n}{op}</code></td><td align="center"><code>10j</code> 表示下移 <code>10</code> 行</td></tr><tr><td align="center"><code>{n}&lt;Space&gt;</code></td><td align="center">向后移动 <code>n</code> 个字符</td></tr><tr><td align="center"><code>{n}&lt;Enter&gt;</code></td><td align="center"><strong>向下移动 <code>n</code> 行</strong></td></tr><tr><td align="center"><code>$</code></td><td align="center"><strong>移动到行首</strong></td></tr><tr><td align="center"><code>0</code></td><td align="center"><strong>移动到行尾</strong></td></tr><tr><td align="center"><code>ctrl + f</code></td><td align="center"><strong>Page Down</strong></td></tr><tr><td align="center"><code>ctrl + b</code></td><td align="center"><strong>Page Up</strong></td></tr><tr><td align="center"><code>ctrl + d</code></td><td align="center">下移半页</td></tr><tr><td align="center"><code>ctrl + u</code></td><td align="center">上移半页</td></tr><tr><td align="center"><code>H</code></td><td align="center">移动到这个屏幕的第一行的第一个字符</td></tr><tr><td align="center"><code>M</code></td><td align="center">移动到这个屏幕的中央那一行的第一个字符</td></tr><tr><td align="center"><code>L</code></td><td align="center">移动到这个屏幕的最后一行的第一个字符</td></tr><tr><td align="center"><code>gg</code></td><td align="center"><strong>移动到文件第一行</strong></td></tr><tr><td align="center"><code>G</code></td><td align="center"><strong>移动到文件最后一行</strong></td></tr><tr><td align="center"><code>{n}G</code></td><td align="center">移动到第 <code>n</code> 行</td></tr></tbody></table><h2 id="剪切-删除"><a href="#剪切-删除" class="headerlink" title="剪切/删除"></a>剪切/删除</h2><table><thead><tr><th align="center">cmd</th><th align="center">description</th></tr></thead><tbody><tr><td align="center"><code>x</code>, <code>X</code></td><td align="center">delete, backspace</td></tr><tr><td align="center"><code>{n}x</code></td><td align="center">向后删除 <code>n</code> 个字符</td></tr><tr><td align="center"><code>dd</code></td><td align="center"><strong>删除一行</strong></td></tr><tr><td align="center"><code>{n}dd</code></td><td align="center"><strong>删除 <code>n</code> 行</strong></td></tr><tr><td align="center"><code>d1G</code></td><td align="center">删除第一行到光标所在行</td></tr><tr><td align="center"><code>dG</code></td><td align="center">删除光标所在行到最后一行</td></tr><tr><td align="center"><code>d0</code></td><td align="center"><strong>删除光标到该行首部</strong></td></tr><tr><td align="center"><code>d$</code></td><td align="center"><strong>删除光标所在处，到该行尾部(包括光标选中的字符)</strong></td></tr></tbody></table><h2 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h2><table><thead><tr><th align="center">cmd</th><th align="center">description</th></tr></thead><tbody><tr><td align="center"><code>y</code></td><td align="center"><code>v</code> 选中</td></tr><tr><td align="center"><code>yy</code></td><td align="center"><strong>复制一行</strong></td></tr><tr><td align="center"><code>{n}yy</code></td><td align="center"><strong>复制 <code>n</code> 行</strong></td></tr><tr><td align="center"><code>y1G</code></td><td align="center">复制第一行到光标所在行</td></tr><tr><td align="center"><code>yG</code></td><td align="center">复制光标所在行到最后一行</td></tr><tr><td align="center"><code>y0</code></td><td align="center"><strong>复制光标到该行首部</strong></td></tr><tr><td align="center"><code>y$</code></td><td align="center"><strong>复制光标所在处，到该行尾部(包括光标选中的字符)</strong></td></tr></tbody></table><h2 id="粘贴"><a href="#粘贴" class="headerlink" title="粘贴"></a>粘贴</h2><table><thead><tr><th align="center">cmd</th><th align="center">description</th></tr></thead><tbody><tr><td align="center"><code>p</code>, <code>P</code></td><td align="center">粘贴在上/下一行</td></tr><tr><td align="center"><code>J</code></td><td align="center">合并光标所在行和下一行</td></tr></tbody></table><h2 id="撤销、重做、重复"><a href="#撤销、重做、重复" class="headerlink" title="撤销、重做、重复"></a>撤销、重做、重复</h2><table><thead><tr><th align="center">cmd</th><th align="center">description</th></tr></thead><tbody><tr><td align="center"><code>u</code></td><td align="center"><strong>撤销</strong></td></tr><tr><td align="center"><code>ctrl + r</code></td><td align="center"><strong>重做</strong></td></tr><tr><td align="center"><code>.</code></td><td align="center"><strong>重复上一个动作</strong></td></tr></tbody></table><h1 id="末行模式"><a href="#末行模式" class="headerlink" title="末行模式"></a>末行模式</h1><p>只记录不熟悉的</p><table><thead><tr><th align="center">cmd</th><th align="center">description</th></tr></thead><tbody><tr><td align="center"><code>ZZ</code></td><td align="center">相当于 <code>wq</code></td></tr><tr><td align="center"><code>ZQ</code></td><td align="center">相当于 <code>q!</code></td></tr><tr><td align="center"><code>:w {filename}</code></td><td align="center">save as</td></tr><tr><td align="center"><code>:r {filename}</code></td><td align="center">将 <code>filename</code> 文件追加到光标后</td></tr></tbody></table>]]></content>
+    
+    
+    <categories>
+      
+      <category>Linux</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Java 内存模型</title>
     <link href="/2020/07/29/java-memory-model/"/>
     <url>/2020/07/29/java-memory-model/</url>
@@ -15,14 +34,14 @@
       
       <category>并发</category>
       
-      <category>Java</category>
-      
     </categories>
     
     
     <tags>
       
       <tag>并发</tag>
+      
+      <tag>Java</tag>
       
     </tags>
     
