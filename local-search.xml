@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>LeetCode 17. 电话号码的字母组合</title>
+    <link href="/2020/08/04/LeetCode-17-letter-combinations-of-a-phone-number/"/>
+    <url>/2020/08/04/LeetCode-17-letter-combinations-of-a-phone-number/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/" target="_blank" rel="noopener">17. 电话号码的字母组合</a></p><h1 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h1><p>选择列表：每个 <code>digit</code> 对应的字母列表<br>路径：已选字母组合 + 选择列表的字母<br>终止条件：递归深度达到 <code>digits</code> 的长度</p><pre><code class="hljs java"><span class="hljs-comment">// 2 ~ 9 每个位置所对应的选择列表</span>    String[] map = &#123;<span class="hljs-string">""</span>, <span class="hljs-string">""</span>, <span class="hljs-string">"abc"</span>, <span class="hljs-string">"def"</span>, <span class="hljs-string">"ghi"</span>, <span class="hljs-string">"jkl"</span>, <span class="hljs-string">"mno"</span>, <span class="hljs-string">"pqrs"</span>, <span class="hljs-string">"tuv"</span>, <span class="hljs-string">"wxyz"</span>&#125;;    List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">letterCombinations</span><span class="hljs-params">(String digits)</span> </span>&#123;        <span class="hljs-keyword">if</span> (digits.length() == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> res;        &#125;        combine(digits, <span class="hljs-string">""</span>, <span class="hljs-number">0</span>);        <span class="hljs-keyword">return</span> res;    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> digits</span><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> path   当前已选择的组合路径</span><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> len    当前递归到的 digits 位置</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">combine</span><span class="hljs-params">(String digits, String path, <span class="hljs-keyword">int</span> len)</span> </span>&#123;        <span class="hljs-comment">// 递归深度为 digits 的长度</span>        <span class="hljs-keyword">if</span> (len == digits.length()) &#123;            res.add(path);            <span class="hljs-keyword">return</span>;        &#125;        <span class="hljs-comment">// 找到当前 digit 所对应的字母组合</span>        <span class="hljs-keyword">char</span> c = digits.charAt(len);        <span class="hljs-keyword">int</span> pos = c - <span class="hljs-string">'0'</span>;        <span class="hljs-comment">// 所需要的选择列表</span>        String candidateString = map[pos];        <span class="hljs-comment">// 枚举每个字母组合</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; candidateString.length(); i++) &#123;            <span class="hljs-comment">// 路径为：上一轮的路径 + 选择列表中的每个字母</span>            <span class="hljs-comment">// 递归深度/路径长度 + 1</span>            combine(digits, path + candidateString.charAt(i), len + <span class="hljs-number">1</span>);        &#125;    &#125;</code></pre><h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><blockquote><p>‘’<br>a, b, c<br>b, c, ad, ae, af<br>…</p></blockquote><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">letterCombinations</span><span class="hljs-params">(String digits)</span> </span>&#123;    List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    <span class="hljs-keyword">if</span> (digits.length() == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> res;    &#125;    <span class="hljs-comment">// 2 ~ 9 每个位置所对应的选择列表</span>    String[] map = &#123;<span class="hljs-string">""</span>, <span class="hljs-string">""</span>, <span class="hljs-string">"abc"</span>, <span class="hljs-string">"def"</span>, <span class="hljs-string">"ghi"</span>, <span class="hljs-string">"jkl"</span>, <span class="hljs-string">"mno"</span>, <span class="hljs-string">"pqrs"</span>, <span class="hljs-string">"tuv"</span>, <span class="hljs-string">"wxyz"</span>&#125;;    <span class="hljs-comment">// 添加空元素，初始化时使第一个位置的字母入队</span>    res.add(<span class="hljs-string">""</span>);    <span class="hljs-comment">// 1. 遍历 digits e.g. "23"</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; digits.length(); i++) &#123;        <span class="hljs-keyword">int</span> pos = digits.charAt(i) - <span class="hljs-string">'0'</span>;        <span class="hljs-comment">// 选择列表 e.g. "def"</span>        String candidateStr = map[pos];        <span class="hljs-comment">// 2. 遍历队列，组合字母 res: a, b, c</span>        <span class="hljs-comment">// !! 先缓存当前的队列长度，否则动态 add path 时，队列长度在变化</span>        <span class="hljs-keyword">int</span> size = res.size();        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; size; j++) &#123;            <span class="hljs-comment">// 队头出队 e.g. a</span>            String path = res.remove(<span class="hljs-number">0</span>);            <span class="hljs-comment">// 3. 组合队头和选择列表</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; candidateStr.length(); k++) &#123;                <span class="hljs-comment">// b, c, ad, ae, af</span>                res.add(path + candidateStr.charAt(k));            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>InnoDB 存储引擎</title>
     <link href="/2020/08/04/InnoDB-engine/"/>
     <url>/2020/08/04/InnoDB-engine/</url>
