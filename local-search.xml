@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>InnoDB 表</title>
+    <link href="/2020/08/06/InnoDB-table/"/>
+    <url>/2020/08/06/InnoDB-table/</url>
+    
+    <content type="html"><![CDATA[<h1 id="索引组织表"><a href="#索引组织表" class="headerlink" title="索引组织表"></a>索引组织表</h1><p>在 <code>InnoDB</code> 中，表都是根据主键顺序组织存放的，这种存储方式的表称为索引组织表（<code>index organized table</code>）。如果在创建表时没有显式地定义主键，则会按以下方式选择或创建主键：</p><ul><li>首先判断表中是否有<strong>非空的唯一索引</strong>（<code>Unique NOT NULL</code>），如果有，则该列为主键；</li><li>否则，自动创建一个 <code>6</code> 字节大小的指针。</li></ul><p>当表中有多个非空唯一索引时，<code>InnoDB</code> 存储引擎将选择建表时第一个定义的非空唯一索引（<strong>索引的顺序</strong>）为主键。</p><h1 id="InnoDB-逻辑存储结构"><a href="#InnoDB-逻辑存储结构" class="headerlink" title="InnoDB 逻辑存储结构"></a><code>InnoDB</code> 逻辑存储结构</h1><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200805154705.png" srcset="/img/loading.gif" alt=""></p><p>所有数据都存放在表空间，表空间由段（<code>segment</code>）、区（<code>extent</code>）、页（<code>page</code>）组成。</p><h2 id="段"><a href="#段" class="headerlink" title="段"></a>段</h2><ul><li>数据段：<code>B+</code> 树的叶子节点（<code>Leaf node segment</code>）</li><li>索引段：<code>B+</code> 树的非叶子节点（<code>Non-Leaf node segment</code>）</li><li>回滚段：<code>Rollback segment</code></li></ul><h2 id="区"><a href="#区" class="headerlink" title="区"></a>区</h2><p>区是由连续页组成的空间，<strong>在任何情况下每个区的大小都为 <code>1MB</code>。</strong> 为了保证区中页的连续性，<code>InnoDB</code> 一次从磁盘申请 <code>4 ~ 5</code> 个区，在默认情况下，页的大小为 <code>16KB</code>，即一个区中一共有 <code>64</code> 个连续的页。</p><h2 id="页"><a href="#页" class="headerlink" title="页"></a>页</h2><p>页是 <code>InnoDB</code> 磁盘管理的最小单位。可通过 <code>innodb_page_size</code> 将页的大小设置为 <code>4K</code>、<code>8K</code>、<code>16K</code>。</p><h2 id="行"><a href="#行" class="headerlink" title="行"></a>行</h2><p>数据按行存放，每页最多存放 <code>16KB / 2 - 200 = 7992</code> 行的记录。</p><h1 id="InnoDB-行记录格式"><a href="#InnoDB-行记录格式" class="headerlink" title="InnoDB 行记录格式"></a><code>InnoDB</code> 行记录格式</h1><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200805164415.png" srcset="/img/loading.gif" alt=""></p><h2 id="Compact-行记录格式"><a href="#Compact-行记录格式" class="headerlink" title="Compact 行记录格式"></a><code>Compact</code> 行记录格式</h2><p>其目的是高效地存储数据，一个页中存放的数据越多，其性能就越高。<br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200805162732.png" srcset="/img/loading.gif" alt=""></p><h2 id="Redundant-行记录格式"><a href="#Redundant-行记录格式" class="headerlink" title="Redundant 行记录格式"></a><code>Redundant</code> 行记录格式</h2><p><code>Redundant</code> 是 <code>MySQL 5.0</code> 之前的行记录存储方式，它是为了兼容之前版本的页格式。<br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200805162855.png" srcset="/img/loading.gif" alt=""></p><h2 id="行溢出数据"><a href="#行溢出数据" class="headerlink" title="行溢出数据"></a>行溢出数据</h2><p>如果页中只能存放下一条记录，那么 <code>InnoDB</code> 会自动将行数据存放到溢出页中。</p><h2 id="Compressed-和-Dynamic-行记录格式"><a href="#Compressed-和-Dynamic-行记录格式" class="headerlink" title="Compressed 和 Dynamic 行记录格式"></a><code>Compressed</code> 和 <code>Dynamic</code> 行记录格式</h2><p>这两种记录格式对于存放在 <code>BLOB</code> 中的数据采用了完全的行溢出的方式。<br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200805163825.png" srcset="/img/loading.gif" alt=""><br>数据页中只存放 <code>20</code> 个字节的指针，实际数据都存放在 <code>Off Page</code> 中。</p><h1 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h1><h2 id="数据完整性"><a href="#数据完整性" class="headerlink" title="数据完整性"></a>数据完整性</h2><ul><li><strong>实体完整性</strong>：保证表中有一个主键。</li><li><strong>域完整性</strong>：保证数据<strong>每列的值</strong>满足特定的条件。<ul><li>选择合适的数据类型确保一个数据值满足特定条件</li><li>外键约束</li><li>触发器</li><li><code>DEFAULT</code> 约束</li></ul></li><li><strong>参照完整性</strong>：保证<strong>两张表</strong>之间的关系。<ul><li><code>Primary Key</code></li><li><code>Unique Key</code></li><li><code>Foreigh Key</code></li><li><code>Default</code></li><li><code>NOT NULL</code></li></ul></li></ul><h2 id="约束的创建"><a href="#约束的创建" class="headerlink" title="约束的创建"></a>约束的创建</h2><ol><li>表建立时进行约束定义</li><li>利用 <code>ALTER TABLE</code> 命令进行创建约束</li></ol><h2 id="约束和索引的区别"><a href="#约束和索引的区别" class="headerlink" title="约束和索引的区别"></a>约束和索引的区别</h2><ul><li>约束是一个<strong>逻辑概念</strong>，用来保证数据的完整性；</li><li>索引是一个数据结构，既有<strong>逻辑概念</strong>，在数据库中还代表着<strong>物理存储</strong>的方式。</li></ul><h1 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h1><blockquote><p>视图是一个命名的虚表，由一个 <code>SQL</code> 查询定义，视图中的数据没有实际的物理存储。</p></blockquote><p>视图的主要用途是被用做一个抽象装置，程序本身不需要关心基表（<code>base table</code>）的结构，只需要按照视图定义来<strong>获取数据或更新数据</strong>。</p><ul><li>通过定义视图 <code>WITH CHECK OPTION</code> 可对基本表进行更新。</li><li><code>SHOW TABLES</code> 命令也会把视图作为表显示出来。</li></ul><h1 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h1><blockquote><p>分区的过程是将一个表或索引分解为多个更小、更可管理的部分。每个分区都是独立的对象，可以独自处理，也可以作为一个更大对象的一部分进行处理。<br>从逻辑上讲，只有一个表或一个索引，但是在物理上这个表或索引可能由数十个物理分区组成。</p></blockquote><ul><li><code>MySQL</code> 支持<strong>水平分区</strong>，并不支持垂直分区；</li><li><code>MySQL</code> 的分区是<strong>局部分区索引</strong>，一个分区中既存放了数据又存放了索引。</li></ul><h2 id="分区类型"><a href="#分区类型" class="headerlink" title="分区类型"></a>分区类型</h2><ul><li><code>RANGE</code> 分区：行数据基于属于一个给定连续区间的列值被放入分区。</li><li><code>LIST</code> 分区：和 <code>RANGE</code> 分区类似，只是 <code>LIST</code> 分区面向的是离散的值。</li><li><code>HASH</code> 分区：根据用户自定义的表达式的返回值来进行分区。</li><li><code>KEY</code> 分区：根据 <code>MySQL</code> 提供的哈希函数来进行分区。</li><li><code>COLUMNS</code> 分区：不同于以上四种，该分区可以直接使用非整形的数据进行分区，分区根据类型比较而得，不需要转化为整形。</li></ul><h2 id="子分区"><a href="#子分区" class="headerlink" title="子分区"></a>子分区</h2><p>子分区是在分区的基础上再进行分区。<code>MySQL</code> 允许在 <code>RANGE</code> 和 <code>LIST</code> 的分区上再进行 <code>HASH</code> 或 <code>KEY</code> 的子分区。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>MySQL</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MySQL</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 51. N皇后</title>
     <link href="/2020/08/05/LeetCode-51-n-queens/"/>
     <url>/2020/08/05/LeetCode-51-n-queens/</url>

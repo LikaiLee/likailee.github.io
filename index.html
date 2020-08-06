@@ -170,6 +170,51 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/06/InnoDB-table/">InnoDB 表</a>
+
+      <a href="/2020/08/06/InnoDB-table/" class="index-excerpt">
+        
+        
+          
+        
+        <div>索引组织表在 InnoDB 中，表都是根据主键顺序组织存放的，这种存储方式的表称为索引组织表（index organized table）。如果在创建表时没有显式地定义主键，则会按以下方式选择或创建主键：
+
+首先判断表中是否有非空的唯一索引（Unique NOT NULL），如果有，则该列为主键；
+否则，自动创建一个 6 字节大小的指针。
+
+当表中有多个非空唯一索引时，InnoDB 存储引擎将选择</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-06
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/MySQL/">MySQL</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL/">MySQL</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/05/LeetCode-51-n-queens/">LeetCode 51. N皇后</a>
 
       <a href="/2020/08/05/LeetCode-51-n-queens/" class="index-excerpt">
@@ -630,53 +675,6 @@ CountDownLatch 唯一的构造方法：
               <a href="/tags/%E5%B9%B6%E5%8F%91/">并发</a>
             
               <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">线程池</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/24/concurrent-container/">并发-容器</a>
-
-      <a href="/2020/07/24/concurrent-container/" class="index-excerpt">
-        
-        
-          
-        
-        <div>同步容器简介在 Java 中，同步容器主要包括 2 类：
-
-Vector, Stack, HashTable
-
-Vector - Vector 实现了 List 接口。Vector 实际上就是一个数组，和 ArrayList 类似。但是 Vector 中的方法都是 synchronized 方法，即进行了同步措施。
-Stack - Stack 继承于 Vector 类，也是一个同步容器，它的方法也</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-24
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%B9%B6%E5%8F%91/">并发</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%B9%B6%E5%8F%91/">并发</a>
-            
-              <a href="/tags/%E5%AE%B9%E5%99%A8/">容器</a>
             
           </div>
         
