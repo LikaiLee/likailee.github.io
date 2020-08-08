@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>InnoDB 索引 - Likai Lee</title>
+  <title>LeetCode 22. 括号生成 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                InnoDB 索引
+                LeetCode 22. 括号生成
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-07 15:50">
-      2020年8月7日 下午
+    <time datetime="2020-08-07 19:21">
+      2020年8月7日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      376 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      6
        分钟
     </span>
   
@@ -206,42 +206,91 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <blockquote>
-<p><code>InnoDB</code> 的索引是自适应哈希索引，使用 <code>B+</code> 树索引。<br><code>B+</code> 树索引并不能找到一个给定键值得具体行，它只能找到被查找数据行所在的页，然后通过把页读入内存，在内存中查找想要的数据。</p>
-</blockquote>
-<h1 id="B-树"><a href="#B-树" class="headerlink" title="B+ 树"></a><code>B+</code> 树</h1><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200807153046.png" srcset="/img/loading.gif" alt=""></p>
-<blockquote>
-<p>🙃又是考研内容。</p>
-</blockquote>
-<p>一棵 <code>m</code> 阶 <code>B+</code> 树需满足下列条件：</p>
-<ul>
-<li>每个分支结点最多有 <code>m</code> 棵子树（子结点）。</li>
-<li>非叶根结点至少有两棵子树，其他每个分支结点至少有 <code>⌈m / 2⌉</code> 棵子树。</li>
-<li><strong>结点的子树个数与关键字个数相等</strong>。</li>
-<li>所有叶子结点包含<strong>全部关键字</strong>及指向相应记录的<strong>指针</strong>，叶子结点中关键字按大小排序，相邻叶结点按大小顺序<strong>相互链接</strong>起来。</li>
-<li>所有分支结点中仅包含它的各个子结点中<strong>关键字的最大值</strong>及指向其子结点的<strong>指针</strong>。</li>
-</ul>
-<p><code>m</code> 阶 <code>B+</code> 树与 <code>m</code> 阶 <code>B</code> 树的区别：</p>
-<ol>
-<li><strong>子树和结点的关系：</strong><br> <code>B+</code> 树 <code>n</code> 个关键字的结点只含有 <code>n</code> 棵子树，<strong>即每个关键字对应一棵子树</strong>；<br> <code>B</code> 树 <code>n</code> 个关键字的结点含有 <code>n + 1</code> 棵子树。</li>
-<li><strong>结点关键字个数</strong><br> <code>B+</code> 树非根结点关键字个数：<code>⌈m / 2⌉ &lt;= n &lt;= m</code>，根结点：<code>1 &lt;= n &lt;= m</code>；<br> <code>B</code> 树非根结点关键字个数：<code>⌈m / 2⌉ - 1 &lt;= n &lt;= m - 1</code>，根结点：<code>1 &lt;= n &lt;= m - 1</code></li>
-<li><strong>叶子结点和非叶结点</strong><br> <code>B+</code> 树叶结点包含信息，所有<strong>非叶结点仅起到索引作用</strong>，非叶结点中的每个索引项值含有子树最大关键字和指向子树的指针，<strong>不含该关键字的存储地址</strong>。</li>
-<li><strong>关键字重复性</strong><br> <code>B+</code> 树中叶结点包含全部关键字，<strong>即关键字会和非叶结点重复</strong>；<br> <code>B</code> 树中叶结点包含的关键字和其他结点包含的关键字是<strong>不重复</strong>的。</li>
-<li><strong>查找过程</strong><br> <code>B+</code> 树查找过程中，如果非叶结点上的关键字等于给定值时并不终止，而是继续向下查找直到叶结点为止。每次查找都是一条从根节点到叶结点的路径。</li>
-</ol>
-<h1 id="B-树索引"><a href="#B-树索引" class="headerlink" title="B+ 树索引"></a><code>B+</code> 树索引</h1><h2 id="聚集索引"><a href="#聚集索引" class="headerlink" title="聚集索引"></a>聚集索引</h2><p>聚集索引按照每张表的主键构造一棵 <code>B+</code> 树，叶子结点中存放的为整张表的行记录数据，叶子结点也称为数据页。<strong>一张表只能有一个聚集索引。</strong> 它对于主键的排序查找和范围查找非常快。</p>
-<p>聚集索引的存储并不是物理上连续的（维护成本高），而是<strong>逻辑上连续</strong>的。</p>
-<ul>
-<li>页通过双向链表链接，页按照主键的顺序排序。</li>
-<li>页中的记录通过双向链表链接，物理存储上也可以不按照主键存储。</li>
-</ul>
-<h2 id="辅助索引（非聚集索引）"><a href="#辅助索引（非聚集索引）" class="headerlink" title="辅助索引（非聚集索引）"></a>辅助索引（非聚集索引）</h2><p>辅助索引中，叶子结点并不包含行记录的全部数据。叶子结点除了包含键值以外，每个叶子结点中的索引行还包含了一个书签，该书签用来告诉 <code>InnoDB</code> 哪里可以找到与索引相对应的行数据。</p>
-<p>辅助索引的存在并不影响数据在聚集索引中的祖师，因此<strong>一张表可以有多个辅助索引。</strong></p>
-<h2 id="联合索引"><a href="#联合索引" class="headerlink" title="联合索引"></a>联合索引</h2><p>联合索引是指对表上的多个列进行索引。其键值得数量不是 <code>1</code>，而是大于等于 <code>2</code>。</p>
-<h2 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h2><p>覆盖索引从辅助索引中就可以得到查询的记录，而不需要查询聚集索引中的记录。好处是辅助索引不包含整行记录的所有信息，故其大小要远小于聚集索引，因此可以减少大量 <code>IO</code>。</p>
-<h2 id="优化器选择不使用索引的情况"><a href="#优化器选择不使用索引的情况" class="headerlink" title="优化器选择不使用索引的情况"></a>优化器选择不使用索引的情况</h2><p>在范围查找、<code>JOIN</code> 链接操作等情况下，优化器直接进行全表的扫描来得到数据。<br>当用户要选取的数据是整行信息，而索引不能覆盖到要查询的信息，在通过索引查到指定数据后，还要一次书签访问来查找整行的信息。</p>
-<p>可使用关键字 <code>FORCE INDEX</code> 来强制使用某个索引。</p>
-<h1 id="全文检索"><a href="#全文检索" class="headerlink" title="全文检索"></a>全文检索</h1>
+              <p><a href="https://leetcode-cn.com/problems/generate-parentheses/submissions/" target="_blank" rel="noopener">22. 括号生成</a></p>
+<h1 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h1><pre><code class="hljs java">List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">generateParenthesis</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">1</span>) &#123;
+            <span class="hljs-keyword">return</span> res;
+        &#125;
+        backtrack(n, n, <span class="hljs-string">""</span>);
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 路径：生成的括号字符串</span>
+<span class="hljs-comment">     * 选择列表：路径中可放置的左右括号数量</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> left  左括号剩余数量</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> right 右括号剩余数量</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> path  路径</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right, String path)</span> </span>&#123;
+        <span class="hljs-comment">// 左括号剩余 &gt; 右括号剩余：剪枝</span>
+        <span class="hljs-comment">// e.g. )</span>
+        <span class="hljs-keyword">if</span> (left &gt; right) &#123;
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-keyword">if</span> (left == <span class="hljs-number">0</span> &amp;&amp; right == <span class="hljs-number">0</span>) &#123;
+            res.add(path);
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-comment">// 左边可放置左括号</span>
+        <span class="hljs-comment">// e.g. ()</span>
+        <span class="hljs-keyword">if</span> (left &gt; <span class="hljs-number">0</span>) &#123;
+            backtrack(left - <span class="hljs-number">1</span>, right, path + <span class="hljs-string">"("</span>);
+        &#125;
+        <span class="hljs-comment">// 左括号剩余 &lt; 右括号剩余：右边可放置右括号</span>
+        <span class="hljs-comment">// e.g. ((, (</span>
+        <span class="hljs-keyword">if</span> (left &lt; right) &#123;
+            backtrack(left, right - <span class="hljs-number">1</span>, path + <span class="hljs-string">")"</span>);
+        &#125;
+    &#125;</code></pre>
+
+<h1 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h1><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;
+    String path;
+    <span class="hljs-keyword">int</span> left;
+    <span class="hljs-keyword">int</span> right;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> path  当前结点产生的路径</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> left  左边剩余括号</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> right 右边剩余括号</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Node</span><span class="hljs-params">(String path, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.path = path;
+        <span class="hljs-keyword">this</span>.left = left;
+        <span class="hljs-keyword">this</span>.right = right;
+    &#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">generateParenthesis</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;
+        List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+        <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">1</span>) &#123;
+            <span class="hljs-keyword">return</span> res;
+        &#125;
+        LinkedList&lt;Node&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
+        queue.offer(<span class="hljs-keyword">new</span> Node(<span class="hljs-string">""</span>, n, n));
+        <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;
+            Node q = queue.poll();
+            <span class="hljs-comment">// 左右括号均已用完</span>
+            <span class="hljs-keyword">if</span> (q.left == <span class="hljs-number">0</span> &amp;&amp; q.right == <span class="hljs-number">0</span>) &#123;
+                res.add(q.path);
+            &#125;
+            <span class="hljs-comment">// 左括号剩余</span>
+            <span class="hljs-keyword">if</span> (q.left &gt; <span class="hljs-number">0</span>) &#123;
+                queue.offer(<span class="hljs-keyword">new</span> Node(q.path + <span class="hljs-string">"("</span>, q.left - <span class="hljs-number">1</span>, q.right));
+            &#125;
+            <span class="hljs-comment">// 右括号剩余</span>
+            <span class="hljs-keyword">if</span> (q.right &gt; <span class="hljs-number">0</span> &amp;&amp; q.right &gt; q.left) &#123;
+                queue.offer(<span class="hljs-keyword">new</span> Node(q.path + <span class="hljs-string">")"</span>, q.left, q.right - <span class="hljs-number">1</span>));
+            &#125;
+        &#125;
+
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+&#125;</code></pre>
             </article>
             <hr>
             <div>
@@ -250,7 +299,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/MySQL/">MySQL</a>
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
                     
                   </div>
                 
@@ -258,7 +307,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/MySQL/">MySQL</a>
+                      <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
+                    
+                      <a class="hover-with-bg" href="/tags/DFS/">DFS</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
                     
                   </div>
                 
@@ -271,9 +324,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/07/LeetCode-22-generate-parentheses/">
+                      <a href="/2020/08/07/LeetCode-515-find-largest-value-in-each-tree-row/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 22. 括号生成</span>
+                        <span class="hidden-mobile">LeetCode 515. 在每个树行中找最大值</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -281,8 +334,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/08/06/LeetCode-433-minimum-genetic-mutation/">
-                        <span class="hidden-mobile">LeetCode 433. 最小基因变化</span>
+                      <a href="/2020/08/07/InnoDB-index/">
+                        <span class="hidden-mobile">InnoDB 索引</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

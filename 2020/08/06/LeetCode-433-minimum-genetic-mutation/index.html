@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      741 字
+      766 字
     </span>
   
 
@@ -206,7 +206,8 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h1><p>第一次解法击败 <code>100%</code> 用户。</p>
+              <p><a href="https://leetcode-cn.com/problems/minimum-genetic-mutation/" target="_blank" rel="noopener">433. 最小基因变化</a></p>
+<h1 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h1><p>第一次解法击败 <code>100%</code> 用户。</p>
 <p>每一次的变异都可在基因库中找到，因此从基因库中构建决策树，与当前基因相差一个碱基且在之前的选择路径中未出现的基因即为下一步变异的基因。</p>
 <pre><code class="hljs java"><span class="hljs-keyword">int</span> minStep = Integer.MAX_VALUE;
 
@@ -227,6 +228,10 @@
 <span class="hljs-comment">     * <span class="hljs-doctag">@param</span> bank  选择队列</span>
 <span class="hljs-comment">     */</span>
     <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(String start, String end, <span class="hljs-keyword">int</span> count, String[] bank)</span> </span>&#123;
+        <span class="hljs-comment">// 当前步数 &gt; 最小步数：剪枝</span>
+        <span class="hljs-keyword">if</span> (count &gt; minStep) &#123;
+            <span class="hljs-keyword">return</span>;
+        &#125;
         <span class="hljs-comment">// 若 当前基因 可以变为 最终基因</span>
         <span class="hljs-comment">// 则计算最小步数，结束递归</span>
         <span class="hljs-keyword">if</span> (start.equals(end)) &#123;

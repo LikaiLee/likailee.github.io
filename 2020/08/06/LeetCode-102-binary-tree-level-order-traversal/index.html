@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      199 字
+      281 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      4
        分钟
     </span>
   
@@ -206,7 +206,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><a href="二叉树的层序遍历">二叉树的层序遍历</a></p>
+              <p><a href="https://leetcode-cn.com/problems/binary-tree-level-order-traversal/" target="_blank" rel="noopener">二叉树的层序遍历</a></p>
 <p>主要在于判断每一层有哪些结点：遍历之前先保存每层结点数，然后按层处理结点。</p>
 <h1 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;
         List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
@@ -238,6 +238,26 @@
         &#125;
         <span class="hljs-keyword">return</span> res;
     &#125;</code></pre>
+
+<h1 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h1><pre><code class="hljs java">List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+
+    <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;
+        dfs(root, <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> level)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-keyword">if</span> (res.size() &lt; level) &#123;
+            res.add(<span class="hljs-keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(root.val)));
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            res.get(level - <span class="hljs-number">1</span>).add(root.val);
+        &#125;
+        dfs(root.left, level + <span class="hljs-number">1</span>);
+        dfs(root.right, level + <span class="hljs-number">1</span>);
+    &#125;</code></pre>
             </article>
             <hr>
             <div>
@@ -257,6 +277,8 @@
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
                       <a class="hover-with-bg" href="/tags/BFS/">BFS</a>
+                    
+                      <a class="hover-with-bg" href="/tags/DFS/">DFS</a>
                     
                   </div>
                 
