@@ -180,10 +180,11 @@
         <div>126. 单词接龙 II
 
 找的是最短路径，且可能有多个
+一开始用的 List 存放每层元素，结果 回溯的时候难以访问下一层，最好用 Map 存放
 ！！最短路径要及时剪枝
 ！！不能用 used 数组标记访问过的元素，而是标记当前层和以上层已经访问过的数组，因为若存在多个最短路径，元素可能重复使用，used 数组标记后会把下层的元素也标记，会导致漏解。
 
-public List&lt;List&lt;String&gt;&gt; findLadders(String beginWord,</div>
+public List&lt;List&lt</div>
       </a>
 
       <div class="index-btm post-metas">

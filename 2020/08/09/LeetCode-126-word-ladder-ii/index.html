@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      600 字
+      642 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      10
        分钟
     </span>
   
@@ -209,6 +209,7 @@
               <p><a href="https://leetcode-cn.com/problems/word-ladder-ii/" target="_blank" rel="noopener">126. 单词接龙 II</a></p>
 <ul>
 <li>找的是最短路径，且可能有多个</li>
+<li>一开始用的 <code>List</code> 存放每层元素，结果 回溯的时候难以访问下一层，最好用 <code>Map</code> 存放</li>
 <li>！！最短路径要及时剪枝</li>
 <li>！！不能用 <code>used</code> 数组标记访问过的元素，而是标记当前层和以上层已经访问过的数组，因为若存在多个最短路径，元素可能重复使用，<code>used</code> 数组标记后会把下层的元素也标记，会导致漏解。</li>
 </ul>
@@ -236,7 +237,7 @@
                 String word = queue.poll();
                 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; wordList.size(); i++) &#123;
                     String candidate = wordList.get(i);
-                    <span class="hljs-comment">// candidate 未被使用 &amp;&amp; 可以接龙</span>
+                    <span class="hljs-comment">// 下一层 candidate 未被使用 &amp;&amp; 可以接龙</span>
                     <span class="hljs-keyword">if</span> (!visited.contains(candidate) &amp;&amp; canLadder(word, candidate)) &#123;
                         <span class="hljs-comment">// System.out.println(word + " -&gt; " + candidate);</span>
                         <span class="hljs-keyword">if</span> (endWord.equals(candidate)) &#123;
@@ -281,6 +282,7 @@
             res.add(<span class="hljs-keyword">new</span> ArrayList&lt;&gt;(path));
             <span class="hljs-keyword">return</span>;
         &#125;
+        <span class="hljs-comment">// ！及时剪枝，否则 NPE</span>
         <span class="hljs-keyword">if</span> (!successors.containsKey(beginWord)) &#123;
             <span class="hljs-keyword">return</span>;
         &#125;
