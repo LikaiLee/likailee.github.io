@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 860. 柠檬水找零</title>
+    <link href="/2020/08/11/LeetCode-860-lemonade-change/"/>
+    <url>/2020/08/11/LeetCode-860-lemonade-change/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/lemonade-change/" target="_blank" rel="noopener">860. 柠檬水找零</a></p><blockquote><p>不带零钱你买什么柠檬水！！！</p></blockquote><p>虽然有点贪心的思想，我感觉这题在搞笑。。。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">lemonadeChange</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] bills)</span> </span>&#123;        <span class="hljs-keyword">if</span> (bills.length == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;        <span class="hljs-keyword">int</span> five = <span class="hljs-number">0</span>, ten = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> money : bills) &#123;            <span class="hljs-keyword">switch</span> (money) &#123;                <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:                    five++;                    <span class="hljs-keyword">break</span>;                <span class="hljs-keyword">case</span> <span class="hljs-number">10</span>:                    five--;                    ten++;                    <span class="hljs-keyword">break</span>;                <span class="hljs-keyword">case</span> <span class="hljs-number">20</span>:                    <span class="hljs-keyword">if</span> (ten &gt; <span class="hljs-number">0</span>) &#123;                        five--;                        ten--;                    &#125; <span class="hljs-keyword">else</span> &#123;                        five -= <span class="hljs-number">3</span>;                    &#125;                    <span class="hljs-keyword">break</span>;                <span class="hljs-keyword">default</span>:                    <span class="hljs-keyword">break</span>;            &#125;            <span class="hljs-keyword">if</span> (five &lt; <span class="hljs-number">0</span>) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>贪心</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 529. 扫雷游戏</title>
     <link href="/2020/08/11/LeetCode-529-minesweeper/"/>
     <url>/2020/08/11/LeetCode-529-minesweeper/</url>
