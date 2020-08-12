@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 122. 买卖股票的最佳时机 II</title>
+    <link href="/2020/08/12/LeetCode-122-best-time-to-buy-and-sell-stock-ii/"/>
+    <url>/2020/08/12/LeetCode-122-best-time-to-buy-and-sell-stock-ii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/" target="_blank" rel="noopener">122. 买卖股票的最佳时机 II</a></p><h1 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h1><blockquote><p>贪心的思想在于每一步作出的决策在现在看来总是最好的，它不关心过去或者未来的状态。</p></blockquote><p>只要今天的价格高于明天就计算收益：相当于在今天判断：是否买入昨天，卖出今天。这样每一天都有收益，最终的收益就是最大的。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;        <span class="hljs-keyword">int</span> profit = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; prices.length; i++) &#123;            <span class="hljs-keyword">int</span> cur = prices[i] - prices[i - <span class="hljs-number">1</span>];            <span class="hljs-keyword">if</span> (cur &gt; <span class="hljs-number">0</span>)&#123;                profit += cur;            &#125;        &#125;        <span class="hljs-keyword">return</span> profit;    &#125;</code></pre><h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><p><strong>1. 状态 <code>dp[i][j]</code></strong>: </p><p>第 <code>i</code> 天所能获得的最大利润，<code>j = 0</code>: 第 <code>i</code> 天持有现金，<code>j = 1</code>: 第 <code>i</code> 天持有股票。</p><p><strong>2. 状态转移方程：</strong></p><p>每一天可能持有股票或现金。</p><ul><li>若第 <code>i</code> 天持有股票 (<code>dp[i][0]</code>)：<ul><li>第 <code>i - 1</code> 天持有股票，则第 <code>i</code> 天无操作。</li><li>第 <code>i - 1</code> 天持有现金，则第 <code>i</code> 天买入新股票  (<code>+prices[i]</code>)。</li></ul></li><li>若第 <code>i</code> 天持有现金 (<code>dp[i][1]</code>)：<ul><li>第 <code>i - 1</code> 天持有股票，则第 <code>i</code> 天卖出 (<code>-prices[i]</code>)。</li><li>第 <code>i - 1</code> 天持有现金，则第 <code>i</code> 天无操作。</li></ul></li></ul><p><strong>3. 结束</strong></p><p>输出最后一天持有现金 (<code>dp[len - 1][0]</code>)，持有现金的情况下才会把之前的股票卖出，若最后一天持有股票，金额还会更少 <code>dp[len - 1][0] &gt; dp[len - 1][1]</code>。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[prices.length][<span class="hljs-number">2</span>];        dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;        dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; prices.length; i++) &#123;            <span class="hljs-comment">// 第 i 天持有现金</span>            dp[i][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>] + prices[i]);            <span class="hljs-comment">// 第 i 天持有股票</span>            dp[i][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>] - prices[i], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>]);        &#125;        <span class="hljs-keyword">return</span> dp[prices.length - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>];    &#125;</code></pre><p><strong>状态压缩</strong></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;        <span class="hljs-comment">// 今天持有现金</span>        <span class="hljs-keyword">int</span> cash = <span class="hljs-number">0</span>;        <span class="hljs-comment">// 今天持有股票</span>        <span class="hljs-keyword">int</span> hold = <span class="hljs-number">0</span>;                <span class="hljs-comment">// 昨天持有现金</span>        <span class="hljs-keyword">int</span> preCash = <span class="hljs-number">0</span>;        <span class="hljs-comment">// 昨天持有股票</span>        <span class="hljs-keyword">int</span> preHold = -prices[<span class="hljs-number">0</span>];                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> price : prices) &#123;            cash = Math.max(preCash, preHold + price);            hold = Math.max(preHold, preCash - price);                        preCash = cash;            preHold = hold;        &#125;        <span class="hljs-keyword">return</span> cash;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>贪心</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 860. 柠檬水找零</title>
     <link href="/2020/08/11/LeetCode-860-lemonade-change/"/>
     <url>/2020/08/11/LeetCode-860-lemonade-change/</url>
