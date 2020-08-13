@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 455. 分发饼干</title>
+    <link href="/2020/08/13/LeetCode-455-assign-cookies/"/>
+    <url>/2020/08/13/LeetCode-455-assign-cookies/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/assign-cookies/" target="_blank" rel="noopener">455. 分发饼干</a></p><h1 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h1><p>优先用小饼干满足胃口小的孩子</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findContentChildren</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] g, <span class="hljs-keyword">int</span>[] s)</span> </span>&#123;        Arrays.sort(g);        Arrays.sort(s);        <span class="hljs-keyword">int</span> child = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> cookie = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;        <span class="hljs-keyword">while</span> (child &lt; g.length &amp;&amp; cookie &lt; s.length) &#123;            <span class="hljs-comment">// 满足要求，换下一个小孩</span>            <span class="hljs-keyword">if</span> (s[cookie] &gt;= g[child]) &#123;                count++;                child++;            &#125;            <span class="hljs-comment">// 下一个饼干</span>            cookie++;        &#125;        <span class="hljs-keyword">return</span> count;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>贪心</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 122. 买卖股票的最佳时机 II</title>
     <link href="/2020/08/12/LeetCode-122-best-time-to-buy-and-sell-stock-ii/"/>
     <url>/2020/08/12/LeetCode-122-best-time-to-buy-and-sell-stock-ii/</url>
