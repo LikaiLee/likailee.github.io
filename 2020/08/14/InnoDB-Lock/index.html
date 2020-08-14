@@ -268,7 +268,7 @@
 </ul>
 <h2 id="一致性锁定读"><a href="#一致性锁定读" class="headerlink" title="一致性锁定读"></a>一致性锁定读</h2><p><code>InnoDB</code> 对于 <code>SELECT</code> 语句支持两种一致性的锁定读操作：</p>
 <ol>
-<li><code>SELECT ··· FOR UPDATE</code>: 对读取的行加一个 <code>X</code> 锁，其他事务不能对已锁定的行加锁任何锁。</li>
+<li><code>SELECT ··· FOR UPDATE</code>: 对读取的行加一个 <code>X</code> 锁，其他事务不能对已锁定的行加任何锁。</li>
 <li><code>SELECT ··· LOCK IN SHARE MODE</code>: 对读取的行加一个 <code>S</code> 锁，其他事务可以向被锁定的行加 <code>S</code> 锁，如果加 <code>X</code> 锁，则会被阻塞。</li>
 </ol>
 <p>在使用上述两句 <code>SELECT</code> 语句时，务必加上 <code>BEGIN, START TRANSACTION</code> 或者 <code>SET AUTOCOMMIT = 0</code>，因为他们必须在一个事务中，当事务提交了，锁也就释放了。</p>
@@ -385,6 +385,12 @@
                 <div class="post-prevnext row">
                   <div class="post-prev col-6">
                     
+                    
+                      <a href="/2020/08/14/LeetCode-55-jump-game/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">LeetCode 55. 跳跃游戏</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </div>
                   <div class="post-next col-6">
