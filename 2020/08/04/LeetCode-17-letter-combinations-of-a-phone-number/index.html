@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      472 字
+      473 字
     </span>
   
 
@@ -213,7 +213,10 @@
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/" target="_blank" rel="noopener">17. 电话号码的字母组合</a></p>
-<h1 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h1><p>选择列表：每个 <code>digit</code> 对应的字母列表<br>路径：已选字母组合 + 选择列表的字母<br>终止条件：递归深度达到 <code>digits</code> 的长度</p>
+<h1 id="回溯"><a class="markdownIt-Anchor" href="#回溯"></a> 回溯</h1>
+<p>选择列表：每个 <code>digit</code> 对应的字母列表<br />
+路径：已选字母组合 + 选择列表的字母<br />
+终止条件：递归深度达到 <code>digits</code> 的长度</p>
 <pre><code class="hljs java"><span class="hljs-comment">// 2 ~ 9 每个位置所对应的选择列表</span>
     String[] map = &#123;<span class="hljs-string">""</span>, <span class="hljs-string">""</span>, <span class="hljs-string">"abc"</span>, <span class="hljs-string">"def"</span>, <span class="hljs-string">"ghi"</span>, <span class="hljs-string">"jkl"</span>, <span class="hljs-string">"mno"</span>, <span class="hljs-string">"pqrs"</span>, <span class="hljs-string">"tuv"</span>, <span class="hljs-string">"wxyz"</span>&#125;;
     List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
@@ -249,9 +252,12 @@
             combine(digits, path + candidateString.charAt(i), len + <span class="hljs-number">1</span>);
         &#125;
     &#125;</code></pre>
-
-<h1 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h1><blockquote>
-<p>‘’<br>a, b, c<br>b, c, ad, ae, af<br>…</p>
+<h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1>
+<blockquote>
+<p>‘’<br />
+a, b, c<br />
+b, c, ad, ae, af<br />
+…</p>
 </blockquote>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">letterCombinations</span><span class="hljs-params">(String digits)</span> </span>&#123;
     List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();

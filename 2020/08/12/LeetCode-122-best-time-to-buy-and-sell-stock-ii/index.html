@@ -213,7 +213,8 @@
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/" target="_blank" rel="noopener">122. 买卖股票的最佳时机 II</a></p>
-<h1 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h1><blockquote>
+<h1 id="贪心"><a class="markdownIt-Anchor" href="#贪心"></a> 贪心</h1>
+<blockquote>
 <p>贪心的思想在于每一步作出的决策在现在看来总是最好的，它不关心过去或者未来的状态。</p>
 </blockquote>
 <p>只要今天的价格高于明天就计算收益：相当于在今天判断：是否买入昨天，卖出今天。这样每一天都有收益，最终的收益就是最大的。</p>
@@ -227,18 +228,20 @@
         &#125;
         <span class="hljs-keyword">return</span> profit;
     &#125;</code></pre>
-
-<h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><p><strong>1. 状态 <code>dp[i][j]</code></strong>: </p>
+<h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1>
+<p><strong>1. 状态 <code>dp[i][j]</code></strong>:</p>
 <p>第 <code>i</code> 天所能获得的最大利润，<code>j = 0</code>: 第 <code>i</code> 天持有现金，<code>j = 1</code>: 第 <code>i</code> 天持有股票。</p>
 <p><strong>2. 状态转移方程：</strong></p>
 <p>每一天可能持有股票或现金。</p>
 <ul>
-<li>若第 <code>i</code> 天持有股票 (<code>dp[i][0]</code>)：<ul>
+<li>若第 <code>i</code> 天持有股票 (<code>dp[i][0]</code>)：
+<ul>
 <li>第 <code>i - 1</code> 天持有股票，则第 <code>i</code> 天无操作。</li>
 <li>第 <code>i - 1</code> 天持有现金，则第 <code>i</code> 天买入新股票  (<code>+prices[i]</code>)。</li>
 </ul>
 </li>
-<li>若第 <code>i</code> 天持有现金 (<code>dp[i][1]</code>)：<ul>
+<li>若第 <code>i</code> 天持有现金 (<code>dp[i][1]</code>)：
+<ul>
 <li>第 <code>i - 1</code> 天持有股票，则第 <code>i</code> 天卖出 (<code>-prices[i]</code>)。</li>
 <li>第 <code>i - 1</code> 天持有现金，则第 <code>i</code> 天无操作。</li>
 </ul>
@@ -258,7 +261,6 @@
         &#125;
         <span class="hljs-keyword">return</span> dp[prices.length - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>];
     &#125;</code></pre>
-
 <p><strong>状态压缩</strong></p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;
         <span class="hljs-comment">// 今天持有现金</span>

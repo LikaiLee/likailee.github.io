@@ -212,75 +212,102 @@
               </p>
             
             <article class="markdown-body">
-              <h1 id="并发锁"><a href="#并发锁" class="headerlink" title="并发锁"></a>并发锁</h1><h2 id="乐观锁和悲观锁"><a href="#乐观锁和悲观锁" class="headerlink" title="乐观锁和悲观锁"></a>乐观锁和悲观锁</h2><p>乐观锁和悲观锁是两种思想，用于解决并发场景下的数据竞争问题。</p>
-<h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p>乐观锁在操作数据时非常乐观，认为别人不会同时修改数据。因此<strong>乐观锁不会上锁</strong>，只是在执行更新的时候判断一下在此期间别人是否修改了数据：如果别人修改了数据则放弃操作，否则执行操作。</p>
-<h4 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h4><ol>
+              <h1 id="并发锁"><a class="markdownIt-Anchor" href="#并发锁"></a> 并发锁</h1>
+<h2 id="乐观锁和悲观锁"><a class="markdownIt-Anchor" href="#乐观锁和悲观锁"></a> 乐观锁和悲观锁</h2>
+<p>乐观锁和悲观锁是两种思想，用于解决并发场景下的数据竞争问题。</p>
+<h3 id="乐观锁"><a class="markdownIt-Anchor" href="#乐观锁"></a> 乐观锁</h3>
+<p>乐观锁在操作数据时非常乐观，认为别人不会同时修改数据。因此<strong>乐观锁不会上锁</strong>，只是在执行更新的时候判断一下在此期间别人是否修改了数据：如果别人修改了数据则放弃操作，否则执行操作。</p>
+<h4 id="实现方式"><a class="markdownIt-Anchor" href="#实现方式"></a> 实现方式</h4>
+<ol>
 <li><code>CAS</code> 机制</li>
 </ol>
-<p><code>CAS</code> 操作包括了 3 个操作数：<br>    (1) 需要读写的内存位置(<code>V</code>)<br>    (2) 进行比较的预期值(<code>A</code>)<br>    (3) 拟写入的新值(<code>B</code>) </p>
+<p><code>CAS</code> 操作包括了 3 个操作数：<br />
+(1) 需要读写的内存位置(<code>V</code>)<br />
+(2) 进行比较的预期值(<code>A</code>)<br />
+(3) 拟写入的新值(<code>B</code>)</p>
 <p><code>CAS</code> 操作逻辑如下：如果内存位置 <code>V</code> 的值等于预期的 <code>A</code> 值，则将该位置更新为新值 <code>B</code>，否则不进行任何操作。许多 <code>CAS</code> 的操作是自旋的：如果操作不成功，会一直重试，直到操作成功为止。</p>
 <blockquote>
 <p><code>CAS</code> 是由 <code>CPU</code> 支持的原子操作，其原子性是在硬件层面进行保证的。</p>
 </blockquote>
 <ol start="2">
-<li>版本号机制<br>版本号机制的基本思路是在数据中增加一个字段 <code>version</code>，表示该数据的版本号，每当数据被修改，版本号 <code>+1</code>。</li>
+<li>版本号机制<br />
+版本号机制的基本思路是在数据中增加一个字段 <code>version</code>，表示该数据的版本号，每当数据被修改，版本号 <code>+1</code>。</li>
 </ol>
 <ul>
 <li>当某个线程查询数据时，将该数据的版本号一起查出来；</li>
 <li>当该线程更新数据时，判断当前版本号与之前读取的版本号是否一致，如果一致才进行操作。</li>
 </ul>
-<h3 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h3><p>悲观锁在操作数据时比较悲观，认为别人会同时修改数据。因此操作数据时直接把数据锁住，直到操作完成后才会释放锁；上锁期间其他人不能修改数据。</p>
-<h4 id="实现方式-1"><a href="#实现方式-1" class="headerlink" title="实现方式"></a>实现方式</h4><p>悲观锁的实现方式是<strong>加锁</strong>，加锁既可以是对<strong>代码块加锁</strong>（如 <code>Java</code>的 <code>synchronized</code> 关键字和 <code>Lock</code>），也可以是对<strong>数据加锁</strong>（如 <code>MySQL</code> 中的排它锁）。</p>
-<h2 id="公平锁与非公平锁"><a href="#公平锁与非公平锁" class="headerlink" title="公平锁与非公平锁"></a>公平锁与非公平锁</h2><p>根据线程获取锁的抢占机制，锁可分为公平锁与非公平锁。</p>
+<h3 id="悲观锁"><a class="markdownIt-Anchor" href="#悲观锁"></a> 悲观锁</h3>
+<p>悲观锁在操作数据时比较悲观，认为别人会同时修改数据。因此操作数据时直接把数据锁住，直到操作完成后才会释放锁；上锁期间其他人不能修改数据。</p>
+<h4 id="实现方式-2"><a class="markdownIt-Anchor" href="#实现方式-2"></a> 实现方式</h4>
+<p>悲观锁的实现方式是<strong>加锁</strong>，加锁既可以是对<strong>代码块加锁</strong>（如 <code>Java</code>的 <code>synchronized</code> 关键字和 <code>Lock</code>），也可以是对<strong>数据加锁</strong>（如 <code>MySQL</code> 中的排它锁）。</p>
+<h2 id="公平锁与非公平锁"><a class="markdownIt-Anchor" href="#公平锁与非公平锁"></a> 公平锁与非公平锁</h2>
+<p>根据线程获取锁的抢占机制，锁可分为公平锁与非公平锁。</p>
 <ul>
 <li>公平锁表示线程获取锁的顺序是按照线程请求锁的时间早晚来决定的，也就是最早请求锁的线程将最早获取到锁。</li>
 <li>非公平锁在运行时闯入，也就是先来不一定先得，如 <code>synchronized</code>。</li>
 <li><code>ReentrantLock</code>、<code>ReentrantReadWriteLock</code>，默认是非公平锁，但支持公平锁。</li>
 <li>在没有公平性需求的情况下尽量使用非公平锁，因为公平锁会带来性能开销。</li>
 </ul>
-<h2 id="独占锁与共享锁"><a href="#独占锁与共享锁" class="headerlink" title="独占锁与共享锁"></a>独占锁与共享锁</h2><p>根据锁只能被单个线程持有还是能被多个线程共同持有，锁可分为独占锁与共享锁。</p>
+<h2 id="独占锁与共享锁"><a class="markdownIt-Anchor" href="#独占锁与共享锁"></a> 独占锁与共享锁</h2>
+<p>根据锁只能被单个线程持有还是能被多个线程共同持有，锁可分为独占锁与共享锁。</p>
 <ul>
 <li>独占锁是一种悲观锁，每次访问资源都加上了互斥锁，在同一时间只允许一个线程读取数据。</li>
 <li>共享锁是一种乐观锁，它放宽了加锁的条件，允许多个线程同时进行读操作。</li>
 </ul>
-<h2 id="可重入锁"><a href="#可重入锁" class="headerlink" title="可重入锁"></a>可重入锁</h2><p>当一个线程再次获取它已经获取的琐时，如果不被阻塞，那么该锁是可被重入的。</p>
+<h2 id="可重入锁"><a class="markdownIt-Anchor" href="#可重入锁"></a> 可重入锁</h2>
+<p>当一个线程再次获取它已经获取的琐时，如果不被阻塞，那么该锁是可被重入的。</p>
 <p><code>synchronized</code> 内部锁是可重入锁，在其内部维护一个标示，用来标示该锁目前被哪个线程占用，然后关联一个计数器。当一个线程获取了该锁时，计数器的值会变成 <code>1</code>，这时其他线程再来获取该锁时会发现锁的所有者不是自己而被阻塞挂起。</p>
 <p>但是当获取了该锁的线程再次获取锁时发现锁拥有者是自己，就会把计数器值 <code>+1</code>，当释放锁后值 <code>-1</code>。当计数器值为 <code>0</code>，线程标示被重置为 <code>null</code>，这时候被阻塞的线程会被唤醒来竞争该锁。</p>
-<h2 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h2><p>当前线程在获取锁时，如果发现锁已被其他线程占有，它不马上阻塞自己，在不放弃 <code>CPU</code> 使用权的情况下，多次尝试获取（默认10次，可以使用 <code>-XX:PreBlockSpinsh</code> 参数设置该值），很有可能在后面几次尝试中其他线程已经释放了锁。如果尝试指定次数后仍没有获取到锁则当前线程才会被阻塞挂起。<br>自旋锁是使用 <code>CPU</code> 时间换取线程阻塞与调度的开销，但是很有可能这些 <code>CPU</code> 时间白白浪费了。</p>
-<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>死锁是指两个或两个以上的线程在执行过程中，因争夺资源而造成的相互等待的现象，在无外力作用的情况下，这些线程会一直相互等待而无法继续运行下去</p>
-<h2 id="基本条件"><a href="#基本条件" class="headerlink" title="基本条件"></a>基本条件</h2><ol>
+<h2 id="自旋锁"><a class="markdownIt-Anchor" href="#自旋锁"></a> 自旋锁</h2>
+<p>当前线程在获取锁时，如果发现锁已被其他线程占有，它不马上阻塞自己，在不放弃 <code>CPU</code> 使用权的情况下，多次尝试获取（默认10次，可以使用 <code>-XX:PreBlockSpinsh</code> 参数设置该值），很有可能在后面几次尝试中其他线程已经释放了锁。如果尝试指定次数后仍没有获取到锁则当前线程才会被阻塞挂起。<br />
+自旋锁是使用 <code>CPU</code> 时间换取线程阻塞与调度的开销，但是很有可能这些 <code>CPU</code> 时间白白浪费了。</p>
+<h1 id="死锁"><a class="markdownIt-Anchor" href="#死锁"></a> 死锁</h1>
+<h2 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h2>
+<p>死锁是指两个或两个以上的线程在执行过程中，因争夺资源而造成的相互等待的现象，在无外力作用的情况下，这些线程会一直相互等待而无法继续运行下去</p>
+<h2 id="基本条件"><a class="markdownIt-Anchor" href="#基本条件"></a> 基本条件</h2>
+<ol>
 <li>互斥</li>
 <li>请求并持有</li>
 <li>不可剥夺</li>
 <li>环路等待</li>
 </ol>
-<h2 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h2><blockquote>
+<h2 id="避免死锁"><a class="markdownIt-Anchor" href="#避免死锁"></a> 避免死锁</h2>
+<blockquote>
 <p>使用申请资源的有序性，破坏请求并持有和环路等待条件。</p>
 </blockquote>
 <ul>
-<li><p>避免一个线程同时获取多个锁。</p>
+<li>
+<p>避免一个线程同时获取多个锁。</p>
 </li>
-<li><p>避免一个线程在锁内同时占用多个资源，尽量保证每个锁只占用一个资源。</p>
+<li>
+<p>避免一个线程在锁内同时占用多个资源，尽量保证每个锁只占用一个资源。</p>
 </li>
-<li><p>尝试使用定时锁 <code>lock.tryLock(timeout)</code>，避免锁一直不能释放。</p>
+<li>
+<p>尝试使用定时锁 <code>lock.tryLock(timeout)</code>，避免锁一直不能释放。</p>
 </li>
-<li><p>对于数据库锁，加锁和解锁必须在一个数据库连接中里，否则会出现解锁失败的情况。</p>
+<li>
+<p>对于数据库锁，加锁和解锁必须在一个数据库连接中里，否则会出现解锁失败的情况。</p>
 </li>
 </ul>
-<h1 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h1><blockquote>
+<h1 id="aqs"><a class="markdownIt-Anchor" href="#aqs"></a> AQS</h1>
+<blockquote>
 <p><code>AbstractQueuedSynchronizer</code>（简称 <code>AQS</code>）是队列同步器，顾名思义，其主要作用是处理同步。它是并发锁和很多同步工具类的实现基石（如 <code>ReentrantLock</code>、<code>ReentrantReadWriteLock</code>、<code>Semaphore</code> 等）。</p>
 <p>因此，要想深入理解 <code>ReentrantLock</code>、<code>ReentrantReadWriteLock</code> 等并发锁和同步工具，必须先理解 <code>AQS</code> 的要点和原理。</p>
 </blockquote>
-<h2 id="AQS-的要点"><a href="#AQS-的要点" class="headerlink" title="AQS 的要点"></a><code>AQS</code> 的要点</h2><p>在 <code>java.util.concurrent.locks</code> 包中的相关锁(常用的有 <code>ReentrantLock</code>、 <code>ReadWriteLock</code>)都是基于 <code>AQS</code> 来实现。这些锁都没有直接继承 <code>AQS</code>，而是定义了一个 <code>Sync</code> 类去继承 <code>AQS</code>。为什么要这样呢？因为锁面向的是使用用户，而同步器面向的则是线程控制，那么在锁的实现中聚合同步器而不是直接继承 <code>AQS</code> 就可以很好的隔离二者所关注的事情。</p>
+<h2 id="aqs-的要点"><a class="markdownIt-Anchor" href="#aqs-的要点"></a> <code>AQS</code> 的要点</h2>
+<p>在 <code>java.util.concurrent.locks</code> 包中的相关锁(常用的有 <code>ReentrantLock</code>、 <code>ReadWriteLock</code>)都是基于 <code>AQS</code> 来实现。这些锁都没有直接继承 <code>AQS</code>，而是定义了一个 <code>Sync</code> 类去继承 <code>AQS</code>。为什么要这样呢？因为锁面向的是使用用户，而同步器面向的则是线程控制，那么在锁的实现中聚合同步器而不是直接继承 <code>AQS</code> 就可以很好的隔离二者所关注的事情。</p>
 <p><strong><code>AQS</code> 提供了对独享锁与共享锁的支持。</strong></p>
-<h3 id="独享锁-API"><a href="#独享锁-API" class="headerlink" title="独享锁 API"></a>独享锁 <code>API</code></h3><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">acquire</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg)</span></span>
+<h3 id="独享锁-api"><a class="markdownIt-Anchor" href="#独享锁-api"></a> 独享锁 <code>API</code></h3>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">acquire</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg)</span></span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">acquireInterruptibly</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg)</span></span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tryAcquireNanos</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg, <span class="hljs-keyword">long</span> nanosTimeout)</span></span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">release</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg)</span></span></code></pre>
 <ul>
 <li><code>acquire</code> - 获取独占锁。</li>
 <li><code>acquireInterruptibly</code> - 获取可中断的独占锁。</li>
-<li><code>tryAcquireNanos</code> - 尝试在指定时间内获取可中断的独占锁。在以下三种情况下回返回：<ul>
+<li><code>tryAcquireNanos</code> - 尝试在指定时间内获取可中断的独占锁。在以下三种情况下回返回：
+<ul>
 <li>在超时时间内，当前线程成功获取了锁；</li>
 <li>当前线程在超时时间内被中断；</li>
 <li>超时时间结束，仍未获得锁返回 false。</li>
@@ -288,7 +315,8 @@
 </li>
 <li><code>release</code> - 释放独占锁。</li>
 </ul>
-<h3 id="共享锁-API"><a href="#共享锁-API" class="headerlink" title="共享锁 API"></a>共享锁 <code>API</code></h3><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">acquireShared</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg)</span></span>
+<h3 id="共享锁-api"><a class="markdownIt-Anchor" href="#共享锁-api"></a> 共享锁 <code>API</code></h3>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">acquireShared</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg)</span></span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">acquireSharedInterruptibly</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg)</span></span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tryAcquireSharedNanos</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg, <span class="hljs-keyword">long</span> nanosTimeout)</span></span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">releaseShared</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg)</span></span></code></pre>
@@ -298,7 +326,9 @@
 <li><code>tryAcquireSharedNanos</code> - 尝试在指定时间内获取可中断的共享锁。</li>
 <li><code>release</code> - 释放共享锁。</li>
 </ul>
-<h2 id="AQS-的原理"><a href="#AQS-的原理" class="headerlink" title="AQS 的原理"></a><code>AQS</code> 的原理</h2><h3 id="AQS-的数据结构"><a href="#AQS-的数据结构" class="headerlink" title="AQS 的数据结构"></a><code>AQS</code> 的数据结构</h3><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractQueuedSynchronizer</span></span>
+<h2 id="aqs-的原理"><a class="markdownIt-Anchor" href="#aqs-的原理"></a> <code>AQS</code> 的原理</h2>
+<h3 id="aqs-的数据结构"><a class="markdownIt-Anchor" href="#aqs-的数据结构"></a> <code>AQS</code> 的数据结构</h3>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractQueuedSynchronizer</span></span>
 <span class="hljs-class">    <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractOwnableSynchronizer</span></span>
 <span class="hljs-class">    <span class="hljs-keyword">implements</span> <span class="hljs-title">java</span>.<span class="hljs-title">io</span>.<span class="hljs-title">Serializable</span> </span>&#123;
 
@@ -310,15 +340,17 @@
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">volatile</span> <span class="hljs-keyword">int</span> state;
 &#125;</code></pre>
 <ul>
-<li><p><code>state</code> - <code>AQS</code> 使用一个整型的 <code>volatile</code> 变量来 维护同步状态。</p>
+<li>
+<p><code>state</code> - <code>AQS</code> 使用一个整型的 <code>volatile</code> 变量来 维护同步状态。</p>
 <ul>
 <li>这个整数状态的意义由子类来赋予，如 <code>ReentrantLock</code> 中该状态值表示所有者线程已经重复获取该锁的次数，<code>Semaphore</code> 中该状态值表示剩余的许可数量。</li>
 </ul>
 </li>
-<li><p><code>head</code> 和 <code>tail</code> - <code>AQS</code> 维护了一个 <code>Node</code> 类型（<code>AQS</code> 的内部类）的双链表来完成同步状态的管理。这个双链表是一个双向的 <code>FIFO</code> 队列，通过 <code>head</code> 和 <code>tail</code> 指针进行访问。当有线程获取锁失败后，就被添加到队列末尾。</p>
+<li>
+<p><code>head</code> 和 <code>tail</code> - <code>AQS</code> 维护了一个 <code>Node</code> 类型（<code>AQS</code> 的内部类）的双链表来完成同步状态的管理。这个双链表是一个双向的 <code>FIFO</code> 队列，通过 <code>head</code> 和 <code>tail</code> 指针进行访问。当有线程获取锁失败后，就被添加到队列末尾。</p>
 </li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718161601.png" srcset="/img/loading.gif" alt="AQS结构"></p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718161601.png" srcset="/img/loading.gif" alt="AQS结构" /></p>
 <p><code>Node</code> 的源码</p>
 <pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;
     <span class="hljs-comment">/** 该等待同步的节点处于共享模式 */</span>
@@ -346,66 +378,99 @@
 <p>很显然，<code>Node</code> 是一个双链表结构。</p>
 <p><code>waitStatus</code> - <code>Node</code> 使用一个整型的 <code>volatile</code> 变量来 维护 <code>AQS</code> 同步队列中线程节点的状态。<code>waitStatus</code> 有五个状态值：</p>
 <ul>
-<li><p><code>CANCELLED(1)</code> - 此状态表示：该节点的线程可能由于超时或被中断而 <strong>处于被取消(作废)状态</strong>，一旦处于这个状态，表示这个节点应该从等待队列中移除。</p>
+<li>
+<p><code>CANCELLED(1)</code> - 此状态表示：该节点的线程可能由于超时或被中断而 <strong>处于被取消(作废)状态</strong>，一旦处于这个状态，表示这个节点应该从等待队列中移除。</p>
 </li>
-<li><p><code>SIGNAL(-1)</code> - 此状态表示：后继节点会被挂起，因此在当前节点释放锁或被取消之后，必须唤醒(<code>unparking</code>)其后继结点。</p>
+<li>
+<p><code>SIGNAL(-1)</code> - 此状态表示：后继节点会被挂起，因此在当前节点释放锁或被取消之后，必须唤醒(<code>unparking</code>)其后继结点。</p>
 </li>
-<li><p><code>CONDITION(-2)</code> - 此状态表示：该节点的线程 处于等待条件状态，不会被当作是同步队列上的节点，直到被唤醒(<code>signal</code>)，设置其值为 0，再重新进入阻塞状态。</p>
+<li>
+<p><code>CONDITION(-2)</code> - 此状态表示：该节点的线程 处于等待条件状态，不会被当作是同步队列上的节点，直到被唤醒(<code>signal</code>)，设置其值为 0，再重新进入阻塞状态。</p>
 </li>
-<li><p><code>PROPAGATE(-3)</code> - 此状态表示：下一个 <code>acquireShared</code> 应无条件传播。</p>
+<li>
+<p><code>PROPAGATE(-3)</code> - 此状态表示：下一个 <code>acquireShared</code> 应无条件传播。</p>
 </li>
-<li><p><code>0</code> - 非以上状态。</p>
+<li>
+<p><code>0</code> - 非以上状态。</p>
 </li>
 </ul>
-<h3 id="独占锁的获取和释放"><a href="#独占锁的获取和释放" class="headerlink" title="独占锁的获取和释放"></a>独占锁的获取和释放</h3><h4 id="获取独占锁"><a href="#获取独占锁" class="headerlink" title="获取独占锁"></a>获取独占锁</h4><p><code>AQS</code> 中使用 <code>acquire(int arg)</code> 方法获取独占锁，其大致流程如下：</p>
+<h3 id="独占锁的获取和释放"><a class="markdownIt-Anchor" href="#独占锁的获取和释放"></a> 独占锁的获取和释放</h3>
+<h4 id="获取独占锁"><a class="markdownIt-Anchor" href="#获取独占锁"></a> 获取独占锁</h4>
+<p><code>AQS</code> 中使用 <code>acquire(int arg)</code> 方法获取独占锁，其大致流程如下：</p>
 <ol>
-<li><p>先尝试获取同步状态，如果获取同步状态成功，则结束方法，直接返回。</p>
+<li>
+<p>先尝试获取同步状态，如果获取同步状态成功，则结束方法，直接返回。</p>
 </li>
-<li><p>如果获取同步状态不成功，<code>AQS</code> 会不断尝试利用 <code>CAS</code> 操作将当前线程插入等待同步队列的队尾，直到成功为止。</p>
+<li>
+<p>如果获取同步状态不成功，<code>AQS</code> 会不断尝试利用 <code>CAS</code> 操作将当前线程插入等待同步队列的队尾，直到成功为止。</p>
 </li>
-<li><p>接着，不断尝试为等待队列中的线程节点获取独占锁。<br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718161748.png" srcset="/img/loading.gif" alt="获取锁前"><br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718162338.png" srcset="/img/loading.gif" alt="获取锁"><br>详细流程可以用下图来表示，请结合源码来理解（一图胜千言）：<br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718162114.png" srcset="/img/loading.gif" alt="AQS获取锁工作流程"></p>
+<li>
+<p>接着，不断尝试为等待队列中的线程节点获取独占锁。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718161748.png" srcset="/img/loading.gif" alt="获取锁前" /><br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718162338.png" srcset="/img/loading.gif" alt="获取锁" /><br />
+详细流程可以用下图来表示，请结合源码来理解（一图胜千言）：<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200718162114.png" srcset="/img/loading.gif" alt="AQS获取锁工作流程" /></p>
 </li>
 </ol>
-<h4 id="释放独占锁"><a href="#释放独占锁" class="headerlink" title="释放独占锁"></a>释放独占锁</h4><p><code>AQS</code> 中使用 <code>release(int arg)</code> 方法释放独占锁，其大致流程如下：</p>
+<h4 id="释放独占锁"><a class="markdownIt-Anchor" href="#释放独占锁"></a> 释放独占锁</h4>
+<p><code>AQS</code> 中使用 <code>release(int arg)</code> 方法释放独占锁，其大致流程如下：</p>
 <ol>
-<li><p>先尝试获取解锁线程的同步状态，如果获取同步状态不成功，则结束方法，直接返回。</p>
+<li>
+<p>先尝试获取解锁线程的同步状态，如果获取同步状态不成功，则结束方法，直接返回。</p>
 </li>
-<li><p>如果获取同步状态成功，<code>AQS</code> 会尝试唤醒当前线程节点的后继节点。</p>
+<li>
+<p>如果获取同步状态成功，<code>AQS</code> 会尝试唤醒当前线程节点的后继节点。</p>
 </li>
 </ol>
-<h4 id="获取可中断的独占锁"><a href="#获取可中断的独占锁" class="headerlink" title="获取可中断的独占锁"></a>获取可中断的独占锁</h4><p><code>AQS</code> 中使用 <code>acquireInterruptibly(int arg)</code> 方法获取可中断的独占锁。</p>
+<h4 id="获取可中断的独占锁"><a class="markdownIt-Anchor" href="#获取可中断的独占锁"></a> 获取可中断的独占锁</h4>
+<p><code>AQS</code> 中使用 <code>acquireInterruptibly(int arg)</code> 方法获取可中断的独占锁。</p>
 <p><code>acquireInterruptibly(int arg)</code> 实现方式相较于获取独占锁方法（<code>acquire</code>）非常相似，区别仅在于它会通过 <code>Thread.interrupted</code> 检测当前线程是否被中断，如果是，则立即抛出中断异常（<code>InterruptedException</code>）。</p>
-<h4 id="获取超时等待式的独占锁"><a href="#获取超时等待式的独占锁" class="headerlink" title="获取超时等待式的独占锁"></a>获取超时等待式的独占锁</h4><p><code>AQS</code> 中使用 <code>tryAcquireNanos(int arg)</code> 方法获取超时等待的独占锁。</p>
+<h4 id="获取超时等待式的独占锁"><a class="markdownIt-Anchor" href="#获取超时等待式的独占锁"></a> 获取超时等待式的独占锁</h4>
+<p><code>AQS</code> 中使用 <code>tryAcquireNanos(int arg)</code> 方法获取超时等待的独占锁。</p>
 <p><code>doAcquireNanos</code> 的实现方式 相较于获取独占锁方法（ <code>acquire</code>）非常相似，区别在于它会根据超时时间和当前时间计算出截止时间。在获取锁的流程中，会不断判断是否超时，如果超时，直接返回 <code>false</code>；如果没超时，则用 <code>LockSupport.parkNanos</code> 来阻塞当前线程。</p>
-<h3 id="共享锁的获取和释放"><a href="#共享锁的获取和释放" class="headerlink" title="共享锁的获取和释放"></a>共享锁的获取和释放</h3><h4 id="获取共享锁"><a href="#获取共享锁" class="headerlink" title="获取共享锁"></a>获取共享锁</h4><p><code>AQS</code> 中使用 <code>acquireShared(int arg)</code> 方法获取共享锁。</p>
+<h3 id="共享锁的获取和释放"><a class="markdownIt-Anchor" href="#共享锁的获取和释放"></a> 共享锁的获取和释放</h3>
+<h4 id="获取共享锁"><a class="markdownIt-Anchor" href="#获取共享锁"></a> 获取共享锁</h4>
+<p><code>AQS</code> 中使用 <code>acquireShared(int arg)</code> 方法获取共享锁。</p>
 <p><code>acquireShared</code> 方法和 <code>acquire</code> 方法的逻辑很相似，区别仅在于自旋的条件以及节点出队的操作有所不同。</p>
 <p>成功获得共享锁的条件如下：</p>
 <ul>
-<li><p><code>tryAcquireShared(arg)</code> 返回值大于等于 <code>0</code> （这意味着共享锁的 permit 还没有用完）。</p>
+<li>
+<p><code>tryAcquireShared(arg)</code> 返回值大于等于 <code>0</code> （这意味着共享锁的 permit 还没有用完）。</p>
 </li>
-<li><p>当前节点的前驱节点是头结点。</p>
+<li>
+<p>当前节点的前驱节点是头结点。</p>
 </li>
 </ul>
-<h4 id="释放共享锁"><a href="#释放共享锁" class="headerlink" title="释放共享锁"></a>释放共享锁</h4><p><code>AQS</code> 中使用 <code>releaseShared(int arg)</code> 方法释放共享锁。</p>
+<h4 id="释放共享锁"><a class="markdownIt-Anchor" href="#释放共享锁"></a> 释放共享锁</h4>
+<p><code>AQS</code> 中使用 <code>releaseShared(int arg)</code> 方法释放共享锁。</p>
 <p><code>releaseShared</code> 首先会尝试释放同步状态，如果成功，则解锁一个或多个后继线程节点。释放共享锁和释放独享锁流程大体相似，区别在于：</p>
 <p>对于独享模式，如果需要 <code>SIGNAL</code>，释放仅相当于调用头节点的 <code>unparkSuccessor</code>。</p>
-<h4 id="获取可中断的共享锁"><a href="#获取可中断的共享锁" class="headerlink" title="获取可中断的共享锁"></a>获取可中断的共享锁</h4><p><code>AQS</code> 中使用 <code>acquireSharedInterruptibly(int arg)</code> 方法获取可中断的共享锁。</p>
+<h4 id="获取可中断的共享锁"><a class="markdownIt-Anchor" href="#获取可中断的共享锁"></a> 获取可中断的共享锁</h4>
+<p><code>AQS</code> 中使用 <code>acquireSharedInterruptibly(int arg)</code> 方法获取可中断的共享锁。</p>
 <p><code>acquireSharedInterruptibly</code> 方法与 <code>acquireInterruptibly</code> 几乎一致，不再赘述。</p>
-<h4 id="获取超时等待式的共享锁"><a href="#获取超时等待式的共享锁" class="headerlink" title="获取超时等待式的共享锁"></a>获取超时等待式的共享锁</h4><p><code>AQS</code> 中使用 <code>tryAcquireSharedNanos(int arg)</code> 方法获取超时等待式的共享锁。</p>
+<h4 id="获取超时等待式的共享锁"><a class="markdownIt-Anchor" href="#获取超时等待式的共享锁"></a> 获取超时等待式的共享锁</h4>
+<p><code>AQS</code> 中使用 <code>tryAcquireSharedNanos(int arg)</code> 方法获取超时等待式的共享锁。</p>
 <p><code>tryAcquireSharedNanos</code> 方法与 <code>tryAcquireNanos</code> 几乎一致，不再赘述。</p>
-<h1 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a><code>ReentrantLock</code></h1><blockquote>
+<h1 id="reentrantlock"><a class="markdownIt-Anchor" href="#reentrantlock"></a> <code>ReentrantLock</code></h1>
+<blockquote>
 <p><code>ReentrantLock</code> 类是 <code>Lock</code> 接口的具体实现，它是一个可重入锁。与内置锁 <code>synchronized</code> 不同，<code>ReentrantLock</code> 提供了一组无条件的、可轮询的、定时的以及可中断的锁操作，所有获取锁、释放锁的操作都是显式的操作。</p>
 </blockquote>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
-<li><p><code>ReentrantLock</code> 提供了与 <code>synchronized</code> 相同的互斥性、内存可见性和可重入性。</p>
-</li>
-<li><p><code>ReentrantLock</code> 支持公平锁和<strong>非公平锁（默认）</strong>两种模式。</p>
-</li>
-<li><p><code>ReentrantLock</code> 实现了 <code>Lock</code> 接口，支持了 <code>synchronized</code> 所不具备的灵活性。</p>
+<h2 id="特性"><a class="markdownIt-Anchor" href="#特性"></a> 特性</h2>
 <ul>
-<li><p><code>synchronized</code> 无法中断一个正在等待获取锁的线程</p>
+<li>
+<p><code>ReentrantLock</code> 提供了与 <code>synchronized</code> 相同的互斥性、内存可见性和可重入性。</p>
 </li>
-<li><p><code>synchronized</code> 无法在请求获取一个锁时无休止地等待</p>
+<li>
+<p><code>ReentrantLock</code> 支持公平锁和**非公平锁（默认）**两种模式。</p>
+</li>
+<li>
+<p><code>ReentrantLock</code> 实现了 <code>Lock</code> 接口，支持了 <code>synchronized</code> 所不具备的灵活性。</p>
+<ul>
+<li>
+<p><code>synchronized</code> 无法中断一个正在等待获取锁的线程</p>
+</li>
+<li>
+<p><code>synchronized</code> 无法在请求获取一个锁时无休止地等待</p>
 </li>
 </ul>
 </li>
@@ -425,68 +490,94 @@
     <span class="hljs-comment">// 返回一个绑定到 Lock 对象上的 Condition 实例</span>
     <span class="hljs-function">Condition <span class="hljs-title">newCondition</span><span class="hljs-params">()</span></span>;
 &#125;</code></pre>
-<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ReentrantLock</span><span class="hljs-params">()</span> </span>&#123;&#125;
+<h2 id="用法"><a class="markdownIt-Anchor" href="#用法"></a> 用法</h2>
+<h3 id="构造方法"><a class="markdownIt-Anchor" href="#构造方法"></a> 构造方法</h3>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ReentrantLock</span><span class="hljs-params">()</span> </span>&#123;&#125;
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ReentrantLock</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> fair)</span> </span>&#123;&#125;</code></pre>
 <ul>
 <li><code>ReentrantLock()</code> - 默认构造方法会初始化一个非公平锁（<code>NonfairSync</code>）；</li>
 <li><code>ReentrantLock(boolean)</code> - <code>new ReentrantLock(true)</code> 会初始化一个公平锁（<code>FairSync</code>）。</li>
 </ul>
-<h3 id="lock-和-unlock-方法"><a href="#lock-和-unlock-方法" class="headerlink" title="lock 和 unlock 方法"></a><code>lock</code> 和 <code>unlock</code> 方法</h3><ul>
-<li><p><code>lock()</code> - <strong>无条件获取锁</strong>。如果当前线程无法获取锁，则当前线程进入休眠状态不可用，直至当前线程获取到锁。如果该锁没有被另一个线程持有，则获取该锁并立即返回，将锁的持有计数设置为 <code>1</code>。</p>
+<h3 id="lock-和-unlock-方法"><a class="markdownIt-Anchor" href="#lock-和-unlock-方法"></a> <code>lock</code> 和 <code>unlock</code> 方法</h3>
+<ul>
+<li>
+<p><code>lock()</code> - <strong>无条件获取锁</strong>。如果当前线程无法获取锁，则当前线程进入休眠状态不可用，直至当前线程获取到锁。如果该锁没有被另一个线程持有，则获取该锁并立即返回，将锁的持有计数设置为 <code>1</code>。</p>
 </li>
-<li><p><code>unlock()</code> - 用于释放锁。</p>
+<li>
+<p><code>unlock()</code> - 用于释放锁。</p>
+</li>
+</ul>
 <blockquote>
 <p>🔔 注意：获取锁操作 <code>lock()</code> 必须在 <code>try catch</code> 块中进行，并且将释放锁操作 <code>unlock()</code> 放在 <code>finally</code> 块中进行，以保证锁一定被被释放，防止死锁的发生。</p>
 </blockquote>
-</li>
-</ul>
-<h3 id="tryLock-方法"><a href="#tryLock-方法" class="headerlink" title="tryLock 方法"></a><code>tryLock</code> 方法</h3><p>与无条件获取锁相比，<code>tryLock</code> 有更完善的容错机制。</p>
+<h3 id="trylock-方法"><a class="markdownIt-Anchor" href="#trylock-方法"></a> <code>tryLock</code> 方法</h3>
+<p>与无条件获取锁相比，<code>tryLock</code> 有更完善的容错机制。</p>
 <ul>
-<li><p><code>tryLock()</code> - 可轮询获取锁。如果成功，则返回 <code>true</code>；如果失败，则返回 <code>false</code>。也就是说，这个方法无论成败都会<strong>立即返回</strong>，获取不到锁（锁已被其他线程获取）时不会一直等待。</p>
+<li>
+<p><code>tryLock()</code> - 可轮询获取锁。如果成功，则返回 <code>true</code>；如果失败，则返回 <code>false</code>。也就是说，这个方法无论成败都会<strong>立即返回</strong>，获取不到锁（锁已被其他线程获取）时不会一直等待。</p>
 </li>
-<li><p><code>tryLock(long, TimeUnit)</code> - 可定时获取锁。和 <code>tryLock()</code> 类似，区别仅在于这个方法在获取不到锁时会等待一定的时间，在时间期限之内如果还获取不到锁，就返回 <code>false</code>。如果如果一开始拿到锁或者在等待期间内拿到了锁，则返回 <code>true</code>。</p>
+<li>
+<p><code>tryLock(long, TimeUnit)</code> - 可定时获取锁。和 <code>tryLock()</code> 类似，区别仅在于这个方法在获取不到锁时会等待一定的时间，在时间期限之内如果还获取不到锁，就返回 <code>false</code>。如果如果一开始拿到锁或者在等待期间内拿到了锁，则返回 <code>true</code>。</p>
 </li>
 </ul>
-<h3 id="lockInterruptibly-方法"><a href="#lockInterruptibly-方法" class="headerlink" title="lockInterruptibly 方法"></a><code>lockInterruptibly</code> 方法</h3><p><code>lockInterruptibly()</code> - 可中断获取锁。可中断获取锁可以在获得锁的同时保持对中断的响应。可中断获取锁比其它获取锁的方式稍微复杂一些，需要两个 <code>try-catch</code> 块（如果在获取锁的操作中抛出了 <code>InterruptedException</code> ，那么可以使用标准的 <code>try-finally</code> 加锁模式）。</p>
+<h3 id="lockinterruptibly-方法"><a class="markdownIt-Anchor" href="#lockinterruptibly-方法"></a> <code>lockInterruptibly</code> 方法</h3>
+<p><code>lockInterruptibly()</code> - 可中断获取锁。可中断获取锁可以在获得锁的同时保持对中断的响应。可中断获取锁比其它获取锁的方式稍微复杂一些，需要两个 <code>try-catch</code> 块（如果在获取锁的操作中抛出了 <code>InterruptedException</code> ，那么可以使用标准的 <code>try-finally</code> 加锁模式）。</p>
 <p>举例来说：假设有两个线程同时通过 <code>lock.lockInterruptibly()</code> 获取某个锁时，若线程 <code>A</code> 获取到了锁，则线程 <code>B</code> 只能等待。若此时对线程 <code>B</code> 调用 <code>threadB.interrupt()</code> 方法能够中断线程 <code>B</code> 的等待过程。由于 <code>lockInterruptibly()</code> 的声明中抛出了异常，所以 <code>lock.lockInterruptibly()</code> 必须放在 <code>try</code> 块中或者在调用 <code>lockInterruptibly()</code> 的方法外声明抛出 <code>InterruptedException</code>。</p>
 <blockquote>
 <p>🔔 注意：当一个线程获取了锁之后，是不会被 <code>interrupt()</code> 方法中断的。单独调用 <code>interrupt()</code> 方法不能中断正在运行状态中的线程，只能中断阻塞状态中的线程。因此当通过 <code>lockInterruptibly()</code> 方法获取某个锁时，如果未获取到锁，只有在等待的状态下，才可以响应中断。</p>
 </blockquote>
-<h3 id="newCondition-方法"><a href="#newCondition-方法" class="headerlink" title="newCondition 方法"></a><code>newCondition</code> 方法</h3><p><code>newCondition()</code> - 返回一个绑定到 <code>Lock</code> 对象上的 <code>Condition</code> 实例。</p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="ReentrantLock-的数据结构"><a href="#ReentrantLock-的数据结构" class="headerlink" title="ReentrantLock 的数据结构"></a><code>ReentrantLock</code> 的数据结构</h3><p>它有一个核心字段：</p>
+<h3 id="newcondition-方法"><a class="markdownIt-Anchor" href="#newcondition-方法"></a> <code>newCondition</code> 方法</h3>
+<p><code>newCondition()</code> - 返回一个绑定到 <code>Lock</code> 对象上的 <code>Condition</code> 实例。</p>
+<h2 id="原理"><a class="markdownIt-Anchor" href="#原理"></a> 原理</h2>
+<h3 id="reentrantlock-的数据结构"><a class="markdownIt-Anchor" href="#reentrantlock-的数据结构"></a> <code>ReentrantLock</code> 的数据结构</h3>
+<p>它有一个核心字段：</p>
 <pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Sync sync;</code></pre>
 <p><code>sync</code> - 内部抽象类 <code>ReentrantLock.Sync</code> 对象，<code>Sync</code> 继承自 <code>AQS</code>。它有两个子类：</p>
 <ol>
-<li><p><code>ReentrantLock.FairSync</code> - 公平锁。</p>
+<li>
+<p><code>ReentrantLock.FairSync</code> - 公平锁。</p>
 </li>
-<li><p><code>ReentrantLock.NonfairSync</code> - 非公平锁。</p>
+<li>
+<p><code>ReentrantLock.NonfairSync</code> - 非公平锁。</p>
 </li>
 </ol>
-<h3 id="获取锁和释放锁"><a href="#获取锁和释放锁" class="headerlink" title="获取锁和释放锁"></a>获取锁和释放锁</h3><p><code>ReentrantLock</code> 获取锁和释放锁的接口，从表象看，是调用 <code>ReentrantLock.FairSync</code> 或 <code>ReentrantLock.NonfairSync</code> 中各自的实现；从本质上看，是基于 <code>AQS</code> 的实现。</p>
+<h3 id="获取锁和释放锁"><a class="markdownIt-Anchor" href="#获取锁和释放锁"></a> 获取锁和释放锁</h3>
+<p><code>ReentrantLock</code> 获取锁和释放锁的接口，从表象看，是调用 <code>ReentrantLock.FairSync</code> 或 <code>ReentrantLock.NonfairSync</code> 中各自的实现；从本质上看，是基于 <code>AQS</code> 的实现。</p>
 <ul>
-<li><p><code>void lock()</code> 调用 <code>Sync</code> 的 <code>lock()</code> 方法。</p>
+<li>
+<p><code>void lock()</code> 调用 <code>Sync</code> 的 <code>lock()</code> 方法。</p>
 </li>
-<li><p><code>void lockInterruptibly()</code> 直接调用 <code>AQS</code> 的 获取可中断的独占锁 方法 <code>lockInterruptibly()</code>。</p>
+<li>
+<p><code>void lockInterruptibly()</code> 直接调用 <code>AQS</code> 的 获取可中断的独占锁 方法 <code>lockInterruptibly()</code>。</p>
 </li>
-<li><p><code>boolean tryLock()</code> 调用 <code>Sync</code> 的 <code>nonfairTryAcquire()</code> 。</p>
+<li>
+<p><code>boolean tryLock()</code> 调用 <code>Sync</code> 的 <code>nonfairTryAcquire()</code> 。</p>
 </li>
-<li><p><code>boolean tryLock(long time, TimeUnit unit)</code> 直接调用 <code>AQS</code> 的 获取超时等待式的独占锁 方法 <code>tryAcquireNanos(int arg, long nanosTimeout)</code>。</p>
+<li>
+<p><code>boolean tryLock(long time, TimeUnit unit)</code> 直接调用 <code>AQS</code> 的 获取超时等待式的独占锁 方法 <code>tryAcquireNanos(int arg, long nanosTimeout)</code>。</p>
 </li>
-<li><p><code>void unlock()</code> 直接调用 <code>AQS</code> 的 释放独占锁 方法 <code>release(int arg)</code> 。</p>
+<li>
+<p><code>void unlock()</code> 直接调用 <code>AQS</code> 的 释放独占锁 方法 <code>release(int arg)</code> 。</p>
 </li>
 </ul>
-<h1 id="ReentrantReadWriteLock"><a href="#ReentrantReadWriteLock" class="headerlink" title="ReentrantReadWriteLock"></a><code>ReentrantReadWriteLock</code></h1><blockquote>
+<h1 id="reentrantreadwritelock"><a class="markdownIt-Anchor" href="#reentrantreadwritelock"></a> <code>ReentrantReadWriteLock</code></h1>
+<blockquote>
 <p><code>ReentrantReadWriteLock</code> 类是 <code>ReadWriteLock</code> 接口的具体实现，它是一个<strong>可重入</strong>的读写锁。<code>ReentrantReadWriteLock</code> 维护了一对读写锁，将读写锁分开，有利于提高并发效率。</p>
 </blockquote>
 <p><code>ReentrantLock</code> 实现了一种标准的互斥锁：每次最多只有一个线程能持有 <code>ReentrantLock</code>。但对于维护数据的完整性来说，互斥通常是一种过于强硬的加锁策略，因此也就不必要地限制了并发性。大多数场景下，读操作比写操作频繁，只要保证每个线程都能读取到最新数据，并且在读数据时不会有其它线程在修改数据，那么就不会出现线程安全问题。这种策略减少了互斥同步，自然也提升了并发性能，<code>ReentrantReadWriteLock</code> 就是这种策略的具体实现。</p>
-<h2 id="特性-1"><a href="#特性-1" class="headerlink" title="特性"></a>特性</h2><ul>
-<li><p><code>ReentrantReadWriteLock</code> 适用于读多写少的场景。如果是写多读少的场景，由于 <code>ReentrantReadWriteLock</code> 其内部实现比 <code>ReentrantLock</code> 复杂，性能可能反而要差一些。如果存在这样的问题，需要具体问题具体分析。由于 <code>ReentrantReadWriteLock</code> 的读写锁（<code>ReadLock</code>、<code>WriteLock</code>）都实现了 <code>Lock</code> 接口，所以要替换为 <code>ReentrantLock</code> 也较为容易。</p>
+<h2 id="特性-2"><a class="markdownIt-Anchor" href="#特性-2"></a> 特性</h2>
+<ul>
+<li>
+<p><code>ReentrantReadWriteLock</code> 适用于读多写少的场景。如果是写多读少的场景，由于 <code>ReentrantReadWriteLock</code> 其内部实现比 <code>ReentrantLock</code> 复杂，性能可能反而要差一些。如果存在这样的问题，需要具体问题具体分析。由于 <code>ReentrantReadWriteLock</code> 的读写锁（<code>ReadLock</code>、<code>WriteLock</code>）都实现了 <code>Lock</code> 接口，所以要替换为 <code>ReentrantLock</code> 也较为容易。</p>
 </li>
-<li><p><code>ReentrantReadWriteLock</code> 实现了 <code>ReadWriteLock</code> 接口，支持了 <code>ReentrantLock</code> 所不具备的读写锁分离。<code>ReentrantReadWriteLock</code> 维护了一对读写锁（<code>ReadLock</code>、<code>WriteLock</code>）。将读写锁分开，有利于提高并发效率。<code>ReentrantReadWriteLock</code> 的加锁策略是：<strong>允许多个读操作并发执行，但每次只允许一个写操作</strong>。</p>
+<li>
+<p><code>ReentrantReadWriteLock</code> 实现了 <code>ReadWriteLock</code> 接口，支持了 <code>ReentrantLock</code> 所不具备的读写锁分离。<code>ReentrantReadWriteLock</code> 维护了一对读写锁（<code>ReadLock</code>、<code>WriteLock</code>）。将读写锁分开，有利于提高并发效率。<code>ReentrantReadWriteLock</code> 的加锁策略是：<strong>允许多个读操作并发执行，但每次只允许一个写操作</strong>。</p>
 </li>
-<li><p><code>ReentrantReadWriteLock</code> 为读写锁都提供了可重入的加锁语义。</p>
+<li>
+<p><code>ReentrantReadWriteLock</code> 为读写锁都提供了可重入的加锁语义。</p>
 </li>
-<li><p><code>ReentrantReadWriteLock</code> 支持公平锁和非公平锁（默认）两种模式。</p>
+<li>
+<p><code>ReentrantReadWriteLock</code> 支持公平锁和非公平锁（默认）两种模式。</p>
 </li>
 </ul>
 <p><code>ReadWriteLock</code> 接口定义如下：</p>
@@ -496,17 +587,20 @@
     <span class="hljs-comment">// 返回用于写操作的锁</span>
     <span class="hljs-function">Lock <span class="hljs-title">writeLock</span><span class="hljs-params">()</span></span>;
 &#125;</code></pre>
-
-<h2 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h2><h3 id="构造方法-1"><a href="#构造方法-1" class="headerlink" title="构造方法"></a>构造方法</h3><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ReentrantReadWriteLock</span><span class="hljs-params">()</span> </span>&#123;&#125;
+<h2 id="用法-2"><a class="markdownIt-Anchor" href="#用法-2"></a> 用法</h2>
+<h3 id="构造方法-2"><a class="markdownIt-Anchor" href="#构造方法-2"></a> 构造方法</h3>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ReentrantReadWriteLock</span><span class="hljs-params">()</span> </span>&#123;&#125;
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ReentrantReadWriteLock</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> fair)</span> </span>&#123;&#125;</code></pre>
-
 <ul>
-<li><p><code>ReentrantReadWriteLock()</code> - 默认构造方法会初始化一个非公平锁（<code>NonfairSync</code>）。在非公平的锁中，线程获得锁的顺序是不确定的。写线程降级为读线程是可以的，但读线程升级为写线程是不可以的（这样会导致死锁）。</p>
+<li>
+<p><code>ReentrantReadWriteLock()</code> - 默认构造方法会初始化一个非公平锁（<code>NonfairSync</code>）。在非公平的锁中，线程获得锁的顺序是不确定的。写线程降级为读线程是可以的，但读线程升级为写线程是不可以的（这样会导致死锁）。</p>
 </li>
-<li><p><code>ReentrantReadWriteLock(boolean)</code> - <code>new ReentrantLock(true)</code> 会初始化一个公平锁（<code>FairSync</code>）。对于公平锁，等待时间最长的线程将优先获得锁。如果这个锁是读线程持有，则另一个线程请求写锁，那么其他读线程都不能获得读锁，直到写线程释放写锁。</p>
+<li>
+<p><code>ReentrantReadWriteLock(boolean)</code> - <code>new ReentrantLock(true)</code> 会初始化一个公平锁（<code>FairSync</code>）。对于公平锁，等待时间最长的线程将优先获得锁。如果这个锁是读线程持有，则另一个线程请求写锁，那么其他读线程都不能获得读锁，直到写线程释放写锁。</p>
 </li>
 </ul>
-<h3 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h3><p><code>ReentrantReadWriteLock</code> 与 <code>ReentrantLock</code> 用法上的差异，主要在于<strong>读写锁的配合使用</strong>。本文以一个典型使用场景来进行讲解。</p>
+<h3 id="使用实例"><a class="markdownIt-Anchor" href="#使用实例"></a> 使用实例</h3>
+<p><code>ReentrantReadWriteLock</code> 与 <code>ReentrantLock</code> 用法上的差异，主要在于<strong>读写锁的配合使用</strong>。本文以一个典型使用场景来进行讲解。</p>
 <p>示例：基于 <code>ReentrantReadWriteLock</code> 实现一个简单的本地缓存</p>
 <pre><code class="hljs java"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * 简单的无界缓存实现</span>
@@ -563,16 +657,20 @@
     &#125;
 
 &#125;</code></pre>
-
 <ul>
-<li><p>使用 <code>WeakHashMap</code> 而不是 <code>HashMap</code> 来存储键值对。<code>WeakHashMap</code> 中存储的对象是弱引用，<code>JVM GC</code> 时会自动清除没有被引用的弱引用对象。</p>
+<li>
+<p>使用 <code>WeakHashMap</code> 而不是 <code>HashMap</code> 来存储键值对。<code>WeakHashMap</code> 中存储的对象是弱引用，<code>JVM GC</code> 时会自动清除没有被引用的弱引用对象。</p>
 </li>
-<li><p>向 Map 写数据前加写锁，写完后，释放写锁。</p>
+<li>
+<p>向 Map 写数据前加写锁，写完后，释放写锁。</p>
 </li>
-<li><p>向 Map 读数据前加读锁，读完后，释放读锁。</p>
+<li>
+<p>向 Map 读数据前加读锁，读完后，释放读锁。</p>
 </li>
 </ul>
-<h2 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h2><h3 id="ReentrantReadWriteLock-的数据结构"><a href="#ReentrantReadWriteLock-的数据结构" class="headerlink" title="ReentrantReadWriteLock 的数据结构"></a><code>ReentrantReadWriteLock</code> 的数据结构</h3><pre><code class="hljs java"><span class="hljs-comment">/** Inner class providing readlock */</span>
+<h2 id="原理-2"><a class="markdownIt-Anchor" href="#原理-2"></a> 原理</h2>
+<h3 id="reentrantreadwritelock-的数据结构"><a class="markdownIt-Anchor" href="#reentrantreadwritelock-的数据结构"></a> <code>ReentrantReadWriteLock</code> 的数据结构</h3>
+<pre><code class="hljs java"><span class="hljs-comment">/** Inner class providing readlock */</span>
 <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ReentrantReadWriteLock.ReadLock readerLock;
 <span class="hljs-comment">/** Inner class providing writelock */</span>
 <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ReentrantReadWriteLock.WriteLock writerLock;
@@ -581,16 +679,19 @@
 
 <span class="hljs-keyword">public</span> ReentrantReadWriteLock.<span class="hljs-function">WriteLock <span class="hljs-title">writeLock</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-keyword">return</span> writerLock; &#125;
 <span class="hljs-keyword">public</span> ReentrantReadWriteLock.<span class="hljs-function">ReadLock  <span class="hljs-title">readLock</span><span class="hljs-params">()</span>  </span>&#123; <span class="hljs-keyword">return</span> readerLock; &#125;</code></pre>
-
 <ul>
-<li><p><code>sync</code> - 内部类 <code>ReentrantReadWriteLock.Sync</code> 对象。与 <code>ReentrantLock</code> 类似，它有两个子类：<code>ReentrantReadWriteLock.FairSync</code> 和 <code>ReentrantReadWriteLock.NonfairSync</code> ，分别表示公平锁和非公平锁的实现。</p>
+<li>
+<p><code>sync</code> - 内部类 <code>ReentrantReadWriteLock.Sync</code> 对象。与 <code>ReentrantLock</code> 类似，它有两个子类：<code>ReentrantReadWriteLock.FairSync</code> 和 <code>ReentrantReadWriteLock.NonfairSync</code> ，分别表示公平锁和非公平锁的实现。</p>
 </li>
-<li><p><code>readerLock</code> - 内部类 <code>ReentrantReadWriteLock.ReadLock</code> 对象，这是一把读锁。</p>
+<li>
+<p><code>readerLock</code> - 内部类 <code>ReentrantReadWriteLock.ReadLock</code> 对象，这是一把读锁。</p>
 </li>
-<li><p><code>writerLock</code> - 内部类 <code>ReentrantReadWriteLock.WriteLock</code> 对象，这是一把写锁。</p>
+<li>
+<p><code>writerLock</code> - 内部类 <code>ReentrantReadWriteLock.WriteLock</code> 对象，这是一把写锁。</p>
 </li>
 </ul>
-<h3 id="获取锁和释放锁-1"><a href="#获取锁和释放锁-1" class="headerlink" title="获取锁和释放锁"></a>获取锁和释放锁</h3><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReadLock</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Lock</span>, <span class="hljs-title">java</span>.<span class="hljs-title">io</span>.<span class="hljs-title">Serializable</span> </span>&#123;
+<h3 id="获取锁和释放锁-2"><a class="markdownIt-Anchor" href="#获取锁和释放锁-2"></a> 获取锁和释放锁</h3>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReadLock</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Lock</span>, <span class="hljs-title">java</span>.<span class="hljs-title">io</span>.<span class="hljs-title">Serializable</span> </span>&#123;
 
     <span class="hljs-comment">// 调用 AQS 获取共享锁方法</span>
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">lock</span><span class="hljs-params">()</span> </span>&#123;
@@ -615,10 +716,12 @@
         sync.release(<span class="hljs-number">1</span>);
     &#125;
 &#125;</code></pre>
-
-<h1 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h1><p><code>Java 1.5</code> 之前，主要是利用 <code>Object</code> 类中的 <code>wait</code>、<code>notify</code>、<code>notifyAll</code> 配合 <code>synchronized</code> 来进行线程间通信。</p>
-<p><code>wait</code>、<code>notify</code>、<code>notifyAll</code> 需要配合 <code>synchronized</code> 使用，不适用于 <code>Lock</code>。而使用 <code>Lock</code> 的线程，彼此间通信应该使用 <code>Condition</code>。<br>这可以理解为，什么样的锁配什么样的钥匙。内置锁（<code>synchronized</code>）配合内置条件队列（<code>wait</code>、<code>notify</code>、<code>notifyAll</code>），显式锁（<code>Lock</code>）配合显式条件队列（<code>Condition</code>）。</p>
-<h2 id="特性-2"><a href="#特性-2" class="headerlink" title="特性"></a>特性</h2><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Condition</span> </span>&#123;
+<h1 id="condition"><a class="markdownIt-Anchor" href="#condition"></a> Condition</h1>
+<p><code>Java 1.5</code> 之前，主要是利用 <code>Object</code> 类中的 <code>wait</code>、<code>notify</code>、<code>notifyAll</code> 配合 <code>synchronized</code> 来进行线程间通信。</p>
+<p><code>wait</code>、<code>notify</code>、<code>notifyAll</code> 需要配合 <code>synchronized</code> 使用，不适用于 <code>Lock</code>。而使用 <code>Lock</code> 的线程，彼此间通信应该使用 <code>Condition</code>。<br />
+这可以理解为，什么样的锁配什么样的钥匙。内置锁（<code>synchronized</code>）配合内置条件队列（<code>wait</code>、<code>notify</code>、<code>notifyAll</code>），显式锁（<code>Lock</code>）配合显式条件队列（<code>Condition</code>）。</p>
+<h2 id="特性-3"><a class="markdownIt-Anchor" href="#特性-3"></a> 特性</h2>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Condition</span> </span>&#123;
     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">await</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException</span>;
     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">awaitUninterruptibly</span><span class="hljs-params">()</span></span>;
     <span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">awaitNanos</span><span class="hljs-params">(<span class="hljs-keyword">long</span> nanosTimeout)</span> <span class="hljs-keyword">throws</span> InterruptedException</span>;
@@ -627,19 +730,23 @@
     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">signal</span><span class="hljs-params">()</span></span>;
     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">signalAll</span><span class="hljs-params">()</span></span>;
 &#125;</code></pre>
-
 <p>其中，<code>await</code>、<code>signal</code>、<code>signalAll</code> 与 <code>wait</code>、<code>notify</code>、<code>notifyAll</code> 相对应，功能也相似。除此以外，<code>Condition</code> 相比内置条件队列（<code>wait</code>、<code>notify</code>、<code>notifyAll</code>），提供了更为丰富的功能：</p>
 <ul>
-<li><p>每个锁（<code>Lock</code>）上可以存在多个 <code>Condition</code>，这意味着锁的状态条件可以有多个。</p>
+<li>
+<p>每个锁（<code>Lock</code>）上可以存在多个 <code>Condition</code>，这意味着锁的状态条件可以有多个。</p>
 </li>
-<li><p>支持公平的或非公平的队列操作。</p>
+<li>
+<p>支持公平的或非公平的队列操作。</p>
 </li>
-<li><p>支持可中断的条件等待，相关方法：<code>awaitUninterruptibly()</code>。</p>
+<li>
+<p>支持可中断的条件等待，相关方法：<code>awaitUninterruptibly()</code>。</p>
 </li>
-<li><p>支持可定时的等待，相关方法：<code>awaitNanos(long)</code> 、<code>await(long, TimeUnit)</code>、<code>awaitUntil(Date)</code>。</p>
+<li>
+<p>支持可定时的等待，相关方法：<code>awaitNanos(long)</code> 、<code>await(long, TimeUnit)</code>、<code>awaitUntil(Date)</code>。</p>
 </li>
 </ul>
-<h2 id="用法-2"><a href="#用法-2" class="headerlink" title="用法"></a>用法</h2><p>这里以 <code>Condition</code> 来实现一个消费者、生产者模式。</p>
+<h2 id="用法-3"><a class="markdownIt-Anchor" href="#用法-3"></a> 用法</h2>
+<p>这里以 <code>Condition</code> 来实现一个消费者、生产者模式。</p>
 <blockquote>
 <p>🔔 注意：事实上，解决此类问题使用 <code>CountDownLatch</code>、<code>Semaphore</code> 等工具更为便捷、安全。</p>
 </blockquote>
@@ -707,7 +814,6 @@
     &#125;
 
 &#125;</code></pre>
-
 <p>生产者：</p>
 <pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MessageProducer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span> </span>&#123;
 
@@ -742,7 +848,6 @@
     &#125;
 
 &#125;</code></pre>
-
 <p>消费者：</p>
 <pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MessageConsumer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span> </span>&#123;
 
@@ -758,7 +863,6 @@
     &#125;
 
 &#125;</code></pre>
-
 <p>测试：</p>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LockConditionDemo</span> </span>&#123;
 

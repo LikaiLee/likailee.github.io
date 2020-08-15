@@ -213,7 +213,8 @@
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/jump-game/" target="_blank" rel="noopener">55. 跳跃游戏</a></p>
-<p>(🙃一开始还用的回溯。。。)<br>关键在于：若能跳到第 <code>i</code> 个位置，则在这之前的所有位置都能到达，所以只要计算从第 <code>i</code> 个位置起跳能跳到的最远位置。</p>
+<p>(🙃一开始还用的回溯。。。)<br />
+关键在于：若能跳到第 <code>i</code> 个位置，则在这之前的所有位置都能到达，所以只要计算从第 <code>i</code> 个位置起跳能跳到的最远位置。</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canJump</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
         <span class="hljs-keyword">int</span> maxPos = <span class="hljs-number">0</span>;
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;

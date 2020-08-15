@@ -212,32 +212,44 @@
               </p>
             
             <article class="markdown-body">
-              <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><blockquote>
+              <h1 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h1>
+<blockquote>
 <p>线程池是一种多线程处理形式，处理过程中将任务添加到队列，然后在创建线程后自动启动这些任务。</p>
 </blockquote>
 <p>如果并发请求数量很多，但每个线程执行的时间很短，就会出现频繁的创建和销毁线程。如此一来，会大大降低系统的效率，可能频繁创建和销毁线程的时间、资源开销要大于实际工作的所需。</p>
 <p>正是由于这个问题，所以有必要引入线程池。使用 <strong>线程池的好处</strong> 有以下几点：</p>
 <ul>
-<li><p><strong>降低资源消耗</strong> - 通过重复利用已创建的线程降低线程创建和销毁造成的消耗。</p>
+<li>
+<p><strong>降低资源消耗</strong> - 通过重复利用已创建的线程降低线程创建和销毁造成的消耗。</p>
 </li>
-<li><p><strong>提高响应速度</strong> - 当任务到达时，任务可以不需要等到线程创建就能立即执行。</p>
+<li>
+<p><strong>提高响应速度</strong> - 当任务到达时，任务可以不需要等到线程创建就能立即执行。</p>
 </li>
-<li><p><strong>提高线程的可管理性</strong> - 线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。但是要做到合理的利用线程池，必须对其原理了如指掌。</p>
+<li>
+<p><strong>提高线程的可管理性</strong> - 线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。但是要做到合理的利用线程池，必须对其原理了如指掌。</p>
 </li>
 </ul>
-<h1 id="Executor-框架"><a href="#Executor-框架" class="headerlink" title="Executor 框架"></a><code>Executor</code> 框架</h1><h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h2><p><code>Executor</code> 框架是一个根据一组执行策略调用，调度，执行和控制的异步任务的框架，目的是提供一种将”任务提交”与”任务如何运行”分离开来的机制。</p>
+<h1 id="executor-框架"><a class="markdownIt-Anchor" href="#executor-框架"></a> <code>Executor</code> 框架</h1>
+<h2 id="简介-2"><a class="markdownIt-Anchor" href="#简介-2"></a> 简介</h2>
+<p><code>Executor</code> 框架是一个根据一组执行策略调用，调度，执行和控制的异步任务的框架，目的是提供一种将”任务提交”与”任务如何运行”分离开来的机制。</p>
 <p>还有关键的一点：有助于避免 <code>this</code> 逃逸问题。</p>
 <blockquote>
 <p><code>this</code> 逃逸是指在构造函数返回之前其他线程就持有该对象的引用. 调用尚未构造完全的对象的方法可能引发令人疑惑的错误。</p>
 </blockquote>
-<h2 id="框架结构"><a href="#框架结构" class="headerlink" title="框架结构"></a>框架结构</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727102933.png" srcset="/img/loading.gif" alt=""></p>
-<h3 id="1-任务-Runnable-Callable"><a href="#1-任务-Runnable-Callable" class="headerlink" title="1. 任务(Runnable / Callable)"></a>1. 任务(<code>Runnable</code> / <code>Callable</code>)</h3><p>执行任务需要实现的 <code>Runnable</code> 接口 或 <code>Callable</code> 接口。他们的实现类都可以被 <code>ThreadPoolExecutor</code> 或 <code>ScheduledThreadPoolExecutor</code> 执行。</p>
-<h3 id="2-任务的执行-Executor"><a href="#2-任务的执行-Executor" class="headerlink" title="2. 任务的执行(Executor)"></a>2. 任务的执行(<code>Executor</code>)</h3><p>任务执行机制的核心接口 <code>Executor</code> ，以及继承自 <code>Executor</code> 接口的 <code>ExecutorService</code> 接口。<br><code>ThreadPoolExecutor</code> 和 <code>ScheduledThreadPoolExecutor</code> 这两个关键类实现了 <code>ExecutorService</code> 接口。</p>
-<h4 id="2-1-Executor"><a href="#2-1-Executor" class="headerlink" title="2.1 Executor"></a>2.1 <code>Executor</code></h4><p><code>Executor</code> 接口中只定义了一个 <code>execute</code> 方法，用于接收一个 <code>Runnable</code> 对象。</p>
+<h2 id="框架结构"><a class="markdownIt-Anchor" href="#框架结构"></a> 框架结构</h2>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727102933.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="1-任务runnable-callable"><a class="markdownIt-Anchor" href="#1-任务runnable-callable"></a> 1. 任务(<code>Runnable</code> / <code>Callable</code>)</h3>
+<p>执行任务需要实现的 <code>Runnable</code> 接口 或 <code>Callable</code> 接口。他们的实现类都可以被 <code>ThreadPoolExecutor</code> 或 <code>ScheduledThreadPoolExecutor</code> 执行。</p>
+<h3 id="2-任务的执行executor"><a class="markdownIt-Anchor" href="#2-任务的执行executor"></a> 2. 任务的执行(<code>Executor</code>)</h3>
+<p>任务执行机制的核心接口 <code>Executor</code> ，以及继承自 <code>Executor</code> 接口的 <code>ExecutorService</code> 接口。<br />
+<code>ThreadPoolExecutor</code> 和 <code>ScheduledThreadPoolExecutor</code> 这两个关键类实现了 <code>ExecutorService</code> 接口。</p>
+<h4 id="21-executor"><a class="markdownIt-Anchor" href="#21-executor"></a> 2.1 <code>Executor</code></h4>
+<p><code>Executor</code> 接口中只定义了一个 <code>execute</code> 方法，用于接收一个 <code>Runnable</code> 对象。</p>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Executor</span> </span>&#123;
     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">execute</span><span class="hljs-params">(Runnable command)</span></span>;
 &#125;</code></pre>
-<h4 id="2-2-ExecutorService"><a href="#2-2-ExecutorService" class="headerlink" title="2.2 ExecutorService"></a>2.2 <code>ExecutorService</code></h4><p><code>ExecutorService</code> 接口继承了 <code>Executor</code> 接口，它还提供了 <code>invokeAll</code>、<code>invokeAny</code>、<code>shutdown</code>、<code>submit</code> 等方法。</p>
+<h4 id="22-executorservice"><a class="markdownIt-Anchor" href="#22-executorservice"></a> 2.2 <code>ExecutorService</code></h4>
+<p><code>ExecutorService</code> 接口继承了 <code>Executor</code> 接口，它还提供了 <code>invokeAll</code>、<code>invokeAny</code>、<code>shutdown</code>、<code>submit</code> 等方法。</p>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ExecutorService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Executor</span> </span>&#123;
 
     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">shutdown</span><span class="hljs-params">()</span></span>;
@@ -276,7 +288,8 @@
 <li>支持有返回值的线程 - <code>sumbit</code>、<code>invokeAll</code>、<code>invokeAny</code> 方法中都支持传入 <code>Callable</code> 对象。</li>
 <li>支持管理线程生命周期 - <code>shutdown</code>、<code>shutdownNow</code>、<code>isShutdown</code> 等方法。</li>
 </ul>
-<h4 id="2-3-ScheduledExecutorService"><a href="#2-3-ScheduledExecutorService" class="headerlink" title="2.3 ScheduledExecutorService"></a>2.3 <code>ScheduledExecutorService</code></h4><p><code>ScheduledExecutorService</code> 接口扩展了 <code>ExecutorService</code> 接口。</p>
+<h4 id="23-scheduledexecutorservice"><a class="markdownIt-Anchor" href="#23-scheduledexecutorservice"></a> 2.3 <code>ScheduledExecutorService</code></h4>
+<p><code>ScheduledExecutorService</code> 接口扩展了 <code>ExecutorService</code> 接口。</p>
 <p>它除了支持前面两个接口的所有能力以外，还支持定时调度线程。</p>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ScheduledExecutorService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ExecutorService</span> </span>&#123;
 
@@ -296,27 +309,37 @@
 &#125;</code></pre>
 <p>其扩展的接口提供以下能力：</p>
 <ul>
-<li><p><code>schedule</code> 方法可以在指定的延时后执行一个 <code>Runnable</code> 或者 <code>Callable</code> 任务。</p>
+<li>
+<p><code>schedule</code> 方法可以在指定的延时后执行一个 <code>Runnable</code> 或者 <code>Callable</code> 任务。</p>
 </li>
-<li><p><code>scheduleAtFixedRate</code> 方法和 <code>scheduleWithFixedDelay</code> 方法可以按照指定时间间隔，定期执行任务。</p>
+<li>
+<p><code>scheduleAtFixedRate</code> 方法和 <code>scheduleWithFixedDelay</code> 方法可以按照指定时间间隔，定期执行任务。</p>
 </li>
 </ul>
-<h3 id="3-异步计算的结果-Future"><a href="#3-异步计算的结果-Future" class="headerlink" title="3. 异步计算的结果(Future)"></a>3. 异步计算的结果(<code>Future</code>)</h3><blockquote>
+<h3 id="3-异步计算的结果future"><a class="markdownIt-Anchor" href="#3-异步计算的结果future"></a> 3. 异步计算的结果(<code>Future</code>)</h3>
+<blockquote>
 <p><code>Future</code> 接口以及 <code>Future</code> 接口的实现类 <code>FutureTask</code> 类都可以代表异步计算的结果。</p>
 </blockquote>
 <p>当我们把 <code>Runnable</code> 接口或 <code>Callable</code> 接口的实现类提交给 <code>ThreadPoolExecutor</code> 或 <code>ScheduledThreadPoolExecutor</code> 执行，调用 <code>submit()</code> 方法时会返回一个 <code>FutureTask</code> 对象，可通过 <code>FutureTask.get()</code> 捕获抛出的异常。</p>
-<h2 id="Executor-框架的使用示意图"><a href="#Executor-框架的使用示意图" class="headerlink" title="Executor 框架的使用示意图"></a><code>Executor</code> 框架的使用示意图</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727105429.png" srcset="/img/loading.gif" alt=""></p>
+<h2 id="executor-框架的使用示意图"><a class="markdownIt-Anchor" href="#executor-框架的使用示意图"></a> <code>Executor</code> 框架的使用示意图</h2>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727105429.png" srcset="/img/loading.gif" alt="" /></p>
 <ul>
-<li><p>主线程首先要创建实现 <code>Runnable</code> 或者 <code>Callable</code> 接口的任务对象。</p>
+<li>
+<p>主线程首先要创建实现 <code>Runnable</code> 或者 <code>Callable</code> 接口的任务对象。</p>
 </li>
-<li><p>把创建完成的实现 <code>Runnable</code> / <code>Callable</code> 接口的对象提交给 <code>ExecutorService</code> 执行（<code>ExecutorService.submit(Runnable task)</code>或 <code>ExecutorService.submit(Callable &lt;T&gt; task)</code>）。</p>
+<li>
+<p>把创建完成的实现 <code>Runnable</code> / <code>Callable</code> 接口的对象提交给 <code>ExecutorService</code> 执行（<code>ExecutorService.submit(Runnable task)</code>或 <code>ExecutorService.submit(Callable &lt;T&gt; task)</code>）。</p>
 </li>
-<li><p>如果执行 <code>ExecutorService.submit(...)</code>，<code>ExecutorService</code> 将返回一个实现 <code>Future</code> 接口的对象。由于 <code>FutureTask</code> 实现了 <code>Runnable</code>，我们也可以创建 <code>FutureTask</code>，然后直接交给 <code>ExecutorService</code> 执行。</p>
+<li>
+<p>如果执行 <code>ExecutorService.submit(...)</code>，<code>ExecutorService</code> 将返回一个实现 <code>Future</code> 接口的对象。由于 <code>FutureTask</code> 实现了 <code>Runnable</code>，我们也可以创建 <code>FutureTask</code>，然后直接交给 <code>ExecutorService</code> 执行。</p>
 </li>
-<li><p>最后，主线程可以执行 <code>FutureTask.get()</code> 方法来等待任务执行完成。主线程也可以执行 <code>FutureTask.cancel(boolean mayInterruptIfRunning)</code>来取消此任务的执行。</p>
+<li>
+<p>最后，主线程可以执行 <code>FutureTask.get()</code> 方法来等待任务执行完成。主线程也可以执行 <code>FutureTask.cancel(boolean mayInterruptIfRunning)</code>来取消此任务的执行。</p>
 </li>
 </ul>
-<h1 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a><code>ThreadPoolExecutor</code></h1><h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<h1 id="threadpoolexecutor"><a class="markdownIt-Anchor" href="#threadpoolexecutor"></a> <code>ThreadPoolExecutor</code></h1>
+<h2 id="使用示例"><a class="markdownIt-Anchor" href="#使用示例"></a> 使用示例</h2>
+<pre><code class="hljs java"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * <span class="hljs-doctag">@author</span> likailee.llk</span>
 <span class="hljs-comment"> * <span class="hljs-doctag">@version</span> : ThreadPoolTest.java 2020/07/27 Mon 3:29 PM likai</span>
 <span class="hljs-comment"> */</span>
@@ -391,8 +414,8 @@
                 <span class="hljs-string">'&#125;'</span>;
     &#125;
 &#125;</code></pre>
-
-<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><p><code>ThreadPoolExecutor</code> 有四个构造方法，前三个都是基于第四个实现。第四个构造方法定义如下：</p>
+<h2 id="构造方法"><a class="markdownIt-Anchor" href="#构造方法"></a> 构造方法</h2>
+<p><code>ThreadPoolExecutor</code> 有四个构造方法，前三个都是基于第四个实现。第四个构造方法定义如下：</p>
 <pre><code class="hljs java"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * 用给定的初始参数创建一个新的ThreadPoolExecutor。</span>
 <span class="hljs-comment"> */</span>
@@ -418,10 +441,11 @@
     <span class="hljs-keyword">this</span>.threadFactory = threadFactory;
     <span class="hljs-keyword">this</span>.handler = handler;
 &#125;</code></pre>
-<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727145107.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727145107.png" srcset="/img/loading.gif" alt="" /></p>
 <p>参数说明：</p>
 <ol>
-<li><p><code>corePoolSize</code> - <strong>核心线程数量</strong>。当有新任务通过 <code>execute</code> 方法提交时 ，线程池会执行以下判断：</p>
+<li>
+<p><code>corePoolSize</code> - <strong>核心线程数量</strong>。当有新任务通过 <code>execute</code> 方法提交时 ，线程池会执行以下判断：</p>
 <ul>
 <li>如果运行的线程数少于 <code>corePoolSize</code>，则创建新线程来处理任务，即使线程池中的其他线程是空闲的。</li>
 <li>如果线程池中的线程数量大于等于 <code>corePoolSize</code> 且小于 <code>maximumPoolSize</code>，则只有当 <code>workQueue</code> 满时才创建新的线程去处理任务，否则将任务存储在队列里；</li>
@@ -430,29 +454,36 @@
 <li>所以，任务提交时，判断的顺序为 <code>corePoolSize</code> =&gt; <code>workQueue</code> =&gt; <code>maximumPoolSize</code>。</li>
 </ul>
 </li>
-<li><p><code>maximumPoolSize</code> - <strong>最大线程数量</strong>。</p>
+<li>
+<p><code>maximumPoolSize</code> - <strong>最大线程数量</strong>。</p>
 <ul>
 <li>如果队列满了，并且已创建的线程数小于最大线程数，则线程池会再创建新的线程执行任务。</li>
 <li>值得注意的是：如果使用了无界的任务队列这个参数就没什么效果。</li>
 </ul>
 </li>
-<li><p><code>keepAliveTime</code> - <strong>线程保持活动的时间</strong>。</p>
+<li>
+<p><code>keepAliveTime</code> - <strong>线程保持活动的时间</strong>。</p>
 <ul>
 <li>当线程池中的线程数量大于 <code>corePoolSize</code> 的时候，如果这时没有新的任务提交，核心线程外的线程不会立即销毁，而是会等待，直到等待的时间超过了 <code>keepAliveTime</code>。</li>
 <li>所以，如果任务很多，并且每个任务执行的时间比较短，可以调大这个时间，提高线程的利用率。</li>
 </ul>
 </li>
-<li><p><code>unit</code> - <strong><code>keepAliveTime</code> 的时间单位</strong>。<br>有 7 种取值。可选的单位有天（<code>DAYS</code>），小时（<code>HOURS</code>），分钟（<code>MINUTES</code>），毫秒(<code>MILLISECONDS</code>)，微秒(<code>MICROSECONDS</code>, 千分之一毫秒)和毫微秒(<code>NANOSECONDS</code>, 千分之一微秒)。</p>
+<li>
+<p><code>unit</code> - <strong><code>keepAliveTime</code> 的时间单位</strong>。<br />
+有 7 种取值。可选的单位有天（<code>DAYS</code>），小时（<code>HOURS</code>），分钟（<code>MINUTES</code>），毫秒(<code>MILLISECONDS</code>)，微秒(<code>MICROSECONDS</code>, 千分之一毫秒)和毫微秒(<code>NANOSECONDS</code>, 千分之一微秒)。</p>
 </li>
-<li><p><code>workQueue</code> - <strong>等待执行的任务队列</strong>。用于保存等待执行的任务的阻塞队列。 可以选择以下几个阻塞队列。</p>
+<li>
+<p><code>workQueue</code> - <strong>等待执行的任务队列</strong>。用于保存等待执行的任务的阻塞队列。 可以选择以下几个阻塞队列。</p>
 <ul>
-<li><p><code>ArrayBlockingQueue</code> - <strong>有界阻塞队列</strong>。</p>
+<li>
+<p><code>ArrayBlockingQueue</code> - <strong>有界阻塞队列</strong>。</p>
 <ul>
 <li>此队列是基于<strong>数组</strong>的先进先出队列（<code>FIFO</code>）。</li>
 <li>创建时必须指定大小。</li>
 </ul>
 </li>
-<li><p><code>LinkedBlockingQueue</code> - <strong>无界阻塞队列</strong>。</p>
+<li>
+<p><code>LinkedBlockingQueue</code> - <strong>无界阻塞队列</strong>。</p>
 <ul>
 <li>此队列是基于<strong>链表</strong>的先进先出队列（<code>FIFO</code>）。</li>
 <li>如果创建时没有指定此队列大小，则默认为 <code>Integer.MAX_VALUE</code>。</li>
@@ -461,7 +492,8 @@
 <li><code>Executors.newFixedThreadPool</code> 使用了这个队列。</li>
 </ul>
 </li>
-<li><p><code>SynchronousQueue</code> - <strong>不会保存提交的任务，而是将直接新建一个线程来执行新来的任务。</strong></p>
+<li>
+<p><code>SynchronousQueue</code> - <strong>不会保存提交的任务，而是将直接新建一个线程来执行新来的任务。</strong></p>
 <ul>
 <li>每个插入操作必须等到另一个线程调用移除操作，否则插入操作一直处于阻塞状态。</li>
 <li>吞吐量通常要高于 <code>LinkedBlockingQueue</code>。</li>
@@ -470,27 +502,37 @@
 </li>
 </ul>
 </li>
-<li><p><code>threadFactory</code> - <strong>线程工厂</strong>。可以通过线程工厂给每个创建出来的线程设置更有意义的名字。</p>
+<li>
+<p><code>threadFactory</code> - <strong>线程工厂</strong>。可以通过线程工厂给每个创建出来的线程设置更有意义的名字。</p>
 </li>
-<li><p><code>handler</code> - <strong>饱和策略</strong>。它是 <code>RejectedExecutionHandler</code> 类型的变量。当队列和线程池都满了，说明线程池处于饱和状态，那么必须采取一种策略处理提交的新任务。线程池支持以下策略：</p>
+<li>
+<p><code>handler</code> - <strong>饱和策略</strong>。它是 <code>RejectedExecutionHandler</code> 类型的变量。当队列和线程池都满了，说明线程池处于饱和状态，那么必须采取一种策略处理提交的新任务。线程池支持以下策略：</p>
 <ul>
-<li><p><code>AbortPolicy</code> - 抛出  <code>RejectedExecutionException</code> 来拒绝新任务的处理。这也是默认策略。</p>
+<li>
+<p><code>AbortPolicy</code> - 抛出  <code>RejectedExecutionException</code> 来拒绝新任务的处理。这也是默认策略。</p>
 </li>
-<li><p><code>DiscardPolicy</code> - 丢弃任务，但不抛出异常。</p>
+<li>
+<p><code>DiscardPolicy</code> - 丢弃任务，但不抛出异常。</p>
 </li>
-<li><p><code>DiscardOldestPolicy</code> - 丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）。</p>
+<li>
+<p><code>DiscardOldestPolicy</code> - 丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）。</p>
 </li>
-<li><p><code>CallerRunsPolicy</code> - 只用调用者所在的线程来运行任务。</p>
+<li>
+<p><code>CallerRunsPolicy</code> - 只用调用者所在的线程来运行任务。</p>
 </li>
-<li><p>如果以上策略都不能满足需要，也可以通过实现           <code>RejectedExecutionHandler</code> 接口来定制处理策略。如记录日志或持久化不能处理的任务。</p>
+<li>
+<p>如果以上策略都不能满足需要，也可以通过实现           <code>RejectedExecutionHandler</code> 接口来定制处理策略。如记录日志或持久化不能处理的任务。</p>
 </li>
 </ul>
 </li>
 </ol>
-<p>工作流程如下图：<br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727145919.png" srcset="/img/loading.gif" alt=""></p>
-<h2 id="execute-方法"><a href="#execute-方法" class="headerlink" title="execute 方法"></a><code>execute</code> 方法</h2><p>默认情况下，创建线程池之后，线程池中是没有线程的，需要提交任务之后才会创建线程。</p>
+<p>工作流程如下图：<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727145919.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="execute-方法"><a class="markdownIt-Anchor" href="#execute-方法"></a> <code>execute</code> 方法</h2>
+<p>默认情况下，创建线程池之后，线程池中是没有线程的，需要提交任务之后才会创建线程。</p>
 <p>提交任务可以使用 <code>execute</code> 方法，它是 <code>ThreadPoolExecutor</code> 的核心方法，通过这个方法可以向线程池提交一个任务，交由线程池去执行。</p>
-<p><code>execute</code> 方法工作流程如下：<br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727162758.png" srcset="/img/loading.gif" alt=""></p>
+<p><code>execute</code> 方法工作流程如下：<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727162758.png" srcset="/img/loading.gif" alt="" /></p>
 <pre><code class="hljs java"><span class="hljs-comment">// 存放线程池的运行状态 (runState) 和线程池内有效线程的数量 (workerCount)</span>
 <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> AtomicInteger ctl = <span class="hljs-keyword">new</span> AtomicInteger(ctlOf(RUNNING, <span class="hljs-number">0</span>));
 
@@ -535,55 +577,71 @@
          <span class="hljs-comment">// 调用拒绝策略处理任务 - 返回</span>
          reject(command);
  &#125;</code></pre>
-
 <p>关于二次检查线程池运行状态：</p>
 <blockquote>
 <p>如果一个任务成功加入任务队列，我们依然需要二次检查是否需要添加一个工作线程（因为所有存活的工作线程有可能在最后一次检查之后已经终结）或者执行当前方法的时候线程池是否已经终结了。所以我们需要二次检查线程池的状态，必须时把任务从任务队列中移除或者在没有可用的工作线程的前提下新建一个工作线程。</p>
 </blockquote>
-<h2 id="其他重要方法"><a href="#其他重要方法" class="headerlink" title="其他重要方法"></a>其他重要方法</h2><ul>
+<h2 id="其他重要方法"><a class="markdownIt-Anchor" href="#其他重要方法"></a> 其他重要方法</h2>
+<ul>
 <li><code>submit</code> 类似于 <code>execute</code>，但是针对的是有返回值的线程。<code>submit</code> 方法是在 <code>ExecutorService</code> 中声明的方法，在 <code>AbstractExecutorService</code> 就已经有了具体的实现。<code>ThreadPoolExecutor</code> 直接复用 <code>AbstractExecutorService</code> 的 <code>submit</code> 方法。</li>
 <li><code>shutdown</code> - 不会立即终止线程池，而是要等所有任务缓存队列中的任务都执行完后才终止，但再也不会接受新的任务。</li>
 <li><code>shutdownNow</code> - 立即终止线程池，并尝试打断正在执行的任务，并且清空任务缓存队列，返回尚未执行的任务。</li>
 <li><code>isShutdown</code> - 调用了 <code>shutdown</code> 或 <code>shutdownNow</code> 方法后，<code>isShutdown</code> 方法就会返回 <code>true</code>。</li>
 <li><code>isTerminaed</code> - 当所有的任务都已关闭后，才表示线程池关闭成功，这时调用 <code>isTerminaed</code> 方法会返回 <code>true</code>。</li>
 </ul>
-<h1 id="ScheduledThreadPoolExecutor"><a href="#ScheduledThreadPoolExecutor" class="headerlink" title="ScheduledThreadPoolExecutor"></a><code>ScheduledThreadPoolExecutor</code></h1><p><code>ScheduledThreadPoolExecutor</code> 主要用来在给定的延迟后运行任务，或者定期执行任务。 这个在实际项目中基本不会被用到，因为有其他方案选择比如 <code>quartz</code>。</p>
-<h2 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h2><p><code>ScheduledThreadPoolExecutor</code> 使用的任务队列 <code>DelayQueue</code> 封装了一个 <code>PriorityQueue</code>，<code>PriorityQueue</code> 会对队列中的任务进行排序，执行所需时间短的放在前面先被执行(<code>ScheduledFutureTask</code> 的 <code>time</code> 变量小的先执行)，如果执行所需时间相同则先提交的任务将被先执行(<code>ScheduledFutureTask</code> 的 <code>squenceNumber</code> 变量小的先执行)。</p>
-<h2 id="运行机制"><a href="#运行机制" class="headerlink" title="运行机制"></a>运行机制</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727200044.png" srcset="/img/loading.gif" alt=""></p>
+<h1 id="scheduledthreadpoolexecutor"><a class="markdownIt-Anchor" href="#scheduledthreadpoolexecutor"></a> <code>ScheduledThreadPoolExecutor</code></h1>
+<p><code>ScheduledThreadPoolExecutor</code> 主要用来在给定的延迟后运行任务，或者定期执行任务。 这个在实际项目中基本不会被用到，因为有其他方案选择比如 <code>quartz</code>。</p>
+<h2 id="简介-3"><a class="markdownIt-Anchor" href="#简介-3"></a> 简介</h2>
+<p><code>ScheduledThreadPoolExecutor</code> 使用的任务队列 <code>DelayQueue</code> 封装了一个 <code>PriorityQueue</code>，<code>PriorityQueue</code> 会对队列中的任务进行排序，执行所需时间短的放在前面先被执行(<code>ScheduledFutureTask</code> 的 <code>time</code> 变量小的先执行)，如果执行所需时间相同则先提交的任务将被先执行(<code>ScheduledFutureTask</code> 的 <code>squenceNumber</code> 变量小的先执行)。</p>
+<h2 id="运行机制"><a class="markdownIt-Anchor" href="#运行机制"></a> 运行机制</h2>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727200044.png" srcset="/img/loading.gif" alt="" /></p>
 <p><code>ScheduledThreadPoolExecutor</code> 的执行主要分为两大部分：</p>
 <ul>
-<li><p>当调用 <code>ScheduledThreadPoolExecutor</code> 的 <code>scheduleAtFixedRate()</code> 方法或者 <code>scheduleWirhFixedDelay()</code> 方法时，会向 <code>ScheduledThreadPoolExecutor</code> 的 <code>DelayQueue</code> 添加一个实现了 <code>RunnableScheduledFuture</code> 接口的 <code>ScheduledFutureTask</code> 。</p>
+<li>
+<p>当调用 <code>ScheduledThreadPoolExecutor</code> 的 <code>scheduleAtFixedRate()</code> 方法或者 <code>scheduleWirhFixedDelay()</code> 方法时，会向 <code>ScheduledThreadPoolExecutor</code> 的 <code>DelayQueue</code> 添加一个实现了 <code>RunnableScheduledFuture</code> 接口的 <code>ScheduledFutureTask</code> 。</p>
 </li>
-<li><p>线程池中的线程从 <code>DelayQueue</code> 中获取 <code>ScheduledFutureTask</code>，然后执行任务。</p>
+<li>
+<p>线程池中的线程从 <code>DelayQueue</code> 中获取 <code>ScheduledFutureTask</code>，然后执行任务。</p>
 </li>
 </ul>
 <p><code>ScheduledThreadPoolExecutor</code> 为了实现周期性的执行任务，对 <code>ThreadPoolExecutor</code> 做了如下修改：</p>
 <ul>
-<li><p>使用 <code>DelayQueue</code> 作为任务队列；</p>
+<li>
+<p>使用 <code>DelayQueue</code> 作为任务队列；</p>
 </li>
-<li><p>获取任务的方不同</p>
+<li>
+<p>获取任务的方不同</p>
 </li>
-<li><p>执行周期任务后，增加了额外的处理</p>
+<li>
+<p>执行周期任务后，增加了额外的处理</p>
 </li>
 </ul>
-<h2 id="执行周期任务的步骤"><a href="#执行周期任务的步骤" class="headerlink" title="执行周期任务的步骤"></a>执行周期任务的步骤</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727200325.png" srcset="/img/loading.gif" alt=""></p>
+<h2 id="执行周期任务的步骤"><a class="markdownIt-Anchor" href="#执行周期任务的步骤"></a> 执行周期任务的步骤</h2>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727200325.png" srcset="/img/loading.gif" alt="" /></p>
 <ul>
-<li><p>线程 1 从 <code>DelayQueue</code> 中获取已到期的 <code>ScheduledFutureTask</code>（<code>DelayQueue.take()</code>）。到期任务是指 <code>ScheduledFutureTask</code> 的 <code>time</code> 大于等于当前系统的时间；</p>
+<li>
+<p>线程 1 从 <code>DelayQueue</code> 中获取已到期的 <code>ScheduledFutureTask</code>（<code>DelayQueue.take()</code>）。到期任务是指 <code>ScheduledFutureTask</code> 的 <code>time</code> 大于等于当前系统的时间；</p>
 </li>
-<li><p>线程 1 执行这个 <code>ScheduledFutureTask</code>；</p>
+<li>
+<p>线程 1 执行这个 <code>ScheduledFutureTask</code>；</p>
 </li>
-<li><p>线程 1 修改 <code>ScheduledFutureTask</code> 的 <code>time</code> 变量为下次将要被执行的时间；</p>
+<li>
+<p>线程 1 修改 <code>ScheduledFutureTask</code> 的 <code>time</code> 变量为下次将要被执行的时间；</p>
 </li>
-<li><p>线程 1 把这个修改 <code>time</code> 之后的 <code>ScheduledFutureTask</code> 放回 <code>DelayQueue</code> 中 (<code>DelayQueue.add()</code>)。</p>
+<li>
+<p>线程 1 把这个修改 <code>time</code> 之后的 <code>ScheduledFutureTask</code> 放回 <code>DelayQueue</code> 中 (<code>DelayQueue.add()</code>)。</p>
 </li>
 </ul>
-<h1 id="常见线程池"><a href="#常见线程池" class="headerlink" title="常见线程池"></a>常见线程池</h1><p><code>JDK</code> 的 <code>Executors</code> 类中提供了几种具有代表性的线程池，这些线程池 都是基于 <code>ThreadPoolExecutor</code> 的定制化实现。</p>
+<h1 id="常见线程池"><a class="markdownIt-Anchor" href="#常见线程池"></a> 常见线程池</h1>
+<p><code>JDK</code> 的 <code>Executors</code> 类中提供了几种具有代表性的线程池，这些线程池 都是基于 <code>ThreadPoolExecutor</code> 的定制化实现。</p>
 <blockquote>
 <p>《阿里巴巴 Java 开发手册》中强制线程池不允许使用 <code>Executors</code> 去创建，而是通过 <code>ThreadPoolExecutor</code> 构造函数的方式，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。</p>
 </blockquote>
-<h2 id="创建线程池方式"><a href="#创建线程池方式" class="headerlink" title="创建线程池方式"></a>创建线程池方式</h2><ol>
+<h2 id="创建线程池方式"><a class="markdownIt-Anchor" href="#创建线程池方式"></a> 创建线程池方式</h2>
+<ol>
 <li>通过 <code>ThreadPoolExecutor</code> 构造函数实现（推荐）</li>
-<li>通过 <code>Executor</code> 框架的工具类 <code>Executors</code> 来实现 我们可以创建三种类型的 <code>ThreadPoolExecutor</code><ul>
+<li>通过 <code>Executor</code> 框架的工具类 <code>Executors</code> 来实现 我们可以创建三种类型的 <code>ThreadPoolExecutor</code>
+<ul>
 <li><code>FixedThreadPool</code></li>
 <li><code>SingleThreadExecutor</code></li>
 <li><code>CachedThreadPool</code></li>
@@ -595,7 +653,8 @@
 <li><code>FixedThreadPool</code> 和 <code>SingleThreadExecutor</code> ： 允许请求的队列长度为 <code>Integer.MAX_VALUE</code>,可能堆积大量的请求，从而导致 <code>OOM</code>。</li>
 <li><code>CachedThreadPool</code> 和 <code>ScheduledThreadPool</code> ： 允许创建的线程数量为 <code>Integer.MAX_VALUE</code> ，可能会创建大量线程，从而导致 <code>OOM</code>。</li>
 </ul>
-<h2 id="FixedThreadPool"><a href="#FixedThreadPool" class="headerlink" title="FixedThreadPool"></a><code>FixedThreadPool</code></h2><p>创建一个<strong>固定大小</strong>的线程池。</p>
+<h2 id="fixedthreadpool"><a class="markdownIt-Anchor" href="#fixedthreadpool"></a> <code>FixedThreadPool</code></h2>
+<p>创建一个<strong>固定大小</strong>的线程池。</p>
 <p>每次提交一个任务就会新创建一个工作线程，如果工作线程数量达到线程池最大线程数，则将提交的任务存入到阻塞队列中。</p>
 <p><code>FixedThreadPool</code> 是一个典型且优秀的线程池，它具有线程池<strong>提高程序效率</strong>和<strong>节省创建线程时所耗的开销</strong>的优点。但是，在线程池空闲时，即线程池中没有可运行任务时，它不会释放工作线程，还会占用一定的系统资源。</p>
 <pre><code class="hljs java"> <span class="hljs-comment">/**</span>
@@ -609,14 +668,17 @@
         <span class="hljs-keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;(),
         threadFactory);
     &#125;</code></pre>
-<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727191728.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727191728.png" srcset="/img/loading.gif" alt="" /></p>
 <p>上图说明：</p>
 <ul>
-<li><p>如果当前运行的线程数小于 <code>corePoolSize</code>， 如果再来新任务的话，就创建新的线程来执行任务；</p>
+<li>
+<p>如果当前运行的线程数小于 <code>corePoolSize</code>， 如果再来新任务的话，就创建新的线程来执行任务；</p>
 </li>
-<li><p>当前运行的线程数等于 <code>corePoolSize</code> 后， 如果再来新任务的话，会将任务加入 <code>LinkedBlockingQueue</code>；</p>
+<li>
+<p>当前运行的线程数等于 <code>corePoolSize</code> 后， 如果再来新任务的话，会将任务加入 <code>LinkedBlockingQueue</code>；</p>
 </li>
-<li><p>线程池中的线程执行完 手头的任务后，会在循环中反复从 <code>LinkedBlockingQueue</code> 中获取任务来执行；</p>
+<li>
+<p>线程池中的线程执行完 手头的任务后，会在循环中反复从 <code>LinkedBlockingQueue</code> 中获取任务来执行；</p>
 </li>
 </ul>
 <p><code>FixedThreadPool</code> 使用无界队列 <code>LinkedBlockingQueue</code>（队列的容量为 <code>Intger.MAX_VALUE</code>）作为线程池的工作队列会对线程池带来如下影响 ：</p>
@@ -626,7 +688,8 @@
 <li>使用无界队列时 <code>keepAliveTime</code> 将是一个无效参数</li>
 <li>运行中的 <code>FixedThreadPool</code>（未执行 <code>shutdown()</code> 或 <code>shutdownNow()</code>）不会拒绝任务，在任务比较多的时候会导致 <code>OOM</code></li>
 </ul>
-<h2 id="SingleThreadExecutor"><a href="#SingleThreadExecutor" class="headerlink" title="SingleThreadExecutor"></a><code>SingleThreadExecutor</code></h2><p>创建一个<strong>单线程</strong>的线程池。</p>
+<h2 id="singlethreadexecutor"><a class="markdownIt-Anchor" href="#singlethreadexecutor"></a> <code>SingleThreadExecutor</code></h2>
+<p>创建一个<strong>单线程</strong>的线程池。</p>
 <p>只会创建唯一的工作线程来执行任务，保证所有任务按照指定顺序(<code>FIFO</code>, <code>LIFO</code>, 优先级)执行。 如果这个唯一的线程因为异常结束，那么会有一个新的线程来替代它 。</p>
 <p>单工作线程最大的特点是：<strong>可保证顺序地执行各个任务</strong>。</p>
 <pre><code class="hljs java">  <span class="hljs-comment">/**</span>
@@ -639,24 +702,31 @@
                                     <span class="hljs-keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;(),
                                     threadFactory));
     &#125;</code></pre>
-<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727192058.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727192058.png" srcset="/img/loading.gif" alt="" /></p>
 <p>上图说明：</p>
 <ul>
-<li><p>如果当前运行的线程数少于 <code>corePoolSize</code>，则创建一个新的线程执行任务；</p>
+<li>
+<p>如果当前运行的线程数少于 <code>corePoolSize</code>，则创建一个新的线程执行任务；</p>
 </li>
-<li><p>当前线程池中有一个运行的线程后，将任务加入 <code>LinkedBlockingQueue</code></p>
+<li>
+<p>当前线程池中有一个运行的线程后，将任务加入 <code>LinkedBlockingQueue</code></p>
 </li>
-<li><p>线程执行完当前的任务后，会在循环中反复从 <code>LinkedBlockingQueue</code> 中获取任务来执行；</p>
+<li>
+<p>线程执行完当前的任务后，会在循环中反复从 <code>LinkedBlockingQueue</code> 中获取任务来执行；</p>
 </li>
 </ul>
 <p>影响： <code>SingleThreadExecutor</code> 使用无界队列 <code>LinkedBlockingQueue</code> 作为线程池的工作队列（队列的容量为 <code>Intger.MAX_VALUE</code>）。<code>SingleThreadExecutor</code> 使用无界队列作为线程池的工作队列会对线程池带来的影响与 <code>FixedThreadPool</code> 相同，也可能导致 <code>OOM</code>。</p>
-<h2 id="CachedThreadPool"><a href="#CachedThreadPool" class="headerlink" title="CachedThreadPool"></a><code>CachedThreadPool</code></h2><p>创建一个<strong>可缓存</strong>的线程池。</p>
+<h2 id="cachedthreadpool"><a class="markdownIt-Anchor" href="#cachedthreadpool"></a> <code>CachedThreadPool</code></h2>
+<p>创建一个<strong>可缓存</strong>的线程池。</p>
 <ul>
-<li><p>如果线程池大小超过处理任务所需要的线程数，就会回收部分空闲的线程；</p>
+<li>
+<p>如果线程池大小超过处理任务所需要的线程数，就会回收部分空闲的线程；</p>
 </li>
-<li><p>如果长时间没有往线程池中提交任务，即如果工作线程空闲了指定的时间（默认为 1 分钟），则该工作线程将自动终止。终止后，如果你又提交了新的任务，则线程池重新创建一个工作线程。</p>
+<li>
+<p>如果长时间没有往线程池中提交任务，即如果工作线程空闲了指定的时间（默认为 1 分钟），则该工作线程将自动终止。终止后，如果你又提交了新的任务，则线程池重新创建一个工作线程。</p>
 </li>
-<li><p>此线程池不会对线程池大小做限制，线程池大小完全依赖于操作系统（或者说 <code>JVM</code>）能够创建的最大线程大小。因此，使用 <code>CachedThreadPool</code> 时，一定要注意<strong>控制任务的数量</strong>，否则，由于大量线程同时运行，很有会造成系统瘫痪。</p>
+<li>
+<p>此线程池不会对线程池大小做限制，线程池大小完全依赖于操作系统（或者说 <code>JVM</code>）能够创建的最大线程大小。因此，使用 <code>CachedThreadPool</code> 时，一定要注意<strong>控制任务的数量</strong>，否则，由于大量线程同时运行，很有会造成系统瘫痪。</p>
 </li>
 </ul>
 <pre><code class="hljs java"><span class="hljs-comment">/**</span>
@@ -668,17 +738,19 @@
                                       <span class="hljs-keyword">new</span> SynchronousQueue&lt;Runnable&gt;(),
                                       threadFactory);
     &#125;</code></pre>
-
-<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727192747.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200727192747.png" srcset="/img/loading.gif" alt="" /></p>
 <p>上图说明：</p>
 <ul>
-<li><p>首先执行 <code>SynchronousQueue.offer(Runnable task)</code> 提交任务到任务队列。如果当前 <code>maximumPool</code> 中有闲线程正在执行 <code>SynchronousQueue.poll(keepAliveTime,TimeUnit.NANOSECONDS)</code>，那么主线程执行 <code>offer</code> 操作与空闲线程执行的 <code>poll</code> 操作配对成功，主线程把任务交给空闲线程执行，<code>execute()</code> 方法执行完成，否则执行下面的步骤 2；</p>
+<li>
+<p>首先执行 <code>SynchronousQueue.offer(Runnable task)</code> 提交任务到任务队列。如果当前 <code>maximumPool</code> 中有闲线程正在执行 <code>SynchronousQueue.poll(keepAliveTime,TimeUnit.NANOSECONDS)</code>，那么主线程执行 <code>offer</code> 操作与空闲线程执行的 <code>poll</code> 操作配对成功，主线程把任务交给空闲线程执行，<code>execute()</code> 方法执行完成，否则执行下面的步骤 2；</p>
 </li>
-<li><p>当初始 <code>maximumPool</code> 为空，或者 <code>maximumPool</code> 中没有空闲线程时，将没有线程执行 <code>SynchronousQueue.poll(keepAliveTime,TimeUnit.NANOSECONDS)</code>。这种情况下，步骤 1 将失败，此时 <code>CachedThreadPool</code> 会创建新线程执行任务，<code>execute</code> 方法执行完成；</p>
+<li>
+<p>当初始 <code>maximumPool</code> 为空，或者 <code>maximumPool</code> 中没有空闲线程时，将没有线程执行 <code>SynchronousQueue.poll(keepAliveTime,TimeUnit.NANOSECONDS)</code>。这种情况下，步骤 1 将失败，此时 <code>CachedThreadPool</code> 会创建新线程执行任务，<code>execute</code> 方法执行完成；</p>
 </li>
 </ul>
 <p>影响：<code>CachedThreadPool</code> 允许创建的线程数量为 <code>Integer.MAX_VALUE</code>，可能会创建大量线程，从而导致 <code>OOM</code>。</p>
-<h1 id="线程池大小确定"><a href="#线程池大小确定" class="headerlink" title="线程池大小确定"></a>线程池大小确定</h1><blockquote>
+<h1 id="线程池大小确定"><a class="markdownIt-Anchor" href="#线程池大小确定"></a> 线程池大小确定</h1>
+<blockquote>
 <p>上下文切换：</p>
 <p>多线程编程中一般线程的个数都大于 <code>CPU</code> 核心的个数，而一个 <code>CPU</code> 核心在任意时刻只能被一个线程使用，为了让这些线程都能得到有效执行，<code>CPU</code> 采取的策略是为每个线程分配时间片并轮转的形式。当一个线程的时间片用完的时候就会重新处于就绪状态让给其他线程使用，这个过程就属于一次上下文切换。概括来说就是：当前任务在执行完 <code>CPU</code> 时间片切换到另一个任务之前会先保存自己的状态，以便下次再切换回这个任务时，可以再加载这个任务的状态。任务从保存到再加载的过程就是一次上下文切换。</p>
 <p>上下文切换通常是<strong>计算密集型</strong>的。也就是说，它需要相当可观的处理器时间，在每秒几十上百次的切换中，每次切换都需要纳秒量级的时间。所以，上下文切换对系统来说意味着消耗大量的 <code>CPU</code> 时间，事实上，可能是操作系统中时间消耗最大的操作。</p>
@@ -688,9 +760,11 @@
 <p>但是，如果我们设置线程数量太大，大量线程可能会同时在争取 <code>CPU</code> 资源，这样会导致大量的上下文切换，从而增加线程的执行时间，影响了整体执行效率。</p>
 <p>有一个简单并且适用面比较广的公式：</p>
 <ul>
-<li><p><code>CPU</code> 密集型任务(<code>N + 1</code>)：这种任务消耗的主要是 <code>CPU</code> 资源，可以将线程数设置为 <code>N（CPU 核心数）+ 1</code>，比 <code>CPU</code> 核心数多出来的一个线程是为了防止线程偶发的缺页中断，或者其它原因导致的任务暂停而带来的影响。一旦任务暂停，<code>CPU</code> 就会处于空闲状态，而在这种情况下多出来的一个线程就可以充分利用 <code>CPU</code> 的空闲时间。</p>
+<li>
+<p><code>CPU</code> 密集型任务(<code>N + 1</code>)：这种任务消耗的主要是 <code>CPU</code> 资源，可以将线程数设置为 <code>N（CPU 核心数）+ 1</code>，比 <code>CPU</code> 核心数多出来的一个线程是为了防止线程偶发的缺页中断，或者其它原因导致的任务暂停而带来的影响。一旦任务暂停，<code>CPU</code> 就会处于空闲状态，而在这种情况下多出来的一个线程就可以充分利用 <code>CPU</code> 的空闲时间。</p>
 </li>
-<li><p><code>I/O</code> 密集型任务(<code>2N</code>)：这种任务应用起来，系统会用大部分的时间来处理 <code>I/O</code> 交互，而线程在处理 <code>I/O</code> 的时间段内不会占用 <code>CPU</code> 来处理，这时就可以将 <code>CPU</code> 交出给其它线程使用。因此在 <code>I/O</code> 密集型任务的应用中，我们可以多配置一些线程，具体的计算方法是 <code>2N</code>。</p>
+<li>
+<p><code>I/O</code> 密集型任务(<code>2N</code>)：这种任务应用起来，系统会用大部分的时间来处理 <code>I/O</code> 交互，而线程在处理 <code>I/O</code> 的时间段内不会占用 <code>CPU</code> 来处理，这时就可以将 <code>CPU</code> 交出给其它线程使用。因此在 <code>I/O</code> 密集型任务的应用中，我们可以多配置一些线程，具体的计算方法是 <code>2N</code>。</p>
 </li>
 </ul>
 

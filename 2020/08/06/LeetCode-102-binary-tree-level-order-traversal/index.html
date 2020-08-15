@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      281 字
+      283 字
     </span>
   
 
@@ -214,7 +214,8 @@
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/binary-tree-level-order-traversal/" target="_blank" rel="noopener">二叉树的层序遍历</a></p>
 <p>主要在于判断每一层有哪些结点：遍历之前先保存每层结点数，然后按层处理结点。</p>
-<h1 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;
+<h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;
         List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
         <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;
             <span class="hljs-keyword">return</span> res;
@@ -244,8 +245,8 @@
         &#125;
         <span class="hljs-keyword">return</span> res;
     &#125;</code></pre>
-
-<h1 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h1><pre><code class="hljs java">List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+<h1 id="dfs"><a class="markdownIt-Anchor" href="#dfs"></a> DFS</h1>
+<pre><code class="hljs java">List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
 
     <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;
         dfs(root, <span class="hljs-number">1</span>);

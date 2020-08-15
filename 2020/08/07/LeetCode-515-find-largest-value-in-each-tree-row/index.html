@@ -213,7 +213,8 @@
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/find-largest-value-in-each-tree-row/" target="_blank" rel="noopener">515. 在每个树行中找最大值</a></p>
-<h1 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h1><p>层次遍历</p>
+<h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1>
+<p>层次遍历</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">largestValues</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;
         List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
         <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;
@@ -238,8 +239,8 @@
         &#125;
         <span class="hljs-keyword">return</span> res;
     &#125;</code></pre>
-
-<h1 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h1><p>判断是否到了新的一层：<code>res</code> 中保存的是每一层的最大值，所以 <code>res.size()</code> 等于遍历过的层数，若 <code>res.size() &lt; level</code> 表示到了新层。</p>
+<h1 id="dfs"><a class="markdownIt-Anchor" href="#dfs"></a> DFS</h1>
+<p>判断是否到了新的一层：<code>res</code> 中保存的是每一层的最大值，所以 <code>res.size()</code> 等于遍历过的层数，若 <code>res.size() &lt; level</code> 表示到了新层。</p>
 <pre><code class="hljs java">List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
 
     <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">largestValues</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;

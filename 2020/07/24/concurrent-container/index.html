@@ -212,28 +212,38 @@
               </p>
             
             <article class="markdown-body">
-              <h1 id="同步容器"><a href="#同步容器" class="headerlink" title="同步容器"></a>同步容器</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在 <code>Java</code> 中，同步容器主要包括 <code>2</code> 类：</p>
+              <h1 id="同步容器"><a class="markdownIt-Anchor" href="#同步容器"></a> 同步容器</h1>
+<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
+<p>在 <code>Java</code> 中，同步容器主要包括 <code>2</code> 类：</p>
 <ul>
-<li><p><code>Vector</code>, <code>Stack</code>, <code>HashTable</code></p>
+<li>
+<p><code>Vector</code>, <code>Stack</code>, <code>HashTable</code></p>
 <ul>
 <li><code>Vector</code> - <code>Vector</code> 实现了 <code>List</code> 接口。<code>Vector</code> 实际上就是一个数组，和 <code>ArrayList</code> 类似。但是 <code>Vector</code> 中的方法都是 <code>synchronized</code> 方法，即进行了同步措施。</li>
 <li><code>Stack</code> - <code>Stack</code> 继承于 <code>Vector</code> 类，也是一个同步容器，它的方法也用 <code>synchronized</code> 进行了同步。</li>
 <li><code>Hashtable</code>- <code>Hashtable</code> 实现了 <code>Map</code> 接口，但是 <code>Hashtable</code> 用 <code>synchronized</code> 进行了同步。</li>
 </ul>
 </li>
-<li><p><code>Collections</code> 类中提供的静态工厂方法创建的类（由 <code>Collections.synchronizedXXX</code> 等方法）。</p>
+<li>
+<p><code>Collections</code> 类中提供的静态工厂方法创建的类（由 <code>Collections.synchronizedXXX</code> 等方法）。</p>
 </li>
 </ul>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>同步容器的同步原理就是在方法上用 <code>synchronized</code> 修饰。</p>
-<h3 id="性能问题"><a href="#性能问题" class="headerlink" title="性能问题"></a>性能问题</h3><p><code>synchronized</code> 的互斥同步会产生阻塞和唤醒线程的开销。显然，这种方式比没有使用 <code>synchronized</code> 的容器性能要差。</p>
-<h3 id="安全问题"><a href="#安全问题" class="headerlink" title="安全问题"></a>安全问题</h3><p>同步容器真的绝对安全吗？</p>
+<h2 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h2>
+<p>同步容器的同步原理就是在方法上用 <code>synchronized</code> 修饰。</p>
+<h3 id="性能问题"><a class="markdownIt-Anchor" href="#性能问题"></a> 性能问题</h3>
+<p><code>synchronized</code> 的互斥同步会产生阻塞和唤醒线程的开销。显然，这种方式比没有使用 <code>synchronized</code> 的容器性能要差。</p>
+<h3 id="安全问题"><a class="markdownIt-Anchor" href="#安全问题"></a> 安全问题</h3>
+<p>同步容器真的绝对安全吗？</p>
 <p>其实也未必。在做复合操作（非原子操作）时，仍然需要加锁来保护。常见复合操作如下：</p>
 <ul>
-<li><p>迭代：反复访问元素，直到遍历完全部元素；</p>
+<li>
+<p>迭代：反复访问元素，直到遍历完全部元素；</p>
 </li>
-<li><p>跳转：根据指定顺序寻找当前元素的下一个（下 <code>n</code> 个）元素；</p>
+<li>
+<p>跳转：根据指定顺序寻找当前元素的下一个（下 <code>n</code> 个）元素；</p>
 </li>
-<li><p>条件运算：例如若没有则添加等；</p>
+<li>
+<p>条件运算：例如若没有则添加等；</p>
 </li>
 </ul>
 <p>❌ 不安全的示例</p>
@@ -274,7 +284,8 @@
     &#125;
 &#125;</code></pre>
 <p>以上程序执行时可能会出现数组越界错误。</p>
-<p>这是因为，对于 <code>Vector</code>，虽然能保证每一个时刻只能有一个线程访问它，但是不排除这种可能：<br>当某个线程进行读操作时，其他线程可能已经删除了该线程所要读的那个元素。</p>
+<p>这是因为，对于 <code>Vector</code>，虽然能保证每一个时刻只能有一个线程访问它，但是不排除这种可能：<br />
+当某个线程进行读操作时，其他线程可能已经删除了该线程所要读的那个元素。</p>
 <p>因此为了保证线程安全，必须在方法调用端做额外的同步措施，如下面所示：</p>
 <pre><code class="hljs java"><span class="hljs-keyword">synchronized</span> (vector) &#123;
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; vector.size(); i++) &#123;
@@ -287,8 +298,8 @@
         vector.remove(i);
     &#125;
 &#125;</code></pre>
-
-<h1 id="并发容器简介"><a href="#并发容器简介" class="headerlink" title="并发容器简介"></a>并发容器简介</h1><blockquote>
+<h1 id="并发容器简介"><a class="markdownIt-Anchor" href="#并发容器简介"></a> 并发容器简介</h1>
+<blockquote>
 <p>同步容器将所有对容器状态的访问都串行化，以保证线程安全性，这种策略会严重降低并发性。</p>
 <p>Java 1.5 后提供了多种并发容器，使用并发容器来替代同步容器，可以极大地提高伸缩性并降低风险。</p>
 </blockquote>
@@ -296,71 +307,74 @@
 <table>
 <thead>
 <tr>
-<th align="center">并发容器</th>
-<th align="center">对应的普通容器</th>
-<th align="center">描述</th>
+<th style="text-align:center">并发容器</th>
+<th style="text-align:center">对应的普通容器</th>
+<th style="text-align:center">描述</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"><code>ConcurrentHashMap</code></td>
-<td align="center"><code>HashMap</code></td>
-<td align="center"><code>Java 1.8</code> 之前采用<strong>分段锁机制</strong>细化锁粒度，降低阻塞，从而提高并发性；<code>Java 1.8</code> 之后基于 <code>CAS</code> 实现。</td>
+<tbody>
+<tr>
+<td style="text-align:center"><code>ConcurrentHashMap</code></td>
+<td style="text-align:center"><code>HashMap</code></td>
+<td style="text-align:center"><code>Java 1.8</code> 之前采用<strong>分段锁机制</strong>细化锁粒度，降低阻塞，从而提高并发性；<code>Java 1.8</code> 之后基于 <code>CAS</code> 实现。</td>
 </tr>
 <tr>
-<td align="center"><code>ConcurrentSkipListMap</code></td>
-<td align="center"><code>SortedMap</code></td>
-<td align="center">基于跳表实现的</td>
+<td style="text-align:center"><code>ConcurrentSkipListMap</code></td>
+<td style="text-align:center"><code>SortedMap</code></td>
+<td style="text-align:center">基于跳表实现的</td>
 </tr>
 <tr>
-<td align="center"><code>CopyOnWriteArrayList</code></td>
-<td align="center"><code>ArrayList</code></td>
-<td align="center">写时复制</td>
+<td style="text-align:center"><code>CopyOnWriteArrayList</code></td>
+<td style="text-align:center"><code>ArrayList</code></td>
+<td style="text-align:center">写时复制</td>
 </tr>
 <tr>
-<td align="center"><code>CopyOnWriteArraySet</code></td>
-<td align="center"><code>Set</code></td>
-<td align="center">基于 <code>CopyOnWriteArrayList</code> 实现。</td>
+<td style="text-align:center"><code>CopyOnWriteArraySet</code></td>
+<td style="text-align:center"><code>Set</code></td>
+<td style="text-align:center">基于 <code>CopyOnWriteArrayList</code> 实现。</td>
 </tr>
 <tr>
-<td align="center"><code>ConcurrentSkipListSet</code></td>
-<td align="center"><code>SortedSet</code></td>
-<td align="center">基于 <code>ConcurrentSkipListMap</code> 实现。</td>
+<td style="text-align:center"><code>ConcurrentSkipListSet</code></td>
+<td style="text-align:center"><code>SortedSet</code></td>
+<td style="text-align:center">基于 <code>ConcurrentSkipListMap</code> 实现。</td>
 </tr>
 <tr>
-<td align="center"><code>ConcurrentLinkedQueue</code></td>
-<td align="center"><code>Queue</code></td>
-<td align="center">线程安全的无界队列。底层采用单链表。支持 <code>FIFO</code>。</td>
+<td style="text-align:center"><code>ConcurrentLinkedQueue</code></td>
+<td style="text-align:center"><code>Queue</code></td>
+<td style="text-align:center">线程安全的无界队列。底层采用单链表。支持 <code>FIFO</code>。</td>
 </tr>
 <tr>
-<td align="center"><code>ConcurrentLinkedDeque</code></td>
-<td align="center"><code>Deque</code></td>
-<td align="center">线程安全的无界双端队列。底层采用双向链表。支持 <code>FIFO</code> 和 <code>FILO</code>。</td>
+<td style="text-align:center"><code>ConcurrentLinkedDeque</code></td>
+<td style="text-align:center"><code>Deque</code></td>
+<td style="text-align:center">线程安全的无界双端队列。底层采用双向链表。支持 <code>FIFO</code> 和 <code>FILO</code>。</td>
 </tr>
 <tr>
-<td align="center"><code>ArrayBlockingQueue</code></td>
-<td align="center"><code>Queue</code></td>
-<td align="center">数组实现的阻塞队列。</td>
+<td style="text-align:center"><code>ArrayBlockingQueue</code></td>
+<td style="text-align:center"><code>Queue</code></td>
+<td style="text-align:center">数组实现的阻塞队列。</td>
 </tr>
 <tr>
-<td align="center"><code>LinkedBlockingQueue</code></td>
-<td align="center"><code>Queue</code></td>
-<td align="center">链表实现的阻塞队列。</td>
+<td style="text-align:center"><code>LinkedBlockingQueue</code></td>
+<td style="text-align:center"><code>Queue</code></td>
+<td style="text-align:center">链表实现的阻塞队列。</td>
 </tr>
 <tr>
-<td align="center"><code>LinkedBlockingDeque</code></td>
-<td align="center"><code>Deque</code></td>
-<td align="center">双向链表实现的双端阻塞队列。</td>
+<td style="text-align:center"><code>LinkedBlockingDeque</code></td>
+<td style="text-align:center"><code>Deque</code></td>
+<td style="text-align:center">双向链表实现的双端阻塞队列。</td>
 </tr>
-</tbody></table>
-<h1 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a><code>ConcurrentHashMap</code></h1><blockquote>
+</tbody>
+</table>
+<h1 id="concurrenthashmap"><a class="markdownIt-Anchor" href="#concurrenthashmap"></a> <code>ConcurrentHashMap</code></h1>
+<blockquote>
 <p><code>ConcurrentHashMap</code> 是线程安全的 <code>HashMap</code> ，用于替代 <code>Hashtable</code>。</p>
 </blockquote>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p><code>ConcurrentHashMap</code> 实现了 <code>ConcurrentMap</code> 接口，而 <code>ConcurrentMap</code> 接口扩展了 <code>Map</code> 接口。</p>
+<h2 id="特性"><a class="markdownIt-Anchor" href="#特性"></a> 特性</h2>
+<p><code>ConcurrentHashMap</code> 实现了 <code>ConcurrentMap</code> 接口，而 <code>ConcurrentMap</code> 接口扩展了 <code>Map</code> 接口。</p>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcurrentHashMap</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractMap</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt;</span>
 <span class="hljs-class">    <span class="hljs-keyword">implements</span> <span class="hljs-title">ConcurrentMap</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt;, <span class="hljs-title">Serializable</span> </span>&#123;
     <span class="hljs-comment">// ...</span>
 &#125;</code></pre>
-
 <p><code>ConcurrentHashMap</code> 的实现包含了 <code>HashMap</code> 所有的基本特性，如：数据结构、读写策略等。</p>
 <p><code>ConcurrentHashMap</code> 没有实现对 <code>Map</code> 加锁以提供独占访问。因此无法通过在客户端加锁的方式来创建新的原子操作。但是，一些常见的复合操作，如：“若没有则添加”、“若相等则移除”、“若相等则替换”，都已经实现为原子操作，并且是围绕 <code>ConcurrentMap</code> 的扩展接口而实现。</p>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ConcurrentMap</span>&lt;<span class="hljs-title">K</span>, <span class="hljs-title">V</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Map</span>&lt;<span class="hljs-title">K</span>, <span class="hljs-title">V</span>&gt; </span>&#123;
@@ -381,13 +395,16 @@
 <blockquote>
 <p>🔔 注意：一些需要对整个 <code>Map</code> 进行计算的方法，如 <code>size</code> 和 <code>isEmpty</code> ，由于返回的结果在计算时可能已经过期，所以并非实时的精确值。这是一种策略上的权衡，在并发环境下，这类方法由于总在不断变化，所以获取其实时精确值的意义不大。<code>ConcurrentHashMap</code> 弱化这类方法，以换取更重要操作（如：<code>get</code>、<code>put</code>、<code>containesKey</code>、<code>remove</code> 等）的性能。</p>
 </blockquote>
-<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>同 <code>HashMap</code></p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><code>ConcurrentHashMap</code> 在 <code>Java 1.8</code> 之前和 <code>Java 1.8</code> 之后的实现有很大差异：</p>
+<h2 id="用法"><a class="markdownIt-Anchor" href="#用法"></a> 用法</h2>
+<p>同 <code>HashMap</code></p>
+<h2 id="原理"><a class="markdownIt-Anchor" href="#原理"></a> 原理</h2>
+<p><code>ConcurrentHashMap</code> 在 <code>Java 1.8</code> 之前和 <code>Java 1.8</code> 之后的实现有很大差异：</p>
 <ul>
 <li><code>Java 1.8</code> 之前采用<strong>分段锁机制</strong>细化锁粒度，降低阻塞，从而提高并发性。</li>
 <li><code>Java 1.8</code> 之后基于 <code>CAS</code> 实现。</li>
 </ul>
-<h3 id="Java-1-7-的实现"><a href="#Java-1-7-的实现" class="headerlink" title="Java 1.7 的实现"></a>Java 1.7 的实现</h3><p>每一个 <code>segment</code> 都是一个 <code>HashEntry&lt;K,V&gt;[] table</code>， <code>table</code> 中的每一个元素本质上都是一个 <code>HashEntry</code> 的单向队列。比如 <code>table[3]</code> 为首节点，<code>table[3]-&gt;next</code> 为节点 <code>1</code>，之后为节点 <code>2</code>，依次类推。</p>
+<h3 id="java-17-的实现"><a class="markdownIt-Anchor" href="#java-17-的实现"></a> Java 1.7 的实现</h3>
+<p>每一个 <code>segment</code> 都是一个 <code>HashEntry&lt;K,V&gt;[] table</code>， <code>table</code> 中的每一个元素本质上都是一个 <code>HashEntry</code> 的单向队列。比如 <code>table[3]</code> 为首节点，<code>table[3]-&gt;next</code> 为节点 <code>1</code>，之后为节点 <code>2</code>，依次类推。</p>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcurrentHashMap</span>&lt;<span class="hljs-title">K</span>, <span class="hljs-title">V</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractMap</span>&lt;<span class="hljs-title">K</span>, <span class="hljs-title">V</span>&gt;</span>
 <span class="hljs-class">        <span class="hljs-keyword">implements</span> <span class="hljs-title">ConcurrentMap</span>&lt;<span class="hljs-title">K</span>, <span class="hljs-title">V</span>&gt;, <span class="hljs-title">Serializable</span> </span>&#123;
 
@@ -409,12 +426,14 @@
         <span class="hljs-keyword">volatile</span> HashEntry&lt;K,V&gt; next;
     &#125;
 &#125;</code></pre>
-
-<h3 id="Java-1-8-的实现"><a href="#Java-1-8-的实现" class="headerlink" title="Java 1.8 的实现"></a>Java 1.8 的实现</h3><p><code>JDK 8</code> 中主要做了 2 方面的改进</p>
+<h3 id="java-18-的实现"><a class="markdownIt-Anchor" href="#java-18-的实现"></a> Java 1.8 的实现</h3>
+<p><code>JDK 8</code> 中主要做了 2 方面的改进</p>
 <ul>
-<li><p>取消 <code>segments</code> 字段，直接采用 <code>transient volatile HashEntry&lt;K,V&gt;[] table</code> 保存数据，采用 <code>table</code> 数组元素作为锁，从而实现了对每一行数据进行加锁，进一步减少并发冲突的概率。</p>
+<li>
+<p>取消 <code>segments</code> 字段，直接采用 <code>transient volatile HashEntry&lt;K,V&gt;[] table</code> 保存数据，采用 <code>table</code> 数组元素作为锁，从而实现了对每一行数据进行加锁，进一步减少并发冲突的概率。</p>
 </li>
-<li><p>将原先 <strong>数组＋单链表</strong> 的数据结构，变更为 <strong>数组＋单链表＋红黑树</strong> 的结构。对于 <code>hash</code> 表来说，最核心的能力在于将 <code>key hash</code> 之后能均匀的分布在数组中。如果 <code>hash</code> 之后散列的很均匀，那么 <code>table</code> 数组中的每个队列长度主要为 <code>0</code> 或者 <code>1</code>。但实际情况并非总是如此理想，虽然 <code>ConcurrentHashMap</code> 类默认的加载因子为 <code>0.75</code>，但是在数据量过大或者运气不佳的情况下，还是会存在一些队列长度过长的情况，如果还是采用单向列表方式，那么查询某个节点的时间复杂度为 <code>O(n)</code>；因此，对于个数超过 <code>8</code>(默认值)的列表，<code>JDK 1.8</code> 中采用了红黑树的结构，那么查询的时间复杂度可以降低到 <code>O(logN)</code>，可以改进性能。</p>
+<li>
+<p>将原先 <strong>数组＋单链表</strong> 的数据结构，变更为 <strong>数组＋单链表＋红黑树</strong> 的结构。对于 <code>hash</code> 表来说，最核心的能力在于将 <code>key hash</code> 之后能均匀的分布在数组中。如果 <code>hash</code> 之后散列的很均匀，那么 <code>table</code> 数组中的每个队列长度主要为 <code>0</code> 或者 <code>1</code>。但实际情况并非总是如此理想，虽然 <code>ConcurrentHashMap</code> 类默认的加载因子为 <code>0.75</code>，但是在数据量过大或者运气不佳的情况下，还是会存在一些队列长度过长的情况，如果还是采用单向列表方式，那么查询某个节点的时间复杂度为 <code>O(n)</code>；因此，对于个数超过 <code>8</code>(默认值)的列表，<code>JDK 1.8</code> 中采用了红黑树的结构，那么查询的时间复杂度可以降低到 <code>O(logN)</code>，可以改进性能。</p>
 </li>
 </ul>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">final</span> V <span class="hljs-title">putVal</span><span class="hljs-params">(K key, V value, <span class="hljs-keyword">boolean</span> onlyIfAbsent)</span> </span>&#123;
@@ -488,16 +507,23 @@
     addCount(<span class="hljs-number">1L</span>, binCount);
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
 &#125;</code></pre>
-
-<h1 id="CopyOnWriteArrayList"><a href="#CopyOnWriteArrayList" class="headerlink" title="CopyOnWriteArrayList"></a><code>CopyOnWriteArrayList</code></h1><p>每个 <code>CopyOnWriteArrayList</code> 对象里有一个 <code>array</code> 数组用来存放具体元素。<code>ReentrantLock</code> 独占锁用来保证同时只有一个线程对 <code>array</code> 进行修改。<br><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200724151232.png" srcset="/img/loading.gif" alt=""></p>
-<h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
-<li><p>好处：<strong>任何的读操作都不用加锁</strong>，而且保证读取到的是读那一刻 <code>List</code> 完整的快照数据。由于读操作无法感知最新正在变化的数据，所以 <code>CopyOnWriteArrayList</code> 是<strong>弱一致性</strong>的。</p>
+<h1 id="copyonwritearraylist"><a class="markdownIt-Anchor" href="#copyonwritearraylist"></a> <code>CopyOnWriteArrayList</code></h1>
+<p>每个 <code>CopyOnWriteArrayList</code> 对象里有一个 <code>array</code> 数组用来存放具体元素。<code>ReentrantLock</code> 独占锁用来保证同时只有一个线程对 <code>array</code> 进行修改。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200724151232.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="要点"><a class="markdownIt-Anchor" href="#要点"></a> 要点</h2>
+<ul>
+<li>
+<p>好处：<strong>任何的读操作都不用加锁</strong>，而且保证读取到的是读那一刻 <code>List</code> 完整的快照数据。由于读操作无法感知最新正在变化的数据，所以 <code>CopyOnWriteArrayList</code> 是<strong>弱一致性</strong>的。</p>
 </li>
-<li><p>写时复制技术因为每次修改都需要完整拷贝一次底层数组，所以有额外的性能开销，但是特别适用于<strong>读多写少</strong>的数据访问场景。</p>
+<li>
+<p>写时复制技术因为每次修改都需要完整拷贝一次底层数组，所以有额外的性能开销，但是特别适用于<strong>读多写少</strong>的数据访问场景。</p>
 </li>
 </ul>
-<h2 id="弱一致性问题"><a href="#弱一致性问题" class="headerlink" title="弱一致性问题"></a>弱一致性问题</h2><p>线程1在执行完步骤 <code>A</code> 后，执行步骤 <code>B</code> 前，线程2进行了 <code>remove</code> 操作。<br>虽然线程2已经删除了 <code>index</code> 处的元素，但由于 <code>array</code>指向的数组引用计数为 1 而不是 0，仍会返回 <code>index</code> 处的元素。</p>
-<h2 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h2><p>先将原容器 copy 一份，然后在新副本上执行写操作，之后再切换引用。</p>
+<h2 id="弱一致性问题"><a class="markdownIt-Anchor" href="#弱一致性问题"></a> 弱一致性问题</h2>
+<p>线程1在执行完步骤 <code>A</code> 后，执行步骤 <code>B</code> 前，线程2进行了 <code>remove</code> 操作。<br />
+虽然线程2已经删除了 <code>index</code> 处的元素，但由于 <code>array</code>指向的数组引用计数为 1 而不是 0，仍会返回 <code>index</code> 处的元素。</p>
+<h2 id="添加元素"><a class="markdownIt-Anchor" href="#添加元素"></a> 添加元素</h2>
+<p>先将原容器 copy 一份，然后在新副本上执行写操作，之后再切换引用。</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">add</span><span class="hljs-params">(E e)</span> </span>&#123;
     <span class="hljs-comment">// 1.获取独占锁</span>
     <span class="hljs-keyword">final</span> ReentrantLock lock = <span class="hljs-keyword">this</span>.lock;
@@ -518,8 +544,8 @@
         lock.unlock();
     &#125;
 &#125;</code></pre>
-
-<h2 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h2><p>将除要删除元素之外的其他元素拷贝到新副本中，然后切换引用，将原容器引用指向新副本。同属写操作，需要加锁。</p>
+<h2 id="删除元素"><a class="markdownIt-Anchor" href="#删除元素"></a> 删除元素</h2>
+<p>将除要删除元素之外的其他元素拷贝到新副本中，然后切换引用，将原容器引用指向新副本。同属写操作，需要加锁。</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> E <span class="hljs-title">remove</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index)</span> </span>&#123;
     <span class="hljs-comment">// 获取独占锁</span>
     <span class="hljs-keyword">final</span> ReentrantLock lock = <span class="hljs-keyword">this</span>.lock;
@@ -549,8 +575,9 @@
         lock.unlock();
     &#125;
 &#125;</code></pre>
-
-<h2 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h2><p><code>E get(int index)</code><br>读操作是不用加锁的，性能很高。</p>
+<h2 id="读操作"><a class="markdownIt-Anchor" href="#读操作"></a> 读操作</h2>
+<p><code>E get(int index)</code><br />
+读操作是不用加锁的，性能很高。</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> E <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index)</span> </span>&#123;
     <span class="hljs-keyword">return</span> get(getArray(), index);
 &#125;
@@ -562,8 +589,8 @@
 <span class="hljs-function"><span class="hljs-keyword">private</span> E <span class="hljs-title">get</span><span class="hljs-params">(Object[] a, <span class="hljs-keyword">int</span> index)</span> </span>&#123;
     <span class="hljs-keyword">return</span> (E) a[index];
 &#125;</code></pre>
-
-<h2 id="修改指定元素"><a href="#修改指定元素" class="headerlink" title="修改指定元素"></a>修改指定元素</h2><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> E <span class="hljs-title">set</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index, E element)</span> </span>&#123;
+<h2 id="修改指定元素"><a class="markdownIt-Anchor" href="#修改指定元素"></a> 修改指定元素</h2>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> E <span class="hljs-title">set</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index, E element)</span> </span>&#123;
     <span class="hljs-comment">// 获取独占锁</span>
     <span class="hljs-keyword">final</span> ReentrantLock lock = <span class="hljs-keyword">this</span>.lock;
     lock.lock();
@@ -591,48 +618,51 @@
         lock.unlock();
     &#125;
 &#125;</code></pre>
-
-<h1 id="BlockingQueue"><a href="#BlockingQueue" class="headerlink" title="BlockingQueue"></a><code>BlockingQueue</code></h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BlockingQueue</span>&lt;<span class="hljs-title">E</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Queue</span>&lt;<span class="hljs-title">E</span>&gt; </span>&#123;&#125;</code></pre>
+<h1 id="blockingqueue"><a class="markdownIt-Anchor" href="#blockingqueue"></a> <code>BlockingQueue</code></h1>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BlockingQueue</span>&lt;<span class="hljs-title">E</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Queue</span>&lt;<span class="hljs-title">E</span>&gt; </span>&#123;&#125;</code></pre>
 <p>在 <code>BlockingQueue</code> 中，如果获取队列元素但是队列为空时，会阻塞，等待队列中有元素再返回；如果添加元素时，如果队列已满，那么等到队列可以放入新元素时再放入。</p>
 <p><code>BlockingQueue</code> 对插入操作、移除操作、获取元素操作提供了四种不同的方法用于不同的场景中使用：</p>
 <p>抛出异常；</p>
 <ul>
 <li>返回特殊值（<code>null</code> 或 <code>true</code>/<code>false</code>，取决于具体的操作）；</li>
 <li>阻塞等待此操作，直到这个操作成功；</li>
-<li>阻塞等待此操作，直到成功或者超时指定时间。<br>总结如下：</li>
+<li>阻塞等待此操作，直到成功或者超时指定时间。<br />
+总结如下：</li>
 </ul>
 <table>
 <thead>
 <tr>
-<th align="center">Operation</th>
-<th align="center">Throws exception</th>
-<th align="center">Special value</th>
-<th align="center">Blocks</th>
-<th align="center">Times out</th>
+<th style="text-align:center">Operation</th>
+<th style="text-align:center">Throws exception</th>
+<th style="text-align:center">Special value</th>
+<th style="text-align:center">Blocks</th>
+<th style="text-align:center">Times out</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">Insert</td>
-<td align="center">add(e)</td>
-<td align="center">offer(e)</td>
-<td align="center">put(e)</td>
-<td align="center">offer(e, time, unit)</td>
+<tbody>
+<tr>
+<td style="text-align:center">Insert</td>
+<td style="text-align:center">add(e)</td>
+<td style="text-align:center">offer(e)</td>
+<td style="text-align:center">put(e)</td>
+<td style="text-align:center">offer(e, time, unit)</td>
 </tr>
 <tr>
-<td align="center">Remove</td>
-<td align="center">remove()</td>
-<td align="center">poll()</td>
-<td align="center">take()</td>
-<td align="center">poll(time, unit)</td>
+<td style="text-align:center">Remove</td>
+<td style="text-align:center">remove()</td>
+<td style="text-align:center">poll()</td>
+<td style="text-align:center">take()</td>
+<td style="text-align:center">poll(time, unit)</td>
 </tr>
 <tr>
-<td align="center">Examine</td>
-<td align="center">element()</td>
-<td align="center">peek()</td>
-<td align="center">not applicable</td>
-<td align="center">not applicable</td>
+<td style="text-align:center">Examine</td>
+<td style="text-align:center">element()</td>
+<td style="text-align:center">peek()</td>
+<td style="text-align:center">not applicable</td>
+<td style="text-align:center">not applicable</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><code>BlockingQueue</code> 的各个实现类都遵循了这些规则。</p>
 <p><code>BlockingQueue</code> 不接受 <code>null</code> 值元素。</p>
 

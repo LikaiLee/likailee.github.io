@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      2.2k 字
     </span>
   
 
@@ -212,52 +212,66 @@
               </p>
             
             <article class="markdown-body">
-              <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h2 id="为何需要原子变量类"><a href="#为何需要原子变量类" class="headerlink" title="为何需要原子变量类"></a>为何需要原子变量类</h2><p>保证线程安全是 <code>Java</code> 并发编程必须要解决的重要问题。<code>Java</code> 从原子性、可见性、有序性这三大特性入手，确保多线程的数据一致性。</p>
+              <h1 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h1>
+<h2 id="为何需要原子变量类"><a class="markdownIt-Anchor" href="#为何需要原子变量类"></a> 为何需要原子变量类</h2>
+<p>保证线程安全是 <code>Java</code> 并发编程必须要解决的重要问题。<code>Java</code> 从原子性、可见性、有序性这三大特性入手，确保多线程的数据一致性。</p>
 <ul>
-<li><p>确保线程安全最常见的做法是利用锁机制（<code>Lock</code>、<code>sychronized</code>）来对共享数据做互斥同步，这样在同一个时刻，只有一个线程可以执行某个方法或者某个代码块，那么操作必然是原子性的，线程安全的。互斥同步最主要的问题是线程阻塞和唤醒所带来的性能问题。</p>
+<li>
+<p>确保线程安全最常见的做法是利用锁机制（<code>Lock</code>、<code>sychronized</code>）来对共享数据做互斥同步，这样在同一个时刻，只有一个线程可以执行某个方法或者某个代码块，那么操作必然是原子性的，线程安全的。互斥同步最主要的问题是线程阻塞和唤醒所带来的性能问题。</p>
 </li>
-<li><p><code>volatile</code> 是轻量级的锁（自然比普通锁性能要好），它保证了共享变量在多线程中的可见性，但无法保证原子性。所以，它只能在一些特定场景下使用。</p>
+<li>
+<p><code>volatile</code> 是轻量级的锁（自然比普通锁性能要好），它保证了共享变量在多线程中的可见性，但无法保证原子性。所以，它只能在一些特定场景下使用。</p>
 </li>
-<li><p>为了兼顾原子性以及锁带来的性能问题，<code>Java</code> 引入了 <code>CAS</code> （主要体现在 Unsafe 类）来实现非阻塞同步（也叫乐观锁）。并基于 <code>CAS</code> ，提供了一套原子工具类。</p>
+<li>
+<p>为了兼顾原子性以及锁带来的性能问题，<code>Java</code> 引入了 <code>CAS</code> （主要体现在 Unsafe 类）来实现非阻塞同步（也叫乐观锁）。并基于 <code>CAS</code> ，提供了一套原子工具类。</p>
 </li>
 </ul>
-<h2 id="原子变量类的作用"><a href="#原子变量类的作用" class="headerlink" title="原子变量类的作用"></a>原子变量类的作用</h2><p>原子变量类 <strong>比锁的粒度更细，更轻量级</strong>，并且对于在多处理器系统上实现高性能的并发代码来说是非常关键的。原子变量将发生竞争的范围缩小到单个变量上。</p>
+<h2 id="原子变量类的作用"><a class="markdownIt-Anchor" href="#原子变量类的作用"></a> 原子变量类的作用</h2>
+<p>原子变量类 <strong>比锁的粒度更细，更轻量级</strong>，并且对于在多处理器系统上实现高性能的并发代码来说是非常关键的。原子变量将发生竞争的范围缩小到单个变量上。</p>
 <p>原子变量类相当于一种泛化的 <code>volatile</code> 变量，能够支持<strong>原子的、有条件的读/改/写</strong>操作。</p>
 <p>原子类在内部使用 <code>CAS</code> 指令（基于硬件的支持）来实现同步。这些指令通常比锁更快。</p>
 <p>原子变量类可以分为 <code>4</code> 组：</p>
 <ul>
-<li>基本类型<ul>
+<li>基本类型
+<ul>
 <li><code>AtomicBoolean</code> - 布尔类型原子类</li>
 <li><code>AtomicInteger</code> - 整型原子类</li>
 <li><code>AtomicLong</code> - 长整型原子类</li>
 </ul>
 </li>
-<li>引用类型<ul>
+<li>引用类型
+<ul>
 <li><code>AtomicReference</code> - 引用类型原子类</li>
 <li><code>AtomicMarkableReference</code> - 带有标记位的引用类型原子类</li>
 <li><code>AtomicStampedReference</code> - 带有版本号的引用类型原子类</li>
 </ul>
 </li>
-<li>数组类型<ul>
+<li>数组类型
+<ul>
 <li><code>AtomicIntegerArray</code> - 整形数组原子类</li>
 <li><code>AtomicLongArray</code> - 长整型数组原子类</li>
 <li><code>AtomicReferenceArray</code> - 引用类型数组原子类</li>
 </ul>
 </li>
-<li>属性更新器类型<ul>
+<li>属性更新器类型
+<ul>
 <li><code>AtomicIntegerFieldUpdater</code> - 整型字段的原子更新器。</li>
 <li><code>AtomicLongFieldUpdater</code> - 长整型字段的原子更新器。</li>
 <li><code>AtomicReferenceFieldUpdater</code> - 原子更新引用类型里的字段。</li>
 </ul>
 </li>
 </ul>
-<h1 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h1><p>这一类型的原子类是针对 <code>Java</code> 基本类型进行操作。</p>
+<h1 id="基本类型"><a class="markdownIt-Anchor" href="#基本类型"></a> 基本类型</h1>
+<p>这一类型的原子类是针对 <code>Java</code> 基本类型进行操作。</p>
 <ul>
-<li><p><code>AtomicBoolean</code> - 布尔类型原子类</p>
+<li>
+<p><code>AtomicBoolean</code> - 布尔类型原子类</p>
 </li>
-<li><p><code>AtomicInteger</code> - 整型原子类</p>
+<li>
+<p><code>AtomicInteger</code> - 整型原子类</p>
 </li>
-<li><p><code>AtomicLong</code> - 长整型原子类</p>
+<li>
+<p><code>AtomicLong</code> - 长整型原子类</p>
 </li>
 </ul>
 <p>以上类都支持 <code>CAS</code>，此外，<code>AtomicInteger</code>、<code>AtomicLong</code> 还支持算术运算。</p>
@@ -269,19 +283,23 @@
 <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">compareAndSet</span><span class="hljs-params">(<span class="hljs-keyword">int</span> expect, <span class="hljs-keyword">int</span> update)</span> <span class="hljs-comment">// 如果输入值（update）等于预期值，将该值设置为输入值</span></span>
 <span class="hljs-function"><span class="hljs-comment">// 最终设置为 newValue，使用 lazySet 设置之后可能导致其他线程在之后的一小段时间内还是可以读到旧的值。</span></span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">lazySet</span><span class="hljs-params">(<span class="hljs-keyword">int</span> newValue)</span></span></code></pre>
-
-<h1 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h1><ul>
-<li><p><code>AtomicReference</code> - 引用类型原子类</p>
+<h1 id="引用类型"><a class="markdownIt-Anchor" href="#引用类型"></a> 引用类型</h1>
+<ul>
+<li>
+<p><code>AtomicReference</code> - 引用类型原子类</p>
 </li>
-<li><p><code>AtomicMarkableReference</code> - 带有标记位的引用类型原子类</p>
+<li>
+<p><code>AtomicMarkableReference</code> - 带有标记位的引用类型原子类</p>
 </li>
-<li><p><code>AtomicStampedReference</code> - 带有版本号的引用类型原子类</p>
+<li>
+<p><code>AtomicStampedReference</code> - 带有版本号的引用类型原子类</p>
 </li>
 </ul>
 <blockquote>
 <p><code>AtomicStampedReference</code> 类在引用类型原子类中，彻底地解决了 <code>ABA</code> 问题，其它的 <code>CAS</code> 能力与另外两个类相近，所以最具代表性。因此，本节只针对 <code>AtomicStampedReference</code> 进行说明。</p>
 </blockquote>
-<h2 id="AtomicReference"><a href="#AtomicReference" class="headerlink" title="AtomicReference"></a>AtomicReference</h2><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<h2 id="atomicreference"><a class="markdownIt-Anchor" href="#atomicreference"></a> AtomicReference</h2>
+<pre><code class="hljs java"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * 基于 AtomicReference 实现自旋锁</span>
 <span class="hljs-comment"> * <span class="hljs-doctag">@author</span> likailee.llk</span>
 <span class="hljs-comment"> * <span class="hljs-doctag">@version</span> : AtomicRefTest.java 2020/07/21 Tue 4:00 PM likai</span>
@@ -341,7 +359,8 @@
         
     &#125;
 &#125;</code></pre>
-<h2 id="AtomicMarkableReference"><a href="#AtomicMarkableReference" class="headerlink" title="AtomicMarkableReference"></a>AtomicMarkableReference</h2><p>原子类的实现基于 <code>CAS</code> 机制，而 <code>CAS</code> 存在 <code>ABA</code> 问题。正是为了解决 <code>ABA</code> 问题，才有了 <code>AtomicMarkableReference</code> 和 <code>AtomicStampedReference</code>。</p>
+<h2 id="atomicmarkablereference"><a class="markdownIt-Anchor" href="#atomicmarkablereference"></a> AtomicMarkableReference</h2>
+<p>原子类的实现基于 <code>CAS</code> 机制，而 <code>CAS</code> 存在 <code>ABA</code> 问题。正是为了解决 <code>ABA</code> 问题，才有了 <code>AtomicMarkableReference</code> 和 <code>AtomicStampedReference</code>。</p>
 <p><code>AtomicMarkableReference</code> 使用一个布尔值作为标记，修改时在 <code>true</code> / <code>false</code> 之间切换。这种策略不能根本上解决 <code>ABA</code> 问题，但是可以降低 <code>ABA</code> 发生的几率。常用于缓存或者状态描述这样的场景。</p>
 <pre><code class="hljs java"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * AtomicMarkableReference 使用</span>
@@ -376,8 +395,8 @@
         executorService.awaitTermination(<span class="hljs-number">3</span>, TimeUnit.SECONDS);
     &#125;
 &#125;</code></pre>
-
-<h2 id="AtomicStampedReference"><a href="#AtomicStampedReference" class="headerlink" title="AtomicStampedReference"></a>AtomicStampedReference</h2><p><code>AtomicStampedReference</code> 使用一个整型值做为版本号，每次更新前先比较版本号，如果一致，才进行修改。通过这种策略，可以根本上解决 <code>ABA</code> 问题。</p>
+<h2 id="atomicstampedreference"><a class="markdownIt-Anchor" href="#atomicstampedreference"></a> AtomicStampedReference</h2>
+<p><code>AtomicStampedReference</code> 使用一个整型值做为版本号，每次更新前先比较版本号，如果一致，才进行修改。通过这种策略，可以根本上解决 <code>ABA</code> 问题。</p>
 <pre><code class="hljs java"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * AtomicStampedReference 使用</span>
 <span class="hljs-comment"> *</span>
@@ -412,13 +431,16 @@
     &#125;
 
 &#125;</code></pre>
-
-<h1 id="数组类型"><a href="#数组类型" class="headerlink" title="数组类型"></a>数组类型</h1><ul>
-<li><p><code>AtomicIntegerArray</code> - 整形数组原子类</p>
+<h1 id="数组类型"><a class="markdownIt-Anchor" href="#数组类型"></a> 数组类型</h1>
+<ul>
+<li>
+<p><code>AtomicIntegerArray</code> - 整形数组原子类</p>
 </li>
-<li><p><code>AtomicLongArray</code> - 长整型数组原子类</p>
+<li>
+<p><code>AtomicLongArray</code> - 长整型数组原子类</p>
 </li>
-<li><p><code>AtomicReferenceArray</code> - 引用类型数组原子类</p>
+<li>
+<p><code>AtomicReferenceArray</code> - 引用类型数组原子类</p>
 </li>
 </ul>
 <p>数组类型的原子类为 <strong>数组元素</strong> 提供了 <code>volatile</code> 类型的访问语义，这是普通数组所不具备的特性 —— <code>volatile</code> 类型的数组仅在<strong>数组引用</strong>上具有 <code>volatile</code> 语义。</p>
@@ -479,14 +501,17 @@
         &#125;
     &#125;
 &#125;</code></pre>
-
-<h1 id="属性更新器类型"><a href="#属性更新器类型" class="headerlink" title="属性更新器类型"></a>属性更新器类型</h1><p>更新器类支持基于<strong>反射</strong>机制的更新字段值的原子操作。</p>
+<h1 id="属性更新器类型"><a class="markdownIt-Anchor" href="#属性更新器类型"></a> 属性更新器类型</h1>
+<p>更新器类支持基于<strong>反射</strong>机制的更新字段值的原子操作。</p>
 <ul>
-<li><p><code>AtomicIntegerFieldUpdater</code> - 整型字段的原子更新器。</p>
+<li>
+<p><code>AtomicIntegerFieldUpdater</code> - 整型字段的原子更新器。</p>
 </li>
-<li><p><code>AtomicLongFieldUpdater</code> - 长整型字段的原子更新器。</p>
+<li>
+<p><code>AtomicLongFieldUpdater</code> - 长整型字段的原子更新器。</p>
 </li>
-<li><p><code>AtomicReferenceFieldUpdater</code> - 原子更新引用类型里的字段。</p>
+<li>
+<p><code>AtomicReferenceFieldUpdater</code> - 原子更新引用类型里的字段。</p>
 </li>
 </ul>
 <p>这些类的使用有一定限制：</p>

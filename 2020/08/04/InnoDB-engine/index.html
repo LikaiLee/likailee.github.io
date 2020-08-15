@@ -212,7 +212,8 @@
               </p>
             
             <article class="markdown-body">
-              <h1 id="MySQL-体系结构"><a href="#MySQL-体系结构" class="headerlink" title="MySQL 体系结构"></a>MySQL 体系结构</h1><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200804132116.png" srcset="/img/loading.gif" alt=""></p>
+              <h1 id="mysql-体系结构"><a class="markdownIt-Anchor" href="#mysql-体系结构"></a> MySQL 体系结构</h1>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200804132116.png" srcset="/img/loading.gif" alt="" /></p>
 <ul>
 <li>连接池组件</li>
 <li>管理服务和工具类</li>
@@ -226,29 +227,45 @@
 <blockquote>
 <p>存储引擎是基于表的，而不是数据库。</p>
 </blockquote>
-<h1 id="InnoDB-体系架构"><a href="#InnoDB-体系架构" class="headerlink" title="InnoDB 体系架构"></a><code>InnoDB</code> 体系架构</h1><p><code>InnoDB</code> 存储引擎有多个内存块，可以认为这些内存块组成了一个大的内存池：负责以下工作：</p>
+<h1 id="innodb-体系架构"><a class="markdownIt-Anchor" href="#innodb-体系架构"></a> <code>InnoDB</code> 体系架构</h1>
+<p><code>InnoDB</code> 存储引擎有多个内存块，可以认为这些内存块组成了一个大的内存池：负责以下工作：</p>
 <ul>
 <li>维护所有进程、线程需要访问的多个内部数据结构</li>
 <li>缓存磁盘数据</li>
 <li>重做日志缓冲</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200804133649.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200804133649.png" srcset="/img/loading.gif" alt="" /></p>
 <p>后台线程的主要作用是<strong>负责刷新内存池中的数据</strong>，保证缓冲池中的内存缓存的是最近的数据。此外将已修改的数据文件刷新到磁盘文件，同时保证在数据库发生异常的情况下 <code>InnoDB</code> 能恢复到正常运行状态。</p>
-<h2 id="后台线程"><a href="#后台线程" class="headerlink" title="后台线程"></a>后台线程</h2><ul>
-<li><p><code>Master Thread</code><br><code>Master Thread</code> 是一个非常核心的后台线程，主要负责将缓冲池中的<strong>数据异步刷新</strong>到磁盘，保证数据的一致性。包括脏页的刷新、合并插入缓冲、<code>UNDO</code> 页的回收等。</p>
+<h2 id="后台线程"><a class="markdownIt-Anchor" href="#后台线程"></a> 后台线程</h2>
+<ul>
+<li>
+<p><code>Master Thread</code><br />
+<code>Master Thread</code> 是一个非常核心的后台线程，主要负责将缓冲池中的<strong>数据异步刷新</strong>到磁盘，保证数据的一致性。包括脏页的刷新、合并插入缓冲、<code>UNDO</code> 页的回收等。</p>
 </li>
-<li><p><code>IO Thread</code><br><code>InnoDB</code> 存储引擎中大量使用了 <code>AIO</code> 来处理写请求，<code>IO Thread</code> 的工作主要是负责这些 <strong><code>IO</code> 请求的回调处理</strong>。</p>
+<li>
+<p><code>IO Thread</code><br />
+<code>InnoDB</code> 存储引擎中大量使用了 <code>AIO</code> 来处理写请求，<code>IO Thread</code> 的工作主要是负责这些 <strong><code>IO</code> 请求的回调处理</strong>。</p>
 </li>
-<li><p><code>Purge Thread</code><br>事务被提交后，其所使用的 <code>undolog</code> 可能不再需要，因此需要使用 <code>Purge Thread</code> 来<strong>回收</strong>已经使用并分配的 <code>undo</code> 页。</p>
+<li>
+<p><code>Purge Thread</code><br />
+事务被提交后，其所使用的 <code>undolog</code> 可能不再需要，因此需要使用 <code>Purge Thread</code> 来<strong>回收</strong>已经使用并分配的 <code>undo</code> 页。</p>
 </li>
-<li><p><code>Page Cleaner Thread</code><br>其作用是将<strong>脏页的刷新操作</strong>都放入到单独的线程中来完成，其目的是为了减轻 <code>Master Thread</code> 的工作及对于用户查询线程的阻塞，进一步提高 <code>InnoDB</code> 的性能。</p>
+<li>
+<p><code>Page Cleaner Thread</code><br />
+其作用是将<strong>脏页的刷新操作</strong>都放入到单独的线程中来完成，其目的是为了减轻 <code>Master Thread</code> 的工作及对于用户查询线程的阻塞，进一步提高 <code>InnoDB</code> 的性能。</p>
 </li>
 </ul>
-<h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200804135715.png" srcset="/img/loading.gif" alt=""></p>
-<h3 id="缓冲池"><a href="#缓冲池" class="headerlink" title="缓冲池"></a>缓冲池</h3><p><code>InnoDB</code> 存储引擎是基于磁盘存储的，并将其中的记录按照页的方式进行管理。<br>对于数据库中页的修改操作，首先修改在缓冲池中的页，然后再通过 <code>Checkpoint</code> 机制刷新到磁盘上。</p>
-<h3 id="LRU-List-Free-List-Flush-List"><a href="#LRU-List-Free-List-Flush-List" class="headerlink" title="LRU List, Free List, Flush List"></a><code>LRU List</code>, <code>Free List</code>, <code>Flush List</code></h3><p><code>InnoDB</code> 存储引擎中，<code>LRU List</code> 中还加入了 <code>midpoint</code> 位置，<code>midpoint</code> 之后的列表称为 <code>old</code> 列表， 之前的列表称为 <code>new</code> 列表，<code>new</code> 列表中的页都是最为活跃的热点数据。新读取到的页，并不是直接放入 <code>LRU</code> 列表的首部，而是放入 <code>LRU</code> 列表的 <code>midpoint</code> 位置。在默认配置下，这个位置在 <code>LRU</code> 列表长度的 <code>5/8</code> 处。</p>
+<h2 id="内存"><a class="markdownIt-Anchor" href="#内存"></a> 内存</h2>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200804135715.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="缓冲池"><a class="markdownIt-Anchor" href="#缓冲池"></a> 缓冲池</h3>
+<p><code>InnoDB</code> 存储引擎是基于磁盘存储的，并将其中的记录按照页的方式进行管理。<br />
+对于数据库中页的修改操作，首先修改在缓冲池中的页，然后再通过 <code>Checkpoint</code> 机制刷新到磁盘上。</p>
+<h3 id="lru-list-free-list-flush-list"><a class="markdownIt-Anchor" href="#lru-list-free-list-flush-list"></a> <code>LRU List</code>, <code>Free List</code>, <code>Flush List</code></h3>
+<p><code>InnoDB</code> 存储引擎中，<code>LRU List</code> 中还加入了 <code>midpoint</code> 位置，<code>midpoint</code> 之后的列表称为 <code>old</code> 列表， 之前的列表称为 <code>new</code> 列表，<code>new</code> 列表中的页都是最为活跃的热点数据。新读取到的页，并不是直接放入 <code>LRU</code> 列表的首部，而是放入 <code>LRU</code> 列表的 <code>midpoint</code> 位置。在默认配置下，这个位置在 <code>LRU</code> 列表长度的 <code>5/8</code> 处。</p>
 <blockquote>
-<p>那为什么不采用朴素的 <code>LRU</code> 算法，直接将读取的页放入到 <code>LRU List</code> 的首部呢？<br>若直接将读取到的页放人到 <code>LRU</code> 的首部，那么某些 <code>SQL</code> 操作可能会使缓冲池中的热点数据被刷新，而在下一次需要读取该页时，需要再次访问磁盘。<br>常见的这类操作为<strong>索引</strong>或<strong>数据的扫描</strong>操作。这类操作需要访问表中的许多页，甚至是全部的页，而这些页通常来说又仅在这次查询操作中需要，并不是活跃的热点数据。</p>
+<p>那为什么不采用朴素的 <code>LRU</code> 算法，直接将读取的页放入到 <code>LRU List</code> 的首部呢？<br />
+若直接将读取到的页放人到 <code>LRU</code> 的首部，那么某些 <code>SQL</code> 操作可能会使缓冲池中的热点数据被刷新，而在下一次需要读取该页时，需要再次访问磁盘。<br />
+常见的这类操作为<strong>索引</strong>或<strong>数据的扫描</strong>操作。这类操作需要访问表中的许多页，甚至是全部的页，而这些页通常来说又仅在这次查询操作中需要，并不是活跃的热点数据。</p>
 </blockquote>
 <p><code>LRU List</code> 用来管理已经读取的页，但当数据库刚启动时，<code>LRU List</code> 是空的，即没有任何的页。这时页都存放在 <code>Free List</code> 中。当需要从缓冲池中分页时，首先从 <code>Free List</code> 中查找是否有可用的空闲页</p>
 <ul>
@@ -259,15 +276,20 @@
 <li><code>page made young</code>: 页从 <code>LRU List</code> 的 <code>old</code> 部分加入到 <code>new</code> 部分。</li>
 <li><code>page not made young</code>: 因为 <code>innodb-old_blocks-time</code> 的设置而导致页没有从 <code>old</code> 部分移动到 <code>new</code> 部分。</li>
 </ul>
-<p>当 <code>LRU List</code> 中的页被修改后，称该页为脏页（<code>dirty page</code>），即缓冲池中的页和磁盘上的页数据产生了不一致。这时候数据库会通过 <code>checkpoint</code> 机制将脏页刷新回磁盘，而 <code>Flush  List</code> 中的页即为脏页列表。注意脏页也存在于 <code>LRU List</code> 中。</p>
-<h3 id="重做日志缓冲"><a href="#重做日志缓冲" class="headerlink" title="重做日志缓冲"></a>重做日志缓冲</h3><p><code>InnoDB</code> 引擎首先将重做日志信息先放到重做日志缓冲区(<code>redo log buffer</code>)，然后按一定频率刷新到重做日志文件。重做日志缓冲不需要设置很大，一般每一秒都会刷新 <code>redo log buffer</code>，配置的大小只需要保证每秒产生的事务在这个缓冲区大小之内即可。通过参数 <code>innodb_log_buffer_size</code> 设置。<br>在下列情况下会将重做日志缓冲中的内容刷新到磁盘重做日志文件中：</p>
+<p>当 <code>LRU List</code> 中的页被修改后，称该页为脏页（<code>dirty page</code>），即缓冲池中的页和磁盘上的页数据产生了不一致。这时候数据库会通过 <code>checkpoint</code> 机制将脏页刷新回磁盘，而 <code>Flush List</code> 中的页即为脏页列表。注意脏页也存在于 <code>LRU List</code> 中。</p>
+<h3 id="重做日志缓冲"><a class="markdownIt-Anchor" href="#重做日志缓冲"></a> 重做日志缓冲</h3>
+<p><code>InnoDB</code> 引擎首先将重做日志信息先放到重做日志缓冲区(<code>redo log buffer</code>)，然后按一定频率刷新到重做日志文件。重做日志缓冲不需要设置很大，一般每一秒都会刷新 <code>redo log buffer</code>，配置的大小只需要保证每秒产生的事务在这个缓冲区大小之内即可。通过参数 <code>innodb_log_buffer_size</code> 设置。<br />
+在下列情况下会将重做日志缓冲中的内容刷新到磁盘重做日志文件中：</p>
 <ul>
 <li><code>Master Thread</code> 每一秒中刷新一次；</li>
 <li>每个事务提交时会刷新；</li>
 <li>当重做日志缓冲区空间小于 <code>1/2</code> 时会刷新。</li>
 </ul>
-<h3 id="额外的内存池"><a href="#额外的内存池" class="headerlink" title="额外的内存池"></a>额外的内存池</h3><p>额外的内存池用来对一些数据结构本身的内存进行分配，例如缓冲控制对象(<code>buffer control block</code>)记录的 <code>LRU</code>，锁，等待等信息。额外的内存池不够时会从缓冲池中进行申请。因此，在申请了很大的 <code>InnoDB</code> 缓冲池时，额外的内存池也要适当的调大。通过参数 <code>innodb_additional_mem_pool_size</code> 来设置大小。</p>
-<h1 id="Checkpoint-技术"><a href="#Checkpoint-技术" class="headerlink" title="Checkpoint 技术"></a><code>Checkpoint</code> 技术</h1><p>作用：将脏页刷新到磁盘。<br>目的：</p>
+<h3 id="额外的内存池"><a class="markdownIt-Anchor" href="#额外的内存池"></a> 额外的内存池</h3>
+<p>额外的内存池用来对一些数据结构本身的内存进行分配，例如缓冲控制对象(<code>buffer control block</code>)记录的 <code>LRU</code>，锁，等待等信息。额外的内存池不够时会从缓冲池中进行申请。因此，在申请了很大的 <code>InnoDB</code> 缓冲池时，额外的内存池也要适当的调大。通过参数 <code>innodb_additional_mem_pool_size</code> 来设置大小。</p>
+<h1 id="checkpoint-技术"><a class="markdownIt-Anchor" href="#checkpoint-技术"></a> <code>Checkpoint</code> 技术</h1>
+<p>作用：将脏页刷新到磁盘。<br />
+目的：</p>
 <ul>
 <li>缩短数据库的恢复时间</li>
 <li>缓冲池不够用时，将脏页刷新到磁盘</li>
@@ -276,7 +298,8 @@
 <p>类型：</p>
 <ul>
 <li><code>Sharp Checkpoint</code> - 数据库关闭时将所有的脏页都刷新回磁盘。</li>
-<li><code>Fuzzy Checkpoint</code>:<ul>
+<li><code>Fuzzy Checkpoint</code>:
+<ul>
 <li><code>Master THread Checkpoint</code> - 每秒或每十秒刷新</li>
 <li><code>FLUSH_LRU_LIST Checkpoint</code> - 脏页来自于 <code>LRU List</code></li>
 <li><code>Async/Sync Flush Checkpoint</code> - 重做日志不可用，强制刷新脏页</li>
@@ -284,14 +307,16 @@
 </ul>
 </li>
 </ul>
-<h1 id="Master-Thread-工作方式"><a href="#Master-Thread-工作方式" class="headerlink" title="Master Thread 工作方式"></a><code>Master Thread</code> 工作方式</h1><p><code>Master Thread</code> 具有<strong>最高的线程优先级别</strong>，其内部由多个循环组成</p>
+<h1 id="master-thread-工作方式"><a class="markdownIt-Anchor" href="#master-thread-工作方式"></a> <code>Master Thread</code> 工作方式</h1>
+<p><code>Master Thread</code> 具有<strong>最高的线程优先级别</strong>，其内部由多个循环组成</p>
 <ul>
 <li>主循环（<code>loop</code>）</li>
 <li>后台循环（<code>background loop</code>）</li>
 <li>刷新循环（<code>lush loop</code>）</li>
 <li>暂停循环（<code>suspend loop</code>）</li>
 </ul>
-<h2 id="主循环"><a href="#主循环" class="headerlink" title="主循环"></a>主循环</h2><p>大多数的操作都是在<strong>主循环</strong>中，其中包括每秒的操作和每 <code>10</code> 秒的操作。</p>
+<h2 id="主循环"><a class="markdownIt-Anchor" href="#主循环"></a> 主循环</h2>
+<p>大多数的操作都是在<strong>主循环</strong>中，其中包括每秒的操作和每 <code>10</code> 秒的操作。</p>
 <p>每秒的操作：</p>
 <ul>
 <li>日志缓冲刷新到磁盘，即使这个事务还没提交（总是）</li>
@@ -307,8 +332,10 @@
 <li>删除无用的 <code>undo</code> 页（总是）</li>
 <li>刷新 <code>100</code> 个或者 <code>10</code> 个脏页到磁盘（总是）</li>
 </ul>
-<h2 id="后台循环"><a href="#后台循环" class="headerlink" title="后台循环"></a>后台循环</h2><blockquote>
-<p>当前没有用户活动（数据库空闲时）或数据库关闭时，切换到后台循环。<br>操作：</p>
+<h2 id="后台循环"><a class="markdownIt-Anchor" href="#后台循环"></a> 后台循环</h2>
+<blockquote>
+<p>当前没有用户活动（数据库空闲时）或数据库关闭时，切换到后台循环。<br />
+操作：</p>
 </blockquote>
 <ul>
 <li>删除无用的 <code>undo</code> 页（总是）</li>
@@ -316,41 +343,53 @@
 <li>调回到主循环（总是）</li>
 <li>不断刷新 <code>100</code> 个页直到符合条件（可能，跳转到 <code>flush loop</code> 中完成）</li>
 </ul>
-<h1 id="InnoDB-关键特性"><a href="#InnoDB-关键特性" class="headerlink" title="InnoDB 关键特性"></a><code>InnoDB</code> 关键特性</h1><h2 id="插入缓冲"><a href="#插入缓冲" class="headerlink" title="插入缓冲"></a>插入缓冲</h2><h3 id="Insert-Buffer"><a href="#Insert-Buffer" class="headerlink" title="Insert Buffer"></a><code>Insert Buffer</code></h3><p>对于<strong>非聚集索引</strong>的插入或更新操作，不是每一次直接插入到索引页中，而是先判断插入的非聚集索引页是否在缓冲池中，若在则直接插入；若不在，则先放入到一个 <code>Insert Buffr</code> 对象中。<br>然后再以一定频率和情况进行插入缓冲的合并操作，将多个插入合并到一个操作中。</p>
+<h1 id="innodb-关键特性"><a class="markdownIt-Anchor" href="#innodb-关键特性"></a> <code>InnoDB</code> 关键特性</h1>
+<h2 id="插入缓冲"><a class="markdownIt-Anchor" href="#插入缓冲"></a> 插入缓冲</h2>
+<h3 id="insert-buffer"><a class="markdownIt-Anchor" href="#insert-buffer"></a> <code>Insert Buffer</code></h3>
+<p>对于<strong>非聚集索引</strong>的插入或更新操作，不是每一次直接插入到索引页中，而是先判断插入的非聚集索引页是否在缓冲池中，若在则直接插入；若不在，则先放入到一个 <code>Insert Buffr</code> 对象中。<br />
+然后再以一定频率和情况进行插入缓冲的合并操作，将多个插入合并到一个操作中。</p>
 <p>使用条件：</p>
 <ol>
 <li>索引是辅助索引</li>
 <li>索引不是唯一的</li>
 </ol>
-<h3 id="Change-Buffer"><a href="#Change-Buffer" class="headerlink" title="Change Buffer"></a><code>Change Buffer</code></h3><p><code>Change Buffer</code> 可视为 <code>Insert Buffer</code> 的升级，可以对 <code>DML</code> 操作：<code>INSERT</code>, <code>DELETE</code>, <code>UPDATE</code> 都进行缓冲，分别是：<code>Insert Buffer</code>, <code>Delete Buffer</code>, <code>Purge Buffer</code>。</p>
-<p>适用对象依然是<strong>非唯一的辅助索引</strong>。<br><code>Insert/Change Buffer</code> 是一棵 <code>B+</code> 树。</p>
+<h3 id="change-buffer"><a class="markdownIt-Anchor" href="#change-buffer"></a> <code>Change Buffer</code></h3>
+<p><code>Change Buffer</code> 可视为 <code>Insert Buffer</code> 的升级，可以对 <code>DML</code> 操作：<code>INSERT</code>, <code>DELETE</code>, <code>UPDATE</code> 都进行缓冲，分别是：<code>Insert Buffer</code>, <code>Delete Buffer</code>, <code>Purge Buffer</code>。</p>
+<p>适用对象依然是<strong>非唯一的辅助索引</strong>。<br />
+<code>Insert/Change Buffer</code> 是一棵 <code>B+</code> 树。</p>
 <p>操作过程：</p>
 <ol>
 <li>将记录标记为已删除（<code>Delete Buffer</code>）；</li>
 <li>真正将记录删除（<code>Purge Buffer</code>）。</li>
 </ol>
-<h3 id="Merge-Insert-Buffer"><a href="#Merge-Insert-Buffer" class="headerlink" title="Merge Insert Buffer"></a><code>Merge Insert Buffer</code></h3><p><code>Merge Insert Buffer</code> 的操作可能发生在以下几种情况下：</p>
+<h3 id="merge-insert-buffer"><a class="markdownIt-Anchor" href="#merge-insert-buffer"></a> <code>Merge Insert Buffer</code></h3>
+<p><code>Merge Insert Buffer</code> 的操作可能发生在以下几种情况下：</p>
 <ul>
 <li>辅助索引页被读取到缓冲池时；</li>
 <li><code>Insert Buffer Bitmap</code> 页追踪到该辅助索引页已无可用空间时；</li>
 <li><code>Master Thread</code>：每秒或每 <code>10</code> 秒。</li>
 </ul>
-<h2 id="两次写"><a href="#两次写" class="headerlink" title="两次写"></a>两次写</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200804162449.png" srcset="/img/loading.gif" alt=""></p>
+<h2 id="两次写"><a class="markdownIt-Anchor" href="#两次写"></a> 两次写</h2>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200804162449.png" srcset="/img/loading.gif" alt="" /></p>
 <ol>
 <li>当刷新缓冲池脏页时，并不直接写到数据文件中，而是先拷贝至内存中的两次写缓冲区；</li>
 <li>接着从两次写缓冲区分两次写入磁盘共享表空间中，每次写入 <code>1MB</code>；</li>
 <li>待第2步完成后，再将两次写缓冲区写入数据文件。</li>
 </ol>
 <p>这样就可以解决<strong>部分写失效</strong>的问题，因为在磁盘共享表空间中已有数据页副本拷贝，如果数据库在页写入数据文件的过程中宕机，在实例恢复时，可以从共享表空间中找到该页副本，将其拷贝覆盖原有的数据页，再应用重做日志即可。</p>
-<h2 id="自适应哈希索引"><a href="#自适应哈希索引" class="headerlink" title="自适应哈希索引"></a>自适应哈希索引</h2><blockquote>
+<h2 id="自适应哈希索引"><a class="markdownIt-Anchor" href="#自适应哈希索引"></a> 自适应哈希索引</h2>
+<blockquote>
 <p><code>InnoDB</code> 会自动根据访问的频率和模式来自动地为某些热点页建立哈希索引。它是通过缓冲池中的 <code>B+</code> 树构造而来，且不需要对整个表建立哈希索引，因此它的速度非常快。</p>
 </blockquote>
 <p><code>InnoDB</code> 采用自适应哈希索引，它会实时监控表上索引的使用情况，如果认为建立哈希索引可以提高查询效率，则自动在内存中的“自适应哈希索引缓冲区”建立哈希索引。</p>
-<h2 id="异步-IO"><a href="#异步-IO" class="headerlink" title="异步 IO"></a>异步 IO</h2><ul>
+<h2 id="异步-io"><a class="markdownIt-Anchor" href="#异步-io"></a> 异步 IO</h2>
+<ul>
 <li><code>AIO</code> 可以使用户在发出一个 <code>IO</code> 请求后立即再发出另一个 <code>IO</code> 请求，当全部请求发送完毕后，等待所有 <code>IO</code> 操作的完成。</li>
 <li>可以进行 <code>IO Merge</code> 操作，将多个 <code>IO</code> 合并为 <code>1</code> 个 <code>IO</code>。</li>
 </ul>
-<h2 id="刷新邻接页"><a href="#刷新邻接页" class="headerlink" title="刷新邻接页"></a>刷新邻接页</h2><p>当刷新一个脏页时，<code>InnoDB</code> 会检测该页所在区的所有页，如果是脏页，那么一起进行刷新。<br>好处是通过 <code>AIO</code> 将多个 <code>IO</code> 写入操作合并成一个 <code>IO</code> 操作，在传统机械硬盘下有着显著优势。而对于固态硬盘建议关闭此特性。</p>
+<h2 id="刷新邻接页"><a class="markdownIt-Anchor" href="#刷新邻接页"></a> 刷新邻接页</h2>
+<p>当刷新一个脏页时，<code>InnoDB</code> 会检测该页所在区的所有页，如果是脏页，那么一起进行刷新。<br />
+好处是通过 <code>AIO</code> 将多个 <code>IO</code> 写入操作合并成一个 <code>IO</code> 操作，在传统机械硬盘下有着显著优势。而对于固态硬盘建议关闭此特性。</p>
 
             </article>
             <hr>

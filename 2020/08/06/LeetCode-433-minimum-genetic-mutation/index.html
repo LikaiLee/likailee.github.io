@@ -213,7 +213,8 @@
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/minimum-genetic-mutation/" target="_blank" rel="noopener">433. 最小基因变化</a></p>
-<h1 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h1><p>第一次解法击败 <code>100%</code> 用户。</p>
+<h1 id="回溯"><a class="markdownIt-Anchor" href="#回溯"></a> 回溯</h1>
+<p>第一次解法击败 <code>100%</code> 用户。</p>
 <p>每一次的变异都可在基因库中找到，因此从基因库中构建决策树，与当前基因相差一个碱基且在之前的选择路径中未出现的基因即为下一步变异的基因。</p>
 <pre><code class="hljs java"><span class="hljs-keyword">int</span> minStep = Integer.MAX_VALUE;
 
@@ -284,8 +285,10 @@
     <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">notSelected</span><span class="hljs-params">(String candidate)</span> </span>&#123;
         <span class="hljs-keyword">return</span> !selectedList.contains(candidate);
     &#125;</code></pre>
-
-<h1 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h1><p>每次变异一个碱基，队列中保存的即为当前可变异的所有基因，且这些基因都在基因库中未被变异过。<br>相当于构建一棵树，进行树的层次遍历。<br>需要注意的是变异完后的碱基需要恢复原样，否则在下一次获取新基因时可能导致多个碱基都发生了变异。</p>
+<h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1>
+<p>每次变异一个碱基，队列中保存的即为当前可变异的所有基因，且这些基因都在基因库中未被变异过。<br />
+相当于构建一棵树，进行树的层次遍历。<br />
+需要注意的是变异完后的碱基需要恢复原样，否则在下一次获取新基因时可能导致多个碱基都发生了变异。</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minMutation</span><span class="hljs-params">(String start, String end, String[] bank)</span> </span>&#123;
         Set&lt;String&gt; unSelectedSet = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(Arrays.asList(bank));
         <span class="hljs-keyword">if</span> (!unSelectedSet.contains(end)) &#123;

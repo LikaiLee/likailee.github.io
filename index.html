@@ -170,6 +170,57 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/15/LeetCode-69-sqrtx/">LeetCode 69. x 的平方根</a>
+
+      <a href="/2020/08/15/LeetCode-69-sqrtx/" class="index-excerpt">
+        
+        
+          
+        
+        <div>69. x 的平方根
+ 二分
+public int mySqrt(int x) &#123;
+    if (x == 0) &#123;
+        return 0;
+    &#125;
+    long left = 1;
+    // 一个数的平方根 &lt;= 这个数的一半，所以右边界最大 = x / 2
+    // sqrt(x) &lt;= x / 2
+    long ri</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-15
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/14/LeetCode-45-jump-game-ii/">LeetCode 45. 跳跃游戏 II</a>
 
       <a href="/2020/08/14/LeetCode-45-jump-game-ii/" class="index-excerpt">
@@ -226,10 +277,11 @@ public int jump(int[] nums) &#123;
           
         
         <div>55. 跳跃游戏
-(🙃一开始还用的回溯。。。)关键在于：若能跳到第 i 个位置，则在这之前的所有位置都能到达，所以只要计算从第 i 个位置起跳能跳到的最远位置。
+(🙃一开始还用的回溯。。。)
+关键在于：若能跳到第 i 个位置，则在这之前的所有位置都能到达，所以只要计算从第 i 个位置起跳能跳到的最远位置。
 public boolean canJump(int[] nums) &#123;
         int maxPos = 0;
-        for (int i = 0; i &lt; nums.length; i++) &#1</div>
+        for (int i = 0; i &lt; nums.length; i++) &#</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -271,7 +323,9 @@ public boolean canJump(int[] nums) &#123;
         
           
         
-        <div>InnoDB 中的锁表级锁和行级锁
+        <div> InnoDB 中的锁
+ 表级锁和行级锁
+
 
 
 锁类型
@@ -281,6 +335,7 @@ public boolean canJump(int[] nums) &#123;
 粒度
 锁冲突
 并发性
+
 
 
 
@@ -302,7 +357,8 @@ public boolean canJump(int[] nums) &#123;
 高
 
 
-应该尽量只锁定需要修改的那部分数据，而不是所有的资源。锁定的数据量越少，锁竞争的发生频率就越小，系统的并发程度就越高。但是加锁需要消耗资源，锁的各种操作（包括获取锁、释放锁、以及检查锁状</div>
+
+应该尽量只锁定需要修改的那部分数据，而不是所有的资源。锁定的数据量越少，锁竞争的发生频率就越小，系统的并发程度就越高。但是加锁需要消耗资源，锁的各种操作（包括获取锁、释放锁、</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -441,13 +497,14 @@ public int findContentChildren(int[] g, int[] s) &#123;
           
         
         <div>122. 买卖股票的最佳时机 II
-贪心
+ 贪心
+
 贪心的思想在于每一步作出的决策在现在看来总是最好的，它不关心过去或者未来的状态。
 
 只要今天的价格高于明天就计算收益：相当于在今天判断：是否买入昨天，卖出今天。这样每一天都有收益，最终的收益就是最大的。
 public int maxProfit(int[] prices) &#123;
         int profit = 0;
-        for</div>
+        f</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -543,7 +600,8 @@ public boolean lemonadeChange(int[] bills) &#123;
           
         
         <div>529. 扫雷游戏
-DFS
+ DFS
+
 找周围的雷和进入下一层递归都是在 八个方向 游走。
 
 典型的 DFS。
@@ -554,7 +612,7 @@ DFS
 若周围没有雷，标记为 B，遍历周围八个位置，进入递归。
 
 int[][] dirs = &#123;
-            // 上：(x</div>
+            // 上：</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -599,7 +657,8 @@ int[][] dirs = &#123;
           
         
         <div>200. 岛屿数量
-DFSint rows;
+ DFS
+int rows;
     int cols;
     /**
      * 已被访问的数组
@@ -610,7 +669,7 @@ DFSint rows;
      */
     int[][] dir = new int[][]&#123;
             // 上: (x - 1, y)
-            &#</div>
+            </div>
       </a>
 
       <div class="index-btm post-metas">
@@ -645,64 +704,11 @@ DFSint rows;
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/09/LeetCode-126-word-ladder-ii/">LeetCode 126. 单词接龙 II</a>
-
-      <a href="/2020/08/09/LeetCode-126-word-ladder-ii/" class="index-excerpt">
-        
-        
-          
-        
-        <div>126. 单词接龙 II
-
-找的是最短路径，且可能有多个
-一开始用的 List 存放每层元素，结果 回溯的时候难以访问下一层，最好用 Map 存放
-！！最短路径要及时剪枝
-！！不能用 used 数组标记访问过的元素，而是标记当前层和以上层已经访问过的数组，因为若存在多个最短路径，元素可能重复使用，used 数组标记后会把下层的元素也标记，会导致漏解。
-
-public List&lt;List&lt</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-09
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/BFS/">BFS</a>
-            
-              <a href="/tags/DFS/">DFS</a>
-            
-              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

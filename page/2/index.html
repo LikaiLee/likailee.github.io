@@ -170,6 +170,59 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/09/LeetCode-126-word-ladder-ii/">LeetCode 126. 单词接龙 II</a>
+
+      <a href="/2020/08/09/LeetCode-126-word-ladder-ii/" class="index-excerpt">
+        
+        
+          
+        
+        <div>126. 单词接龙 II
+
+找的是最短路径，且可能有多个
+一开始用的 List 存放每层元素，结果 回溯的时候难以访问下一层，最好用 Map 存放
+！！最短路径要及时剪枝
+！！不能用 used 数组标记访问过的元素，而是标记当前层和以上层已经访问过的数组，因为若存在多个最短路径，元素可能重复使用，used 数组标记后会把下层的元素也标记，会导致漏解。
+
+public List&lt;List&lt</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-09
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/08/LeetCode-127-word-ladder/">LeetCode 127. 单词接龙</a>
 
       <a href="/2020/08/08/LeetCode-127-word-ladder/" class="index-excerpt">
@@ -179,9 +232,10 @@
         
         <div>127. 单词接龙
 和 433.最小基因那题很像，不过本题变异的字母是不确定的，不再是 ACGT，若用回溯会超时。
-BFSpublic int ladderLength(String beginWord, String endWord, List&lt;String&gt; wordList) &#123;
+ BFS
+public int ladderLength(String beginWord, String endWord, List&lt;String&gt; wordList) &#123;
         // ! endWord 不在 wordList 中直接返回
-      </div>
+    </div>
       </a>
 
       <div class="index-btm post-metas">
@@ -224,11 +278,12 @@ BFSpublic int ladderLength(String beginWord, String endWord, List&lt;String&gt; 
           
         
         <div>515. 在每个树行中找最大值
-BFS层次遍历
+ BFS
+层次遍历
 public List&lt;Integer&gt; largestValues(TreeNode root) &#123;
         List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
         if (root == null) &#123;
-            return re</div>
+            return </div>
       </a>
 
       <div class="index-btm post-metas">
@@ -273,13 +328,14 @@ public List&lt;Integer&gt; largestValues(TreeNode root) &#123;
           
         
         <div>22. 括号生成
-回溯List&lt;String&gt; res = new ArrayList&lt;&gt;();
+ 回溯
+List&lt;String&gt; res = new ArrayList&lt;&gt;();
 
     public List&lt;String&gt; generateParenthesis(int n) &#123;
         if (n &lt; 1) &#123;
             return res;
         &#125;
-      </div>
+    </div>
       </a>
 
       <div class="index-btm post-metas">
@@ -323,7 +379,9 @@ public List&lt;Integer&gt; largestValues(TreeNode root) &#123;
         
           
         
-        <div>介绍B+ 树
+        <div> 介绍
+ B+ 树
+
 
 🙃又是考研内容。
 
@@ -333,7 +391,7 @@ public List&lt;Integer&gt; largestValues(TreeNode root) &#123;
 非叶根结点至少有两棵子树，其他每个分支结点至少有 ⌈m / 2⌉ 棵子树。
 结点的子树个数与关键字个数相等。
 所有叶子结点包含全部关键字及指向相应记录的指针，叶子结点中关键字按大小排序，相邻叶结点按大小顺序相互链接起来。
-所有分支结点中仅包含它的各个子结点中关键字的最大值及指</div>
+所有分支结点中仅包含它的各个子结点中关键字的最</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -374,11 +432,12 @@ public List&lt;Integer&gt; largestValues(TreeNode root) &#123;
           
         
         <div>433. 最小基因变化
-回溯第一次解法击败 100% 用户。
+ 回溯
+第一次解法击败 100% 用户。
 每一次的变异都可在基因库中找到，因此从基因库中构建决策树，与当前基因相差一个碱基且在之前的选择路径中未出现的基因即为下一步变异的基因。
 int minStep = Integer.MAX_VALUE;
 
-    public int minMutation(String start, String end, String[] bank)</div>
+    public int minMutation(String start, String end, String[] ban</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -424,9 +483,10 @@ int minStep = Integer.MAX_VALUE;
         
         <div>二叉树的层序遍历
 主要在于判断每一层有哪些结点：遍历之前先保存每层结点数，然后按层处理结点。
-BFSpublic List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;
+ BFS
+public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;
         List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
-       </div>
+     </div>
       </a>
 
       <div class="index-btm post-metas">
@@ -470,12 +530,13 @@ BFSpublic List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;
         
           
         
-        <div>索引组织表在 InnoDB 中，表都是根据主键顺序组织存放的，这种存储方式的表称为索引组织表（index organized table）。如果在创建表时没有显式地定义主键，则会按以下方式选择或创建主键：
+        <div> 索引组织表
+在 InnoDB 中，表都是根据主键顺序组织存放的，这种存储方式的表称为索引组织表（index organized table）。如果在创建表时没有显式地定义主键，则会按以下方式选择或创建主键：
 
 首先判断表中是否有非空的唯一索引（Unique NOT NULL），如果有，则该列为主键；
 否则，自动创建一个 6 字节大小的指针。
 
-当表中有多个非空唯一索引时，InnoDB 存储引擎将选择</div>
+当表中有多个非空唯一索引时，InnoDB 存储引擎将</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -561,7 +622,8 @@ List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;&gt;();
         
           
         
-        <div>参数文件
+        <div> 参数文件
+
 告诉 MySQL 实例启动时在哪里可以找到数据库文件，并且指定某些初始化参数，这些参数定义了某种内存结构的大小等设置。
 
 MySQL 实例可以不需要参数文件，这时所有的参数值取决于编译 MySQL 时指定的默认值和源代码中指定参数的默认值。
@@ -570,8 +632,9 @@ MySQL 实例可以不需要参数文件，这时所有的参数值取决于编�
 动态参数 - 可以在 MySQL 实例运行中进行更改
 静态参数 - 在整个实例生命周期内都不得进行修改
 
-日志文件
-日志文件记录了影响</div>
+ 日志文件
+
+日志文件记</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -600,59 +663,11 @@ MySQL 实例可以不需要参数文件，这时所有的参数值取决于编�
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/04/LeetCode-17-letter-combinations-of-a-phone-number/">LeetCode 17. 电话号码的字母组合</a>
-
-      <a href="/2020/08/04/LeetCode-17-letter-combinations-of-a-phone-number/" class="index-excerpt">
-        
-        
-          
-        
-        <div>17. 电话号码的字母组合
-回溯选择列表：每个 digit 对应的字母列表路径：已选字母组合 + 选择列表的字母终止条件：递归深度达到 digits 的长度
-// 2 ~ 9 每个位置所对应的选择列表
-    String[] map = &#123;"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"&#125;;
-  </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-04
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/BFS/">BFS</a>
-            
-              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
