@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      275 字
+      382 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      5
        分钟
     </span>
   
@@ -214,25 +214,37 @@
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/sqrtx/" target="_blank" rel="noopener">69. x 的平方根</a></p>
 <h1 id="二分"><a class="markdownIt-Anchor" href="#二分"></a> 二分</h1>
+<blockquote>
+<p><code>sqrt(x) &lt;= x / 2</code><br />
+一个数的平方根 <code>&lt;=</code> 这个数的一半，所以右边界最大 <code>= x / 2</code></p>
+</blockquote>
+<ul>
+<li>先写分支逻辑，再决定中间数是否上取整；</li>
+<li>只要看到 <code>left = mid</code> ，它对应的取中位数的取法一定是 <code>mid = left + (right - left + 1) / 2;</code>。</li>
+</ul>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">mySqrt</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;
     <span class="hljs-keyword">if</span> (x == <span class="hljs-number">0</span>) &#123;
         <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
     &#125;
     <span class="hljs-keyword">long</span> left = <span class="hljs-number">1</span>;
-    <span class="hljs-comment">// 一个数的平方根 &lt;= 这个数的一半，所以右边界最大 = x / 2</span>
-    <span class="hljs-comment">// sqrt(x) &lt;= x / 2</span>
     <span class="hljs-keyword">long</span> right = x / <span class="hljs-number">2</span>;
     <span class="hljs-comment">// 排除元素，使用 &lt;，每次都使用 [left, right] 查找</span>
     <span class="hljs-comment">// 查找元素，使用 &lt;=</span>
     <span class="hljs-keyword">while</span> (left &lt; right) &#123;
-        <span class="hljs-comment">// +1 的原因是避免死循环</span>
-        <span class="hljs-keyword">long</span> mid = (left + right + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;
+        <span class="hljs-comment">// +1 向上取整，避免死循环</span>
+        <span class="hljs-comment">// 不使用 (left + right) / 2 是为了避免 long 溢出</span>
+        <span class="hljs-keyword">long</span> mid = left + (right - left + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;
         <span class="hljs-keyword">if</span> (mid * mid &gt; x) &#123;
+            <span class="hljs-comment">// [left, mid - 1]</span>
             right = mid - <span class="hljs-number">1</span>;
         &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-comment">// [mid, right]</span>
             left = mid;
         &#125;
     &#125;
+    <span class="hljs-comment">// 退出循环时 left == right</span>
+    <span class="hljs-comment">// 还剩一个元素没有查找，</span>
+    <span class="hljs-comment">// 因为答案一定存在，即一定在搜索区间，剩下的元素就是问题答案</span>
     <span class="hljs-keyword">return</span> (<span class="hljs-keyword">int</span>)left;
 &#125;</code></pre>
 <h1 id="牛顿迭代法"><a class="markdownIt-Anchor" href="#牛顿迭代法"></a> 牛顿迭代法</h1>
@@ -243,15 +255,15 @@
 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>=</mo><msub><mi>x</mi><mi>n</mi></msub><mo>−</mo><mfrac><mrow><msubsup><mi>x</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><mi>a</mi></mrow><mrow><mn>2</mn><msub><mi>x</mi><mi>n</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">x = x_n - \frac{x_n^2 - a}{2x_n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.5792199999999998em;vertical-align:-0.44509999999999994em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1341199999999998em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.5102em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913142857142857em;"><span style="top:-2.214em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">n</span></span></span><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286em;"><span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.44509999999999994em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span><br />
 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo stretchy="false">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo>+</mo><mfrac><mi>a</mi><msub><mi>x</mi><mi>n</mi></msub></mfrac><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">x = \frac{1}{2}(x_n + \frac{a}{x_n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1951em;vertical-align:-0.44509999999999994em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.44509999999999994em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span></p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">mySqrt</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;
-        <span class="hljs-keyword">double</span> cur = <span class="hljs-number">1.0</span>;
-        <span class="hljs-keyword">double</span> pre = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">while</span> (Math.abs(cur - pre) &gt; <span class="hljs-number">1e-6</span>) &#123;
-            pre = cur;
-            cur = (cur + x / cur) / <span class="hljs-number">2</span>;
-        &#125;
-        System.out.println(cur);
-        <span class="hljs-keyword">return</span> (<span class="hljs-keyword">int</span>)cur;
-    &#125;</code></pre>
+    <span class="hljs-keyword">double</span> cur = <span class="hljs-number">1.0</span>;
+    <span class="hljs-keyword">double</span> pre = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span> (Math.abs(cur - pre) &gt; <span class="hljs-number">1e-6</span>) &#123;
+        pre = cur;
+        cur = (cur + x / cur) / <span class="hljs-number">2</span>;
+    &#125;
+    System.out.println(cur);
+    <span class="hljs-keyword">return</span> (<span class="hljs-keyword">int</span>)cur;
+&#125;</code></pre>
             </article>
             <hr>
             <div>

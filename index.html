@@ -179,14 +179,16 @@
         
         <div>69. x 的平方根
  二分
+
+sqrt(x) &lt;= x / 2
+一个数的平方根 &lt;= 这个数的一半，所以右边界最大 = x / 2
+
+
+先写分支逻辑，再决定中间数是否上取整；
+只要看到 left = mid ，它对应的取中位数的取法一定是 mid = left + (right - left + 1) / 2;。
+
 public int mySqrt(int x) &#123;
-    if (x == 0) &#123;
-        return 0;
-    &#125;
-    long left = 1;
-    // 一个数的平方根 &lt;= 这个数的一半，所以右边界最大 = x / 2
-    // sqrt(x) &lt;= x / 2
-    long ri</div>
+  </div>
       </a>
 
       <div class="index-btm post-metas">
