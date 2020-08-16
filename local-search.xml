@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 367. 有效的完全平方数</title>
+    <link href="/2020/08/16/LeetCode-367.%20valid-perfect-square/"/>
+    <url>/2020/08/16/LeetCode-367.%20valid-perfect-square/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/valid-perfect-square/" target="_blank" rel="noopener">367. 有效的完全平方数</a></p><p>两种解法都击败 <code>100%</code></p><h1 id="二分法"><a class="markdownIt-Anchor" href="#二分法"></a> 二分法</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPerfectSquare</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;    <span class="hljs-keyword">if</span> (num == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;    <span class="hljs-keyword">long</span> left = <span class="hljs-number">1</span>;    <span class="hljs-keyword">long</span> right = num / <span class="hljs-number">2</span>;    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-keyword">long</span> mid = left + (right - left + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;        <span class="hljs-keyword">long</span> prod = mid * mid;        <span class="hljs-keyword">if</span> (prod == num) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (prod &gt; num) &#123;            right = mid - <span class="hljs-number">1</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            left = mid;        &#125;    &#125;    <span class="hljs-keyword">return</span> left * left == num;&#125;</code></pre><h1 id="牛顿迭代法"><a class="markdownIt-Anchor" href="#牛顿迭代法"></a> 牛顿迭代法</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPerfectSquare</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;    <span class="hljs-keyword">if</span> (num == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-keyword">if</span> (num == <span class="hljs-number">1</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;    <span class="hljs-keyword">long</span> x = num / <span class="hljs-number">2</span>;    <span class="hljs-keyword">while</span> (x * x &gt; num) &#123;        x = (x + num / x) / <span class="hljs-number">2</span>;    &#125;    <span class="hljs-keyword">return</span> x * x == num;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>二分</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 69. x 的平方根</title>
     <link href="/2020/08/15/LeetCode-69-sqrtx/"/>
     <url>/2020/08/15/LeetCode-69-sqrtx/</url>
