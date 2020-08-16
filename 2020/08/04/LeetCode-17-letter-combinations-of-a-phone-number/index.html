@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      473 字
+      715 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      10
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月14日 中午
+                  本文最后更新于：2020年8月16日 晚上
                 
               </p>
             
@@ -218,41 +218,74 @@
 路径：已选字母组合 + 选择列表的字母<br />
 终止条件：递归深度达到 <code>digits</code> 的长度</p>
 <pre><code class="hljs java"><span class="hljs-comment">// 2 ~ 9 每个位置所对应的选择列表</span>
-    String[] map = &#123;<span class="hljs-string">""</span>, <span class="hljs-string">""</span>, <span class="hljs-string">"abc"</span>, <span class="hljs-string">"def"</span>, <span class="hljs-string">"ghi"</span>, <span class="hljs-string">"jkl"</span>, <span class="hljs-string">"mno"</span>, <span class="hljs-string">"pqrs"</span>, <span class="hljs-string">"tuv"</span>, <span class="hljs-string">"wxyz"</span>&#125;;
-    List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+String[] map = &#123;<span class="hljs-string">""</span>, <span class="hljs-string">""</span>, <span class="hljs-string">"abc"</span>, <span class="hljs-string">"def"</span>, <span class="hljs-string">"ghi"</span>, <span class="hljs-string">"jkl"</span>, <span class="hljs-string">"mno"</span>, <span class="hljs-string">"pqrs"</span>, <span class="hljs-string">"tuv"</span>, <span class="hljs-string">"wxyz"</span>&#125;;
+List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">letterCombinations</span><span class="hljs-params">(String digits)</span> </span>&#123;
-        <span class="hljs-keyword">if</span> (digits.length() == <span class="hljs-number">0</span>) &#123;
-            <span class="hljs-keyword">return</span> res;
-        &#125;
-        combine(digits, <span class="hljs-string">""</span>, <span class="hljs-number">0</span>);
+<span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">letterCombinations</span><span class="hljs-params">(String digits)</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (digits.length() == <span class="hljs-number">0</span>) &#123;
         <span class="hljs-keyword">return</span> res;
     &#125;
+    combine(digits, <span class="hljs-string">""</span>, <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">return</span> res;
+&#125;
 
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> digits</span>
-<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> path   当前已选择的组合路径</span>
-<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> len    当前递归到的 digits 位置</span>
-<span class="hljs-comment">     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">combine</span><span class="hljs-params">(String digits, String path, <span class="hljs-keyword">int</span> len)</span> </span>&#123;
-        <span class="hljs-comment">// 递归深度为 digits 的长度</span>
-        <span class="hljs-keyword">if</span> (len == digits.length()) &#123;
-            res.add(path);
-            <span class="hljs-keyword">return</span>;
-        &#125;
-        <span class="hljs-comment">// 找到当前 digit 所对应的字母组合</span>
-        <span class="hljs-keyword">char</span> c = digits.charAt(len);
-        <span class="hljs-keyword">int</span> pos = c - <span class="hljs-string">'0'</span>;
-        <span class="hljs-comment">// 所需要的选择列表</span>
-        String candidateString = map[pos];
-        <span class="hljs-comment">// 枚举每个字母组合</span>
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; candidateString.length(); i++) &#123;
-            <span class="hljs-comment">// 路径为：上一轮的路径 + 选择列表中的每个字母</span>
-            <span class="hljs-comment">// 递归深度/路径长度 + 1</span>
-            combine(digits, path + candidateString.charAt(i), len + <span class="hljs-number">1</span>);
-        &#125;
-    &#125;</code></pre>
-<h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1>
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> digits</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> path   当前已选择的组合路径</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> len    当前递归到的 digits 位置</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">combine</span><span class="hljs-params">(String digits, String path, <span class="hljs-keyword">int</span> len)</span> </span>&#123;
+    <span class="hljs-comment">// 递归深度为 digits 的长度</span>
+    <span class="hljs-keyword">if</span> (len == digits.length()) &#123;
+        res.add(path);
+        <span class="hljs-keyword">return</span>;
+    &#125;
+    <span class="hljs-comment">// 找到当前 digit 所对应的字母组合</span>
+    <span class="hljs-keyword">char</span> c = digits.charAt(len);
+    <span class="hljs-keyword">int</span> pos = c - <span class="hljs-string">'0'</span>;
+    <span class="hljs-comment">// 所需要的选择列表</span>
+    String candidateString = map[pos];
+    <span class="hljs-comment">// 枚举每个字母组合</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; candidateString.length(); i++) &#123;
+        <span class="hljs-comment">// 路径为：上一轮的路径 + 选择列表中的每个字母</span>
+        <span class="hljs-comment">// 递归深度/路径长度 + 1</span>
+        combine(digits, path + candidateString.charAt(i), len + <span class="hljs-number">1</span>);
+    &#125;
+&#125;</code></pre>
+<p><code>8.16</code> 按照模板的回溯解法：添加 <code>add</code>，<code>remove</code> 操作。<br />
+一开始 <code>path</code> 使用的是 <code>List</code>，总是无法通过，后来发现若是 <code>digits</code> 由同一个数字组成的情况下，路径中的元素可能是重复的，此时使用 <code>list.remove()</code> 操作会删除错误位置的元素，使用栈的思想可解决这个问题。</p>
+<pre><code class="hljs java">List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+
+String[] num2Str = &#123;<span class="hljs-string">""</span>, <span class="hljs-string">""</span>, <span class="hljs-string">"abc"</span>, <span class="hljs-string">"def"</span>, <span class="hljs-string">"ghi"</span>, <span class="hljs-string">"jkl"</span>, <span class="hljs-string">"mno"</span>, <span class="hljs-string">"pqrs"</span>, <span class="hljs-string">"tuv"</span>, <span class="hljs-string">"wxyz"</span>&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">letterCombinations</span><span class="hljs-params">(String digits)</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (digits.length() == <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+    <span class="hljs-comment">// 使用 StringBuilder</span>
+    <span class="hljs-comment">// 如果使用 List，当例子为 "999" 等相同数字时，在回溯时 remove 会出错</span>
+    StringBuilder path = <span class="hljs-keyword">new</span> StringBuilder();
+    backtrack(<span class="hljs-number">0</span>, path, digits);
+    <span class="hljs-keyword">return</span> res;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> len, StringBuilder path, String digits)</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (len == digits.length()) &#123;
+        res.add(path.toString());
+        <span class="hljs-keyword">return</span>;
+    &#125;
+    <span class="hljs-keyword">int</span> pos = digits.charAt(len) - <span class="hljs-string">'0'</span>;
+    String str = num2Str[pos];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; str.length(); j++) &#123;
+        String candidate = String.valueOf(str.charAt(j));
+        <span class="hljs-comment">// 末尾添加</span>
+        path.append(candidate);
+        backtrack(len + <span class="hljs-number">1</span>, path, digits);
+        <span class="hljs-comment">// 末尾删除</span>
+        path.deleteCharAt(path.length() - <span class="hljs-number">1</span>);
+    &#125;
+&#125;</code></pre>
+<h1 id="队列"><a class="markdownIt-Anchor" href="#队列"></a> 队列</h1>
 <blockquote>
 <p>‘’<br />
 a, b, c<br />
