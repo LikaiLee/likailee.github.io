@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 33. 搜索旋转排序数组</title>
+    <link href="/2020/08/17/LeetCode-33-search-in-rotated-sorted-array/"/>
+    <url>/2020/08/17/LeetCode-33-search-in-rotated-sorted-array/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/" target="_blank" rel="noopener">33. 搜索旋转排序数组</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">search</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> target)</span> </span>&#123;        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> right = nums.length - <span class="hljs-number">1</span>;        <span class="hljs-keyword">while</span> (left &lt; right) &#123;            <span class="hljs-keyword">int</span> mid = left + (right - left + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;            <span class="hljs-keyword">if</span> (nums[mid] == target) &#123;                <span class="hljs-keyword">return</span> mid;            &#125;            <span class="hljs-keyword">if</span> (nums[left] &lt; nums[mid]) &#123;                <span class="hljs-comment">// 1. 左半部分 [left, mid] 有序</span>                <span class="hljs-keyword">if</span> (target &gt;= nums[left] &amp;&amp; target &lt; nums[mid]) &#123;                    <span class="hljs-comment">// 1.1 target in [left, mid]</span>                    <span class="hljs-comment">// left &lt;= target &lt; mid.....right</span>                    <span class="hljs-comment">// [left, mid - 1]</span>                    right = mid - <span class="hljs-number">1</span>;                &#125; <span class="hljs-keyword">else</span> &#123;                    <span class="hljs-comment">// 1.2 target in [mid + 1, right]</span>                    <span class="hljs-comment">// [mid, right]</span>                    left = mid;                &#125;            &#125; <span class="hljs-keyword">else</span> &#123;                <span class="hljs-comment">// 2. 右半部分 [mid, right] 有序</span>                <span class="hljs-keyword">if</span> (target &gt; nums[mid] &amp;&amp; target &lt;= nums[right]) &#123;                    <span class="hljs-comment">// 2.1 target in [mid, right]</span>                    <span class="hljs-comment">// left.....mid &lt; target &lt;= right</span>                    <span class="hljs-comment">// [mid, right]</span>                    left = mid;                &#125; <span class="hljs-keyword">else</span> &#123;                    <span class="hljs-comment">// 2.2 target in [left, mid - 1]</span>                    <span class="hljs-comment">// [left, mid - 1]</span>                    right = mid - <span class="hljs-number">1</span>;                &#125;            &#125;        &#125;        <span class="hljs-keyword">return</span> nums[left] == target ? left : -<span class="hljs-number">1</span>;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>二分</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 367. 有效的完全平方数</title>
     <link href="/2020/08/16/LeetCode-367.%20valid-perfect-square/"/>
     <url>/2020/08/16/LeetCode-367.%20valid-perfect-square/</url>
