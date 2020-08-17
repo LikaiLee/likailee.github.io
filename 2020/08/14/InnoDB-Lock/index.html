@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月14日 晚上
+                  本文最后更新于：2020年8月17日 晚上
                 
               </p>
             
@@ -317,27 +317,27 @@
 <tbody>
 <tr>
 <td style="text-align:center">读未提交（<code>READ UNCOMMITTED</code>）</td>
-<td style="text-align:center"><code>Y</code></td>
-<td style="text-align:center"><code>Y</code></td>
-<td style="text-align:center"><code>Y</code></td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
 </tr>
 <tr>
 <td style="text-align:center">读已提交（<code>READ COMMITTED</code>）</td>
-<td style="text-align:center"><code>N</code></td>
-<td style="text-align:center"><code>Y</code></td>
-<td style="text-align:center"><code>Y</code></td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
 </tr>
 <tr>
 <td style="text-align:center">可重复读（<code>REPREATABLE READ</code>）</td>
-<td style="text-align:center"><code>N</code></td>
-<td style="text-align:center"><code>N</code></td>
-<td style="text-align:center"><code>Y</code> (<code>InnoDB</code> - <code>N</code>)</td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center">❌ (<code>InnoDB</code> - ✔️)</td>
 </tr>
 <tr>
 <td style="text-align:center">串行化（<code>SERIALIZABLE</code>）</td>
-<td style="text-align:center"><code>N</code></td>
-<td style="text-align:center"><code>N</code></td>
-<td style="text-align:center"><code>N</code></td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center">✔️</td>
 </tr>
 </tbody>
 </table>
