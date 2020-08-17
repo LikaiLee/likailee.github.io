@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 81. 搜索旋转排序数组 II</title>
+    <link href="/2020/08/17/LeetCode-81-search-in-rotated-sorted-array-ii/"/>
+    <url>/2020/08/17/LeetCode-81-search-in-rotated-sorted-array-ii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/" target="_blank" rel="noopener">81. 搜索旋转排序数组 II</a></p><p>本题加入重复数字，所以在判断哪一部分有序时，若 <code>nums[left] == nums[mid]</code> 可能出现判断不出来的情况，一开始一直卡着，后来发现只要丢弃一个重复数字，则下一次就可成功判断。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">search</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> target)</span> </span>&#123;        <span class="hljs-keyword">if</span> (nums.length == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> right = nums.length - <span class="hljs-number">1</span>;        <span class="hljs-keyword">while</span> (left &lt; right) &#123;            <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;            <span class="hljs-keyword">if</span> (target == nums[mid]) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;            &#125;            <span class="hljs-keyword">if</span> (nums[left] &lt; nums[mid]) &#123;                <span class="hljs-comment">// 左半部分有序</span>                <span class="hljs-keyword">if</span> (target &gt;= nums[left] &amp;&amp; target &lt;= nums[mid]) &#123;                    right = mid;                &#125; <span class="hljs-keyword">else</span> &#123;                    left = mid + <span class="hljs-number">1</span>;                &#125;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[left] &gt; nums[mid]) &#123;                <span class="hljs-comment">// 右半部分有序</span>                <span class="hljs-keyword">if</span> (target &gt; nums[mid] &amp;&amp; target &lt;= nums[right]) &#123;                    left = mid + <span class="hljs-number">1</span>;                &#125; <span class="hljs-keyword">else</span> &#123;                    right = mid;                &#125;            &#125; <span class="hljs-keyword">else</span> &#123;                <span class="hljs-comment">// nums[left] == nums[mid] 时无法判断哪部分有序，则丢弃一个重复数字</span>                <span class="hljs-comment">// [1,3,1,1,1]</span>                <span class="hljs-comment">// [1,3,1,1]</span>                left++;            &#125;        &#125;        <span class="hljs-keyword">return</span> nums[left] == target;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>二分</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 74. 搜索二维矩阵</title>
     <link href="/2020/08/17/LeetCode-74-search-a-2d-matrix/"/>
     <url>/2020/08/17/LeetCode-74-search-a-2d-matrix/</url>
