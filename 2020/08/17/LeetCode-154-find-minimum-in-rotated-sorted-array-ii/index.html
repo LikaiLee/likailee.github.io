@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 153. 寻找旋转排序数组中的最小值 - Likai Lee</title>
+  <title>LeetCode 154. 寻找旋转排序数组中的最小值 II - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 153. 寻找旋转排序数组中的最小值
+                LeetCode 154. 寻找旋转排序数组中的最小值 II
               
             </span>
 
@@ -154,7 +154,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-17 14:28">
+    <time datetime="2020-08-17 15:18">
       2020年8月17日 下午
     </time>
   </div>
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      222 字
+      106 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      1
        分钟
     </span>
   
@@ -212,56 +212,26 @@
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/" target="_blank" rel="noopener">153. 寻找旋转排序数组中的最小值</a></p>
-<p>第一次通过的代码：</p>
+              <p><a href="https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/" target="_blank" rel="noopener">154. 寻找旋转排序数组中的最小值 II</a></p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findMin</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
-    <span class="hljs-keyword">if</span> (nums.length == <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
-    &#125;
-    <span class="hljs-keyword">int</span> min = Integer.MAX_VALUE;
-    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">int</span> right = nums.length - <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">while</span> (left &lt; right) &#123;
-        <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;
-        <span class="hljs-keyword">if</span> (nums[left] &gt; nums[mid]) &#123;
-            <span class="hljs-comment">// 左 &gt; 中，min 在 中 后面的部分</span>
-            min = Math.min(nums[mid], min);
-            <span class="hljs-comment">// 到左边查找</span>
-            right = mid;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            <span class="hljs-comment">// 中 &gt;= 左，min 在最左边</span>
-            min = Math.min(nums[left], min);
-            <span class="hljs-comment">// 到右边查找</span>
-            left = mid + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">if</span> (nums.length == <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
         &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> Math.min(min, nums[left]);
-&#125;</code></pre>
-<p>评论区：</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findMin</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
-    <span class="hljs-keyword">if</span> (nums.length == <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
-    &#125;
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * [3,4,5,1,2]</span>
-<span class="hljs-comment">     * [4,5,6,7,0,1,2]</span>
-<span class="hljs-comment">     * [0,1,2,3,4]</span>
-<span class="hljs-comment">     * [2,1]</span>
-<span class="hljs-comment">     */</span>
-    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">int</span> right = nums.length - <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">while</span> (left &lt; right) &#123;
-        <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;
-        <span class="hljs-keyword">if</span> (nums[right] &lt; nums[mid]) &#123;
-            <span class="hljs-comment">// 右 &lt; 中，一定在右边，则到右边查找</span>
-            left = mid + <span class="hljs-number">1</span>;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            <span class="hljs-comment">// 右 &gt;= 中，一定在左边</span>
-            right = mid;
+        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> right = nums.length - <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span> (left &lt; right) &#123;
+            <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;
+            <span class="hljs-keyword">if</span> (nums[right] &lt; nums[mid]) &#123;
+                left = mid + <span class="hljs-number">1</span>;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[right] &gt; nums[mid]) &#123;
+                right = mid;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                <span class="hljs-comment">// 若 右 == 中，因为最小值一定靠近左边，丢弃右边的重复值，缩小右边界</span>
+                right--;
+            &#125;
         &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> nums[left];
-&#125;</code></pre>
+        <span class="hljs-keyword">return</span> nums[left];
+    &#125;</code></pre>
             </article>
             <hr>
             <div>
@@ -293,18 +263,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/17/LeetCode-154-find-minimum-in-rotated-sorted-array-ii/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 154. 寻找旋转排序数组中的最小值 II</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/08/17/LeetCode-81-search-in-rotated-sorted-array-ii/">
-                        <span class="hidden-mobile">LeetCode 81. 搜索旋转排序数组 II</span>
+                      <a href="/2020/08/17/LeetCode-153-find-minimum-in-rotated-sorted-array/">
+                        <span class="hidden-mobile">LeetCode 153. 寻找旋转排序数组中的最小值</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
