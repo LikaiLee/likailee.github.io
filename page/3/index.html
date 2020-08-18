@@ -170,6 +170,165 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/10/LeetCode-200-number-of-islands/">LeetCode 200. 岛屿数量</a>
+
+      <a href="/2020/08/10/LeetCode-200-number-of-islands/" class="index-excerpt">
+        
+        
+          
+        
+        <div>200. 岛屿数量
+ DFS
+int rows;
+    int cols;
+    /**
+     * 已被访问的数组
+     */
+    boolean[][] visited;
+    /**
+     * 移动方向
+     */
+    int[][] dir = new int[][]&#123;
+            // 上: (x - 1, y)
+            </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-10
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/09/LeetCode-126-word-ladder-ii/">LeetCode 126. 单词接龙 II</a>
+
+      <a href="/2020/08/09/LeetCode-126-word-ladder-ii/" class="index-excerpt">
+        
+        
+          
+        
+        <div>126. 单词接龙 II
+
+找的是最短路径，且可能有多个
+一开始用的 List 存放每层元素，结果 回溯的时候难以访问下一层，最好用 Map 存放
+！！最短路径要及时剪枝
+！！不能用 used 数组标记访问过的元素，而是标记当前层和以上层已经访问过的数组，因为若存在多个最短路径，元素可能重复使用，used 数组标记后会把下层的元素也标记，会导致漏解。
+
+public List&lt;List&lt</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-09
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/08/LeetCode-127-word-ladder/">LeetCode 127. 单词接龙</a>
+
+      <a href="/2020/08/08/LeetCode-127-word-ladder/" class="index-excerpt">
+        
+        
+          
+        
+        <div>127. 单词接龙
+和 433.最小基因那题很像，不过本题变异的字母是不确定的，不再是 ACGT，若用回溯会超时。
+ BFS
+public int ladderLength(String beginWord, String endWord, List&lt;String&gt; wordList) &#123;
+        // ! endWord 不在 wordList 中直接返回
+    </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-08
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/07/LeetCode-515-find-largest-value-in-each-tree-row/">LeetCode 515. 在每个树行中找最大值</a>
 
       <a href="/2020/08/07/LeetCode-515-find-largest-value-in-each-tree-row/" class="index-excerpt">
@@ -511,177 +670,11 @@ List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;&gt;();
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/05/InnoDB-file/">InnoDB 文件</a>
-
-      <a href="/2020/08/05/InnoDB-file/" class="index-excerpt">
-        
-        
-          
-        
-        <div> 参数文件
-
-告诉 MySQL 实例启动时在哪里可以找到数据库文件，并且指定某些初始化参数，这些参数定义了某种内存结构的大小等设置。
-
-MySQL 实例可以不需要参数文件，这时所有的参数值取决于编译 MySQL 时指定的默认值和源代码中指定参数的默认值。
-参数类型：
-
-动态参数 - 可以在 MySQL 实例运行中进行更改
-静态参数 - 在整个实例生命周期内都不得进行修改
-
- 日志文件
-
-日志文件记</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-05
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/MySQL/">MySQL</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MySQL/">MySQL</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/04/LeetCode-17-letter-combinations-of-a-phone-number/">LeetCode 17. 电话号码的字母组合</a>
-
-      <a href="/2020/08/04/LeetCode-17-letter-combinations-of-a-phone-number/" class="index-excerpt">
-        
-        
-          
-        
-        <div>17. 电话号码的字母组合
- 回溯
-选择列表：每个 digit 对应的字母列表
-路径：已选字母组合 + 选择列表的字母
-终止条件：递归深度达到 digits 的长度
-// 2 ~ 9 每个位置所对应的选择列表
-String[] map = &#123;"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"&#125;;
-Li</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-04
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/BFS/">BFS</a>
-            
-              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/04/InnoDB-engine/">InnoDB 存储引擎</a>
-
-      <a href="/2020/08/04/InnoDB-engine/" class="index-excerpt">
-        
-        
-          
-        
-        <div> MySQL 体系结构
-
-
-连接池组件
-管理服务和工具类
-SQL 接口组件
-查询分析器组件
-优化器组件
-缓冲组件
-插件式存储引擎
-物理文件
-
-
-存储引擎是基于表的，而不是数据库。
-
- InnoDB 体系架构
-InnoDB 存储引擎有多个内存块，可以认为这些内存块组成了一个大的内存池：负责以下工作：
-
-维护所有进程、线程需要访问的多个内部数据结构
-缓存磁盘数据
-重做日志缓冲
-
-
-后台线程的主要作用是</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-04
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/MySQL/">MySQL</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MySQL/">MySQL</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
