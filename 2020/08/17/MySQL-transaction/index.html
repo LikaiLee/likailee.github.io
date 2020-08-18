@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      2.4k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19
+      25
        分钟
     </span>
   
@@ -207,13 +207,12 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月17日 晚上
+                  本文最后更新于：2020年8月18日 下午
                 
               </p>
             
             <article class="markdown-body">
-              <p>[TOC]</p>
-<h1 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h1>
+              <h1 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h1>
 <h2 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h2>
 <blockquote>
 <p>事务是访问并更新数据库中各种数据项的一个程序执行单元。<br />
@@ -332,6 +331,69 @@
 </ul>
 <p>通过 <code>set autocommit=0</code> 可以取消自动提交，直到 <code>set autocommit=1</code> 才会提交；<code>autocommit</code> 标记是针对<strong>每个连接</strong>而不是针对服务器的。</p>
 <h1 id="隔离级别"><a class="markdownIt-Anchor" href="#隔离级别"></a> 隔离级别</h1>
+<h2 id="读未提交-脏读"><a class="markdownIt-Anchor" href="#读未提交-脏读"></a> 读未提交 - 脏读</h2>
+<p><strong>脏读</strong>（<code>Dirty Read</code>）：事务可以读取未提交的数据。</p>
+<p><code>T1</code> 修改一个数据，<code>T2</code> 随后读取这个数据。如果 <code>T1</code> 撤销了这次修改，那么 <code>T2</code> 读取的数据是脏数据。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200818130050.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="读已提交-不可重复读"><a class="markdownIt-Anchor" href="#读已提交-不可重复读"></a> 读已提交 - 不可重复读</h2>
+<p>读已提交解决了脏读的问题：每次读取数据前都生成一个 <code>ReadView</code>，每次都可判断事务是否提交。</p>
+<p><strong>不可重复读</strong>：执行两次相同的查询，得到的结果可能不一致。<br />
+<code>T2</code> 读取一个数据，<code>T1</code> 对该数据做了修改。如果 <code>T2</code> 再次读取这个数据，此时读取的结果和第一次读取的结果不同。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200818131135.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="可重复读-幻读"><a class="markdownIt-Anchor" href="#可重复读-幻读"></a> 可重复读 - 幻读</h2>
+<p>解决了不可重复读的问题：在第一次读取数据时生成一个 <code>ReadView</code>，每次访问时都读取最初的版本。</p>
+<p><strong>幻读</strong>：当某个事务读取某个范围内的记录时，另外一个事务又在该范围内插入了新的记录，当之前的事务又再次读取该范围的记录时，得到结果与第一次不一致。</p>
+<p><code>T1</code> 读取某个范围的数据，<code>T2</code> 在这个范围内插入新的数据，<code>T1</code> 再次读取这个范围的数据，此时读取的结果和和第一次读取的结果不同。</p>
+<blockquote>
+<p>InnoDB 使用 <code>Next-Key Lock</code>，避免了幻读。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200818131209.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="串行化"><a class="markdownIt-Anchor" href="#串行化"></a> 串行化</h2>
+<p>强制事务串行执行，则避免了所有的并发问题。</p>
+<p>串行化策略会在读取的每一行数据上都加锁，这可能导致大量的超时和锁竞争。这对于高并发应用基本上是不可接受的，所以一般不会采用这个级别。</p>
+<h2 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h2>
+<ul>
+<li><code>READ UNCOMMITTED</code> - 事务中的修改，即使没有提交，对其它事务也是可见的。</li>
+<li><code>READ COMMITTED</code> - 一个事务只能读取已经提交的事务所做的修改，避免<strong>脏读</strong>。</li>
+<li><code>REPEATABLE READ</code> - 默认隔离级别，解决了不可重复读的问题，使用 <code>Next-Key Lock</code>，避免<strong>幻读</strong>。</li>
+<li><code>SERIALIZABLE</code> - 对每个读取操作加共享锁，强制事务串行执行，不支持一致性的非锁定读。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">隔离级别</th>
+<th style="text-align:center">脏读</th>
+<th style="text-align:center">不可重复读</th>
+<th style="text-align:center">幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">读未提交（<code>READ UNCOMMITTED</code>）</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+</tr>
+<tr>
+<td style="text-align:center">读已提交（<code>READ COMMITTED</code>）</td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+</tr>
+<tr>
+<td style="text-align:center">可重复读（<code>REPREATABLE READ</code>）</td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center">❌ (<code>InnoDB</code> - ✔️)</td>
+</tr>
+<tr>
+<td style="text-align:center">串行化（<code>SERIALIZABLE</code>）</td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center">✔️</td>
+</tr>
+</tbody>
+</table>
 
             </article>
             <hr>
