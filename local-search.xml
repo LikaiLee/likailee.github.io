@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 322. 零钱兑换</title>
+    <link href="/2020/08/19/LeetCode-322-coin-change/"/>
+    <url>/2020/08/19/LeetCode-322-coin-change/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/coin-change/" target="_blank" rel="noopener">322. 零钱兑换</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">coinChange</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] coins, <span class="hljs-keyword">int</span> amount)</span> </span>&#123;    <span class="hljs-keyword">int</span>[] mem = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[amount + <span class="hljs-number">1</span>];    <span class="hljs-keyword">return</span> dp(amount, coins, mem);&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dp</span><span class="hljs-params">(<span class="hljs-keyword">int</span> amount, <span class="hljs-keyword">int</span>[] coins, <span class="hljs-keyword">int</span>[] mem)</span> </span>&#123;    <span class="hljs-keyword">if</span> (amount == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">if</span> (amount &lt; <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;    &#125;    <span class="hljs-comment">// 若命中缓存，直接返回</span>    <span class="hljs-keyword">if</span> (mem[amount] != <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> mem[amount];    &#125;    <span class="hljs-keyword">int</span> count = Integer.MAX_VALUE;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> coin : coins) &#123;        <span class="hljs-comment">// 计算减去 coin 后最小的硬币数量</span>        <span class="hljs-keyword">int</span> prev = amount - coin;        <span class="hljs-keyword">int</span> prevCount = dp(prev, coins, mem);        <span class="hljs-comment">// 若能找到 prev 的最小数目，计算本次 count 的最小值</span>        <span class="hljs-keyword">if</span> (prevCount != -<span class="hljs-number">1</span>) &#123;            count = Math.min(prevCount + <span class="hljs-number">1</span>, count);        &#125;    &#125;    <span class="hljs-comment">// 更新缓存</span>    mem[amount] = count == Integer.MAX_VALUE ? -<span class="hljs-number">1</span> : count;    <span class="hljs-keyword">return</span> mem[amount];&#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">coinChange</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] coins, <span class="hljs-keyword">int</span> amount)</span> </span>&#123;    <span class="hljs-comment">// 1, 2, 5 =&gt; 11</span>    <span class="hljs-comment">// 10: dp[10] + 1</span>    <span class="hljs-comment">// 9: dp[9] + 1</span>    <span class="hljs-comment">// 6: dp[6] + 1</span>    <span class="hljs-comment">// base: 0, 1, 1</span>    <span class="hljs-comment">// 状态: dp[i] 表示第 i 个值需要的最小硬币数</span>    <span class="hljs-comment">// 选择：每一种硬币</span>    <span class="hljs-comment">// dp[i] = min(dp[i - coin])</span>    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[amount + <span class="hljs-number">1</span>];    Arrays.fill(dp, Integer.MAX_VALUE);    dp[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; amount; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> coin : coins) &#123;            <span class="hljs-comment">// 前一个值有效 &amp;&amp; 前一个值能够取得最小硬币数</span>            <span class="hljs-keyword">if</span> (i - coin &gt;= <span class="hljs-number">0</span> &amp;&amp; dp[i - coin] != Integer.MAX_VALUE) &#123;                dp[i] = Math.min(dp[i - coin] + <span class="hljs-number">1</span>, dp[i]);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> dp[amount] == Integer.MAX_VALUE ? -<span class="hljs-number">1</span> : dp[amount];&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>MySQL 复制</title>
     <link href="/2020/08/19/MySQL-replication/"/>
     <url>/2020/08/19/MySQL-replication/</url>
