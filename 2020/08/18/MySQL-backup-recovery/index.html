@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1k 字
+      1.2k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      12
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月18日 下午
+                  本文最后更新于：2020年8月19日 下午
                 
               </p>
             
@@ -255,7 +255,7 @@
 </ol>
 <p>优点：</p>
 <ul>
-<li>在线备份，不阻塞任何的 SQL 语句。</li>
+<li>在线备份，不阻塞任何的 <code>SQL</code> 语句。</li>
 <li>备份性能好，<strong>备份的实质是复制数据库文件和重做日志文件</strong>。</li>
 <li>支持压缩备份，通过选项，可以支持不同级别的压缩。</li>
 <li>跨平台支持。</li>
@@ -293,6 +293,12 @@
 <span class="hljs-attr">log-bin</span>=mysql-bin</code></pre>
 <p>通过 <code>mysqlbinlog</code> 可恢复二进制日志。<br />
 如果需要恢复多个二进制文件，也可以先通过 <code>mysqlbinlog</code> 命令导出到一个文件，然后再通过 <code>SOURCE</code> 命令来导入。</p>
+<h1 id="快照备份"><a class="markdownIt-Anchor" href="#快照备份"></a> 快照备份</h1>
+<p><code>MySQL</code> 数据库本身并不支持快照功能，因此快照备份是指通过文件系统支持的快照功能对数据库进行备份。</p>
+<ul>
+<li>备份的前提是将所有数据库文件放在同一文件分区中，然后对该分区进行快照操作。</li>
+<li>支持快照功能的文件系统和设备包括 <code>FreeBSD</code> 的 <code>UFS</code>，<code>Solaris</code> 的 <code>ZFS</code>，<code>GNU/Linux</code> 的逻辑管理器（<code>Logical Volume Manager, LVM</code>）等。</li>
+</ul>
 
             </article>
             <hr>
