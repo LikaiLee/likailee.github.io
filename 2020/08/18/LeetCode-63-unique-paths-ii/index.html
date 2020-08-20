@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      214 字
+      253 字
     </span>
   
 
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月18日 晚上
+                  本文最后更新于：2020年8月19日 晚上
                 
               </p>
             
@@ -216,6 +216,12 @@
 <p>一开始判断第一行或第一列的障碍时没有及时 <code>break</code>，导致若只有一行或一列的情况下出错。</p>
 <pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">uniquePathsWithObstacles</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] obstacleGrid)</span> </span>&#123;
+        <span class="hljs-comment">/**</span>
+<span class="hljs-comment">         * base: 若左边或上边存在障碍，则不能继续往下走</span>
+<span class="hljs-comment">         * 状态：dp[i][j]</span>
+<span class="hljs-comment">         * 选择：左，上</span>
+<span class="hljs-comment">         * dp[i][[j] = dp[i - 1][j] + dp[i][j - 1]</span>
+<span class="hljs-comment">         */</span>
         <span class="hljs-keyword">int</span> rows = obstacleGrid.length;
         <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) &#123;
             <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;

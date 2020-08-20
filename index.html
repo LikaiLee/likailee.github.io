@@ -170,6 +170,56 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/20/LeetCode-1143-longest-common-subsequence/">LeetCode 1143. 最长公共子序列</a>
+
+      <a href="/2020/08/20/LeetCode-1143-longest-common-subsequence/" class="index-excerpt">
+        
+        
+          
+        
+        <div>1143. 最长公共子序列
+
+base: 两个字符串中有一个为空，则 dp[0][j] = 0 或 dp[i][0] = 0
+状态：dp[i][j] -&gt; str1[:i] 和 str[:j] 的最长序列
+转移：
+
+比较位置：str[:i], str[:j] || str1[:i-1], str2[:j] || str1[:i], str2[:j-1]
+若 i, j 位置相等，直接 + 1
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-20
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/19/LeetCode-322-coin-change/">LeetCode 322. 零钱兑换</a>
 
       <a href="/2020/08/19/LeetCode-322-coin-change/" class="index-excerpt">
@@ -280,8 +330,9 @@ private int dp(int amount, int[] coins, int[] mem) &#123</div>
 一开始判断第一行或第一列的障碍时没有及时 break，导致若只有一行或一列的情况下出错。
 class Solution &#123;
     public int uniquePathsWithObstacles(int[][] obstacleGrid) &#123;
-        int rows = obstacleGrid.length;
-        if (</div>
+        /**
+         * base: 若左边或上边存在障碍，则不能继续往下走
+   </div>
       </a>
 
       <div class="index-btm post-metas">
@@ -360,7 +411,7 @@ class Solution &#123;
 
 
 public int uniquePaths(int m, int n) &#123;
-    in</div>
+    /*</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -610,51 +661,6 @@ public int findMin(int[] nums) &#123;
     int min = Integer.MAX_VALUE;
     int left = 0;
     int right = num</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-17
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/17/LeetCode-81-search-in-rotated-sorted-array-ii/">LeetCode 81. 搜索旋转排序数组 II</a>
-
-      <a href="/2020/08/17/LeetCode-81-search-in-rotated-sorted-array-ii/" class="index-excerpt">
-        
-        
-          
-        
-        <div>81. 搜索旋转排序数组 II
-本题加入重复数字，所以在判断哪一部分有序时，若 nums[left] == nums[mid] 可能出现判断不出来的情况，一开始一直卡着，后来发现只要丢弃一个重复数字，则下一次就可成功判断。
-public boolean search(int[] nums, int target) &#123;
-        if (nums.length == 0) &#123</div>
       </a>
 
       <div class="index-btm post-metas">
