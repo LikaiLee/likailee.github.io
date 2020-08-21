@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 152. 乘积最大子数组</title>
+    <link href="/2020/08/21/LeetCode-152-maximum-product-subarray/"/>
+    <url>/2020/08/21/LeetCode-152-maximum-product-subarray/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/maximum-product-subarray/" target="_blank" rel="noopener">152. 乘积最大子数组</a></p><p>状态：</p><ul><li><code>dp[i][0]</code>: 以 <code>nums[i]</code> 结尾的子数组最小值</li><li><code>dp[i][1]</code>: 以 <code>nums[i]</code> 结尾的子数组最大值</li></ul><p>状态转移：</p><ul><li><code>nums[i] &gt; 0</code><ul><li><code>最大值 * nums[i]</code> 还是最大值</li><li><code>最小值 * nums[i]</code> 还是最小值</li></ul></li><li><code>nums[i] &gt; 0</code><ul><li><code>最大值 * nums[i]</code> = 最小值</li><li><code>最小值 * nums[i]</code> = 最大值</li></ul></li></ul><p>和 <a href="https://leetcode-cn.com/problems/maximum-subarray/" target="_blank" rel="noopener">53. 最大子序和</a> 类似，只要计算当前数字 <code>nums[i]</code> 对 <code>min</code> 或 <code>max</code> 的增益，若有利于他们的最值，则进行更新，否则从 <code>nums[i]</code> 开始重新计算最值。</p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProduct</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;        <span class="hljs-comment">/*</span><span class="hljs-comment">         nums[i] &gt; 0:</span><span class="hljs-comment">            max * nums[i] -&gt; max</span><span class="hljs-comment">                dp[i - 1][1] &gt; 0, max = nums[i] * dp[i - 1][1] else nums[i]</span><span class="hljs-comment">            min * nums[i] -&gt; min</span><span class="hljs-comment">                dp[i - 1][0] &lt; 0, min = nums[i] * dp[i - 1][0] else nums[i]</span><span class="hljs-comment"></span><span class="hljs-comment">         num[i] &lt; 0:</span><span class="hljs-comment">            max * nums[i] -&gt; min</span><span class="hljs-comment">                dp[i - 1][1] &gt; 0, min = nums[i] * dp[i - 1][1] else nums[i]</span><span class="hljs-comment">            min * nums[i] -&gt; max</span><span class="hljs-comment">                dp[i - 1][0] &lt; 0, max = nums[i] * dp[i - 1][0] else nums[i]</span><span class="hljs-comment">         */</span>        <span class="hljs-keyword">int</span> len = nums.length;        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len][<span class="hljs-number">2</span>];        dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = nums[<span class="hljs-number">0</span>];        dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = nums[<span class="hljs-number">0</span>];        <span class="hljs-keyword">int</span> max = dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;            <span class="hljs-keyword">if</span> (nums[i] &gt; <span class="hljs-number">0</span>) &#123;                dp[i][<span class="hljs-number">0</span>] = Math.min(nums[i], nums[i] * dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>]);                dp[i][<span class="hljs-number">1</span>] = Math.max(nums[i], nums[i] * dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>]);            &#125; <span class="hljs-keyword">else</span> &#123;                dp[i][<span class="hljs-number">0</span>] = Math.min(nums[i], nums[i] * dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>]);                dp[i][<span class="hljs-number">1</span>] = Math.max(nums[i], nums[i] * dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>]);            &#125;            max = Math.max(max, dp[i][<span class="hljs-number">1</span>]);        &#125;        <span class="hljs-keyword">return</span> max;    &#125;&#125;</code></pre><p>空间优化：</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProduct</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-keyword">int</span> imax = nums[<span class="hljs-number">0</span>];    <span class="hljs-keyword">int</span> imin = nums[<span class="hljs-number">0</span>];    <span class="hljs-keyword">int</span> max = imax;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 交换 imax 和 imin，省去后面的二次判断</span>        <span class="hljs-comment">// 否则会出现 imax 和 imin 互相依赖的情况</span>        <span class="hljs-keyword">if</span> (nums[i] &lt; <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">int</span> t = imin;            imin = imax;            imax = t;        &#125;        imin = Math.min(nums[i], nums[i] * imin);        imax = Math.max(nums[i], nums[i] * imax);        max = Math.max(max, imax);    &#125;    <span class="hljs-keyword">return</span> max;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 53. 最大子序和</title>
     <link href="/2020/08/20/LeetCode-53-maximum-subarray/"/>
     <url>/2020/08/20/LeetCode-53-maximum-subarray/</url>
