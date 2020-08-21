@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>标签 - DFS - Likai Lee</title>
+  <title>Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -42,7 +42,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -130,20 +130,24 @@
 </nav>
 
     <div class="view intro-2" id="background" parallax=true
-         style="background: url('/img/bg/3.jpg') no-repeat center center;
+         style="background: url('/img/bg/index.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                标签 - DFS
+                Take a shot, chase the sun, found the beautiful.
               
             </span>
 
             
           </div>
 
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
           
         </div>
       </div>
@@ -154,63 +158,53 @@
     
       <div class="container nopadding-md">
         <div class="py-5" id="board"
-          >
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">共计 7 篇文章</p>
-  <hr>
-  
+
+  <div class="row mx-auto index-card">
     
-      
-      <p class="h5">2020</p>
     
-    <a href="/2020/08/21/LeetCode-337-house-robber-iii/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">LeetCode 337. 打家劫舍 III</span>
-      <span style="float: right;">08-21</span>
-    </a>
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2018/12/28/overview/">Overview</a>
+
+      <a href="/2018/12/28/overview/" class="index-excerpt">
+        
+        
+          
+        
+        <div>During the past six months, I was focusing on preparing for the entrance exam of postgraduate schools, owing to that, I could barely write posts or sorting out my blog. What’s worse, I figured out tha</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2018-12-28
+          </div>
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    </span>
+  </nav>
   
-    
-    <a href="/2020/08/11/LeetCode-529-minesweeper/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">LeetCode 529. 扫雷游戏</span>
-      <span style="float: right;">08-11</span>
-    </a>
-  
-    
-    <a href="/2020/08/10/LeetCode-200-number-of-islands/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">LeetCode 200. 岛屿数量</span>
-      <span style="float: right;">08-10</span>
-    </a>
-  
-    
-    <a href="/2020/08/09/LeetCode-126-word-ladder-ii/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">LeetCode 126. 单词接龙 II</span>
-      <span style="float: right;">08-09</span>
-    </a>
-  
-    
-    <a href="/2020/08/07/LeetCode-515-find-largest-value-in-each-tree-row/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">LeetCode 515. 在每个树行中找最大值</span>
-      <span style="float: right;">08-07</span>
-    </a>
-  
-    
-    <a href="/2020/08/07/LeetCode-22-generate-parentheses/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">LeetCode 22. 括号生成</span>
-      <span style="float: right;">08-07</span>
-    </a>
-  
-    
-    <a href="/2020/08/06/LeetCode-102-binary-tree-level-order-traversal/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">LeetCode 102. 二叉树的层序遍历</span>
-      <span style="float: right;">08-06</span>
-    </a>
-  
-</div>
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 

@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 337. 打家劫舍 III</title>
+    <link href="/2020/08/21/LeetCode-337-house-robber-iii/"/>
+    <url>/2020/08/21/LeetCode-337-house-robber-iii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/house-robber-iii/" target="_blank" rel="noopener">337. 打家劫舍 III</a></p><h1 id="解法一记忆化递归"><a class="markdownIt-Anchor" href="#解法一记忆化递归"></a> 解法一：记忆化递归</h1><pre><code class="hljs java">Map&lt;TreeNode, Integer&gt; memo = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-keyword">if</span> (memo.containsKey(root)) &#123;            <span class="hljs-keyword">return</span> memo.get(root);        &#125;        <span class="hljs-comment">// 打劫根结点</span>        <span class="hljs-keyword">int</span> doRob = root.val;        <span class="hljs-keyword">if</span> (root.left != <span class="hljs-keyword">null</span>) &#123;            doRob += rob(root.left.left) + rob(root.left.right);        &#125;        <span class="hljs-keyword">if</span> (root.right != <span class="hljs-keyword">null</span>) &#123;            doRob += rob(root.right.left) + rob(root.right.right);        &#125;        <span class="hljs-comment">// 不打劫根结点</span>        <span class="hljs-keyword">int</span> notRob = rob(root.left) + rob(root.right);        <span class="hljs-keyword">int</span> res = Math.max(doRob, notRob);        memo.put(root, res);        <span class="hljs-keyword">return</span> res;    &#125;</code></pre><h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1><p>状态：</p><ul><li><code>dp[root][0]</code> - 不打劫 <code>root</code> 结点</li><li><code>dp[root][1]</code> - 打劫 <code>root</code> 结点</li></ul><p>转移方程：</p><ul><li><code>dp[root][0]</code>：左右子结点可选择偷或不偷，取他们的最大值</li><li><code>dp[root][1]</code>：左右子结点不偷</li></ul><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">int</span>[] res = robber(root);    <span class="hljs-keyword">return</span> Math.max(res[<span class="hljs-number">0</span>], res[<span class="hljs-number">1</span>]);&#125;<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] robber(TreeNode root) &#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;;    &#125;    <span class="hljs-comment">// 后序遍历，自底向上，先计算左右结点，再计算 root</span>    <span class="hljs-keyword">int</span>[] left = robber(root.left);    <span class="hljs-keyword">int</span>[] right = robber(root.right);    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>];    <span class="hljs-comment">// 打劫 root</span>    dp[<span class="hljs-number">1</span>] = root.val + left[<span class="hljs-number">0</span>] + right[<span class="hljs-number">0</span>];    <span class="hljs-comment">// 不打劫 root</span>    dp[<span class="hljs-number">0</span>] = Math.max(left[<span class="hljs-number">0</span>], left[<span class="hljs-number">1</span>]) + Math.max(right[<span class="hljs-number">0</span>], right[<span class="hljs-number">1</span>]);    <span class="hljs-keyword">return</span> dp;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 213. 打家劫舍 II</title>
     <link href="/2020/08/21/LeetCode-213-house-robber-ii/"/>
     <url>/2020/08/21/LeetCode-213-house-robber-ii/</url>
