@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 123. 买卖股票的最佳时机 III - Likai Lee</title>
+  <title>LeetCode 188.  买卖股票的最佳时机 IV - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 123. 买卖股票的最佳时机 III
+                LeetCode 188.  买卖股票的最佳时机 IV
               
             </span>
 
@@ -154,7 +154,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-22 18:15">
+    <time datetime="2020-08-22 21:10">
       2020年8月22日 晚上
     </time>
   </div>
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      449 字
+      341 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      5
        分钟
     </span>
   
@@ -212,66 +212,48 @@
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/" target="_blank" rel="noopener">123. 买卖股票的最佳时机 III</a></p>
-<h1 id="解法一"><a class="markdownIt-Anchor" href="#解法一"></a> 解法一</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;
+              <p><a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/" target="_blank" rel="noopener">188. 买卖股票的最佳时机 IV</a></p>
+<blockquote>
+<p>一次交易至少需要 2 天，一天买，一天卖。因此如果 <code>k</code> 很大，大到大于等于 <code>len / 2</code>，就相当于股票系列的第 2 题，使用贪心算法去做就可以了。这是一个特判。</p>
+</blockquote>
+<p>可进行状态压缩，省去第一维空间。加上无限交易次数的贪心版本，可加快速度。</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;
     <span class="hljs-keyword">int</span> len = prices.length;
-    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;
         <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
     &#125;
-    <span class="hljs-keyword">int</span> k = <span class="hljs-number">2</span>;
+    <span class="hljs-comment">// 若 交易次数 &gt; 天数 / 2，则无法达成有效的交易，此时等价于无限次交易次数</span>
+    <span class="hljs-keyword">if</span> (k &gt; len / <span class="hljs-number">2</span>) &#123;
+        <span class="hljs-keyword">return</span> maxProfit(prices);
+    &#125;
     <span class="hljs-keyword">int</span>[][][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len][k + <span class="hljs-number">1</span>][<span class="hljs-number">2</span>];
-    <span class="hljs-comment">// 初始化第一天状态，只需要考虑持有股票的情况</span>
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
-    <span class="hljs-comment">// 1 次交易买入</span>
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>];
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
-    <span class="hljs-comment">// 2 次交易买入</span>
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>];
+    <span class="hljs-comment">// 初始化第一次状态</span>
+    <span class="hljs-comment">// 1 次买入</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; k + <span class="hljs-number">1</span>; i++) &#123;
+        dp[<span class="hljs-number">0</span>][i][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>];
+    &#125;
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;
-        <span class="hljs-comment">// 第一次交易</span>
-        dp[i][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] + prices[i]);
-        <span class="hljs-comment">// 可能买入 dp[i - 1][0][0] - prices[i]</span>
-        dp[i][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] - prices[i]);
-        <span class="hljs-comment">// 第二次交易</span>
-        dp[i][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] + prices[i]);
-        <span class="hljs-comment">// 可能买入 dp[i - 1][1][0] - prices[i]</span>
-        dp[i][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] - prices[i]);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = k; j &gt; <span class="hljs-number">0</span>; j--) &#123;
+            dp[i][j][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][j][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][j][<span class="hljs-number">1</span>] + prices[i]);
+            dp[i][j][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][j][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>] - prices[i]);
+        &#125;
     &#125;
     <span class="hljs-keyword">return</span> dp[len - <span class="hljs-number">1</span>][k][<span class="hljs-number">0</span>];
-&#125;</code></pre>
-<h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;
     <span class="hljs-keyword">int</span> len = prices.length;
-    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;
         <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
     &#125;
-    <span class="hljs-comment">/*</span>
-<span class="hljs-comment">    dp[i][0] 没有交易 rest</span>
-<span class="hljs-comment">    dp[i][1] 第一次买入</span>
-<span class="hljs-comment">    dp[i][2] 第一次卖出</span>
-<span class="hljs-comment">    dp[i][3] 第二次买入</span>
-<span class="hljs-comment">    dp[i][4] 第二次卖出</span>
-<span class="hljs-comment">     */</span>
-    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len][<span class="hljs-number">5</span>];
-    <span class="hljs-comment">// 第一次买入</span>
+    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len][<span class="hljs-number">2</span>];
     dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>];
-    <span class="hljs-comment">// 第二次买入卖出都还没发生</span>
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">3</span>] = Integer.MIN_VALUE;
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">4</span>] = Integer.MIN_VALUE;
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;
+        dp[i][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>] + prices[i]);
         dp[i][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>] - prices[i]);
-        dp[i][<span class="hljs-number">2</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>] + prices[i]);
-        dp[i][<span class="hljs-number">3</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">3</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>] - prices[i]);
-        dp[i][<span class="hljs-number">4</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">4</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">3</span>] + prices[i]);
     &#125;
-    <span class="hljs-comment">// 没有交易 第一次卖出 第二次卖出 中可能存在最大值</span>
-    <span class="hljs-keyword">return</span> Math.max(Math.max(dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>], dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>]), dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">4</span>]);
+    <span class="hljs-keyword">return</span> dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>];
 &#125;</code></pre>
-<p>可进行状态压缩，省去第一维空间。</p>
-
             </article>
             <hr>
             <div>
@@ -303,18 +285,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/22/LeetCode-188-best-time-to-buy-and-sell-stock-iv/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 188.  买卖股票的最佳时机 IV</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/08/22/LeetCode-121-best-time-to-buy-and-sell-stock/">
-                        <span class="hidden-mobile">LeetCode 121. 买卖股票的最佳时机</span>
+                      <a href="/2020/08/22/LeetCode-123-best-time-to-buy-and-sell-stock-iii/">
+                        <span class="hidden-mobile">LeetCode 123. 买卖股票的最佳时机 III</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
