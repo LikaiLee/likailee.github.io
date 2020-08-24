@@ -170,6 +170,108 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/07/LeetCode-515-find-largest-value-in-each-tree-row/">LeetCode 515. 在每个树行中找最大值</a>
+
+      <a href="/2020/08/07/LeetCode-515-find-largest-value-in-each-tree-row/" class="index-excerpt">
+        
+        
+          
+        
+        <div>515. 在每个树行中找最大值
+ BFS
+层次遍历
+public List&lt;Integer&gt; largestValues(TreeNode root) &#123;
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        if (root == null) &#123;
+            return </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-07
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/07/LeetCode-22-generate-parentheses/">LeetCode 22. 括号生成</a>
+
+      <a href="/2020/08/07/LeetCode-22-generate-parentheses/" class="index-excerpt">
+        
+        
+          
+        
+        <div>22. 括号生成
+ 回溯
+List&lt;String&gt; res = new ArrayList&lt;&gt;();
+
+    public List&lt;String&gt; generateParenthesis(int n) &#123;
+        if (n &lt; 1) &#123;
+            return res;
+        &#125;
+    </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-07
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/07/InnoDB-index/">InnoDB 索引</a>
 
       <a href="/2020/08/07/InnoDB-index/" class="index-excerpt">
@@ -570,138 +672,6 @@ InnoDB 存储引擎有多个内存块，可以认为这些内存块组成了一�
               <a href="/tags/MySQL/">MySQL</a>
             
           </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/03/LeetCode-169-majority-element/">LeetCode 169. 多数元素</a>
-
-      <a href="/2020/08/03/LeetCode-169-majority-element/" class="index-excerpt">
-        
-        
-          
-        
-        <div>多数元素
- 解法一：HashMap
-public int majorityElement(int[] nums) &#123;
-    int n = nums.length;
-    int maj = n / 2;
-    Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;(n);
-    for (int num : nums) &#1</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-03
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%88%86%E6%B2%BB/">分治</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/01/vim-command/">VIM 指令记录</a>
-
-      <a href="/2020/08/01/vim-command/" class="index-excerpt">
-        
-        
-          
-        
-        <div>vim 常用指令记录
- 命令模式
- 光标移动
-
-
-
-cmd
-description
-
-
-
-
-h
-左移一个字符
-
-
-l
-右移
-
-
-k
-上移
-
-
-j
-下移
-
-
-{n}{op}
-10j 表示下移 10 行
-
-
-{n}&lt;Space&gt;
-向后移动 n 个字符
-
-
-{n}&lt;Enter&gt;
-向下移动 n 行
-
-
-$
-移动到行首
-
-
-0
-移动到行尾
-
-
-ctrl + f
-Page Down
-
-</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-01
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
         
       </div>
     </div>

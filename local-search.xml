@@ -4,6 +4,66 @@
   
   
   <entry>
+    <title>LeetCode 212. 单词搜索 II</title>
+    <link href="/2020/08/24/LeetCode-212-word-search-ii/"/>
+    <url>/2020/08/24/LeetCode-212-word-search-ii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/word-search-ii/" target="_blank" rel="noopener">212. 单词搜索 II</a><br />坑：查找前缀时，若找到 <code>word</code>，不能 <code>return</code>，否则递归结束会导致与 <code>word</code> 同前缀的单词丢失，如 <code>aaba</code> 和 <code>aaab</code>，只能找到 <code>aaba</code>。</p><p>还是对前缀树理解不够，找了好久才发现。</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-keyword">int</span>[][] dirs = &#123;&#123;<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;, &#123;<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>&#125;&#125;;    List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    <span class="hljs-keyword">boolean</span>[][] used;    <span class="hljs-keyword">int</span> rows;    <span class="hljs-keyword">int</span> cols;    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">findWords</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] board, String[] words)</span> </span>&#123;        rows = board.length;        <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span> || words.length == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> res;        &#125;        cols = board[<span class="hljs-number">0</span>].length;        used = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[rows][cols];        Trie trie = <span class="hljs-keyword">new</span> Trie();        <span class="hljs-keyword">for</span> (String word : words) &#123;            trie.insert(word);        &#125;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;                backtrack(i, j, board, trie.root);            &#125;        &#125;        <span class="hljs-keyword">return</span> res;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j, <span class="hljs-keyword">char</span>[][] board, TrieNode node)</span> </span>&#123;        node = node.links[board[i][j] - <span class="hljs-string">'a'</span>];        <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span>;        &#125;        <span class="hljs-keyword">if</span> (node.word != <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">if</span> (!res.contains(node.word)) &#123;                res.add(node.word);                <span class="hljs-comment">// 一定不能 return，否则会丢失前缀</span>                <span class="hljs-comment">// return;</span>            &#125;        &#125;        used[i][j] = <span class="hljs-keyword">true</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] dir : dirs) &#123;            <span class="hljs-keyword">int</span> newX = i + dir[<span class="hljs-number">0</span>];            <span class="hljs-keyword">int</span> newY = j + dir[<span class="hljs-number">1</span>];            <span class="hljs-keyword">if</span> (inArea(newX, newY) &amp;&amp; !used[newX][newY]) &#123;                backtrack(newX, newY, board, node);            &#125;        &#125;        used[i][j] = <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">inArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;        <span class="hljs-keyword">return</span> x &gt;= <span class="hljs-number">0</span> &amp;&amp; x &lt; rows &amp;&amp; y &gt;= <span class="hljs-number">0</span> &amp;&amp; y &lt; cols;    &#125;&#125;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TrieNode</span> </span>&#123;    TrieNode[] links;    String word;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> R = <span class="hljs-number">26</span>;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TrieNode</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">this</span>.links = <span class="hljs-keyword">new</span> TrieNode[R];    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">containsKey</span><span class="hljs-params">(<span class="hljs-keyword">char</span> key)</span> </span>&#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.links[key - <span class="hljs-string">'a'</span>] != <span class="hljs-keyword">null</span>;    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> TrieNode <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">char</span> key)</span> </span>&#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.links[key - <span class="hljs-string">'a'</span>];    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">put</span><span class="hljs-params">(<span class="hljs-keyword">char</span> key, TrieNode node)</span> </span>&#123;        <span class="hljs-keyword">this</span>.links[key - <span class="hljs-string">'a'</span>] = node;    &#125;&#125;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Trie</span> </span>&#123;    TrieNode root;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Trie</span><span class="hljs-params">()</span> </span>&#123;        root = <span class="hljs-keyword">new</span> TrieNode();    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(String word)</span> </span>&#123;        TrieNode node = root;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; word.length(); i++) &#123;            <span class="hljs-keyword">char</span> key = word.charAt(i);            <span class="hljs-keyword">if</span> (!node.containsKey(key)) &#123;                node.put(key, <span class="hljs-keyword">new</span> TrieNode());            &#125;            node = node.get(key);        &#125;        node.word = word;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>DFS</tag>
+      
+      <tag>回溯</tag>
+      
+      <tag>字典树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>LeetCode 79. 单词搜索</title>
+    <link href="/2020/08/24/LeetCode-79-word-search/"/>
+    <url>/2020/08/24/LeetCode-79-word-search/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/word-search/" target="_blank" rel="noopener">79. 单词搜索</a></p><p>还是类似岛屿数量的回溯思想，整体不难，注意细节。<br />一开始方向的坐标写重复了一个，还忘了状态重置，一直无法通过，调了很久才发现。</p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-keyword">int</span>[][] dirs = &#123;&#123;-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>&#125;, &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;&#125;;    <span class="hljs-keyword">int</span> rows;    <span class="hljs-keyword">int</span> cols;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">exist</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] board, String word)</span> </span>&#123;        rows = board.length;        <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span> || word.length() == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        cols = board[<span class="hljs-number">0</span>].length;        <span class="hljs-keyword">boolean</span>[][] used = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[rows][cols];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;                <span class="hljs-comment">// 假设 (i, j) 都是起点进行搜索</span>                <span class="hljs-keyword">if</span> (backtrack(i, j, <span class="hljs-number">0</span>, used, board, word)) &#123;                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;                &#125;            &#125;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> pos, <span class="hljs-keyword">boolean</span>[][] used, <span class="hljs-keyword">char</span>[][] board, String word)</span> </span>&#123;        <span class="hljs-comment">// 可避免只有一个元素的情况</span>        <span class="hljs-keyword">if</span> (pos == word.length() - <span class="hljs-number">1</span>) &#123;            <span class="hljs-keyword">return</span> board[x][y] == word.charAt(pos);        &#125;        <span class="hljs-comment">// 当前位置匹配时，获取下一个位置</span>        <span class="hljs-keyword">if</span> (board[x][y] == word.charAt(pos)) &#123;            used[x][y] = <span class="hljs-keyword">true</span>;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] dir : dirs) &#123;                <span class="hljs-keyword">int</span> newX = x + dir[<span class="hljs-number">0</span>];                <span class="hljs-keyword">int</span> newY = y + dir[<span class="hljs-number">1</span>];                <span class="hljs-keyword">if</span> (inArea(newX, newY) &amp;&amp; !used[newX][newY]) &#123;                    <span class="hljs-keyword">if</span> (backtrack(newX, newY, pos + <span class="hljs-number">1</span>, used, board, word)) &#123;                        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;                    &#125;                &#125;            &#125;            <span class="hljs-comment">// !!! 状态还原</span>            used[x][y] = <span class="hljs-keyword">false</span>;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">inArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;        <span class="hljs-keyword">return</span> x &gt;= <span class="hljs-number">0</span> &amp;&amp; x &lt; rows &amp;&amp; y &gt;= <span class="hljs-number">0</span> &amp;&amp; y &lt; cols;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>DFS</tag>
+      
+      <tag>回溯</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 208. 实现 Trie (前缀树)</title>
     <link href="/2020/08/24/LeetCode-208-implement-trie-prefix-tree/"/>
     <url>/2020/08/24/LeetCode-208-implement-trie-prefix-tree/</url>
