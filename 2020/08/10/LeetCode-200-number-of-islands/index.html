@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      604 字
+      885 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      15
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月10日 晚上
+                  本文最后更新于：2020年8月25日 下午
                 
               </p>
             
@@ -332,6 +332,7 @@
                         <span class="hljs-comment">// 新位置 未越界 &amp;&amp; 未访问过 &amp;&amp; 是陆地</span>
                         <span class="hljs-keyword">if</span> (inArea(nextX, nextY) &amp;&amp; !visited[nextX][nextY] &amp;&amp; grid[nextX][nextY] == <span class="hljs-string">'1'</span>) &#123;
                             queue.offer(<span class="hljs-keyword">new</span> Node(nextX, nextY));
+                            <span class="hljs-comment">// 及时标记，避免超时</span>
                             visited[nextX][nextY] = <span class="hljs-keyword">true</span>;
                         &#125;
                     &#125;
@@ -348,7 +349,55 @@
     <span class="hljs-keyword">return</span> x &gt;= <span class="hljs-number">0</span> &amp;&amp; x &lt; rows &amp;&amp; y &gt;= <span class="hljs-number">0</span> &amp;&amp; y &lt; cols;
 &#125;</code></pre>
 <h1 id="并查集"><a class="markdownIt-Anchor" href="#并查集"></a> 并查集</h1>
-<pre><code class="hljs java"><span class="hljs-comment">// TODO</span></code></pre>
+<p>把所有的水连接到水域结点，若是陆地尝试与周围结点链接。</p>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">int</span> rows;
+    <span class="hljs-keyword">int</span> cols;
+    <span class="hljs-keyword">int</span>[][] dirs = &#123;&#123;<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;&#125;;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numIslands</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] grid)</span> </span>&#123;
+        rows = grid.length;
+        <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        &#125;
+        cols = grid[<span class="hljs-number">0</span>].length;
+        <span class="hljs-keyword">if</span> (cols == <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        &#125;
+        <span class="hljs-keyword">int</span> len = rows * cols;
+        UnionFind uf = <span class="hljs-keyword">new</span> UnionFind(len + <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;
+                <span class="hljs-comment">// 如果是 水，连接到 dummy 结点</span>
+                <span class="hljs-keyword">if</span> (grid[i][j] == <span class="hljs-string">'0'</span>) &#123;
+                    uf.union(len, getIndex(i, j));
+                &#125; <span class="hljs-keyword">else</span> &#123;
+                    <span class="hljs-comment">// 如果是 陆地，尝试连接到周围的陆地</span>
+                    <span class="hljs-comment">// 这里 dirs 只要 右和下两个方向就能遍历到周围的结点</span>
+                    <span class="hljs-comment">// 因为在上一次遍历时已经访问过左和上方的结点</span>
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] dir : dirs) &#123;
+                        <span class="hljs-keyword">int</span> newX = i + dir[<span class="hljs-number">0</span>];
+                        <span class="hljs-keyword">int</span> newY = j + dir[<span class="hljs-number">1</span>];
+                        <span class="hljs-keyword">if</span> (inArea(newX, newY) &amp;&amp; grid[newX][newY] == <span class="hljs-string">'1'</span>) &#123;
+                            uf.union(getIndex(i, j), getIndex(newX, newY));
+                        &#125;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        <span class="hljs-comment">// 减去水域的结点才是所有的陆地结点</span>
+        <span class="hljs-keyword">return</span> uf.getCount() - <span class="hljs-number">1</span>;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getIndex</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> i * cols + j;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">inArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> x &lt; rows &amp;&amp; y &lt; cols;
+    &#125;
+
+&#125;</code></pre>
             </article>
             <hr>
             <div>
@@ -372,6 +421,8 @@
                       <a class="hover-with-bg" href="/tags/DFS/">DFS</a>
                     
                       <a class="hover-with-bg" href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a>
                     
                   </div>
                 
