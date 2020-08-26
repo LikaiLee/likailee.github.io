@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      766 字
+      1k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      15
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月7日 晚上
+                  本文最后更新于：2020年8月26日 晚上
                 
               </p>
             
@@ -330,6 +330,59 @@
                     genes[i] = oldGene;
                 &#125;
             &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    &#125;</code></pre>
+<h1 id="双向-bfs"><a class="markdownIt-Anchor" href="#双向-bfs"></a> 双向 BFS</h1>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minMutation</span><span class="hljs-params">(String start, String end, String[] bank)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (start.length() == <span class="hljs-number">0</span> || end.length() == <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+        &#125;
+        Set&lt;String&gt; list = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(Arrays.asList(bank));
+        <span class="hljs-keyword">if</span> (!list.contains(end)) &#123;
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+        &#125;
+        <span class="hljs-keyword">char</span>[] muteList = &#123;<span class="hljs-string">'A'</span>, <span class="hljs-string">'C'</span>, <span class="hljs-string">'G'</span>, <span class="hljs-string">'T'</span>&#125;;
+        Set&lt;String&gt; beginSet = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+        beginSet.add(start);
+        Set&lt;String&gt; endSet = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+        endSet.add(end);
+        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">while</span> (!beginSet.isEmpty() &amp;&amp; !endSet.isEmpty()) &#123;
+            count++;
+            <span class="hljs-comment">// 每次都假设从数目小的集合遍历</span>
+            <span class="hljs-keyword">if</span> (beginSet.size() &gt; endSet.size()) &#123;
+                Set&lt;String&gt; tmp = beginSet;
+                beginSet = endSet;
+                endSet = tmp;
+            &#125;
+            <span class="hljs-comment">// 下一次变异的列表</span>
+            Set&lt;String&gt; nextLevel = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+            <span class="hljs-keyword">for</span> (String word : beginSet) &#123;
+                <span class="hljs-keyword">char</span>[] words = word.toCharArray();
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; words.length; i++) &#123;
+                    <span class="hljs-keyword">char</span> old = words[i];
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : muteList) &#123;
+                        <span class="hljs-keyword">if</span> (old == c) &#123;
+                            <span class="hljs-keyword">continue</span>;
+                        &#125;
+                        words[i] = c;
+                        String candidate = String.valueOf(words);
+                        <span class="hljs-keyword">if</span> (endSet.contains(candidate)) &#123;
+                            <span class="hljs-keyword">return</span> count;
+                        &#125;
+                        <span class="hljs-comment">// 这里一定注意只能变异到 bank 中的单词</span>
+                        <span class="hljs-comment">// 如果使用 used 判断，会加入不在 bank 中的单词，导致出错</span>
+                        <span class="hljs-keyword">if</span> (list.contains(candidate)) &#123;
+                            nextLevel.add(candidate);
+                            list.remove(candidate);
+                        &#125;
+                    &#125;
+                    words[i] = old;
+                &#125;
+            &#125;
+            beginSet = nextLevel;
         &#125;
         <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
     &#125;</code></pre>
