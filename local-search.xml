@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 37. 解数独</title>
+    <link href="/2020/08/26/LeetCode-37-sudoku-solver/"/>
+    <url>/2020/08/26/LeetCode-37-sudoku-solver/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/sudoku-solver/" target="_blank" rel="noopener">37. 解数独</a></p><p>如果采用与 <a href="https://leetcode-cn.com/problems/valid-sudoku/" target="_blank" rel="noopener">36. 有效的数独</a> 类似的解法，使用下面这种方式来判断重复也很有效。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValid</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num, <span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col, <span class="hljs-keyword">char</span>[][] board)</span> </span>&#123;    <span class="hljs-keyword">return</span> rows[row][num] + cols[col][num] + boxes[(row / <span class="hljs-number">3</span>) * <span class="hljs-number">3</span> + col / <span class="hljs-number">3</span>][num] == <span class="hljs-number">0</span>;&#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">solveSudoku</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] board)</span> </span>&#123;        backtrack(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, board);    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col, <span class="hljs-keyword">char</span>[][] board)</span> </span>&#123;        <span class="hljs-comment">// 最后一行，结束</span>        <span class="hljs-keyword">if</span> (row == <span class="hljs-number">9</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;        <span class="hljs-comment">// 到最后一列，进入下一行</span>        <span class="hljs-keyword">if</span> (col == <span class="hljs-number">9</span>) &#123;            <span class="hljs-keyword">return</span> backtrack(row + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, board);        &#125;        <span class="hljs-comment">// 当前位置已经是数字，进入下一个位置</span>        <span class="hljs-keyword">if</span> (board[row][col] != <span class="hljs-string">'.'</span>) &#123;            <span class="hljs-keyword">return</span> backtrack(row, col + <span class="hljs-number">1</span>, board);        &#125;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">9</span>; i++) &#123;            <span class="hljs-keyword">if</span> (!isValid((<span class="hljs-keyword">char</span>) (i + <span class="hljs-string">'0'</span>), row, col, board)) &#123;                <span class="hljs-keyword">continue</span>;            &#125;            board[row][col] = (<span class="hljs-keyword">char</span>) (i + <span class="hljs-string">'0'</span>);            <span class="hljs-comment">// 当前位置可以放置，进入下一个位置</span>            <span class="hljs-comment">// 若返回 true，表示所有位置都已正确放置，结束递归</span>            <span class="hljs-keyword">if</span> (backtrack(row, col + <span class="hljs-number">1</span>, board)) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;            &#125;            board[row][col] = <span class="hljs-string">'.'</span>;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValid</span><span class="hljs-params">(<span class="hljs-keyword">char</span> ch, <span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col, <span class="hljs-keyword">char</span>[][] board)</span> </span>&#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">9</span>; i++) &#123;            <span class="hljs-comment">// 判断行是否重复</span>            <span class="hljs-keyword">if</span> (board[row][i] == ch) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;            <span class="hljs-comment">// 判断列是否重复</span>            <span class="hljs-keyword">if</span> (board[i][col] == ch) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;            <span class="hljs-comment">// 判断九宫格是否重复</span>            <span class="hljs-keyword">int</span> x = (row / <span class="hljs-number">3</span>) * <span class="hljs-number">3</span> + i / <span class="hljs-number">3</span>;            <span class="hljs-keyword">int</span> y = (col / <span class="hljs-number">3</span>) * <span class="hljs-number">3</span> + i % <span class="hljs-number">3</span>;            <span class="hljs-keyword">if</span> (board[x][y] == ch) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>DFS</tag>
+      
+      <tag>回溯</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 36. 有效的数独</title>
     <link href="/2020/08/26/LeetCode-36-valid-sudoku/"/>
     <url>/2020/08/26/LeetCode-36-valid-sudoku/</url>
@@ -354,9 +383,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
