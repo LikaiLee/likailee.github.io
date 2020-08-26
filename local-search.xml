@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 36. 有效的数独</title>
+    <link href="/2020/08/26/LeetCode-36-valid-sudoku/"/>
+    <url>/2020/08/26/LeetCode-36-valid-sudoku/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/valid-sudoku/" target="_blank" rel="noopener">36. 有效的数独</a></p><h1 id="解法一"><a class="markdownIt-Anchor" href="#解法一"></a> 解法一</h1><p><code>board[i][j]</code> 是字符型，判断九宫格重复时不要忘了转为数字。</p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-keyword">int</span> rows;    <span class="hljs-keyword">int</span> cols;    <span class="hljs-keyword">int</span>[][] boxes;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidSudoku</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] board)</span> </span>&#123;        rows = board.length;        <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        cols = board[<span class="hljs-number">0</span>].length;        <span class="hljs-keyword">if</span> (cols == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        <span class="hljs-comment">// 9 个格子，每个格子 9 个数</span>        <span class="hljs-comment">// 一行代表一个格子，若格子中某个位置为 1，表示该位置对应的数已经出现过</span>        boxes = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">9</span>][<span class="hljs-number">10</span>];        <span class="hljs-keyword">return</span> dfs(<span class="hljs-number">0</span>, board);    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> row, <span class="hljs-keyword">char</span>[][] board)</span> </span>&#123;        <span class="hljs-comment">// 所有行遍历完成，则结束</span>        <span class="hljs-keyword">if</span> (row == rows) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;        <span class="hljs-comment">// 对当前行的每一个位置判断</span>        <span class="hljs-keyword">char</span>[] curLine = board[row];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> col = <span class="hljs-number">0</span>; col &lt; curLine.length; col++) &#123;            <span class="hljs-keyword">if</span> (board[row][col] == <span class="hljs-string">'.'</span>) &#123;                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-keyword">if</span> (!isValid(row, col, board)) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;        &#125;        <span class="hljs-comment">// 进入下一行</span>        <span class="hljs-keyword">return</span> dfs(row + <span class="hljs-number">1</span>, board);    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValid</span><span class="hljs-params">(<span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col, <span class="hljs-keyword">char</span>[][] board)</span> </span>&#123;        <span class="hljs-comment">// 判断列是否重复</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;            <span class="hljs-keyword">if</span> (i != row &amp;&amp; board[i][col] == board[row][col]) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;        &#125;        <span class="hljs-comment">// 判断行是否重复</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;            <span class="hljs-keyword">if</span> (j != col &amp;&amp; board[row][j] == board[row][col]) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;        &#125;        <span class="hljs-comment">// 判断九宫格是否重复</span>        <span class="hljs-keyword">int</span> boxNum = (row / <span class="hljs-number">3</span>) * <span class="hljs-number">3</span> + col / <span class="hljs-number">3</span>;        <span class="hljs-keyword">int</span> num = board[row][col] - <span class="hljs-string">'0'</span>;        <span class="hljs-keyword">if</span> (boxes[boxNum][num] == <span class="hljs-number">1</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        <span class="hljs-comment">// 未出现过则设置为 1，用于下一个数字判断</span>        boxes[boxNum][num] = <span class="hljs-number">1</span>;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;&#125;</code></pre><h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1><p>把行列，九宫格的数字都映射到数组里，加快判断效率。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidSudoku</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] board)</span> </span>&#123;    <span class="hljs-comment">// 每行记录 board 的每行数字是否出现</span>    <span class="hljs-comment">// 下标代表对应元素</span>    <span class="hljs-comment">// 1: 出现 0: 未出现</span>    <span class="hljs-keyword">int</span>[][] rows = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">9</span>][<span class="hljs-number">10</span>];    <span class="hljs-comment">// 每行记录 board 的每列数字是否出现</span>    <span class="hljs-keyword">int</span>[][] cols = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">9</span>][<span class="hljs-number">10</span>];    <span class="hljs-comment">// 每行记录 board 每个九宫格是否出现</span>    <span class="hljs-keyword">int</span>[][] boxes = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">9</span>][<span class="hljs-number">10</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">9</span>; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">9</span>; j++) &#123;            <span class="hljs-keyword">if</span> (board[i][j] == <span class="hljs-string">'.'</span>) &#123;                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-keyword">int</span> num = board[i][j] - <span class="hljs-string">'0'</span>;            <span class="hljs-keyword">if</span> (rows[i][num] == <span class="hljs-number">1</span> || cols[j][num] == <span class="hljs-number">1</span>) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;            <span class="hljs-keyword">int</span> box = (i / <span class="hljs-number">3</span>) * <span class="hljs-number">3</span> + j / <span class="hljs-number">3</span>;            <span class="hljs-keyword">if</span> (boxes[box][num] == <span class="hljs-number">1</span>) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;            <span class="hljs-comment">// 标记对应元素</span>            rows[i][num] = <span class="hljs-number">1</span>;            cols[j][num] = <span class="hljs-number">1</span>;            boxes[box][num] = <span class="hljs-number">1</span>;        &#125;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>DFS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 130. 被围绕的区域</title>
     <link href="/2020/08/25/LeetCode-130-surrounded-regions/"/>
     <url>/2020/08/25/LeetCode-130-surrounded-regions/</url>
@@ -1116,9 +1143,9 @@
       
       <tag>DFS</tag>
       
-      <tag>并查集</tag>
-      
       <tag>回溯</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
