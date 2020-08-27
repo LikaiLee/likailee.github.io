@@ -170,6 +170,55 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/27/LeetCode-191-number-of-1-bits/">LeetCode 191. 位1的个数</a>
+
+      <a href="/2020/08/27/LeetCode-191-number-of-1-bits/" class="index-excerpt">
+        
+        
+          
+        
+        <div>191. 位1的个数
+ 解法一
+任何数字 &amp; 1 都会获得这个数字的最低位，因此只要 mask 左移就能获取每个数字的最低位。
+public int hammingWeight(int n) &#123;
+    int count = 0;
+    int mask = 1;
+    // 32 位整数
+    for (int i = 0; i &lt; 32; i++) &#123;</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-27
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/27/LeetCode-773-sliding-puzzle/">LeetCode 773. 滑动谜题</a>
 
       <a href="/2020/08/27/LeetCode-773-sliding-puzzle/" class="index-excerpt">
@@ -178,13 +227,14 @@
           
         
         <div>773. 滑动谜题
+ 解法一
 需要注意棋盘的深拷贝。
 class Solution &#123;
     public int slidingPuzzle(int[][] board) &#123;
         int rows = board.length;
         int cols = board[0].length;
         Node start = null;
-        S</div>
+    </div>
       </a>
 
       <div class="index-btm post-metas">
@@ -611,63 +661,6 @@ class Solution &#123;
               <a href="/tags/DFS/">DFS</a>
             
               <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/24/LeetCode-208-implement-trie-prefix-tree/">LeetCode 208. 实现 Trie (前缀树)</a>
-
-      <a href="/2020/08/24/LeetCode-208-implement-trie-prefix-tree/" class="index-excerpt">
-        
-        
-          
-        
-        <div>208. 实现 Trie (前缀树)
-字典树 结点定义：
-/**
- * 字典树 结点
- */
-class TrieNode &#123;
-    /**
-     * 每个结点相当于一个数组
-     * 若数组的某个位置不为空，则指向下一个结点
-     */
-    private TrieNode[] links;
-
-    /**
-     * 数组的长度
-     */
-    priv</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-24
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">字典树</a>
             
           </div>
         
