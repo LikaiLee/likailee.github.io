@@ -170,6 +170,83 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/14/InnoDB-Lock/">InnoDB 锁</a>
+
+      <a href="/2020/08/14/InnoDB-Lock/" class="index-excerpt">
+        
+        
+          
+        
+        <div> InnoDB 中的锁
+ 表级锁和行级锁
+
+
+
+锁类型
+开销
+加锁速度
+死锁
+粒度
+锁冲突
+并发性
+
+
+
+
+表级锁（table lock）
+小
+快
+无
+大
+高
+低
+
+
+行级锁（row lock）
+大
+慢
+有
+小
+小
+高
+
+
+
+应该尽量只锁定需要修改的那部分数据，而不是所有的资源。锁定的数据量越少，锁竞争的发生频率就越小，系统的并发程度就越高。但是加锁需要消耗资源，锁的各种操作（包括获取锁、释放锁、</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-14
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/MySQL/">MySQL</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL/">MySQL</a>
+            
+              <a href="/tags/%E9%94%81/">锁</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/13/LeetCode-874-walking-robot-simulation/">LeetCode 874. 模拟行走机器人</a>
 
       <a href="/2020/08/13/LeetCode-874-walking-robot-simulation/" class="index-excerpt">
@@ -473,9 +550,9 @@ int rows;
             
               <a href="/tags/DFS/">DFS</a>
             
-              <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a>
-            
               <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+            
+              <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a>
             
           </div>
         
@@ -626,58 +703,6 @@ public List&lt;Integer&gt; largestValues(TreeNode root) &#123;
               <a href="/tags/BFS/">BFS</a>
             
               <a href="/tags/DFS/">DFS</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/07/LeetCode-22-generate-parentheses/">LeetCode 22. 括号生成</a>
-
-      <a href="/2020/08/07/LeetCode-22-generate-parentheses/" class="index-excerpt">
-        
-        
-          
-        
-        <div>22. 括号生成
- 回溯
-List&lt;String&gt; res = new ArrayList&lt;&gt;();
-
-    public List&lt;String&gt; generateParenthesis(int n) &#123;
-        if (n &lt; 1) &#123;
-            return res;
-        &#125;
-    </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-07
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/DFS/">DFS</a>
-            
-              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
             
           </div>
         
