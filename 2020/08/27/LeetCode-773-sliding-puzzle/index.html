@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      357 字
+      610 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      11
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月27日 下午
+                  本文最后更新于：2020年8月27日 晚上
                 
               </p>
             
@@ -297,6 +297,59 @@
         <span class="hljs-keyword">this</span>.board = board;
         <span class="hljs-keyword">this</span>.boardStr = boardStr;
     &#125;
+&#125;</code></pre>
+<h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1>
+<p>把二维数组映射为字符串，每次移动一个数字就相当于交换字符，省去了很多边界判断。</p>
+<pre><code class="hljs java">String TARGET = <span class="hljs-string">"123450"</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">slidingPuzzle</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] board)</span> </span>&#123;
+    <span class="hljs-keyword">int</span>[][] dirs = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[][]&#123;&#123;<span class="hljs-number">1</span>, <span class="hljs-number">3</span>&#125;, &#123;<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>&#125;, &#123;<span class="hljs-number">1</span>, <span class="hljs-number">5</span>&#125;, &#123;<span class="hljs-number">0</span>, <span class="hljs-number">4</span>&#125;, &#123;<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>&#125;, &#123;<span class="hljs-number">2</span>, <span class="hljs-number">4</span>&#125;&#125;;
+    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] row : board) &#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : row) &#123;
+            sb.append(num);
+        &#125;
+    &#125;
+    String start = sb.toString();
+    <span class="hljs-keyword">if</span> (TARGET.equals(start)) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    &#125;
+    Set&lt;String&gt; used = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+    Queue&lt;String&gt; queue = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
+    queue.add(start);
+    used.add(start);
+
+    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;
+        count++;
+        <span class="hljs-keyword">int</span> size = queue.size();
+        <span class="hljs-keyword">while</span> (size-- &gt; <span class="hljs-number">0</span>) &#123;
+            String cur = queue.poll();
+            <span class="hljs-keyword">if</span> (TARGET.equals(cur)) &#123;
+                <span class="hljs-keyword">return</span> count - <span class="hljs-number">1</span>;
+            &#125;
+            <span class="hljs-keyword">char</span>[] arr = cur.toCharArray();
+            <span class="hljs-comment">// 一定会找到 0，不用特判</span>
+            <span class="hljs-keyword">int</span> zeroIdx = cur.indexOf(<span class="hljs-string">'0'</span>);
+            <span class="hljs-keyword">int</span>[] moves = dirs[zeroIdx];
+            <span class="hljs-comment">// 尝试交换每个位置</span>
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> next : moves) &#123;
+                <span class="hljs-comment">// 交换 0</span>
+                arr[zeroIdx] = arr[next];
+                arr[next] = <span class="hljs-string">'0'</span>;
+                <span class="hljs-comment">// 若未出现过，则加入队列</span>
+                String candidate = String.valueOf(arr);
+                <span class="hljs-keyword">if</span> (!used.contains(candidate)) &#123;
+                    queue.add(candidate);
+                    used.add(candidate);
+                &#125;
+                <span class="hljs-comment">// 还原</span>
+                arr[next] = arr[zeroIdx];
+                arr[zeroIdx] = <span class="hljs-string">'0'</span>;
+            &#125;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
 &#125;</code></pre>
             </article>
             <hr>
