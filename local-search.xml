@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 190. 颠倒二进制位</title>
+    <link href="/2020/08/28/LeetCode-190-reverse-bits/"/>
+    <url>/2020/08/28/LeetCode-190-reverse-bits/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/reverse-bits/" target="_blank" rel="noopener">190. 颠倒二进制位</a></p><h1 id="解法一"><a class="markdownIt-Anchor" href="#解法一"></a> 解法一</h1><p>逐位移动，<code>n</code> 从<strong>右往左取</strong>，取出的每一位放到 <code>res</code> 中，<code>res</code> 从<strong>左往右放</strong>。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">reverseBits</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> mask = <span class="hljs-number">31</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">32</span>; i++) &#123;        <span class="hljs-comment">// 先左移空出最右边一位，再加上 n 的最后一位</span>        res = (res &lt;&lt; <span class="hljs-number">1</span>) + (n &amp; <span class="hljs-number">1</span>);        <span class="hljs-comment">// 删除最后一位</span>        n &gt;&gt;= <span class="hljs-number">1</span>;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre><h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二：</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">reverseBits</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">31</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;        <span class="hljs-comment">// 取最后一位移到左边</span>        res += (n &amp; <span class="hljs-number">1</span>) &lt;&lt; i;        <span class="hljs-comment">// 删除最后一位</span>        n &gt;&gt;= <span class="hljs-number">1</span>;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>位运算</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 50. Pow(x, n)</title>
     <link href="/2020/08/28/LeetCode-50-powx-n/"/>
     <url>/2020/08/28/LeetCode-50-powx-n/</url>
@@ -628,9 +655,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -1218,9 +1245,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
