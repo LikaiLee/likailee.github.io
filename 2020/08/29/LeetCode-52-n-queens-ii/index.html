@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 7. 整数反转 - Likai Lee</title>
+  <title>LeetCode 52. N皇后 II - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 7. 整数反转
+                LeetCode 52. N皇后 II
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-29 14:35">
-      2020年8月29日 下午
+    <time datetime="2020-08-29 18:00">
+      2020年8月29日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      96 字
+      181 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      3
        分钟
     </span>
   
@@ -207,33 +207,62 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月29日 下午
+                  本文最后更新于：2020年8月29日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/reverse-integer/" target="_blank" rel="noopener">7. 整数反转</a></p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;
+              <p><a href="https://leetcode-cn.com/problems/n-queens-ii/" target="_blank" rel="noopener">52. N皇后 II</a></p>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">int</span> n;
     <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">while</span> (x != <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-comment">// 个位数</span>
-        <span class="hljs-keyword">int</span> pop = x % <span class="hljs-number">10</span>;
-        <span class="hljs-comment">// 去除个位数</span>
-        x = x / <span class="hljs-number">10</span>;
-        <span class="hljs-keyword">if</span> (res &gt; Integer.MAX_VALUE / <span class="hljs-number">10</span>
-                <span class="hljs-comment">// 最后一位溢出</span>
-                || (res == Integer.MAX_VALUE / <span class="hljs-number">10</span> &amp;&amp; pop &gt; <span class="hljs-number">7</span>)) &#123;
-            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">totalNQueens</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.n = n;
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">return</span> res;
         &#125;
-        <span class="hljs-keyword">if</span> (res &lt; Integer.MIN_VALUE / <span class="hljs-number">10</span>
-                <span class="hljs-comment">// 最后一位溢出</span>
-                || (res == Integer.MIN_VALUE / <span class="hljs-number">10</span> &amp;&amp; pop &lt; -<span class="hljs-number">8</span>)) &#123;
-            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">char</span>[][] board = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[n][n];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span>[] line : board) &#123;
+            Arrays.fill(line, <span class="hljs-string">'.'</span>);
         &#125;
-        <span class="hljs-comment">// 翻转后的数</span>
-        res = res * <span class="hljs-number">10</span> + pop;
+        backtrack(<span class="hljs-number">0</span>, board);
+        <span class="hljs-keyword">return</span> res;
     &#125;
-    <span class="hljs-keyword">return</span> res;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> row, <span class="hljs-keyword">char</span>[][] board)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (row == n) &#123;
+            res++;
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> col = <span class="hljs-number">0</span>; col &lt; n; col++) &#123;
+            <span class="hljs-keyword">if</span> (!isValid(row, col, board)) &#123;
+                <span class="hljs-keyword">continue</span>;
+            &#125;
+            board[row][col] = <span class="hljs-string">'Q'</span>;
+            backtrack(row + <span class="hljs-number">1</span>, board);
+            board[row][col] = <span class="hljs-string">'.'</span>;
+        &#125;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValid</span><span class="hljs-params">(<span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col, <span class="hljs-keyword">char</span>[][] board)</span> </span>&#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span>[] line : board) &#123;
+            <span class="hljs-keyword">if</span> (line[col] == <span class="hljs-string">'Q'</span>) &#123;
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = row - <span class="hljs-number">1</span>, j = col - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span> &amp;&amp; j &gt;= <span class="hljs-number">0</span>; i--, j--)&#123;
+            <span class="hljs-keyword">if</span> (board[i][j] == <span class="hljs-string">'Q'</span>) &#123;
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = row - <span class="hljs-number">1</span>, j = col + <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span> &amp;&amp; j &lt; n; i--, j++) &#123;
+            <span class="hljs-keyword">if</span> (board[i][j] == <span class="hljs-string">'Q'</span>) &#123;
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    &#125;
 &#125;</code></pre>
             </article>
             <hr>
@@ -253,7 +282,9 @@
                     
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
+                      <a class="hover-with-bg" href="/tags/DFS/">DFS</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
                     
                   </div>
                 
@@ -266,18 +297,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/29/LeetCode-52-n-queens-ii/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 52. N皇后 II</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/08/28/LeetCode-338-counting-bits/">
-                        <span class="hidden-mobile">LeetCode 338. 比特位计数</span>
+                      <a href="/2020/08/29/LeetCode-7-reverse-integer/">
+                        <span class="hidden-mobile">LeetCode 7. 整数反转</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
