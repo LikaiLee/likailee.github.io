@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 7. 整数反转</title>
+    <link href="/2020/08/29/LeetCode-7-reverse-integer/"/>
+    <url>/2020/08/29/LeetCode-7-reverse-integer/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/reverse-integer/" target="_blank" rel="noopener">7. 整数反转</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (x != <span class="hljs-number">0</span>) &#123;        <span class="hljs-comment">// 个位数</span>        <span class="hljs-keyword">int</span> pop = x % <span class="hljs-number">10</span>;        <span class="hljs-comment">// 去除个位数</span>        x = x / <span class="hljs-number">10</span>;        <span class="hljs-keyword">if</span> (res &gt; Integer.MAX_VALUE / <span class="hljs-number">10</span>                <span class="hljs-comment">// 最后一位溢出</span>                || (res == Integer.MAX_VALUE / <span class="hljs-number">10</span> &amp;&amp; pop &gt; <span class="hljs-number">7</span>)) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-keyword">if</span> (res &lt; Integer.MIN_VALUE / <span class="hljs-number">10</span>                <span class="hljs-comment">// 最后一位溢出</span>                || (res == Integer.MIN_VALUE / <span class="hljs-number">10</span> &amp;&amp; pop &lt; -<span class="hljs-number">8</span>)) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-comment">// 翻转后的数</span>        res = res * <span class="hljs-number">10</span> + pop;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>数学</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 338. 比特位计数</title>
     <link href="/2020/08/28/LeetCode-338-counting-bits/"/>
     <url>/2020/08/28/LeetCode-338-counting-bits/</url>
