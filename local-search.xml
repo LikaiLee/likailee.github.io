@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 146. LRU 缓存机制</title>
+    <link href="/2020/08/30/LeetCode-146-lru-cache/"/>
+    <url>/2020/08/30/LeetCode-146-lru-cache/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/lru-cache/" target="_blank" rel="noopener">146. LRU缓存机制</a></p><pre><code class="hljs java"><span class="hljs-comment">/**</span><span class="hljs-comment"> * 结点类</span><span class="hljs-comment"> */</span><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;    <span class="hljs-keyword">int</span> key;    <span class="hljs-keyword">int</span> value;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Node</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key, <span class="hljs-keyword">int</span> value)</span> </span>&#123;        <span class="hljs-keyword">this</span>.key = key;        <span class="hljs-keyword">this</span>.value = value;    &#125;&#125;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LRUCache</span> </span>&#123;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * Cache 对应的链表，用于增删结点 O(1)</span><span class="hljs-comment">     * Node&lt;k1, v1&gt; -&gt; Node&lt;k2, v2&gt; -&gt; ...</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">private</span> LinkedList&lt;Node&gt; cache;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * key 到 Node 的映射，用于查询 O(1)</span><span class="hljs-comment">     * key -&gt; Node</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">private</span> Map&lt;Integer, Node&gt; map;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 最大容量</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> capacity;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">LRUCache</span><span class="hljs-params">(<span class="hljs-keyword">int</span> capacity)</span> </span>&#123;        cache = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();        <span class="hljs-keyword">this</span>.capacity = capacity;    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 若 key 存在，返回，且要把对应结点移到前面</span><span class="hljs-comment">     *</span><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> key</span><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> value</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span> </span>&#123;        <span class="hljs-keyword">if</span> (map.containsKey(key)) &#123;            <span class="hljs-keyword">int</span> value = map.get(key).value;            <span class="hljs-comment">// 使用 put 方法移动已存在结点到前面</span>            put(key, value);            <span class="hljs-keyword">return</span> value;        &#125;        <span class="hljs-comment">// 结点不存在</span>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 若 key 存在，删除旧结点，添加新结点，并把对应结点移到前面</span><span class="hljs-comment">     * 否则插入新结点</span><span class="hljs-comment">     * 若容量达到上限，删除最久未使用的结点</span><span class="hljs-comment">     *</span><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> key</span><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> value</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">put</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key, <span class="hljs-keyword">int</span> value)</span> </span>&#123;        Node node = <span class="hljs-keyword">new</span> Node(key, value);        <span class="hljs-comment">// 该结点已存在</span>        <span class="hljs-keyword">if</span> (map.containsKey(key)) &#123;            <span class="hljs-comment">// 删除旧结点</span>            cache.remove(map.get(key));            map.remove(key);        &#125;        <span class="hljs-comment">// 该结点不存在，则要判断是否有空位置用来新增结点</span>        <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// cache 容量达到上限，删除最后一个结点</span>            <span class="hljs-keyword">if</span> (cache.size() == capacity) &#123;                Node last = cache.getLast();                cache.removeLast();                map.remove(last.key);            &#125;        &#125;        <span class="hljs-comment">// 添加新结点</span>        cache.addFirst(node);        map.put(key, node);    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>数据结构</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>布隆过滤器</title>
     <link href="/2020/08/29/bloom-filter/"/>
     <url>/2020/08/29/bloom-filter/</url>
@@ -399,7 +426,7 @@
     
     <categories>
       
-      <category>数据结构</category>
+      <category>算法</category>
       
     </categories>
     
@@ -407,6 +434,8 @@
     <tags>
       
       <tag>并查集</tag>
+      
+      <tag>数据结构</tag>
       
     </tags>
     
