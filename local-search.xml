@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 58. 最后一个单词的长度</title>
+    <link href="/2020/08/31/LeetCode-58-length-of-last-word/"/>
+    <url>/2020/08/31/LeetCode-58-length-of-last-word/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/length-of-last-word/" target="_blank" rel="noopener">58. 最后一个单词的长度</a></p><p>需要注意最后一个字符为空的情况。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLastWord</span><span class="hljs-params">(String s)</span> </span>&#123;    <span class="hljs-keyword">int</span> end = s.length() - <span class="hljs-number">1</span>;    <span class="hljs-comment">// 找到末尾不为空的字符位置</span>    <span class="hljs-keyword">while</span> (end &gt;= <span class="hljs-number">0</span> &amp;&amp; s.charAt(end) == <span class="hljs-string">' '</span>) &#123;        end--;    &#125;    <span class="hljs-keyword">if</span> (end &lt; <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-comment">// 从后往前找第一个空的位置</span>    <span class="hljs-keyword">int</span> start = end;    <span class="hljs-keyword">while</span> (start &gt;= <span class="hljs-number">0</span> &amp;&amp; s.charAt(start) != <span class="hljs-string">' '</span>) &#123;        start--;    &#125;    <span class="hljs-keyword">return</span> end - start;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 709. 转换成小写字母</title>
     <link href="/2020/08/31/LeetCode-709-to-lower-case/"/>
     <url>/2020/08/31/LeetCode-709-to-lower-case/</url>
