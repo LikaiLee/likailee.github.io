@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 709. 转换成小写字母</title>
+    <link href="/2020/08/31/LeetCode-709-to-lower-case/"/>
+    <url>/2020/08/31/LeetCode-709-to-lower-case/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/to-lower-case/" target="_blank" rel="noopener">709. 转换成小写字母</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toLowerCase</span><span class="hljs-params">(String str)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] chars = str.toCharArray();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; chars.length; i++) &#123;        <span class="hljs-keyword">if</span> (chars[i] &gt;= <span class="hljs-string">'A'</span> &amp;&amp; chars[i] &lt;= <span class="hljs-string">'Z'</span>) &#123;            chars[i] = (<span class="hljs-keyword">char</span>) (chars[i] + <span class="hljs-number">32</span>);        &#125;    &#125;    <span class="hljs-keyword">return</span> String.valueOf(chars);&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 146. LRU 缓存机制</title>
     <link href="/2020/08/30/LeetCode-146-lru-cache/"/>
     <url>/2020/08/30/LeetCode-146-lru-cache/</url>
@@ -433,9 +460,9 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
