@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 8. 字符串转换整数 (atoi)</title>
+    <link href="/2020/09/01/LeetCode-8-string-to-integer-atoi/"/>
+    <url>/2020/09/01/LeetCode-8-string-to-integer-atoi/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/string-to-integer-atoi/" target="_blank" rel="noopener">8. 字符串转换整数 (atoi)</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;        <span class="hljs-keyword">new</span> Solution().myAtoi(<span class="hljs-string">"-2147483647"</span>);    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">myAtoi</span><span class="hljs-params">(String str)</span> </span>&#123;        <span class="hljs-keyword">char</span>[] chars = str.toCharArray();        <span class="hljs-keyword">int</span> len = chars.length;        <span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;        <span class="hljs-comment">// 去除前部的空格</span>        <span class="hljs-keyword">while</span> (start &lt; len &amp;&amp; chars[start] == <span class="hljs-string">' '</span>) &#123;            start++;        &#125;        <span class="hljs-comment">// 到达终点</span>        <span class="hljs-keyword">if</span> (start == len) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-keyword">boolean</span> negative = <span class="hljs-keyword">false</span>;        <span class="hljs-keyword">if</span> (chars[start] == <span class="hljs-string">'-'</span>) &#123;            <span class="hljs-comment">// 负数</span>            negative = <span class="hljs-keyword">true</span>;            start++;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (chars[start] == <span class="hljs-string">'+'</span>) &#123;            <span class="hljs-comment">// 正数</span>            start++;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!Character.isDigit(chars[start])) &#123;            <span class="hljs-comment">// 首位非数字</span>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-keyword">int</span> num = <span class="hljs-number">0</span>;        <span class="hljs-keyword">while</span> (start &lt; len &amp;&amp; Character.isDigit(chars[start])) &#123;            <span class="hljs-keyword">int</span> digit = chars[start] - <span class="hljs-string">'0'</span>;            <span class="hljs-comment">// 溢出判断</span>            <span class="hljs-comment">/*if (negative) &#123;</span><span class="hljs-comment">                if (-num &lt; Integer.MIN_VALUE / 10 || (-num == Integer.MIN_VALUE / 10 &amp;&amp; -digit &lt; -8)) &#123;</span><span class="hljs-comment">                    return Integer.MIN_VALUE;</span><span class="hljs-comment">                &#125;</span><span class="hljs-comment">            &#125; else &#123;</span><span class="hljs-comment">                if (num &gt; Integer.MAX_VALUE / 10 || (num == Integer.MAX_VALUE / 10 &amp;&amp; digit &gt; 7)) &#123;</span><span class="hljs-comment">                    return Integer.MAX_VALUE;</span><span class="hljs-comment">                &#125;</span><span class="hljs-comment">            &#125;*/</span>            <span class="hljs-comment">// num * 10 + digit &gt; MAX_VAL 可能越界</span>            <span class="hljs-keyword">if</span> (num &gt; (Integer.MAX_VALUE - digit) / <span class="hljs-number">10</span>) &#123;                <span class="hljs-keyword">return</span> negative ? Integer.MIN_VALUE : Integer.MAX_VALUE;            &#125;            <span class="hljs-comment">// 拼装数字</span>            num = num * <span class="hljs-number">10</span> + digit;            <span class="hljs-comment">// 下一位</span>            start++;        &#125;        <span class="hljs-keyword">return</span> negative ? -num : num;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 387. 字符串中的第一个唯一字符</title>
     <link href="/2020/09/01/LeetCode-387-first-unique-character-in-a-string/"/>
     <url>/2020/09/01/LeetCode-387-first-unique-character-in-a-string/</url>
@@ -566,9 +593,9 @@
     
     <tags>
       
-      <tag>数据结构</tag>
-      
       <tag>并查集</tag>
+      
+      <tag>数据结构</tag>
       
     </tags>
     
