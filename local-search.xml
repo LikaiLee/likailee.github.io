@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 387. 字符串中的第一个唯一字符</title>
+    <link href="/2020/09/01/LeetCode-387-first-unique-character-in-a-string/"/>
+    <url>/2020/09/01/LeetCode-387-first-unique-character-in-a-string/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/first-unique-character-in-a-string/" target="_blank" rel="noopener">387. 字符串中的第一个唯一字符</a></p><h1 id="解法一"><a class="markdownIt-Anchor" href="#解法一"></a> 解法一</h1><p>记录每个字母出现的次数。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">firstUniqChar</span><span class="hljs-params">(String s)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] chars = s.toCharArray();    <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];    <span class="hljs-comment">// 记录每个字母出现的次数</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : chars) &#123;        counts[c - <span class="hljs-string">'a'</span>]++;    &#125;    <span class="hljs-comment">// 寻找出现次数为 1 的字母位置</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; chars.length; i++) &#123;        <span class="hljs-keyword">if</span> (counts[chars[i] - <span class="hljs-string">'a'</span>] == <span class="hljs-number">1</span>) &#123;            <span class="hljs-keyword">return</span> i;        &#125;    &#125;    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;&#125;</code></pre><h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1><p>判断首次出现的位置和最后出现的位置是否相等。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">firstUniqChar</span><span class="hljs-params">(String s)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] chars = s.toCharArray();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; chars.length; i++) &#123;        <span class="hljs-keyword">if</span> (s.indexOf(chars[i]) == s.lastIndexOf(chars[i])) &#123;            <span class="hljs-keyword">return</span> i;        &#125;    &#125;    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>排序算法</title>
     <link href="/2020/09/01/sorting-algorithms/"/>
     <url>/2020/09/01/sorting-algorithms/</url>
@@ -539,9 +566,9 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
@@ -900,9 +927,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -1490,9 +1517,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
