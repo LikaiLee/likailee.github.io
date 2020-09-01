@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      221 字
+      478 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      8
        分钟
     </span>
   
@@ -213,6 +213,7 @@
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/string-to-integer-atoi/" target="_blank" rel="noopener">8. 字符串转换整数 (atoi)</a></p>
+<h1 id="解法一"><a class="markdownIt-Anchor" href="#解法一"></a> 解法一</h1>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
         <span class="hljs-keyword">new</span> Solution().myAtoi(<span class="hljs-string">"-2147483647"</span>);
@@ -254,7 +255,7 @@
 <span class="hljs-comment">                    return Integer.MAX_VALUE;</span>
 <span class="hljs-comment">                &#125;</span>
 <span class="hljs-comment">            &#125;*/</span>
-            <span class="hljs-comment">// num * 10 + digit &gt; MAX_VAL 可能越界</span>
+            <span class="hljs-comment">// num * 10 + digit &gt; INT_MAX 可能越界</span>
             <span class="hljs-keyword">if</span> (num &gt; (Integer.MAX_VALUE - digit) / <span class="hljs-number">10</span>) &#123;
                 <span class="hljs-keyword">return</span> negative ? Integer.MIN_VALUE : Integer.MAX_VALUE;
             &#125;
@@ -266,6 +267,84 @@
         <span class="hljs-keyword">return</span> negative ? -num : num;
     &#125;
 &#125;</code></pre>
+<h1 id="解法二自动机"><a class="markdownIt-Anchor" href="#解法二自动机"></a> 解法二：自动机</h1>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200901204413.png" srcset="/img/loading.gif" alt="" /></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">myAtoi</span><span class="hljs-params">(String str)</span> </span>&#123;
+        Automaton automaton = <span class="hljs-keyword">new</span> Automaton();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : str.toCharArray()) &#123;
+            automaton.get(c);
+        &#125;
+        <span class="hljs-keyword">return</span> automaton.sign * (<span class="hljs-keyword">int</span>)automaton.ans;
+    &#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Automaton</span> </span>&#123;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> START = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> SIGNED = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> IN_NUM = <span class="hljs-number">2</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> END = <span class="hljs-number">3</span>;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 自动机的状态</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> state = START;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 状态转移表</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">private</span> Map&lt;Integer, <span class="hljs-keyword">int</span>[]&gt; map;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 符号</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> sign = <span class="hljs-number">1</span>;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 结果</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">long</span> ans = <span class="hljs-number">0</span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Automaton</span><span class="hljs-params">()</span> </span>&#123;
+        map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        map.put(START, <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;START, SIGNED, IN_NUM, END&#125;);
+        map.put(SIGNED, <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;END, END, IN_NUM, END&#125;);
+        map.put(IN_NUM, <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;END, END, IN_NUM, END&#125;);
+        map.put(END, <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;END, END, END, END&#125;);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getCol</span><span class="hljs-params">(<span class="hljs-keyword">char</span> c)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (c == <span class="hljs-string">' '</span>) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        &#125;
+        <span class="hljs-keyword">if</span> (c == <span class="hljs-string">'+'</span> || c == <span class="hljs-string">'-'</span>) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+        &#125;
+        <span class="hljs-keyword">if</span> (Character.isDigit(c)) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">char</span> c)</span> </span>&#123;
+        <span class="hljs-comment">// 新的状态</span>
+        state = map.get(state)[getCol(c)];
+        <span class="hljs-comment">// 转移到 数字</span>
+        <span class="hljs-keyword">if</span> (state == IN_NUM) &#123;
+            <span class="hljs-keyword">int</span> digit = c - <span class="hljs-string">'0'</span>;
+            ans = ans * <span class="hljs-number">10</span> + digit;
+            <span class="hljs-keyword">if</span> (sign == <span class="hljs-number">1</span>) &#123;
+                <span class="hljs-comment">// 正数</span>
+                ans = Math.min(ans, Integer.MAX_VALUE);
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                <span class="hljs-comment">// 负数</span>
+                ans = Math.min(ans, -(<span class="hljs-keyword">long</span>) Integer.MIN_VALUE);
+            &#125;
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (state == SIGNED) &#123;
+            <span class="hljs-comment">// 转移到符号</span>
+            sign = (c == <span class="hljs-string">'+'</span>) ? <span class="hljs-number">1</span> : -<span class="hljs-number">1</span>;
+        &#125;
+    &#125;
+&#125;</code></pre>
+
             </article>
             <hr>
             <div>
