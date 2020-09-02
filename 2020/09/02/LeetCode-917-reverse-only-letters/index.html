@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 557. 反转字符串中的单词 III - Likai Lee</title>
+  <title>LeetCode 917. 仅仅反转字母 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 557. 反转字符串中的单词 III
+                LeetCode 917. 仅仅反转字母
               
             </span>
 
@@ -154,7 +154,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-02 21:18">
+    <time datetime="2020-09-02 21:37">
       2020年9月2日 晚上
     </time>
   </div>
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      89 字
+      189 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      3
        分钟
     </span>
   
@@ -212,27 +212,48 @@
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/" target="_blank" rel="noopener">557. 反转字符串中的单词 III</a></p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">reverseWords</span><span class="hljs-params">(String s)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">char</span>[] chars = s.toCharArray();
+              <p><a href="https://leetcode-cn.com/problems/reverse-only-letters/" target="_blank" rel="noopener">917. 仅仅反转字母</a></p>
+<h1 id="双指针"><a class="markdownIt-Anchor" href="#双指针"></a> 双指针</h1>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">reverseOnlyLetters</span><span class="hljs-params">(String S)</span> </span>&#123;
+    <span class="hljs-keyword">char</span>[] chars = S.toCharArray();
     <span class="hljs-keyword">int</span> len = chars.length;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-keyword">if</span> (chars[i] == <span class="hljs-string">' '</span>) &#123;
-            reverseWord(chars, start, i - <span class="hljs-number">1</span>);
-            start = i + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> right = len - <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">while</span> (left &lt; right) &#123;
+        <span class="hljs-comment">// 找到左边为字母的位置</span>
+        <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; !Character.isLetter(chars[left])) &#123;
+            left++;
+        &#125;
+        <span class="hljs-comment">// 找到右边为字母的位置</span>
+        <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; !Character.isLetter(chars[right])) &#123;
+            right--;
+        &#125;
+        <span class="hljs-keyword">char</span> c = chars[left];
+        chars[left++] = chars[right];
+        chars[right--] = c;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> String(chars);
+&#125;</code></pre>
+<h1 id="栈"><a class="markdownIt-Anchor" href="#栈"></a> 栈</h1>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">reverseOnlyLetters</span><span class="hljs-params">(String S)</span> </span>&#123;
+    <span class="hljs-keyword">char</span>[] chars = S.toCharArray();
+    Deque&lt;Character&gt; stack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
+    <span class="hljs-comment">// 将所有字母入栈</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : chars) &#123;
+        <span class="hljs-keyword">if</span> (Character.isLetter(c)) &#123;
+            stack.push(c);
         &#125;
     &#125;
-    reverseWord(chars, start, len - <span class="hljs-number">1</span>);
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> String(chars);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">reverseWord</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] chars, <span class="hljs-keyword">int</span> start, <span class="hljs-keyword">int</span> end)</span> </span>&#123;
-    <span class="hljs-keyword">while</span> (start &lt; end) &#123;
-        <span class="hljs-keyword">char</span> c = chars[start];
-        chars[start++] = chars[end];
-        chars[end--] = c;
+    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : chars) &#123;
+        <span class="hljs-comment">// 若是字母从栈中取，否则取字符串的原字符</span>
+        <span class="hljs-keyword">if</span> (Character.isLetter(c)) &#123;
+            sb.append(stack.pop());
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            sb.append(c);
+        &#125;
     &#125;
+    <span class="hljs-keyword">return</span> sb.toString();
 &#125;</code></pre>
             </article>
             <hr>
@@ -254,6 +275,8 @@
                     
                       <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
                     
+                      <a class="hover-with-bg" href="/tags/%E6%A0%88/">栈</a>
+                    
                       <a class="hover-with-bg" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
                     
                   </div>
@@ -267,18 +290,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/02/LeetCode-917-reverse-only-letters/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 917. 仅仅反转字母</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/02/LeetCode-151-reverse-words-in-a-string/">
-                        <span class="hidden-mobile">LeetCode 151. 翻转字符串里的单词</span>
+                      <a href="/2020/09/02/LeetCode-557-reverse-words-in-a-string-iii/">
+                        <span class="hidden-mobile">LeetCode 557. 反转字符串中的单词 III</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
