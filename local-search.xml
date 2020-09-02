@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 557. 反转字符串中的单词 III</title>
+    <link href="/2020/09/02/LeetCode-557-reverse-words-in-a-string-iii/"/>
+    <url>/2020/09/02/LeetCode-557-reverse-words-in-a-string-iii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/" target="_blank" rel="noopener">557. 反转字符串中的单词 III</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">reverseWords</span><span class="hljs-params">(String s)</span> </span>&#123;    <span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;    <span class="hljs-keyword">char</span>[] chars = s.toCharArray();    <span class="hljs-keyword">int</span> len = chars.length;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">if</span> (chars[i] == <span class="hljs-string">' '</span>) &#123;            reverseWord(chars, start, i - <span class="hljs-number">1</span>);            start = i + <span class="hljs-number">1</span>;        &#125;    &#125;    reverseWord(chars, start, len - <span class="hljs-number">1</span>);    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> String(chars);&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">reverseWord</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] chars, <span class="hljs-keyword">int</span> start, <span class="hljs-keyword">int</span> end)</span> </span>&#123;    <span class="hljs-keyword">while</span> (start &lt; end) &#123;        <span class="hljs-keyword">char</span> c = chars[start];        chars[start++] = chars[end];        chars[end--] = c;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 151. 翻转字符串里的单词</title>
     <link href="/2020/09/02/LeetCode-151-reverse-words-in-a-string/"/>
     <url>/2020/09/02/LeetCode-151-reverse-words-in-a-string/</url>
