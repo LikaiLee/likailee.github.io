@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 56. 合并区间</title>
+    <link href="/2020/09/03/LeetCode-56-merge-intervals/"/>
+    <url>/2020/09/03/LeetCode-56-merge-intervals/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/merge-intervals/" target="_blank" rel="noopener">56. 合并区间</a></p><h1 id="解法一"><a class="markdownIt-Anchor" href="#解法一"></a> 解法一</h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[][] merge(<span class="hljs-keyword">int</span>[][] intervals) &#123;    <span class="hljs-keyword">int</span> len = intervals.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> intervals;    &#125;    quickSort(intervals, <span class="hljs-number">0</span>, len - <span class="hljs-number">1</span>);    System.out.println(Arrays.deepToString(intervals));    List&lt;<span class="hljs-keyword">int</span>[]&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    <span class="hljs-keyword">int</span> start = intervals[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>];    <span class="hljs-keyword">int</span> end = intervals[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 可以合并：(i + 1).开始 &lt;= i.结束</span>        <span class="hljs-comment">// 开始 = i.开始，结束 = max(i.结束, (i + 1).结束)</span>        <span class="hljs-keyword">if</span> (intervals[i][<span class="hljs-number">0</span>] &lt;= end) &#123;            <span class="hljs-comment">// 更新 end</span>            end = Math.max(end, intervals[i][<span class="hljs-number">1</span>]);        &#125; <span class="hljs-keyword">else</span> &#123;            list.add(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;start, end&#125;);            <span class="hljs-comment">// 更新 start，用于下一次合并</span>            start = intervals[i][<span class="hljs-number">0</span>];            end = intervals[i][<span class="hljs-number">1</span>];        &#125;    &#125;    <span class="hljs-comment">// 添加最后一个区间</span>    list.add(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;start, end&#125;);    <span class="hljs-keyword">int</span> count = list.size();    <span class="hljs-keyword">int</span>[][] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[count][<span class="hljs-number">2</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) &#123;        res[i] = list.get(i);    &#125;    <span class="hljs-keyword">return</span> res;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">quickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] arr, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;    <span class="hljs-keyword">if</span> (low &lt; high) &#123;        <span class="hljs-keyword">int</span> pivotPos = partition(arr, low, high);        quickSort(arr, low, pivotPos - <span class="hljs-number">1</span>);        quickSort(arr, pivotPos + <span class="hljs-number">1</span>, high);    &#125;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">partition</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] arr, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;    <span class="hljs-keyword">int</span>[] pivot = arr[low];    <span class="hljs-keyword">while</span> (low &lt; high) &#123;        <span class="hljs-keyword">while</span> (low &lt; high &amp;&amp; arr[high][<span class="hljs-number">0</span>] &gt;= pivot[<span class="hljs-number">0</span>]) &#123;            high--;        &#125;        arr[low] = arr[high];        <span class="hljs-keyword">while</span> (low &lt; high &amp;&amp; arr[low][<span class="hljs-number">0</span>] &lt;= pivot[<span class="hljs-number">0</span>]) &#123;            low++;        &#125;        arr[high] = arr[low];    &#125;    arr[low] = pivot;    <span class="hljs-keyword">return</span> low;&#125;</code></pre><h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[][] merge(<span class="hljs-keyword">int</span>[][] intervals) &#123;    <span class="hljs-keyword">int</span> len = intervals.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> intervals;    &#125;    Arrays.sort(intervals, Comparator.comparingInt(a -&gt; a[<span class="hljs-number">0</span>]));    <span class="hljs-keyword">int</span>[][] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len][<span class="hljs-number">2</span>];    <span class="hljs-keyword">int</span> idx = -<span class="hljs-number">1</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] interval : intervals) &#123;        <span class="hljs-comment">// 可以合并：开始 &lt;= 结束</span>        <span class="hljs-keyword">if</span> (idx == -<span class="hljs-number">1</span> || interval[<span class="hljs-number">0</span>] &gt; res[idx][<span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// 无法合并或 res 为空，添加新区间</span>            res[++idx] = interval;        &#125; <span class="hljs-keyword">else</span> &#123;            res[idx][<span class="hljs-number">1</span>] = Math.max(res[idx][<span class="hljs-number">1</span>], interval[<span class="hljs-number">1</span>]);        &#125;    &#125;    <span class="hljs-keyword">return</span> Arrays.copyOf(res, idx + <span class="hljs-number">1</span>);&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 242. 有效的字母异位词</title>
     <link href="/2020/09/03/LeetCode-242-valid-anagram/"/>
     <url>/2020/09/03/LeetCode-242-valid-anagram/</url>
@@ -827,9 +854,9 @@
     
     <tags>
       
-      <tag>数据结构</tag>
-      
       <tag>并查集</tag>
+      
+      <tag>数据结构</tag>
       
     </tags>
     
@@ -1188,9 +1215,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1778,9 +1805,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
