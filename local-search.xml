@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 1122. 数组的相对排序</title>
+    <link href="/2020/09/03/LeetCode-1122-relative-sort-array/"/>
+    <url>/2020/09/03/LeetCode-1122-relative-sort-array/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/relative-sort-array/" target="_blank" rel="noopener">1122. 数组的相对排序</a></p><p>使用计数排序。</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] relativeSortArray(<span class="hljs-keyword">int</span>[] arr1, <span class="hljs-keyword">int</span>[] arr2) &#123;    <span class="hljs-keyword">if</span> (arr1.length == <span class="hljs-number">0</span> || arr2.length == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> arr1;    &#125;    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[arr1.length];    <span class="hljs-keyword">int</span>[] bucket = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">1001</span>];    <span class="hljs-comment">// 标记 arr1 中的每个元素</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> value : arr1) &#123;        bucket[value]++;    &#125;    <span class="hljs-comment">// 输出 arr2 存在于 bucket 中的元素</span>    <span class="hljs-keyword">int</span> idx = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> value : arr2) &#123;        <span class="hljs-keyword">while</span> (bucket[value] &gt; <span class="hljs-number">0</span>) &#123;            res[idx++] = value;            bucket[value]--;        &#125;    &#125;    <span class="hljs-comment">// 输出剩下的元素</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; bucket.length; i++) &#123;        <span class="hljs-keyword">while</span> (bucket[i] &gt; <span class="hljs-number">0</span>) &#123;            res[idx++] = i;            bucket[i]--;        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 917. 仅仅反转字母</title>
     <link href="/2020/09/02/LeetCode-917-reverse-only-letters/"/>
     <url>/2020/09/02/LeetCode-917-reverse-only-letters/</url>
@@ -769,9 +796,9 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
