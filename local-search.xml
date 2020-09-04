@@ -4,11 +4,38 @@
   
   
   <entry>
+    <title>LeetCode 746. 使用最小花费爬楼梯</title>
+    <link href="/2020/09/04/LeetCode-746-min-cost-climbing-stairs/"/>
+    <url>/2020/09/04/LeetCode-746-min-cost-climbing-stairs/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/min-cost-climbing-stairs/" target="_blank" rel="noopener">746. 使用最小花费爬楼梯</a></p><table><thead><tr><th style="text-align:center">0</th><th style="text-align:center">1</th><th style="text-align:center">2</th><th style="text-align:center">3</th></tr></thead><tbody><tr><td style="text-align:center">10</td><td style="text-align:center">15</td><td style="text-align:center">20</td><td style="text-align:center"></td></tr></tbody></table><p>爬上第 <code>3</code> 阶楼梯可以从第 <code>1</code> 阶爬两步或者从第 <code>2</code> 阶爬一步。</p><p>题意：阶梯总数 = <code>cost.length</code>，爬上第 <code>i</code> 阶楼梯 &lt;=&gt; 不能算上第 <code>i</code> 阶楼梯的花费 <code>cost[i]</code>，也就是只能算到 <code>i - 1</code> 和 <code>i - 2</code> 阶楼梯。</p><ul><li>状态转移方程: <code>dp[i] = Math.min(dp[i - 1], dp[i - 2]) + cost[i]</code></li><li>结果: <code>min(dp[len - 1], dp[len - 2])</code></li></ul><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minCostClimbingStairs</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] cost)</span> </span>&#123;        <span class="hljs-keyword">int</span> len = cost.length;        <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];        dp[<span class="hljs-number">0</span>] = cost[<span class="hljs-number">0</span>];        dp[<span class="hljs-number">1</span>] = cost[<span class="hljs-number">1</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; len; i++) &#123;            dp[i] = Math.min(dp[i - <span class="hljs-number">1</span>], dp[i - <span class="hljs-number">2</span>]) + cost[i];        &#125;        <span class="hljs-keyword">return</span> Math.min(dp[len - <span class="hljs-number">1</span>], dp[len - <span class="hljs-number">2</span>]);    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 493. 翻转对</title>
     <link href="/2020/09/03/LeetCode-493-reverse-pairs/"/>
     <url>/2020/09/03/LeetCode-493-reverse-pairs/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/reverse-pairs/" target="_blank" rel="noopener">493. 翻转对</a></p><p>解法：</p><ul><li>使用归并排序，把数组分为左右两部分，且都单调递增；</li><li>则每次都固定左边元素，遍历右边元素；</li><li>因为都是有序的，所以从位置索引就能获取个数，且右边的元素只要遍历一遍。</li></ul><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">reversePairs</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;        <span class="hljs-keyword">return</span> mergeSort(nums, <span class="hljs-number">0</span>, nums.length - <span class="hljs-number">1</span>);    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">mergeSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;        <span class="hljs-keyword">if</span> (low &lt; high) &#123;            <span class="hljs-keyword">int</span> mid = (low + high) &gt;&gt; <span class="hljs-number">1</span>;            count = mergeSort(arr, low, mid) + mergeSort(arr, mid + <span class="hljs-number">1</span>, high);            <span class="hljs-comment">// 对于 [low, mid] 中的每个元素</span>            <span class="hljs-comment">// 寻找他们在 [mid + 1, high] 中的翻转数</span>            <span class="hljs-keyword">int</span> j = mid + <span class="hljs-number">1</span>;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = low; i &lt;= mid; i++) &#123;                <span class="hljs-comment">// (arr[i] &gt;&gt; 1) + (arr[i] &amp; 1) &gt; arr[j]</span>                <span class="hljs-comment">// while (j &lt;= high &amp;&amp; arr[i] &gt; (long) arr[j] &lt;&lt; 1) &#123;</span>                <span class="hljs-keyword">while</span> (j &lt;= high &amp;&amp; arr[i] &gt; (<span class="hljs-keyword">long</span>) arr[j] * <span class="hljs-number">2</span>) &#123;                    j++;                &#125;                count += j - mid - <span class="hljs-number">1</span>;            &#125;            merge(arr, low, mid, high);        &#125;        <span class="hljs-keyword">return</span> count;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> mid, <span class="hljs-keyword">int</span> high)</span> </span>&#123;        <span class="hljs-keyword">int</span> len = high - low + <span class="hljs-number">1</span>;        <span class="hljs-keyword">int</span>[] tmp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];        <span class="hljs-keyword">int</span> i = low, j = mid + <span class="hljs-number">1</span>, k = <span class="hljs-number">0</span>;        <span class="hljs-keyword">while</span> (i &lt;= mid &amp;&amp; j &lt;= high) &#123;            tmp[k++] = arr[i] &lt; arr[j] ? arr[i++] : arr[j++];        &#125;        <span class="hljs-keyword">while</span> (i &lt;= mid) &#123;            tmp[k++] = arr[i++];        &#125;        <span class="hljs-keyword">while</span> (j &lt;= high) &#123;            tmp[k++] = arr[j++];        &#125;        System.arraycopy(tmp, <span class="hljs-number">0</span>, arr, low, len);    &#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/reverse-pairs/" target="_blank" rel="noopener">493. 翻转对</a></p><p>解法：</p><ul><li>使用归并排序，把数组分为左右两部分，且都单调递增；</li><li>则每次都固定左边元素，遍历右边元素；</li><li>因为都是有序的，所以从位置索引就能获取个数，且右边的元素只要遍历一遍。</li></ul><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">reversePairs</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">return</span> mergeSort(nums, <span class="hljs-number">0</span>, nums.length - <span class="hljs-number">1</span>);&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">mergeSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">if</span> (low &lt; high) &#123;        <span class="hljs-keyword">int</span> mid = (low + high) &gt;&gt; <span class="hljs-number">1</span>;        count = mergeSort(arr, low, mid) + mergeSort(arr, mid + <span class="hljs-number">1</span>, high);        <span class="hljs-comment">// 对于 [low, mid] 中的每个元素</span>        <span class="hljs-comment">// 寻找他们在 [mid + 1, high] 中的翻转数</span>        <span class="hljs-keyword">int</span> j = mid + <span class="hljs-number">1</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = low; i &lt;= mid; i++) &#123;            <span class="hljs-comment">// (arr[i] &gt;&gt; 1) + (arr[i] &amp; 1) &gt; arr[j]</span>            <span class="hljs-comment">// while (j &lt;= high &amp;&amp; arr[i] &gt; (long) arr[j] &lt;&lt; 1) &#123;</span>            <span class="hljs-keyword">while</span> (j &lt;= high &amp;&amp; arr[i] &gt; (<span class="hljs-keyword">long</span>) arr[j] * <span class="hljs-number">2</span>) &#123;                j++;            &#125;            count += j - mid - <span class="hljs-number">1</span>;        &#125;        merge(arr, low, mid, high);    &#125;    <span class="hljs-keyword">return</span> count;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> mid, <span class="hljs-keyword">int</span> high)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = high - low + <span class="hljs-number">1</span>;    <span class="hljs-keyword">int</span>[] tmp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    <span class="hljs-keyword">int</span> i = low, j = mid + <span class="hljs-number">1</span>, k = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (i &lt;= mid &amp;&amp; j &lt;= high) &#123;        tmp[k++] = arr[i] &lt; arr[j] ? arr[i++] : arr[j++];    &#125;    <span class="hljs-keyword">while</span> (i &lt;= mid) &#123;        tmp[k++] = arr[i++];    &#125;    <span class="hljs-keyword">while</span> (j &lt;= high) &#123;        tmp[k++] = arr[j++];    &#125;    System.arraycopy(tmp, <span class="hljs-number">0</span>, arr, low, len);&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -881,9 +908,9 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
