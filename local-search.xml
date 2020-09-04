@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 72. 编辑距离</title>
+    <link href="/2020/09/04/LeetCode-72-edit-distance/"/>
+    <url>/2020/09/04/LeetCode-72-edit-distance/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/edit-distance/" target="_blank" rel="noopener">72. 编辑距离</a></p><p>其实不用考虑到底是什么操作对字符串进行变换，把问题转换为考虑两个字符串有多少位不同就是做多少次编辑。</p><ul><li>状态：<code>dp[i][j]</code> - <code>word1[0:i]</code> 和 <code>word2[0:j]</code> 的最小编辑距离。</li><li>状态转移方程：<ul><li>若 <code>i</code> 和 <code>j</code> 位置相同，则该位不做编辑，编辑距离等于同时删除 <code>i</code>, <code>j</code> 后的距离。 <code>dp[i][j] = dp[i - 1][j - 1]</code></li><li>若 <code>i</code> 和 <code>j</code> 位置不同，对每位进行变换后取最小值，同时编辑距离 <code>+ 1</code>。<code>dp[i][j] = MIN(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1])</code></li></ul></li></ul><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minDistance</span><span class="hljs-params">(String word1, String word2)</span> </span>&#123;    <span class="hljs-keyword">int</span> len1 = word1.length();    <span class="hljs-keyword">int</span> len2 = word2.length();    <span class="hljs-comment">// 0 行和 0 列表示有一个单词为空，另一个单词不为空的情况</span>    <span class="hljs-comment">// 所以考虑到空字符串的情况下，多分配一个空间</span>    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len1 + <span class="hljs-number">1</span>][len2 + <span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len1; i++) &#123;        dp[i][<span class="hljs-number">0</span>] = dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>] + <span class="hljs-number">1</span>;    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len2; i++) &#123;        dp[<span class="hljs-number">0</span>][i] = dp[<span class="hljs-number">0</span>][i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len1; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= len2; j++) &#123;            <span class="hljs-comment">// 字符相同，同时去除该字符，直接取上一个距离</span>            <span class="hljs-keyword">if</span> (word1.charAt(i - <span class="hljs-number">1</span>) == word2.charAt(j - <span class="hljs-number">1</span>)) &#123;                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];            &#125; <span class="hljs-keyword">else</span> &#123;                <span class="hljs-comment">// 字符不同，依次尝试去除不同位置，取最小距离 + 1</span>                dp[i][j] = Math.min(dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>], Math.min(dp[i - <span class="hljs-number">1</span>][j], dp[i][j - <span class="hljs-number">1</span>])) + <span class="hljs-number">1</span>;            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> dp[len1][len2];&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 746. 使用最小花费爬楼梯</title>
     <link href="/2020/09/04/LeetCode-746-min-cost-climbing-stairs/"/>
     <url>/2020/09/04/LeetCode-746-min-cost-climbing-stairs/</url>
@@ -908,9 +937,9 @@
     
     <tags>
       
-      <tag>数据结构</tag>
-      
       <tag>并查集</tag>
+      
+      <tag>数据结构</tag>
       
     </tags>
     
@@ -1948,9 +1977,9 @@
       
       <tag>DFS</tag>
       
-      <tag>回溯</tag>
-      
       <tag>并查集</tag>
+      
+      <tag>回溯</tag>
       
     </tags>
     
