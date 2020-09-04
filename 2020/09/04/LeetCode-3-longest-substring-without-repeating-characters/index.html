@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      219 字
+      302 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      4
        分钟
     </span>
   
@@ -213,6 +213,8 @@
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="noopener">3. 无重复字符的最长子串</a></p>
+<p>判断重复：使用 <code>map</code> 保存当前字符最后一次出现的位置，若重复，则根据该位置更新区间的起点。</p>
+<p>起点取 <code>max</code> 的原因：始终保证 <code>start</code> 不会左移，否则若 <code>start &lt; map[c]</code>时，直接赋值 <code>start = map[c]</code>，会导致左移，可能无法过滤重复值。</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(String s)</span> </span>&#123;
     <span class="hljs-keyword">if</span> (s.length() == <span class="hljs-number">0</span>) &#123;
         <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
