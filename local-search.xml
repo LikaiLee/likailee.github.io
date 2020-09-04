@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>LeetCode 3. 无重复字符的最长子串</title>
+    <link href="/2020/09/04/LeetCode-3-longest-substring-without-repeating-characters/"/>
+    <url>/2020/09/04/LeetCode-3-longest-substring-without-repeating-characters/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="noopener">3. 无重复字符的最长子串</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(String s)</span> </span>&#123;    <span class="hljs-keyword">if</span> (s.length() == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-comment">// value 表示字符 c 最后一次出现的位置</span>    Map&lt;Character, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-comment">// [start, end] 区间内的元素都是不重复的</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>, end = <span class="hljs-number">0</span>; end &lt; s.length(); end++) &#123;        <span class="hljs-keyword">char</span> c = s.charAt(end);        <span class="hljs-comment">// 若出现重复，则重新计算 start 位置</span>        <span class="hljs-keyword">if</span> (map.containsKey(c)) &#123;            <span class="hljs-comment">// 取 max 的原因：始终保证 start 不会左移，若左移可能无法过滤重复值</span>            <span class="hljs-comment">// e.g. ...a1...b1....a2...a3....b2... </span>            <span class="hljs-comment">// 当到达 b2，此时 start = a3, b = b1, 若不取 max, start = b1 + 1, 导致 a 重复</span>            start = Math.max(start, map.get(c) + <span class="hljs-number">1</span>);        &#125;        <span class="hljs-comment">// 每次都会更新最大的区间</span>        res = Math.max(res, end - start + <span class="hljs-number">1</span>);        <span class="hljs-comment">// 更新 c 的最新位置，若下次出现重复的 c，则 start 从 map[c] + 1 开始计算</span>        map.put(c, end);    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 300. 最长上升子序列</title>
     <link href="/2020/09/04/LeetCode-300-longest-increasing-subsequence/"/>
     <url>/2020/09/04/LeetCode-300-longest-increasing-subsequence/</url>
@@ -161,9 +174,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>排序</tag>
       
       <tag>哈希表</tag>
       
@@ -1217,9 +1230,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
