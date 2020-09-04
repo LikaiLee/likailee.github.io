@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      466 字
+      463 字
     </span>
   
 
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月20日 晚上
+                  本文最后更新于：2020年9月4日 晚上
                 
               </p>
             
@@ -220,29 +220,26 @@
 <h1 id="自顶向下"><a class="markdownIt-Anchor" href="#自顶向下"></a> 自顶向下</h1>
 <p>判断很多，最后还要排序，虽然也过了，后来题解发现可以采用自底向上可以方便很多。</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minimumTotal</span><span class="hljs-params">(List&lt;List&lt;Integer&gt;&gt; triangle)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> rows = triangle.size();
-    <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">int</span> size = triangle.size();
+    <span class="hljs-keyword">if</span> (size == <span class="hljs-number">0</span>) &#123;
         <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
     &#125;
-    <span class="hljs-keyword">int</span> lastRowNum = <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[rows][rows];
+    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[size][size];
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] line : dp) &#123;
         Arrays.fill(line, Integer.MAX_VALUE);
     &#125;
     dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = triangle.get(<span class="hljs-number">0</span>).get(<span class="hljs-number">0</span>);
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; rows; i++) &#123;
-        List&lt;Integer&gt; level = triangle.get(i);
-        dp[i][<span class="hljs-number">0</span>] = level.get(<span class="hljs-number">0</span>) + dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>];
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; level.size(); j++) &#123;
-            <span class="hljs-keyword">int</span> offset = j - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">if</span> (offset &gt;= <span class="hljs-number">0</span> &amp;&amp; offset &lt; lastRowNum) &#123;
-                dp[i][j] = level.get(j) + Math.min(dp[i - <span class="hljs-number">1</span>][j], dp[i - <span class="hljs-number">1</span>][offset]);
-            &#125;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; size; i++) &#123;
+        List&lt;Integer&gt; curRow = triangle.get(i);
+        <span class="hljs-comment">// 每行的第一个位置</span>
+        dp[i][<span class="hljs-number">0</span>] = dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>] + curRow.get(<span class="hljs-number">0</span>);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; curRow.size(); j++) &#123;
+            dp[i][j] = Math.min(dp[i - <span class="hljs-number">1</span>][j], dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>]) + curRow.get(j);
         &#125;
-        lastRowNum = level.size();
     &#125;
-    Arrays.sort(dp[rows - <span class="hljs-number">1</span>]);
-    <span class="hljs-keyword">return</span> dp[rows - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>];
+    <span class="hljs-comment">// 求最后一行的最小值</span>
+    Arrays.sort(dp[size - <span class="hljs-number">1</span>]);
+    <span class="hljs-keyword">return</span> dp[size - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>];
 &#125;</code></pre>
 <h1 id="自底向上"><a class="markdownIt-Anchor" href="#自底向上"></a> 自底向上</h1>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minimumTotal</span><span class="hljs-params">(List&lt;List&lt;Integer&gt;&gt; triangle)</span> </span>&#123;
