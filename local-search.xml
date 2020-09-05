@@ -4,6 +4,64 @@
   
   
   <entry>
+    <title>LeetCode 32. 最长有效括号</title>
+    <link href="/2020/09/05/LeetCode-32-longest-valid-parentheses/"/>
+    <url>/2020/09/05/LeetCode-32-longest-valid-parentheses/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-valid-parentheses/" target="_blank" rel="noopener">32. 最长有效括号</a></p><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200905165736.png" srcset="/img/loading.gif" alt="" /></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestValidParentheses</span><span class="hljs-params">(String s)</span> </span>&#123;    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> len = s.length();    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 只有遇到 ) 才能组成有效括号</span>        <span class="hljs-keyword">if</span> (s.charAt(i) == <span class="hljs-string">')'</span>) &#123;            <span class="hljs-comment">// .....() 的情况: i - 2 位置上的最长 dp[i - 2] + 2 (新的括号)</span>            <span class="hljs-keyword">if</span> (s.charAt(i - <span class="hljs-number">1</span>) == <span class="hljs-string">'('</span>) &#123;                <span class="hljs-keyword">if</span> (i - <span class="hljs-number">2</span> &gt;= <span class="hljs-number">0</span>) &#123;                    dp[i] = <span class="hljs-number">2</span> + dp[i - <span class="hljs-number">2</span>];                &#125; <span class="hljs-keyword">else</span> &#123;                    dp[i] = <span class="hljs-number">2</span>;                &#125;            &#125; <span class="hljs-keyword">else</span> &#123;                <span class="hljs-comment">// pairPos: 与 ) 配对的 ( 位置</span>                <span class="hljs-comment">// .....)) 的情况: 2 + [pairPos:i] 之间的有效括号 + pairPos 之前的有效括号</span>                <span class="hljs-keyword">int</span> pairPos = i - dp[i - <span class="hljs-number">1</span>] - <span class="hljs-number">1</span>;                <span class="hljs-comment">// pairPos 位置有效 &amp;&amp; 该位置 = '('</span>                <span class="hljs-keyword">if</span> (pairPos &gt;= <span class="hljs-number">0</span> &amp;&amp; s.charAt(pairPos) == <span class="hljs-string">'('</span>) &#123;                    <span class="hljs-keyword">if</span> (pairPos - <span class="hljs-number">1</span> &gt;= <span class="hljs-number">0</span>) &#123;                        dp[i] = <span class="hljs-number">2</span> + dp[i - <span class="hljs-number">1</span>] + dp[pairPos - <span class="hljs-number">1</span>];                    &#125; <span class="hljs-keyword">else</span> &#123;                        dp[i] = <span class="hljs-number">2</span> + dp[i - <span class="hljs-number">1</span>];                    &#125;                &#125;            &#125;            res = Math.max(res, dp[i]);        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre><h1 id="栈"><a class="markdownIt-Anchor" href="#栈"></a> 栈</h1><p>栈中存放最后一个 没有被匹配的右括号位置，相当于一个分隔符，当进来的右括号没有匹配时，就可根据差值计算有效括号长度。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestValidParentheses</span><span class="hljs-params">(String s)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = s.length();    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-comment">// 栈中存放最后一个 没有被匹配的右括号位置</span>    Deque&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    stack.push(-<span class="hljs-number">1</span>);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 左括号直接入栈</span>        <span class="hljs-keyword">if</span> (s.charAt(i) == <span class="hljs-string">'('</span>) &#123;            stack.push(i);        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// 遇到右括号，先弹出再判断是否有匹配的左括号</span>            stack.pop();            <span class="hljs-comment">// 若栈空，表示当前右括号没有被匹配</span>            <span class="hljs-keyword">if</span> (stack.isEmpty()) &#123;                stack.push(i);            &#125; <span class="hljs-keyword">else</span> &#123;                <span class="hljs-comment">// 栈不为空，则 有效括号长度 = 当前位置 - 最后一个没有被匹配的右括号位置</span>                res = Math.max(res, i - stack.peek());            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
+      
+      <tag>栈</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>LeetCode 20. 有效的括号</title>
+    <link href="/2020/09/05/LeetCode-20-valid-parentheses/"/>
+    <url>/2020/09/05/LeetCode-20-valid-parentheses/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/valid-parentheses/" target="_blank" rel="noopener">20. 有效的括号</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValid</span><span class="hljs-params">(String s)</span> </span>&#123;    Deque&lt;Character&gt; stack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    Map&lt;Character, Character&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(<span class="hljs-number">3</span>);    map.put(<span class="hljs-string">')'</span>, <span class="hljs-string">'('</span>);    map.put(<span class="hljs-string">'&#125;'</span>, <span class="hljs-string">'&#123;'</span>);    map.put(<span class="hljs-string">']'</span>, <span class="hljs-string">'['</span>);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; s.length(); i++) &#123;        <span class="hljs-keyword">char</span> c = s.charAt(i);        <span class="hljs-comment">// 右括号</span>        <span class="hljs-keyword">if</span> (map.containsKey(c)) &#123;            <span class="hljs-keyword">char</span> top = stack.isEmpty() ? <span class="hljs-string">'#'</span> : stack.pop();            <span class="hljs-comment">// 和栈顶元素不匹配，直接返回</span>            <span class="hljs-comment">// 因为后续元素不会与当前右括号匹配</span>            <span class="hljs-keyword">if</span> (top != map.get(c)) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// 左括号 || 栈为空 直接入栈</span>            stack.push(c);        &#125;    &#125;    <span class="hljs-keyword">return</span> stack.isEmpty();&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>栈</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 91. 解码方法</title>
     <link href="/2020/09/05/LeetCode-91-Decode-Ways/"/>
     <url>/2020/09/05/LeetCode-91-Decode-Ways/</url>
@@ -23,6 +81,8 @@
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     

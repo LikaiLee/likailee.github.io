@@ -170,6 +170,134 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/27/LeetCode-231-power-of-two/">LeetCode 231. 2的幂</a>
+
+      <a href="/2020/08/27/LeetCode-231-power-of-two/" class="index-excerpt">
+        
+        
+          
+        
+        <div>231. 2的幂
+ 解法一
+
+二进制下，2n2^n2n 只有一位是 1。
+
+若 x &amp; (x - 1) == 0，表示 x 只有 1 个 1，即为 2n2^n2n。
+
+
+
+2x2^x2x
+n
+n-1
+n &amp; (n - 1)
+
+
+
+
+202^020
+1
+0000
+0
+
+
+212^121
+10
+0001
+0
+
+
+222^222
+100
+0011
+0
+
+
+232^323
+1000
+011</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-27
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/27/LeetCode-191-number-of-1-bits/">LeetCode 191. 位1的个数</a>
+
+      <a href="/2020/08/27/LeetCode-191-number-of-1-bits/" class="index-excerpt">
+        
+        
+          
+        
+        <div>191. 位1的个数
+ 解法一
+任何数字 &amp; 1 都会获得这个数字的最低位，因此只要 mask 左移就能获取每个数字的最低位。
+public int hammingWeight(int n) &#123;
+    int count = 0;
+    int mask = 1;
+    // 32 位整数
+    for (int i = 0; i &lt; 32; i++) &#123;</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-27
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/27/LeetCode-773-sliding-puzzle/">LeetCode 773. 滑动谜题</a>
 
       <a href="/2020/08/27/LeetCode-773-sliding-puzzle/" class="index-excerpt">
@@ -563,112 +691,6 @@ public class Solution &#123;
               <a href="/tags/DFS/">DFS</a>
             
               <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-              <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">字典树</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/24/LeetCode-79-word-search/">LeetCode 79. 单词搜索</a>
-
-      <a href="/2020/08/24/LeetCode-79-word-search/" class="index-excerpt">
-        
-        
-          
-        
-        <div>79. 单词搜索
-还是类似岛屿数量的回溯思想，整体不难，注意细节。
-一开始方向的坐标写重复了一个，还忘了状态重置，一直无法通过，调了很久才发现。
-class Solution &#123;
-    int[][] dirs = &#123;&#123;-1, 0&#125;, &#123;1, 0&#125;, &#123;0, -1&#125;, &#123;0, 1&#125;&#125;;
-</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-24
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/DFS/">DFS</a>
-            
-              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/24/LeetCode-208-implement-trie-prefix-tree/">LeetCode 208. 实现 Trie (前缀树)</a>
-
-      <a href="/2020/08/24/LeetCode-208-implement-trie-prefix-tree/" class="index-excerpt">
-        
-        
-          
-        
-        <div>208. 实现 Trie (前缀树)
-字典树 结点定义：
-/**
- * 字典树 结点
- */
-class TrieNode &#123;
-    /**
-     * 每个结点相当于一个数组
-     * 若数组的某个位置不为空，则指向下一个结点
-     */
-    private TrieNode[] links;
-
-    /**
-     * 数组的长度
-     */
-    priv</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-24
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">字典树</a>
             
