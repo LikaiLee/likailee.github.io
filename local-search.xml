@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>LeetCode 438. 找到字符串中所有字母异位词</title>
+    <link href="/2020/09/07/LeetCode-438-find-all-anagrams-in-a-string/"/>
+    <url>/2020/09/07/LeetCode-438-find-all-anagrams-in-a-string/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/find-all-anagrams-in-a-string/" target="_blank" rel="noopener">438. 找到字符串中所有字母异位词</a></p><h1 id="滑动窗口"><a class="markdownIt-Anchor" href="#滑动窗口"></a> 滑动窗口</h1><p>右指针不断向右移动，并且判断当前字符字符是否满足目标字符的出现频率，若不满足，则移动左指针直到满足为止。当窗口大小满足要求时，窗口内的所有字符都满足要求，则保存此时的 <code>left</code>。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">findAnagrams</span><span class="hljs-params">(String s, String p)</span> </span>&#123;    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    <span class="hljs-keyword">char</span>[] sChar = s.toCharArray();    <span class="hljs-keyword">char</span>[] pChar = p.toCharArray();    <span class="hljs-comment">// 保存目标字符串的字符出现频率</span>    <span class="hljs-keyword">int</span>[] needs = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : pChar) &#123;        needs[c - <span class="hljs-string">'a'</span>]++;    &#125;    <span class="hljs-comment">// 窗口内字符串的出现频率</span>    <span class="hljs-keyword">int</span>[] window = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> len = p.length();    <span class="hljs-keyword">while</span> (right &lt; s.length()) &#123;        <span class="hljs-keyword">int</span> curPos = sChar[right] - <span class="hljs-string">'a'</span>;        window[curPos]++;        right++;        <span class="hljs-comment">// 让窗口内的字符频率和目标频率一致</span>        <span class="hljs-keyword">while</span> (needs[curPos] &lt; window[curPos]) &#123;            window[sChar[left] - <span class="hljs-string">'a'</span>]--;            left++;        &#125;        <span class="hljs-comment">// 长度满足目标长度</span>        <span class="hljs-keyword">if</span> (right - left == len) &#123;            res.add(left);        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 49. 字母异位词分组</title>
     <link href="/2020/09/06/LeetCode-49-group-anagrams/"/>
     <url>/2020/09/06/LeetCode-49-group-anagrams/</url>
@@ -1109,9 +1140,9 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
