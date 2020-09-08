@@ -40,6 +40,22 @@
     <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/distinct-subsequences/" target="_blank" rel="noopener">115. 不同的子序列</a></p><h1 id="回溯"><a class="markdownIt-Anchor" href="#回溯"></a> 回溯</h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    Map&lt;String, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numDistinct</span><span class="hljs-params">(String s, String t)</span> </span>&#123;        backtrack(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, s, t);        <span class="hljs-keyword">return</span> count;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> sPos, <span class="hljs-keyword">int</span> tPos, String s, String t)</span> </span>&#123;        <span class="hljs-comment">// t 匹配完成</span>        <span class="hljs-keyword">if</span> (tPos == t.length()) &#123;            count++;            <span class="hljs-keyword">return</span>;        &#125;        <span class="hljs-comment">// s 到达终点</span>        <span class="hljs-keyword">if</span> (sPos == s.length()) &#123;            <span class="hljs-keyword">return</span>;        &#125;        <span class="hljs-comment">// 记忆化</span>        String key = sPos + <span class="hljs-string">"@"</span> + tPos;        <span class="hljs-keyword">if</span> (map.containsKey(key)) &#123;            count += map.get(key);            <span class="hljs-keyword">return</span>;        &#125;        <span class="hljs-keyword">int</span> pre = count;        <span class="hljs-comment">// 当前字符相等，进入下一个字符</span>        <span class="hljs-comment">// s, t 同时向后</span>        <span class="hljs-keyword">if</span> (s.charAt(sPos) == t.charAt(tPos)) &#123;            backtrack(sPos + <span class="hljs-number">1</span>, tPos + <span class="hljs-number">1</span>, s, t);        &#125;        <span class="hljs-comment">// s 向后，t 不变</span>        backtrack(sPos + <span class="hljs-number">1</span>, tPos, s, t);        <span class="hljs-comment">// 存储本地回溯的 count 增量</span>        <span class="hljs-keyword">int</span> diff = count - pre;        map.put(key, diff);    &#125;&#125;</code></pre><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numDistinct</span><span class="hljs-params">(String s, String t)</span> </span>&#123;    <span class="hljs-keyword">int</span> rows = t.length();    <span class="hljs-keyword">int</span> cols = s.length();    <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span> || cols == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[rows + <span class="hljs-number">1</span>][cols + <span class="hljs-number">1</span>];    Arrays.fill(dp[<span class="hljs-number">0</span>], <span class="hljs-number">1</span>);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= rows; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= cols; j++) &#123;            <span class="hljs-keyword">if</span> (t.charAt(i - <span class="hljs-number">1</span>) != s.charAt(j - <span class="hljs-number">1</span>)) &#123;                <span class="hljs-comment">// 不相等：去除 s[j]，取 s[:j - 1] 和 t[:i] 的相同序列数</span>                dp[i][j] = dp[i][j - <span class="hljs-number">1</span>];            &#125; <span class="hljs-keyword">else</span> &#123;                <span class="hljs-comment">// s[j] 可取，可不取</span>                <span class="hljs-comment">// 若取 s[j]，因为 s[j] == t[i]，比较 s[:j - 1] 和 t[:i - 1]</span>                <span class="hljs-comment">// 若不取 s[j]，比较 s[:j - 1] 和 t[:i]</span>                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + dp[i][j - <span class="hljs-number">1</span>];            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> dp[rows][cols];&#125;</code></pre>]]></content>
     
     
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>回溯</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
     
   </entry>
   
@@ -437,9 +453,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>排序</tag>
+      
+      <tag>字符串</tag>
       
       <tag>哈希表</tag>
       
