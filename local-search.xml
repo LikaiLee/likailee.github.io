@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 818. 赛车</title>
+    <link href="/2020/09/08/LeetCode-818-race-car/"/>
+    <url>/2020/09/08/LeetCode-818-race-car/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/race-car/" target="_blank" rel="noopener">818. 赛车</a></p><h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1><p>需要注意：<code>newPos &lt; target * 2</code>，因为对于 <code>target</code> 而言，</p><ul><li>可以在 <code>target</code> 之前进行加速或减速操作；</li><li>或者超过 <code>target</code> 之后进行减速操作；</li></ul><p>这两种方式都可能到达 <code>target</code>，把 <code>newPos</code> 限制在 <code>2 * target</code> 里，是为了让操作的步数不再递增，导致找不到终点。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">racecar</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target)</span> </span>&#123;    Deque&lt;Car&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();    Set&lt;String&gt; visited = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    queue.add(<span class="hljs-keyword">new</span> Car(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>));    visited.add(<span class="hljs-string">"0@1"</span>);    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;        count++;        <span class="hljs-keyword">int</span> size = queue.size();        <span class="hljs-keyword">while</span> (size-- &gt; <span class="hljs-number">0</span>) &#123;            Car car = queue.poll();            <span class="hljs-keyword">int</span> curPos = car.position;            <span class="hljs-comment">// 达到终点</span>            <span class="hljs-keyword">if</span> (curPos == target) &#123;                <span class="hljs-keyword">return</span> count;            &#125;            <span class="hljs-keyword">int</span> speed = car.speed;            <span class="hljs-comment">// 加速</span>            <span class="hljs-keyword">int</span> newPos = curPos + speed;            <span class="hljs-keyword">int</span> newSpeed = speed &lt;&lt; <span class="hljs-number">1</span>;            String key = newPos + <span class="hljs-string">"@"</span> + newSpeed;            <span class="hljs-keyword">if</span> (!visited.contains(key) &amp;&amp; <span class="hljs-number">0</span> &lt; newPos &amp;&amp; newPos &lt; (target &lt;&lt; <span class="hljs-number">1</span>)) &#123;                queue.add(<span class="hljs-keyword">new</span> Car(newPos, newSpeed));                visited.add(key);            &#125;            <span class="hljs-comment">// 减速</span>            newSpeed = speed &gt; <span class="hljs-number">0</span> ? -<span class="hljs-number">1</span> : <span class="hljs-number">1</span>;            key = curPos + <span class="hljs-string">"@"</span> + newSpeed;            <span class="hljs-keyword">if</span> (!visited.contains(key) &amp;&amp; <span class="hljs-number">0</span> &lt; curPos &amp;&amp; curPos &lt; (target &lt;&lt; <span class="hljs-number">1</span>)) &#123;                queue.add(<span class="hljs-keyword">new</span> Car(curPos, newSpeed));                visited.add(key);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;&#125;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> </span>&#123;    <span class="hljs-keyword">int</span> position;    <span class="hljs-keyword">int</span> speed;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Car</span><span class="hljs-params">(<span class="hljs-keyword">int</span> position, <span class="hljs-keyword">int</span> speed)</span> </span>&#123;        <span class="hljs-keyword">this</span>.position = position;        <span class="hljs-keyword">this</span>.speed = speed;    &#125;&#125;</code></pre><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">racecar</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target)</span> </span>&#123;    <span class="hljs-comment">// dp[i]: 到达 i 位置的最小步数</span>    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[target + <span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= target; i++) &#123;        dp[i] = Integer.MAX_VALUE;        <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>, cnt1 = <span class="hljs-number">1</span>;        <span class="hljs-comment">// 在 i 位置之前进行加速、减速操作</span>        <span class="hljs-comment">// j 每次加速到 2 ^ cnt1 - 1 位置</span>        <span class="hljs-keyword">for</span> (; j &lt; i; j = (<span class="hljs-number">1</span> &lt;&lt; ++cnt1) - <span class="hljs-number">1</span>) &#123;            <span class="hljs-comment">// k 每次反向加速到 2 ^ cnt2 - 1 位置</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>, cnt2 = <span class="hljs-number">0</span>; k &lt; j; k = (<span class="hljs-number">1</span> &lt;&lt; ++cnt2) - <span class="hljs-number">1</span>) &#123;                <span class="hljs-comment">// 正向走了 (j - k) 步 + 加速 + 2 次反向操作</span>                dp[i] = Math.min(dp[i], dp[i - (j - k)] + cnt1 + <span class="hljs-number">1</span> + cnt2 + <span class="hljs-number">1</span>);            &#125;        &#125;        <span class="hljs-comment">// 经过 cnt1 次正向加速，此时位置超过 i，然后进行 1 次反向操作</span>        <span class="hljs-comment">// 若 i == j 到达 target，否则还差 j - i 到达 i 位置</span>        dp[i] = Math.min(dp[i], cnt1 + (i == j ? <span class="hljs-number">0</span> : dp[j - i] + <span class="hljs-number">1</span>));    &#125;    <span class="hljs-keyword">return</span> dp[target];&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 115. 不同的子序列</title>
     <link href="/2020/09/08/LeetCode-115-distinct-subsequences/"/>
     <url>/2020/09/08/LeetCode-115-distinct-subsequences/</url>
@@ -408,9 +437,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>排序</tag>
       
       <tag>哈希表</tag>
       
@@ -1213,9 +1242,9 @@
     
     <tags>
       
-      <tag>数据结构</tag>
-      
       <tag>并查集</tag>
+      
+      <tag>数据结构</tag>
       
     </tags>
     
