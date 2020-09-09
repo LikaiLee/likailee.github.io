@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 680. 验证回文字符串 Ⅱ</title>
+    <link href="/2020/09/09/LeetCode-680-valid-palindrome-ii/"/>
+    <url>/2020/09/09/LeetCode-680-valid-palindrome-ii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/valid-palindrome-ii/" target="_blank" rel="noopener">680. 验证回文字符串 Ⅱ</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">validPalindrome</span><span class="hljs-params">(String s)</span> </span>&#123;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> right = s.length() - <span class="hljs-number">1</span>;    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-comment">// 最多删除一个字符，当有一个字符不等时，判断删除该字符后剩下的部分是否为回文</span>        <span class="hljs-keyword">if</span> (s.charAt(left) != s.charAt(right)) &#123;            <span class="hljs-keyword">return</span> isPalindrome(s, left + <span class="hljs-number">1</span>, right) || isPalindrome(s, left, right - <span class="hljs-number">1</span>);        &#125;        left++;        right--;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(String s, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-keyword">if</span> (s.charAt(left) != s.charAt(right)) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        left++;        right--;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 125. 验证回文串</title>
     <link href="/2020/09/09/LeetCode-125-valid-palindrome/"/>
     <url>/2020/09/09/LeetCode-125-valid-palindrome/</url>
@@ -21,6 +50,8 @@
     <tags>
       
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -167,9 +198,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>滑动窗口</tag>
       
@@ -480,9 +511,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>排序</tag>
       
       <tag>哈希表</tag>
       
@@ -538,9 +569,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -569,9 +600,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -629,9 +660,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -658,9 +689,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
