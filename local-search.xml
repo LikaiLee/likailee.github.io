@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 125. 验证回文串</title>
+    <link href="/2020/09/09/LeetCode-125-valid-palindrome/"/>
+    <url>/2020/09/09/LeetCode-125-valid-palindrome/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/valid-palindrome/" target="_blank" rel="noopener">125. 验证回文串</a></p><h1 id="双指针"><a class="markdownIt-Anchor" href="#双指针"></a> 双指针</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(String s)</span> </span>&#123;    s = s.toLowerCase();    <span class="hljs-keyword">int</span> right = s.length() - <span class="hljs-number">1</span>;    <span class="hljs-keyword">if</span> (right &lt; <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; !Character.isLetterOrDigit(s.charAt(left))) &#123;            left++;        &#125;        <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; !Character.isLetterOrDigit(s.charAt(right))) &#123;            right--;        &#125;        <span class="hljs-keyword">if</span> (s.charAt(left) != s.charAt(right)) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        left++;        right--;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;&#125;</code></pre><h1 id="reverse"><a class="markdownIt-Anchor" href="#reverse"></a> reverse</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(String s)</span> </span>&#123;    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; s.length(); i++) &#123;        <span class="hljs-keyword">char</span> c = s.charAt(i);        <span class="hljs-keyword">if</span> (Character.isLetterOrDigit(c)) &#123;            sb.append(Character.toLowerCase(c));        &#125;    &#125;    String s1 = sb.toString();    String s2 = sb.reverse().toString();    <span class="hljs-keyword">return</span> s1.equals(s2);&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 818. 赛车</title>
     <link href="/2020/09/08/LeetCode-818-race-car/"/>
     <url>/2020/09/08/LeetCode-818-race-car/</url>
@@ -140,11 +167,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>双指针</tag>
+      
       <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
-      
-      <tag>双指针</tag>
       
     </tags>
     
@@ -511,11 +538,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>双指针</tag>
+      
       <tag>字符串</tag>
       
       <tag>栈</tag>
-      
-      <tag>双指针</tag>
       
     </tags>
     
@@ -542,9 +569,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -602,9 +629,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -631,9 +658,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
