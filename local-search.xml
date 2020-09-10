@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 583. 两个字符串的删除操作</title>
+    <link href="/2020/09/10/LeetCode-583-delete-operation-for-two-strings/"/>
+    <url>/2020/09/10/LeetCode-583-delete-operation-for-two-strings/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/delete-operation-for-two-strings/" target="_blank" rel="noopener">583. 两个字符串的删除操作</a><br />和 <a href="https://leetcode-cn.com/problems/edit-distance/" target="_blank" rel="noopener">72. 编辑距离</a> 类似。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minDistance</span><span class="hljs-params">(String word1, String word2)</span> </span>&#123;    <span class="hljs-keyword">int</span> rows = word1.length();    <span class="hljs-keyword">int</span> cols = word2.length();    <span class="hljs-keyword">char</span>[] chars1 = word1.toCharArray();    <span class="hljs-keyword">char</span>[] chars2 = word2.toCharArray();    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[rows + <span class="hljs-number">1</span>][cols + <span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= rows; i++) &#123;        dp[i][<span class="hljs-number">0</span>] = i;    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= cols; i++) &#123;        dp[<span class="hljs-number">0</span>][i] = i;    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= rows; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= cols; j++) &#123;            <span class="hljs-keyword">if</span> (chars1[i - <span class="hljs-number">1</span>] == chars2[j - <span class="hljs-number">1</span>]) &#123;                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];            &#125; <span class="hljs-keyword">else</span> &#123;                dp[i][j] = <span class="hljs-number">1</span> + Math.min(dp[i - <span class="hljs-number">1</span>][j], dp[i][j - <span class="hljs-number">1</span>]);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> dp[rows][cols];&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 44. 通配符匹配</title>
     <link href="/2020/09/09/LeetCode-44-wildcard-matching/"/>
     <url>/2020/09/09/LeetCode-44-wildcard-matching/</url>
