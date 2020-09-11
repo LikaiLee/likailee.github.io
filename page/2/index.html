@@ -170,6 +170,57 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/08/LeetCode-84-largest-rectangle-in-histogram/">LeetCode 84. 柱状图中最大的矩形</a>
+
+      <a href="/2020/09/08/LeetCode-84-largest-rectangle-in-histogram/" class="index-excerpt">
+        
+        
+          
+        
+        <div>84. 柱状图中最大的矩形
+public int largestRectangleArea(int[] heights) &#123;
+    int len = heights.length;
+    if (len == 0) &#123;
+        return 0;
+    &#125;
+    if (len == 1) &#123;
+        return heights[</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-08
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E6%A0%88/">栈</a>
+            
+              <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/">单调栈</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/09/07/LeetCode-438-find-all-anagrams-in-a-string/">LeetCode 438. 找到字符串中所有字母异位词</a>
 
       <a href="/2020/09/07/LeetCode-438-find-all-anagrams-in-a-string/" class="index-excerpt">
@@ -532,13 +583,14 @@ public int lengthOfLIS(int[] nums) &#12</div>
           
         
         <div>72. 编辑距离
-其实不用考虑到底是什么操作对字符串进行变换，把问题转换为考虑两个字符串有多少位不同就是做多少次编辑。
 
 状态：dp[i][j] - word1[0:i] 和 word2[0:j] 的最小编辑距离。
 状态转移方程：
 
-若 i 和 j 位置相同，则该位不做编辑，编辑距离等于同时删除 i, j 后的距离。 dp[i][j] = dp[i - 1][j - 1]
-若 i 和 j 位置不同</div>
+若 i, j 位置相等，则跳过，否则进行删除，插入，替换操作，取最小值。
+删除 word1[i] =&gt; dp[i - 1][j] + 1
+在 word1[i + 1] 插入 word2[j] =&gt; dp[i][j - 1] + 1
+替换 word1[i] </div>
       </a>
 
       <div class="index-btm post-metas">
@@ -635,64 +687,11 @@ public int lengthOfLIS(int[] nums) &#12</div>
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/03/LeetCode-493-reverse-pairs/">LeetCode 493. 翻转对</a>
-
-      <a href="/2020/09/03/LeetCode-493-reverse-pairs/" class="index-excerpt">
-        
-        
-          
-        
-        <div>493. 翻转对
-解法：
-
-使用归并排序，把数组分为左右两部分，且都单调递增；
-则每次都固定左边元素，遍历右边元素；
-因为都是有序的，所以从位置索引就能获取个数，且右边的元素只要遍历一遍。
-
-public int reversePairs(int[] nums) &#123;
-    return mergeSort(nums, 0, nums.length - 1);
-&#125;
-
-priva</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-03
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
