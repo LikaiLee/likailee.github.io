@@ -170,6 +170,104 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/05/LeetCode-51-n-queens/">LeetCode 51. N皇后</a>
+
+      <a href="/2020/08/05/LeetCode-51-n-queens/" class="index-excerpt">
+        
+        
+          
+        
+        <div>51. N皇后
+棋盘每一行相当于决策树的每一层，每行的任意一列都可放置皇后。因此，从 每一行 开始，选择该行的 每一列 作为选择列表进行递归，该行以上的所有行此时都正确放置了皇后，当行数达到棋盘深度时结束递归，返回本次递归的结果。
+List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;&gt;();
+
+    public List&lt;Li</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-05
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/05/InnoDB-file/">InnoDB 文件</a>
+
+      <a href="/2020/08/05/InnoDB-file/" class="index-excerpt">
+        
+        
+          
+        
+        <div> 参数文件
+
+告诉 MySQL 实例启动时在哪里可以找到数据库文件，并且指定某些初始化参数，这些参数定义了某种内存结构的大小等设置。
+
+MySQL 实例可以不需要参数文件，这时所有的参数值取决于编译 MySQL 时指定的默认值和源代码中指定参数的默认值。
+参数类型：
+
+动态参数 - 可以在 MySQL 实例运行中进行更改
+静态参数 - 在整个实例生命周期内都不得进行修改
+
+ 日志文件
+
+日志文件记</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-05
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/MySQL/">MySQL</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL/">MySQL</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/04/LeetCode-17-letter-combinations-of-a-phone-number/">LeetCode 17. 电话号码的字母组合</a>
 
       <a href="/2020/08/04/LeetCode-17-letter-combinations-of-a-phone-number/" class="index-excerpt">
@@ -603,97 +701,6 @@ Stack - Stack 继承于 Vector 类，也是一个同步容器，</div>
               <a href="/tags/%E5%B9%B6%E5%8F%91/">并发</a>
             
               <a href="/tags/%E5%AE%B9%E5%99%A8/">容器</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/21/concurrent-atomic/">并发-原子类</a>
-
-      <a href="/2020/07/21/concurrent-atomic/" class="index-excerpt">
-        
-        
-          
-        
-        <div> 简介
- 为何需要原子变量类
-保证线程安全是 Java 并发编程必须要解决的重要问题。Java 从原子性、可见性、有序性这三大特性入手，确保多线程的数据一致性。
-
-
-确保线程安全最常见的做法是利用锁机制（Lock、sychronized）来对共享数据做互斥同步，这样在同一个时刻，只有一个线程可以执行某个方法或者某个代码块，那么操作必然是原子性的，线程安全的。互斥同步最主要的问题是线程阻塞和唤醒所带</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%B9%B6%E5%8F%91/">并发</a>
-            
-          </div>
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/17/concurrent-lock/">并发-锁原理</a>
-
-      <a href="/2020/07/17/concurrent-lock/" class="index-excerpt">
-        
-        
-          
-        
-        <div> 并发锁
- 乐观锁和悲观锁
-乐观锁和悲观锁是两种思想，用于解决并发场景下的数据竞争问题。
- 乐观锁
-乐观锁在操作数据时非常乐观，认为别人不会同时修改数据。因此乐观锁不会上锁，只是在执行更新的时候判断一下在此期间别人是否修改了数据：如果别人修改了数据则放弃操作，否则执行操作。
- 实现方式
-
-CAS 机制
-
-CAS 操作包括了 3 个操作数：
-(1) 需要读写的内存位置(V)
-(2) 进行比较的预期值</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-17
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%B9%B6%E5%8F%91/">并发</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%94%81/">锁</a>
-            
-              <a href="/tags/%E5%B9%B6%E5%8F%91/">并发</a>
             
           </div>
         

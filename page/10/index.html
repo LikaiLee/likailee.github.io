@@ -170,6 +170,124 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/11/LeetCode-529-minesweeper/">LeetCode 529. 扫雷游戏</a>
+
+      <a href="/2020/08/11/LeetCode-529-minesweeper/" class="index-excerpt">
+        
+        
+          
+        
+        <div>529. 扫雷游戏
+ DFS
+
+找周围的雷和进入下一层递归都是在 八个方向 游走。
+
+典型的 DFS。
+若 click 位置为 M，标记返回，否则进入递归。
+需要注意的是新的位置不能越界，且未被标记过。
+
+若周围有雷，遍历周围的八个位置，找到雷的数量，标记后返回
+若周围没有雷，标记为 B，遍历周围八个位置，进入递归。
+
+int[][] dirs = &#123;
+            // 上：</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-11
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/10/LeetCode-200-number-of-islands/">LeetCode 200. 岛屿数量</a>
+
+      <a href="/2020/08/10/LeetCode-200-number-of-islands/" class="index-excerpt">
+        
+        
+          
+        
+        <div>200. 岛屿数量
+ DFS
+int rows;
+    int cols;
+    /**
+     * 已被访问的数组
+     */
+    boolean[][] visited;
+    /**
+     * 移动方向
+     */
+    int[][] dir = new int[][]&#123;
+            // 上: (x - 1, y)
+            </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-10
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+            
+              <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/09/LeetCode-126-word-ladder-ii/">LeetCode 126. 单词接龙 II</a>
 
       <a href="/2020/08/09/LeetCode-126-word-ladder-ii/" class="index-excerpt">
@@ -543,104 +661,6 @@ public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>&nbsp;2020-08-06
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/MySQL/">MySQL</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MySQL/">MySQL</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/05/LeetCode-51-n-queens/">LeetCode 51. N皇后</a>
-
-      <a href="/2020/08/05/LeetCode-51-n-queens/" class="index-excerpt">
-        
-        
-          
-        
-        <div>51. N皇后
-棋盘每一行相当于决策树的每一层，每行的任意一列都可放置皇后。因此，从 每一行 开始，选择该行的 每一列 作为选择列表进行递归，该行以上的所有行此时都正确放置了皇后，当行数达到棋盘深度时结束递归，返回本次递归的结果。
-List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;&gt;();
-
-    public List&lt;Li</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-05
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/05/InnoDB-file/">InnoDB 文件</a>
-
-      <a href="/2020/08/05/InnoDB-file/" class="index-excerpt">
-        
-        
-          
-        
-        <div> 参数文件
-
-告诉 MySQL 实例启动时在哪里可以找到数据库文件，并且指定某些初始化参数，这些参数定义了某种内存结构的大小等设置。
-
-MySQL 实例可以不需要参数文件，这时所有的参数值取决于编译 MySQL 时指定的默认值和源代码中指定参数的默认值。
-参数类型：
-
-动态参数 - 可以在 MySQL 实例运行中进行更改
-静态参数 - 在整个实例生命周期内都不得进行修改
-
- 日志文件
-
-日志文件记</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-05
           </div>
         
         

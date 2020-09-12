@@ -170,6 +170,111 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/22/LeetCode-123-best-time-to-buy-and-sell-stock-iii/">LeetCode 123. 买卖股票的最佳时机 III</a>
+
+      <a href="/2020/08/22/LeetCode-123-best-time-to-buy-and-sell-stock-iii/" class="index-excerpt">
+        
+        
+          
+        
+        <div>123. 买卖股票的最佳时机 III
+ 解法一
+public int maxProfit(int[] prices) &#123;
+    int len = prices.length;
+    if (len == 0) &#123;
+        return 0;
+    &#125;
+    int k = 2;
+    int[][][] dp = new int[len][k + </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-22
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/22/LeetCode-121-best-time-to-buy-and-sell-stock/">LeetCode 121. 买卖股票的最佳时机</a>
+
+      <a href="/2020/08/22/LeetCode-121-best-time-to-buy-and-sell-stock/" class="index-excerpt">
+        
+        
+          
+        
+        <div>121. 买卖股票的最佳时机
+ 解法一
+状态：
+dp[i][j][s]: 第 i 天最多进行了 j 次交易后，持有股票状态为 s 的最大利润。
+
+i: 第 i 天
+j: 到今天进行的最大交易次数
+s: 今天是否持有股票
+
+状态转移方程：
+
+dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1] + prices[i])
+
+昨天就没有持有，然后今天选择 rest</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-22
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/21/LeetCode-337-house-robber-iii/">LeetCode 337. 打家劫舍 III</a>
 
       <a href="/2020/08/21/LeetCode-337-house-robber-iii/" class="index-excerpt">
@@ -208,9 +313,9 @@ Map&lt;TreeNode, Integer&gt; memo = new HashMap&lt;&gt;();
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
               <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
             
           </div>
         
@@ -517,9 +622,9 @@ base: 两个字符串中有一个为空，则 dp[0][j] = 0 或 dp[i][0] = 0
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-            
               <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
             
               <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
             
@@ -553,105 +658,6 @@ private int dp(int amount, int[] coins, int[] mem) &#123</div>
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>&nbsp;2020-08-19
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/19/MySQL-replication/">MySQL 复制</a>
-
-      <a href="/2020/08/19/MySQL-replication/" class="index-excerpt">
-        
-        
-          
-        
-        <div> 工作原理
-
-主服务器把数据更改记录到二进制日志中。
-从服务器把主服务器的二进制日志复制到自己的中继日志中。
-从服务器重做中继日志中的日志，把更改应用到自己的数据库上，以达到数据的最终一致性。
-
-需要注意的是：复制不是完全实时地进行同步，而是异步实时。这中间存在主从服务器之间的执行延时，如果主服务器的压力很大，则可能导致主从服务器延时较大。
-
- 快照 + 复制的备份架构
-复制的主要功能：
-
-数据分</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-19
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/MySQL/">MySQL</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MySQL/">MySQL</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/18/LeetCode-63-unique-paths-ii/">LeetCode 63. 不同路径 II</a>
-
-      <a href="/2020/08/18/LeetCode-63-unique-paths-ii/" class="index-excerpt">
-        
-        
-          
-        
-        <div>63. 不同路径 II
-一开始判断第一行或第一列的障碍时没有及时 break，导致若只有一行或一列的情况下出错。
-class Solution &#123;
-    public int uniquePathsWithObstacles(int[][] obstacleGrid) &#123;
-        /**
-         * base: 若左边或上边存在障碍，则不能继续往下走
-   </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-18
           </div>
         
         
