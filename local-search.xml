@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 1. 两数之和</title>
+    <link href="/2020/09/12/LeetCode-1-two-sum/"/>
+    <url>/2020/09/12/LeetCode-1-two-sum/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">1. 两数之和</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] twoSum(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> target) &#123;    Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;        <span class="hljs-keyword">int</span> another = target - nums[i];        <span class="hljs-keyword">if</span> (map.containsKey(another)) &#123;            res[<span class="hljs-number">0</span>] = i;            res[<span class="hljs-number">1</span>] = map.get(another);            <span class="hljs-keyword">break</span>;        &#125;        map.put(nums[i], i);    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>哈希表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 560. 和为K的子数组</title>
     <link href="/2020/09/12/LeetCode-560-subarray-sum-equals-k/"/>
     <url>/2020/09/12/LeetCode-560-subarray-sum-equals-k/</url>
@@ -78,9 +105,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -281,9 +308,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -430,9 +457,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -712,11 +739,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
+      <tag>哈希表</tag>
       
       <tag>字符串</tag>
       
-      <tag>哈希表</tag>
+      <tag>排序</tag>
       
     </tags>
     
@@ -1768,9 +1795,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
