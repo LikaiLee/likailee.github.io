@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      293 字
+      339 字
     </span>
   
 
@@ -216,7 +216,7 @@
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calculate</span><span class="hljs-params">(String s)</span> </span>&#123;
     <span class="hljs-comment">/*</span>
 <span class="hljs-comment">        数字：入 numStack</span>
-<span class="hljs-comment">        运算符：出栈并计算</span>
+<span class="hljs-comment">        运算符：进行加减运算直到栈空或遇到 '('</span>
 <span class="hljs-comment">        '(': 入 opStack</span>
 <span class="hljs-comment">        ')': 出栈并计算直到遇到 '('</span>
 <span class="hljs-comment">    */</span>
@@ -234,17 +234,16 @@
                 numStack.push(num);
                 num = -<span class="hljs-number">1</span>;
             &#125;
-            <span class="hljs-comment">// 运算符，进行加减运算</span>
+            <span class="hljs-comment">// 运算符，进行加减运算直到栈空或遇到 '('</span>
             <span class="hljs-keyword">if</span> (isOperation(c)) &#123;
                 <span class="hljs-keyword">while</span> (!opStack.isEmpty()) &#123;
                     <span class="hljs-keyword">if</span> (opStack.peek() == <span class="hljs-string">'('</span>) &#123;
                         <span class="hljs-keyword">break</span>;
                     &#125;
-                    <span class="hljs-keyword">int</span> num1 = numStack.pop();
-                    <span class="hljs-keyword">int</span> num2 = numStack.pop();
-                    <span class="hljs-keyword">int</span> ans = calc(num1, num2, opStack.pop());
+                    <span class="hljs-keyword">int</span> ans = calc(numStack, opStack);
                     numStack.push(ans);
                 &#125;
+                <span class="hljs-comment">// 当前运算符入栈</span>
                 opStack.push(c);
             &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (c == <span class="hljs-string">'('</span>) &#123;
                 <span class="hljs-comment">// '(' 直接入栈</span>
@@ -252,9 +251,7 @@
             &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (c == <span class="hljs-string">')'</span>) &#123;
                 <span class="hljs-comment">// ')': 出栈并计算直到遇到 ')'</span>
                 <span class="hljs-keyword">while</span> (opStack.peek() != <span class="hljs-string">'('</span>) &#123;
-                    <span class="hljs-keyword">int</span> num1 = numStack.pop();
-                    <span class="hljs-keyword">int</span> num2 = numStack.pop();
-                    <span class="hljs-keyword">int</span> ans = calc(num1, num2, opStack.pop());
+                    <span class="hljs-keyword">int</span> ans = calc(numStack, opStack);
                     numStack.push(ans);
                 &#125;
                 <span class="hljs-comment">// 将 '(' 出栈</span>
@@ -267,15 +264,23 @@
     &#125;
     <span class="hljs-comment">// 若 操作符栈不为空，继续运算</span>
     <span class="hljs-keyword">while</span> (!opStack.isEmpty()) &#123;
-        <span class="hljs-keyword">int</span> num1 = numStack.pop();
-        <span class="hljs-keyword">int</span> num2 = numStack.pop();
-        <span class="hljs-keyword">int</span> ans = calc(num1, num2, opStack.pop());
+        <span class="hljs-keyword">int</span> ans = calc(numStack, opStack);
         numStack.push(ans);
     &#125;
     <span class="hljs-keyword">return</span> numStack.pop();
 &#125;
 
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calc</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num1, <span class="hljs-keyword">int</span> num2, <span class="hljs-keyword">char</span> op)</span> </span>&#123;
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 从 numStack 中出栈两个数进行加减运算</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> numStack 数字栈</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> opStack  操作符栈</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calc</span><span class="hljs-params">(Deque&lt;Integer&gt; numStack, Deque&lt;Character&gt; opStack)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> num1 = numStack.pop();
+    <span class="hljs-keyword">int</span> num2 = numStack.pop();
+    <span class="hljs-keyword">char</span> op = opStack.pop();
     <span class="hljs-keyword">if</span> (op == <span class="hljs-string">'+'</span>) &#123;
         <span class="hljs-keyword">return</span> num1 + num2;
     &#125; <span class="hljs-keyword">else</span> &#123;
@@ -283,6 +288,12 @@
     &#125;
 &#125;
 
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 判断 c 是否为运算符</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> c</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment"> */</span>
 <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isOperation</span><span class="hljs-params">(<span class="hljs-keyword">char</span> c)</span> </span>&#123;
     <span class="hljs-keyword">return</span> c == <span class="hljs-string">'+'</span> || c == <span class="hljs-string">'-'</span> || c == <span class="hljs-string">'*'</span> || c == <span class="hljs-string">'/'</span>;
 &#125;</code></pre>
