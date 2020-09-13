@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>LeetCode 349. 两个数组的交集</title>
+    <link href="/2020/09/13/LeetCode-349-intersection-of-two-arrays/"/>
+    <url>/2020/09/13/LeetCode-349-intersection-of-two-arrays/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/intersection-of-two-arrays/" target="_blank" rel="noopener">349. 两个数组的交集</a></p><h1 id="哈希表"><a class="markdownIt-Anchor" href="#哈希表"></a> 哈希表</h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] intersection(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2) &#123;    Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    Set&lt;Integer&gt; set = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums1) &#123;        map.put(num, map.getOrDefault(num, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> key : nums2) &#123;        <span class="hljs-keyword">if</span> (map.containsKey(key)) &#123;            set.add(key);        &#125;    &#125;    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[set.size()];    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : set) &#123;        res[i++] = num;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre><h1 id="双指针"><a class="markdownIt-Anchor" href="#双指针"></a> 双指针</h1><p>两个数组排序后，分别查找相等的数。</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] intersection(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2) &#123;    Set&lt;Integer&gt; set = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();    Arrays.sort(nums1);    Arrays.sort(nums2);    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (i &lt; nums1.length &amp;&amp; j &lt; nums2.length) &#123;        <span class="hljs-comment">// 相等，加入集合</span>        <span class="hljs-keyword">if</span> (nums1[i] == nums2[j]) &#123;            set.add(nums1[i]);            i++;            j++;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums1[i] &gt; nums2[j]) &#123;            <span class="hljs-comment">// num2[j] 太小，往后查找</span>            j++;        &#125; <span class="hljs-keyword">else</span> &#123;            i++;        &#125;    &#125;    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[set.size()];    <span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : set) &#123;        res[k++] = num;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre><h1 id="二分"><a class="markdownIt-Anchor" href="#二分"></a> 二分</h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] intersection(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2) &#123;    Set&lt;Integer&gt; set = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();    Arrays.sort(nums2);    <span class="hljs-comment">// 在 num2 中查找 nums1 中的每个元素是否出现</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> value : nums1) &#123;        <span class="hljs-keyword">if</span> (binarySearch(value, nums2) &amp;&amp; !set.contains(value)) &#123;            set.add(value);        &#125;    &#125;    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[set.size()];    <span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : set) &#123;        res[k++] = num;    &#125;    <span class="hljs-keyword">return</span> res;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target, <span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> right = len - <span class="hljs-number">1</span>;    <span class="hljs-keyword">while</span> (left &lt;= right) &#123;        <span class="hljs-keyword">int</span> mid = (left + right) &gt;&gt; <span class="hljs-number">1</span>;        <span class="hljs-keyword">if</span> (nums[mid] == target) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] &gt; target) &#123;            right = mid - <span class="hljs-number">1</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            left = mid + <span class="hljs-number">1</span>;        &#125;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>二分</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 227. 基本计算器 II</title>
     <link href="/2020/09/12/LeetCode-227-basic-calculator-ii/"/>
     <url>/2020/09/12/LeetCode-227-basic-calculator-ii/</url>
@@ -1577,9 +1608,9 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
