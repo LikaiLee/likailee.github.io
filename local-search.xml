@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>LeetCode 字符串匹配算法</title>
+    <link href="/2020/09/14/LeetCode-string-matching-algorithms/"/>
+    <url>/2020/09/14/LeetCode-string-matching-algorithms/</url>
+    
+    <content type="html"><![CDATA[<h1 id="kmp"><a class="markdownIt-Anchor" href="#kmp"></a> KMP</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">kmpSearch</span><span class="hljs-params">(String str, String pattern)</span> </span>&#123;    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    <span class="hljs-comment">// next 数组</span>    <span class="hljs-keyword">int</span>[] next = <span class="hljs-keyword">new</span> Solution().getNext(pattern);    <span class="hljs-keyword">char</span>[] s = str.toCharArray();    <span class="hljs-keyword">char</span>[] p = pattern.toCharArray();    <span class="hljs-comment">// i: 要匹配的字符串位置</span>    <span class="hljs-comment">// j: 模式串位置</span>    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (i &lt; s.length &amp;&amp; j &lt; p.length) &#123;        <span class="hljs-comment">// pattern 匹配成功，继续后移，查找是否有多个 pattern 在 str 中出现</span>        <span class="hljs-keyword">if</span> (j == p.length - <span class="hljs-number">1</span> &amp;&amp; s[i] == p[j]) &#123;            res.add(i - j);            j = next[j];        &#125;        <span class="hljs-comment">// 当前字符匹配成功，进行下一个字符的匹配</span>        <span class="hljs-keyword">if</span> (j == -<span class="hljs-number">1</span> || s[i] == p[j]) &#123;            i++;            j++;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// 匹配不成功，pattern 前移，从 str 失配处继续匹配</span>            j = next[j];        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;<span class="hljs-comment">/**</span><span class="hljs-comment"> * 获取模式串的 next 数组</span><span class="hljs-comment"> *</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> patternStr 模式串</span><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> next[]</span><span class="hljs-comment"> */</span><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] getNext(String patternStr) &#123;    <span class="hljs-keyword">char</span>[] pattern = patternStr.toCharArray();    <span class="hljs-keyword">int</span> n = pattern.length;    <span class="hljs-keyword">int</span>[] next = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];    <span class="hljs-comment">// 第 i 个位置前缀 = next[i + 1]</span>    next[<span class="hljs-number">0</span>] = -<span class="hljs-number">1</span>;    <span class="hljs-comment">// 初始前缀长度为 -1</span>    <span class="hljs-keyword">int</span> len = -<span class="hljs-number">1</span>;    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (i &lt; n - <span class="hljs-number">1</span>) &#123;        <span class="hljs-comment">// 在上一个前缀的基础上新增的字符匹配，则 prefix[i] = len + 1</span>        <span class="hljs-keyword">if</span> (len == -<span class="hljs-number">1</span> || pattern[i] == pattern[len]) &#123;            len++;            <span class="hljs-comment">// i + 1 位置存放 pattern[i] 的前缀长度</span>            i++;            next[i] = len;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// 前缀不匹配，往前查找与 pattern[i] 相等的字符直到 len == -1</span>            len = next[len];        &#125;    &#125;    <span class="hljs-keyword">return</span> next;&#125;</code></pre><h1 id="bm"><a class="markdownIt-Anchor" href="#bm"></a> BM</h1><ol><li>坏字符<ul><li>坏字符不在模式串中，移动模式串至坏字符后一位；</li><li>坏字符在模式串中，移动模式串中最靠后的那个字符。</li></ul></li><li>好后缀<ul><li>好后缀不在模式串中，移动模式串至好后缀的后一位；</li><li>好后缀在模式串中，移动模式串至好后缀匹配的地方；</li><li>好后缀的子串和模式串部分匹配，移动模式串至好后缀的子串重合的地方。</li></ul></li></ol><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">bmSearch</span><span class="hljs-params">(String s, String p)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] str = s.toCharArray();    <span class="hljs-keyword">char</span>[] pattern = p.toCharArray();    <span class="hljs-keyword">int</span> m = str.length;    <span class="hljs-keyword">int</span> n = pattern.length;    <span class="hljs-comment">// 生成坏字符在模式串中的位置数组</span>    <span class="hljs-keyword">int</span>[] badChars = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">256</span>];    badCharRule(pattern, badChars);    <span class="hljs-comment">// 长度 = i 的后缀子串在模式串中的起始位置</span>    <span class="hljs-keyword">int</span>[] suffix = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];    <span class="hljs-comment">// 长度 = i 的后缀子串是否有可匹配的前缀子串</span>    <span class="hljs-keyword">boolean</span>[] hasPrefix = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[n];    goodSuffixRule(pattern, suffix, hasPrefix);    <span class="hljs-keyword">int</span> i = n - <span class="hljs-number">1</span>;    <span class="hljs-keyword">while</span> (i &lt; m) &#123;        <span class="hljs-keyword">int</span> j = n - <span class="hljs-number">1</span>;        <span class="hljs-keyword">while</span> (j &gt;= <span class="hljs-number">0</span> &amp;&amp; pattern[j] == str[i]) &#123;            i--;            j--;            <span class="hljs-keyword">if</span> (j == -<span class="hljs-number">1</span>) &#123;                <span class="hljs-keyword">return</span> i + <span class="hljs-number">1</span>;            &#125;        &#125;        <span class="hljs-comment">// 坏字符规则的移动次数</span>        <span class="hljs-keyword">int</span> moveWithBC = j - badChars[str[i]];        <span class="hljs-comment">// 好后缀规则的移动次数</span>        <span class="hljs-keyword">int</span> moveWithGS = Integer.MIN_VALUE;        <span class="hljs-keyword">if</span> (j &lt; n - <span class="hljs-number">1</span>) &#123;            moveWithGS = moveWithGS(n, j, suffix, hasPrefix);        &#125;        i += Math.max(moveWithBC, moveWithGS);    &#125;    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;&#125;<span class="hljs-comment">/**</span><span class="hljs-comment"> * 好后缀规则下的移动次数</span><span class="hljs-comment"> *</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> n         模式串长度</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> j         失配位置</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> suffix    长度 = i 的后缀子串在模式串中的起始位置</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> hasPrefix 长度 = i 的后缀子串是否有可匹配的前缀子串</span><span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span><span class="hljs-comment"> */</span><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">moveWithGS</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> j, <span class="hljs-keyword">int</span>[] suffix, <span class="hljs-keyword">boolean</span>[] hasPrefix)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = n - j - <span class="hljs-number">1</span>;    <span class="hljs-comment">// 后缀存在于模式串前缀中</span>    <span class="hljs-keyword">if</span> (suffix[len] != -<span class="hljs-number">1</span>) &#123;        <span class="hljs-keyword">return</span> j - suffix[len] + <span class="hljs-number">1</span>;    &#125;    <span class="hljs-comment">// 若不存在前缀与后缀匹配，则找后缀的子串位置</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;        <span class="hljs-keyword">if</span> (hasPrefix[i]) &#123;            <span class="hljs-keyword">return</span> n - i;        &#125;    &#125;    <span class="hljs-keyword">return</span> n;&#125;<span class="hljs-comment">/**</span><span class="hljs-comment"> * 生成好后缀数组</span><span class="hljs-comment"> *</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> pattern</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> suffix</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> hasPrefix</span><span class="hljs-comment"> */</span><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">goodSuffixRule</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] pattern, <span class="hljs-keyword">int</span>[] suffix, <span class="hljs-keyword">boolean</span>[] hasPrefix)</span> </span>&#123;    Arrays.fill(suffix, -<span class="hljs-number">1</span>);    <span class="hljs-keyword">int</span> n = pattern.length;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n - <span class="hljs-number">1</span>; i++) &#123;        <span class="hljs-keyword">int</span> j = i;        <span class="hljs-comment">// 后缀子串的长度</span>        <span class="hljs-keyword">int</span> len = <span class="hljs-number">0</span>;        <span class="hljs-comment">// 若字符匹配，则往前查找后缀</span>        <span class="hljs-keyword">while</span> (j &gt;= <span class="hljs-number">0</span> &amp;&amp; pattern[j] == pattern[n - <span class="hljs-number">1</span> - len]) &#123;            j--;            len++;            suffix[len] = j + <span class="hljs-number">1</span>;        &#125;        <span class="hljs-keyword">if</span> (j == -<span class="hljs-number">1</span>) &#123;            hasPrefix[len] = <span class="hljs-keyword">true</span>;        &#125;    &#125;&#125;<span class="hljs-comment">/**</span><span class="hljs-comment"> * 记录 pattern 中每个字符的最靠后位置</span><span class="hljs-comment"> *</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> pattern</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> badChars</span><span class="hljs-comment"> */</span><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">badCharRule</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] pattern, <span class="hljs-keyword">int</span>[] badChars)</span> </span>&#123;    Arrays.fill(badChars, -<span class="hljs-number">1</span>);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; pattern.length; i++) &#123;        badChars[pattern[i]] = i;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 350. 两个数组的交集 II</title>
     <link href="/2020/09/13/LeetCode-350-intersection-of-two-arrays-ii/"/>
     <url>/2020/09/13/LeetCode-350-intersection-of-two-arrays-ii/</url>
@@ -80,9 +105,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -165,9 +190,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -196,11 +221,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -225,9 +250,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -254,9 +279,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -283,9 +308,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -312,9 +337,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -341,9 +366,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -370,9 +395,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -401,9 +426,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -517,9 +542,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -548,11 +573,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -577,9 +602,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -635,9 +660,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -720,9 +745,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -830,11 +855,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -888,9 +913,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -919,9 +944,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -948,9 +973,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -979,9 +1004,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1008,9 +1033,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1037,9 +1062,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1064,9 +1089,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1091,9 +1116,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1143,9 +1168,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1170,9 +1195,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1197,9 +1222,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1888,9 +1913,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2052,9 +2077,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
