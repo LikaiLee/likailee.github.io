@@ -207,13 +207,12 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月3日 晚上
+                  本文最后更新于：2020年9月14日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p>[TOC]</p>
-<h1 id="插入排序"><a class="markdownIt-Anchor" href="#插入排序"></a> 插入排序</h1>
+              <h1 id="插入排序"><a class="markdownIt-Anchor" href="#插入排序"></a> 插入排序</h1>
 <h2 id="1-直接插入排序"><a class="markdownIt-Anchor" href="#1-直接插入排序"></a> 1. 直接插入排序</h2>
 <blockquote>
 <p>将每个元素依次插入前面已经排序好的序列。需要反复把已排序元素向后移，为新元素提供插入空间。</p>
@@ -530,20 +529,21 @@
     &#125;
 &#125;
 <span class="hljs-comment">// 写法二</span>
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> mid, <span class="hljs-keyword">int</span> high)</span> </span>&#123;
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> mid, <span class="hljs-keyword">int</span> high)</span> </span>&#123;
     <span class="hljs-keyword">int</span> len = high - low + <span class="hljs-number">1</span>;
     <span class="hljs-keyword">int</span>[] tmp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
+    <span class="hljs-comment">// [low...mid] [mid + 1, high]</span>
     <span class="hljs-keyword">int</span> i = low, j = mid + <span class="hljs-number">1</span>, k = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">while</span> (i &lt;= mid &amp;&amp; j &lt;= high) &#123;
-        tmp[k++] = arr[i] &lt; arr[j] ? arr[i++] : arr[j++];
+        tmp[k++] = nums[i] &gt; nums[j] ? nums[j++] : nums[i++];
     &#125;
     <span class="hljs-keyword">while</span> (i &lt;= mid) &#123;
-        arr[k++] = tmp[i++];
+        tmp[k++] = nums[i++];
     &#125;
     <span class="hljs-keyword">while</span> (j &lt;= high) &#123;
-        arr[k++] = tmp[j++];
+        tmp[k++] = nums[j++];
     &#125;
-    System.arraycopy(tmp, <span class="hljs-number">0</span>, arr, low, len);
+    System.arraycopy(tmp, <span class="hljs-number">0</span>, nums, low, len);
 &#125;</code></pre>
 <h1 id="非比较排序"><a class="markdownIt-Anchor" href="#非比较排序"></a> 非比较排序</h1>
 <h2 id="1-计数排序"><a class="markdownIt-Anchor" href="#1-计数排序"></a> 1. 计数排序</h2>
