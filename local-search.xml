@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>剑指 Offer 51. 数组中的逆序对</title>
+    <link href="/2020/09/14/pt-Offer-51-shu-zu-zhong-de-ni-xu-dui-lcof/"/>
+    <url>/2020/09/14/pt-Offer-51-shu-zu-zhong-de-ni-xu-dui-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/" target="_blank" rel="noopener">剑指 Offer 51. 数组中的逆序对</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">reversePairs</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">return</span> reverse(nums, <span class="hljs-number">0</span>, nums.length - <span class="hljs-number">1</span>);&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;    <span class="hljs-keyword">if</span> (left &gt;= right) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span> mid = left + ((right - left) &gt;&gt; <span class="hljs-number">1</span>);    <span class="hljs-keyword">int</span> leftPairs = reverse(nums, left, mid);    <span class="hljs-keyword">int</span> rightPairs = reverse(nums, mid + <span class="hljs-number">1</span>, right);    <span class="hljs-keyword">if</span> (nums[mid] &lt;= nums[mid + <span class="hljs-number">1</span>]) &#123;        <span class="hljs-keyword">return</span> leftPairs + rightPairs;    &#125;    <span class="hljs-comment">// 在右区间的元素合并时，计算大于该元素的个数</span>    <span class="hljs-comment">// 左区间的所有元素都大于该元素，则逆序数 = 左区间长度 = mid - i + 1</span>    <span class="hljs-keyword">int</span> crossPairs = mergeAndCount(nums, left, mid, right);    <span class="hljs-keyword">return</span> leftPairs + crossPairs + rightPairs;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">mergeAndCount</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> mid, <span class="hljs-keyword">int</span> right)</span> </span>&#123;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> len = right - left + <span class="hljs-number">1</span>;    <span class="hljs-keyword">int</span>[] tmp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    <span class="hljs-keyword">int</span> i = left, j = mid + <span class="hljs-number">1</span>, k = <span class="hljs-number">0</span>;    <span class="hljs-comment">// [left, mid] [mid + 1, right]</span>    <span class="hljs-keyword">while</span> (i &lt;= mid &amp;&amp; j &lt;= right) &#123;        <span class="hljs-keyword">if</span> (nums[j] &lt; nums[i]) &#123;            tmp[k++] = nums[j++];            <span class="hljs-comment">// 计算左区间长度</span>            count += mid - i + <span class="hljs-number">1</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            tmp[k++] = nums[i++];        &#125;    &#125;    <span class="hljs-keyword">while</span> (i &lt;= mid) &#123;        tmp[k++] = nums[i++];    &#125;    <span class="hljs-keyword">while</span> (j &lt;= right) &#123;        tmp[k++] = nums[j++];    &#125;    System.arraycopy(tmp, <span class="hljs-number">0</span>, nums, left, len);    <span class="hljs-keyword">return</span> count;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 912. 排序数组</title>
     <link href="/2020/09/14/LeetCode-912-sort-an-array/"/>
     <url>/2020/09/14/LeetCode-912-sort-an-array/</url>
@@ -279,9 +308,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -308,9 +337,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -337,9 +366,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -366,9 +395,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -453,9 +482,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -482,9 +511,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>回溯</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -631,9 +660,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -689,9 +718,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -774,9 +803,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -886,9 +915,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>字符串</tag>
-      
       <tag>排序</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1689,9 +1718,9 @@
     
     <tags>
       
-      <tag>数据结构</tag>
-      
       <tag>并查集</tag>
+      
+      <tag>数据结构</tag>
       
     </tags>
     
@@ -1940,9 +1969,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2106,9 +2135,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
