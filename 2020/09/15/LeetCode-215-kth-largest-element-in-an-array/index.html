@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      571 字
+      701 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      11
        分钟
     </span>
   
@@ -279,43 +279,62 @@
 <h1 id="堆排序"><a class="markdownIt-Anchor" href="#堆排序"></a> 堆排序</h1>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findKthLargest</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
     <span class="hljs-keyword">int</span> len = nums.length;
-    buildMaxHeap(nums, len);
+    <span class="hljs-comment">// 将数组整理成堆</span>
+    heapify(nums);
+
+    <span class="hljs-comment">// 循环不变量：区间 [0, i] 堆有序</span>
     <span class="hljs-comment">// 每次调整都把最大的元素放到后面</span>
     <span class="hljs-comment">// 因此要找到第 K 大的元素只需要遍历 K 次</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">1</span>; i &gt; len - <span class="hljs-number">1</span> - k; i--) &#123;
-        swap(nums, i, <span class="hljs-number">0</span>);
-        adjustDown(nums, <span class="hljs-number">0</span>, i);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">1</span>; i &gt; len - <span class="hljs-number">1</span> - k; ) &#123;
+        <span class="hljs-comment">// 把堆顶元素（当前最大）交换到数组末尾</span>
+        swap(nums, <span class="hljs-number">0</span>, i);
+        <span class="hljs-comment">// 逐步减少堆有序的部分</span>
+        i--;
+        <span class="hljs-comment">// 下标 0 位置下沉操作，使得区间 [0, i] 堆有序</span>
+        siftDown(nums, <span class="hljs-number">0</span>, i);
     &#125;
     <span class="hljs-keyword">return</span> nums[len - k];
 &#125;
 
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 将数组整理成堆（堆有序）</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> nums</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">heapify</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> len = nums.length;
+    <span class="hljs-comment">// 只需要从 i = (len - 1) / 2 这个位置开始逐层下移</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = (len - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
+        siftDown(nums, i, len - <span class="hljs-number">1</span>);
+    &#125;
+&#125;
 
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">adjustDown</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> len)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> cur = nums[i];
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>; j &lt; len; j = j * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>) &#123;
-        <span class="hljs-keyword">while</span> (j &lt; len - <span class="hljs-number">1</span> &amp;&amp; nums[j] &lt; nums[j + <span class="hljs-number">1</span>]) &#123;
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> nums</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> k    当前下沉元素的下标</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> end  [0, end] 是 nums 的有效部分</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">siftDown</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> end)</span> </span>&#123;
+    <span class="hljs-keyword">while</span> (<span class="hljs-number">2</span> * k &lt; end) &#123;
+        <span class="hljs-keyword">int</span> j = <span class="hljs-number">2</span> * k + <span class="hljs-number">1</span>;
+        <span class="hljs-comment">// 左结点 &lt; 右结点，j 指向右结点</span>
+        <span class="hljs-keyword">if</span> (j &lt; end &amp;&amp; nums[j + <span class="hljs-number">1</span>] &gt; nums[j]) &#123;
             j++;
         &#125;
-        <span class="hljs-keyword">if</span> (nums[j] &gt; cur) &#123;
-            nums[i] = nums[j];
-            i = j;
+        <span class="hljs-comment">// 子结点大于父结点</span>
+        <span class="hljs-keyword">if</span> (nums[j] &gt; nums[k]) &#123;
+            swap(nums, j, k);
         &#125; <span class="hljs-keyword">else</span> &#123;
             <span class="hljs-keyword">break</span>;
         &#125;
-    &#125;
-    nums[i] = cur;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">buildMaxHeap</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> len)</span> </span>&#123;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len / <span class="hljs-number">2</span> - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
-        adjustDown(nums, i, len);
+        k = j;
     &#125;
 &#125;
 
 <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> t = nums[j];
-    nums[j] = nums[i];
-    nums[i] = t;
+    <span class="hljs-keyword">int</span> temp = nums[i];
+    nums[i] = nums[j];
+    nums[j] = temp;
 &#125;</code></pre>
             </article>
             <hr>

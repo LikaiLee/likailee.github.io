@@ -462,10 +462,10 @@
 <span class="hljs-comment"> * <span class="hljs-doctag">@param</span> end  [0, end] 是 nums 的有效部分</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">siftDown</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> end)</span> </span>&#123;
-    <span class="hljs-keyword">while</span> (<span class="hljs-number">2</span> * k + <span class="hljs-number">1</span> &lt;= end) &#123;
+    <span class="hljs-keyword">while</span> (<span class="hljs-number">2</span> * k &lt; end) &#123;
         <span class="hljs-keyword">int</span> j = <span class="hljs-number">2</span> * k + <span class="hljs-number">1</span>;
         <span class="hljs-comment">// 左结点 &lt; 右结点，j 指向右结点</span>
-        <span class="hljs-keyword">if</span> (j + <span class="hljs-number">1</span> &lt;= end &amp;&amp; nums[j + <span class="hljs-number">1</span>] &gt; nums[j]) &#123;
+        <span class="hljs-keyword">if</span> (j &lt; end &amp;&amp; nums[j + <span class="hljs-number">1</span>] &gt; nums[j]) &#123;
             j++;
         &#125;
         <span class="hljs-comment">// 子结点大于父结点</span>
