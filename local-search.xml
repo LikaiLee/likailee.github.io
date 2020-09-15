@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 215. 数组中的第K个最大元素</title>
+    <link href="/2020/09/15/LeetCode-215-kth-largest-element-in-an-array/"/>
+    <url>/2020/09/15/LeetCode-215-kth-largest-element-in-an-array/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/" target="_blank" rel="noopener">215. 数组中的第K个最大元素</a></p><h1 id="快排"><a class="markdownIt-Anchor" href="#快排"></a> 快排</h1><p>思想：排序后第 <code>k</code> 个最大元素位置 <code>= len - k</code>，每次 <code>partition</code> 后，都会将 <code>pivot</code> 移动到其最终位置，此时就可比较该位置是否是目标位置。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findKthLargest</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-comment">// 排序后第 k 大的数所在位置</span>    <span class="hljs-keyword">int</span> target = len - k;    <span class="hljs-keyword">return</span> quickSort(nums, target, <span class="hljs-number">0</span>, len - <span class="hljs-number">1</span>);&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">quickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> target, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;    <span class="hljs-keyword">int</span> pivotPos = partition(nums, left, right);    <span class="hljs-comment">// 找到目标位置，返回</span>    <span class="hljs-keyword">if</span> (pivotPos == target) &#123;        <span class="hljs-keyword">return</span> nums[target];    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pivotPos &gt; target) &#123;        <span class="hljs-comment">// 比目标位置大，则往前查找</span>        <span class="hljs-keyword">return</span> quickSort(nums, target, left, pivotPos - <span class="hljs-number">1</span>);    &#125; <span class="hljs-keyword">else</span> &#123;        <span class="hljs-keyword">return</span> quickSort(nums, target, pivotPos + <span class="hljs-number">1</span>, right);    &#125;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">partition</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;    <span class="hljs-keyword">int</span> pivot = nums[left];    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; nums[right] &gt;= pivot) &#123;            right--;        &#125;        nums[left] = nums[right];        <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; nums[left] &lt;= pivot) &#123;            left++;        &#125;        nums[right] = nums[left];    &#125;    nums[left] = pivot;    <span class="hljs-keyword">return</span> left;&#125;</code></pre><h1 id="优先队列"><a class="markdownIt-Anchor" href="#优先队列"></a> 优先队列</h1><p>小顶堆</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findKthLargest</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-comment">// 小顶堆 =&gt; 弹出比 目标小的 len - k 个元素，堆顶即为第 k 大</span>    PriorityQueue&lt;Integer&gt; minHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;        minHeap.add(num);    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length - k; i++) &#123;        minHeap.poll();    &#125;    <span class="hljs-keyword">return</span> minHeap.peek();&#125;</code></pre><p>大顶堆</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findKthLargest</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-comment">// 大顶堆 =&gt; 弹出比 目标大的 k - 1 个元素，堆顶即为第 k 大</span>    PriorityQueue&lt;Integer&gt; maxHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;(len, (a, b) -&gt; b - a);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;        maxHeap.add(num);    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; k - <span class="hljs-number">1</span>; i++) &#123;        maxHeap.poll();    &#125;    <span class="hljs-keyword">return</span> maxHeap.peek();&#125;</code></pre><h1 id="堆排序"><a class="markdownIt-Anchor" href="#堆排序"></a> 堆排序</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findKthLargest</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    buildMaxHeap(nums, len);    <span class="hljs-comment">// 每次调整都把最大的元素放到后面</span>    <span class="hljs-comment">// 因此要找到第 K 大的元素只需要遍历 K 次</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">1</span>; i &gt; len - <span class="hljs-number">1</span> - k; i--) &#123;        swap(nums, i, <span class="hljs-number">0</span>);        adjustDown(nums, <span class="hljs-number">0</span>, i);    &#125;    <span class="hljs-keyword">return</span> nums[len - k];&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">adjustDown</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> len)</span> </span>&#123;    <span class="hljs-keyword">int</span> cur = nums[i];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>; j &lt; len; j = j * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>) &#123;        <span class="hljs-keyword">while</span> (j &lt; len - <span class="hljs-number">1</span> &amp;&amp; nums[j] &lt; nums[j + <span class="hljs-number">1</span>]) &#123;            j++;        &#125;        <span class="hljs-keyword">if</span> (nums[j] &gt; cur) &#123;            nums[i] = nums[j];            i = j;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">break</span>;        &#125;    &#125;    nums[i] = cur;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">buildMaxHeap</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> len)</span> </span>&#123;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len / <span class="hljs-number">2</span> - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;        adjustDown(nums, i, len);    &#125;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j)</span> </span>&#123;    <span class="hljs-keyword">int</span> t = nums[j];    nums[j] = nums[i];    nums[i] = t;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 51. 数组中的逆序对</title>
     <link href="/2020/09/14/LeetCode-offer-51-shu-zu-zhong-de-ni-xu-dui-lcof/"/>
     <url>/2020/09/14/LeetCode-offer-51-shu-zu-zhong-de-ni-xu-dui-lcof/</url>
@@ -482,9 +509,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1969,9 +1996,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
