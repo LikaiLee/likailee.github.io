@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      701 字
+      780 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      12
        分钟
     </span>
   
@@ -277,6 +277,13 @@
     <span class="hljs-keyword">return</span> maxHeap.peek();
 &#125;</code></pre>
 <h1 id="堆排序"><a class="markdownIt-Anchor" href="#堆排序"></a> 堆排序</h1>
+<p>每次调整都把最大的元素放到后面，因此要找到第 <code>K</code> 大的元素只需要遍历 <code>K</code> 次。</p>
+<p>或者：使用小顶堆</p>
+<ol>
+<li>对 <code>K</code> 个元素先建堆</li>
+<li>遍历剩下的元素，若大于堆顶，则加入堆并调整。</li>
+<li>堆顶元素即为第 <code>K</code> 大的元素</li>
+</ol>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findKthLargest</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
     <span class="hljs-keyword">int</span> len = nums.length;
     <span class="hljs-comment">// 将数组整理成堆</span>
