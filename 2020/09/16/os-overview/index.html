@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Likai Lee">
+  <meta name="keywords" content="">
+  <title>操作系统总览 - Likai Lee</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Likai Lee</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/bg/1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                操作系统总览
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-09-16 15:40">
+      2020年9月16日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      49
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年9月16日 下午
+                
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="操作系统"><a class="markdownIt-Anchor" href="#操作系统"></a> 操作系统</h1>
+<h2 id="组成"><a class="markdownIt-Anchor" href="#组成"></a> 组成</h2>
+<p>现代计算机系统由一个或多个处理器、主存、打印机、键盘、鼠标、显示器、网络接口以及各种输入/输出设备构成。</p>
+<p>然而，程序员不会直接和这些硬件打交道，在硬件的基础之上，计算机安装了一层软件，这层软件能够通过响应用户输入的指令达到控制硬件的效果，从而满足用户需求，这种软件称之为 <code>操作系统</code>，它的任务就是为用户程序提供一个更好、更简单、更清晰的计算机模型。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200916142646.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="用户态和内核态"><a class="markdownIt-Anchor" href="#用户态和内核态"></a> 用户态和内核态</h2>
+<p>大部分计算机有两种运行模式：<code>内核态</code> 和 <code>用户态</code>，</p>
+<ul>
+<li>软件中最基础的部分是操作系统，它运行在 <code>内核态</code> 中，内核态也称为 <code>管态</code> 和 <code>核心态</code>，它们都是操作系统的运行状态，只不过是不同的叫法而已。操作系统具有硬件的访问权，可以执行机器能够运行的任何指令。软件的其余部分运行在 <code>用户态</code> 下。</li>
+<li>用户接口程序(<code>shell</code> 或者 <code>GUI</code>)处于<code>用户态</code>中，并且它们位于用户态的最低层，允许用户运行其他程序，例如 Web 浏览器、电子邮件阅读器、音乐播放器等。而且，越靠近用户态的应用程序越容易编写。</li>
+</ul>
+<h1 id="计算机硬件简介"><a class="markdownIt-Anchor" href="#计算机硬件简介"></a> 计算机硬件简介</h1>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200916143656.png" srcset="/img/loading.gif" alt="" /></p>
+<p>从概念上来看，一台简单的个人电脑可以被抽象为上面这种相似的模型，CPU、内存、I/O 设备都和总线串联起来并通过总线与其他设备进行通信。</p>
+<h2 id="cpu"><a class="markdownIt-Anchor" href="#cpu"></a> CPU</h2>
+<p>CPU 主要和内存进行交互，从内存中提取指令并执行它。一个 CPU 的执行周期是从内存中提取第一条指令、解码并决定它的类型和操作数，执行，然后再提取、解码执行后续的指令。重复该循环直到程序运行完毕。</p>
+<ul>
+<li>程序计数器 (<code>Program Counter</code>): 是 CPU 的核心，在任何时刻，<strong>PC 都指向主存中的某条机器语言指令。</strong></li>
+<li>堆栈指针 (<code>stack pointer</code>): 它指向内存中当前栈的顶端。堆栈指针会包含输入过程中的有关参数、局部变量以及没有保存在寄存器中的临时变量。</li>
+<li>程序状态字寄存器 (<code>Program Status Word</code>): <strong>它会跟踪当前系统的状态</strong>。除非发生系统结束，否则我们可以忽略 PSW 。用户程序通常可以读取整个PSW，但通常只能写入其某些字段。PSW 在系统调用和 I/O 中起着重要作用。</li>
+</ul>
+<h2 id="内存"><a class="markdownIt-Anchor" href="#内存"></a> 内存</h2>
+<p>理想情况下，内存应该非常快速(比执行一条指令要快，从而不会拖慢 CPU 执行效率)，而且足够大且便宜，但是目前的技术手段无法满足三者的需求。于是采用了不同的处理方式，存储器系统采用一种分层次的结构<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200916144656.png" srcset="/img/loading.gif" alt="" /><br />
+顶层的存储器速度最高，但是容量最小，成本非常高，层级结构越向下，其访问效率越慢，容量越大，但是造价也就越便宜。</p>
+<h3 id="寄存器"><a class="markdownIt-Anchor" href="#寄存器"></a> 寄存器</h3>
+<p>存储器的顶层是 CPU 中的寄存器，它们用和 CPU 一样的材料制成，所以和 CPU 一样快。程序必须在软件中自行管理这些寄存器（即决定如何使用它们）</p>
+<h3 id="高速缓存"><a class="markdownIt-Anchor" href="#高速缓存"></a> 高速缓存</h3>
+<p>位于寄存器下面的是高速缓存，它多数由硬件控制。主存被分割成高速缓存行(<code>cache lines</code>)。</p>
+<p>使用最频繁的高速缓存行保存在位于 <code>CPU</code> 内部或非常靠近 <code>CPU</code> 的高速缓存中。当应用程序需要从内存中读取关键词的时候，高速缓存的硬件会检查所需要的高速缓存行是否在高速缓存中。如果在的话，那么这就是高速缓存命中(<code>cache hit</code>)。</p>
+<p>高速缓存命中通常需要花费两个时钟周期。缓存未命中需要从内存中提取，这会消耗大量的时间。高速缓存行会限制容量的大小因为它的造价非常昂贵。有一些机器会有两个或者三个高速缓存级别，每一级高速缓存比前一级慢且容量更大。</p>
+<p>现代 <code>CPU</code> 设计了两种缓存。第一级缓存或者说是 <code>L1 cache</code> 总是位于 CPU 内部，用来将已解码的指令调入 <code>CPU</code> 的执行引擎。典型的 <code>L1 cache</code> 的大小为 <code>16 KB</code>。<br />
+另外，往往还设有二级缓存，也就是 <code>L2 cache</code>，用来存放最近使用过的关键字，一般是<code>兆字节</code>为单位。<code>L1 cache</code> 和 <code>L2 cache</code> 最大的不同在于是否存在延迟。访问 <code>L1 cache</code> 没有任何的延迟，然而访问 L2 cache 会有 1 - 2 个时钟周期的延后。</p>
+<h3 id="主存"><a class="markdownIt-Anchor" href="#主存"></a> 主存</h3>
+<p>在上面的层次结构中再下一层是主存，这是内存系统的主力军，主存通常叫做 <code>RAM</code>(<code>Random Access Memory</code>)。所有不能在高速缓存中得到满足的内存访问请求都会转往主存中。</p>
+<p>主存是一个临时存储设备，在处理器执行程序时，用来存放程序和程序处理的数据。</p>
+<ul>
+<li>从物理上来说，主存是由一组<code>动态随机存取存储器</code>（<code>DRAM</code>）芯片组成的。</li>
+<li>从逻辑上来说，存储器是一个线性的字节数组，每个字节都有其唯一的地址（即数组索引）。</li>
+</ul>
+<h3 id="磁盘"><a class="markdownIt-Anchor" href="#磁盘"></a> 磁盘</h3>
+<p>下一个层次是磁盘(硬盘)，磁盘同 RAM 相比，每个二进制位的成本低了两个数量级，而且经常也有两个数量级大的容量。磁盘唯一的问题是随机访问数据时间大约慢了三个数量级。磁盘访问慢的原因是因为磁盘的构造不同。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200916150003.png" srcset="/img/loading.gif" alt="" /></p>
+<blockquote>
+<p>需要注意，固态硬盘(Solid State Disk, SSD)不是磁盘，固态硬盘并没有可以移动的部分，外形也不像唱片，并且数据是存储在存储器（闪存）中，与磁盘唯一的相似之处就是它也存储了大量即使在电源关闭也不会丢失的数据。</p>
+</blockquote>
+<p>许多计算机支持一种著名的<strong>虚拟内存</strong>机制，这种机制使得期望运行的存储空间大于实际的物理存储空间。其方法是将程序放在磁盘上，而将主存作为一部分缓存，用来保存最频繁使用的部分程序，这种机制需要快速映像内存地址，用来把程序生成的地址转换为有关字节在 <code>RAM</code> 中的物理地址。这种映像由 <code>CPU</code> 中的一个称为 <strong>存储器管理单元</strong>(<code>Memory Management Unit</code>, <code>MMU</code>) 的部件来完成。</p>
+<p>缓存和 <code>MMU</code> 的出现是对系统的性能有很重要的影响，在多道程序系统中，从一个程序切换到另一个程序的机制称为 <strong>上下文切换</strong>(<code>context switch</code>)，对来自缓存中的资源进行修改并把其写回磁盘是很有必要的。</p>
+<h2 id="io-设备"><a class="markdownIt-Anchor" href="#io-设备"></a> I/O 设备</h2>
+<p>I/O 设备一般包括两个部分：<strong>设备控制器</strong>和<strong>设备</strong>本身。</p>
+<ul>
+<li>控制器本身是一块芯片或者一组芯片，它能够控制物理设备。<br />
+控制器的工作就是接收操作系统的指令，为操作系统提供一个更简单的接口。也就是屏蔽物理细节。</li>
+<li>设备本身有一个相对简单的接口。</li>
+</ul>
+<p>每种类型的设备控制器都是不同的，所以需要不同的软件进行控制。专门与控制器进行信息交流，发出命令处理指令接收响应的软件，称为 <strong>设备驱动程序</strong>(<code>device driver</code>)。 每个控制器厂家都应该针对不同的操作系统提供不同的设备驱动程序。</p>
+<p>为了使设备驱动程序能够工作，必须把它安装在操作系统中，这样能够使它在内核态中运行。<br />
+要将设备驱动程序装入操作系统，一般有三个途径：</p>
+<ol>
+<li>将内核与设备启动程序重新连接，然后重启系统。这是 <code>UNIX</code> 系统采用的工作方式。</li>
+<li>在一个操作系统文件中设置一个入口，通知该文件需要一个设备驱动程序，然后重新启动系统。在重启系统时，操作系统回寻找有关的设备启动程序并把它装载，这是 <code>Windows</code> 采用的工作方式。</li>
+<li>操作系统能够在运行时接收新的设备驱动程序并立刻安装，无需重启操作系统。热插拔设备，比如 <code>USB</code> 需要动态可装载的设备驱动程序。</li>
+</ol>
+<p>实现输入和输出的方式有三种。</p>
+<ol>
+<li>
+<p>在最简单的方式中，用户程序会发起系统调用，内核会将其转换为相应驱动程序的程序调用，然后设备驱动程序启动 <code>I/O</code> 并循环检查该设备，看该设备是否完成了工作（一般会有一些二进制位用来指示设备仍在忙碌中）。当 <code>I/O</code> 调用完成后，设备驱动程序把数据送到指定的地方并返回。然后操作系统会将控制权交给调用者。这种方式称为 <strong>忙等待</strong>(<code>busy waiting</code>)，这种方式的缺点是要一直占据 <code>CPU</code>，<code>CPU</code> 会一直轮询 <code>I/O</code> 设备直到 <code>I/O</code> 操作完成。</p>
+</li>
+<li>
+<p><strong>设备驱动程序启动设备并且让该设备在操作完成时发生中断</strong>。设备驱动程序在这个时刻返回。操作系统接着在需要时阻塞调用者并安排其他工作进行。当设备驱动程序检测到该设备操作完成时，它发出一个 <strong>中断</strong> 通知操作完成。</p>
+</li>
+</ol>
+<ul>
+<li>使用特殊的硬件：<strong>直接存储器访问</strong>(<code>Direct Memory Access</code>, <code>DMA</code>) 芯片。它可以控制内存和某些控制器之间的位流，而无需 <code>CPU</code> 的干预。<code>CPU</code> 会对 <code>DMA</code> 芯片进行设置，说明需要传送的字节数，有关的设备和内存地址以及操作方向。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200916153323.png" srcset="/img/loading.gif" alt="" /><br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200916152741.png" srcset="/img/loading.gif" alt="" /></li>
+</ul>
+<p>当另一个中断处理程序正在运行时，中断可能（并且经常）发生在不合宜的时间。 因此，CPU 可以禁用中断，并且可以在之后重启中断。<br />
+在 CPU 关闭中断后，任何已经发出中断的设备，可以继续保持其中断信号处理，但是 CPU 不会中断，直至中断再次启用为止。<br />
+如果在关闭中断时，已经有多个设备发出了中断信号，中断控制器将决定优先处理哪个中断，通常这取决于事先赋予每个设备的优先级，最高优先级的设备优先赢得中断权，其他设备则必须等待。</p>
+<h2 id="总线"><a class="markdownIt-Anchor" href="#总线"></a> 总线</h2>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200916153432.png" srcset="/img/loading.gif" alt="" /><br />
+总线贯穿整个系统，它携带信息字节并负责在各个部件间传递。</p>
+<p>上图中的 x86 系统包含很多总线，高速缓存、内存、PCIe、PCI、USB、SATA 和 DMI，每条总线都有不同的传输速率和功能。操作系统必须了解所有的总线配置和管理。其中最主要的总线是 <code>PCIe</code>(<code>Peripheral Component Interconnect Express</code>) 总线。</p>
+<p><code>PCIe</code> 选用了串行总线架构(<code>serial bus architecture</code>) ，并通过单个连接（称为通道）发送消息中的所有比特数据，就像网络数据包一样。这样做会简化很多，因为不再确保所有 32 位数据在同一时刻准确到达相同的目的地。通过将多个数据通路并行起来，并行性仍可以有效利用。</p>
+<h2 id="计算机启动过程"><a class="markdownIt-Anchor" href="#计算机启动过程"></a> 计算机启动过程</h2>
+<ul>
+<li>
+<p>一、<code>BIOS</code></p>
+<ul>
+<li>1.1 硬件自检<br />
+<code>BIOS</code> 程序首先检查，计算机硬件能否满足运行的基本条件，这叫做&quot;硬件自检&quot;（<code>Power-On Self-Test</code>），缩写为 <code>POST</code>。<br />
+如果硬件出现问题，主板会发出不同含义的蜂鸣，启动中止。如果没有问题，屏幕就会显示出CPU、内存、硬盘等信息。</li>
+<li>1.2 启动顺序<br />
+硬件自检完成后，<code>BIOS</code> 把控制权转交给下一阶段的启动程序。这时，<code>BIOS</code> 需要知道，“下一阶段的启动程序&quot;具体存放在哪一个设备。也就是说，<code>BIOS</code> 需要有一个外部储存设备的排序，排在前面的设备就是优先转交控制权的设备。这种排序叫做&quot;启动顺序”（<code>Boot Sequence</code>）。</li>
+</ul>
+</li>
+<li>
+<p>二、主引导记录(<code>MBR</code>)<br />
+<code>BIOS</code> 按照&quot;启动顺序&quot;，把控制权转交给排在第一位的储存设备。<br />
+计算机读取该设备的第一个扇区，也就是读取最前面的 <code>512</code> 个字节。如果这 <code>512</code> 个字节的最后两个字节是 <code>0x55</code> 和 <code>0xAA</code>，表明这个设备可以用于启动；如果不是，表明设备不能用于启动，控制权于是被转交给&quot;启动顺序&quot;中的下一个设备。</p>
+</li>
+<li>
+<p>三、硬盘启动<br />
+这时，计算机的控制权就要转交给硬盘的某个分区了，这里又分成三种情况。</p>
+<ul>
+<li>3.1 情况 A：卷引导记录<br />
+&quot;卷引导记录&quot;的主要作用是，告诉计算机，操作系统在这个分区里的位置。然后，计算机就会加载操作系统了。</li>
+<li>3.2 情况 B：扩展分区和逻辑分区<br />
+计算机先读取扩展分区的第一个扇区，叫做&quot;扩展引导记录&quot;（<code>Extended boot record</code>, <code>EBR</code>）。它里面也包含一张 64 字节的分区表，但是最多只有两项（也就是两个逻辑分区）。计算机接着读取第二个逻辑分区的第一个扇区，再从里面的分区表中找到第三个逻辑分区的位置，以此类推，直到某个逻辑分区的分区表只包含它自身为止（即只有一个分区项）。因此，扩展分区可以包含无数个逻辑分区。</li>
+<li>3.3 情况 C：启动管理器在这种情况下，计算机读取&quot;主引导记录&quot;前面 446 字节的机器码之后，不再把控制权转交给某一个分区，而是运行事先安装的&quot;启动管理器&quot;（<code>boot loader</code>），由用户选择启动哪一个操作系统。</li>
+</ul>
+</li>
+<li>
+<p>四、操作系统<br />
+控制权转交给操作系统后，操作系统的内核首先被载入内存。</p>
+<ol>
+<li>以 <code>Linux</code> 系统为例，先载入 <code>/boot</code> 目录下面的 <code>kernel</code>。</li>
+<li>内核加载成功后，第一个运行的程序是 <code>/sbin/init</code>。它根据配置文件产生 <code>init</code> 进程。这是 <code>Linux</code> 启动后的第一个进程，<code>pid</code> 进程编号为 <code>1</code>，其他进程都是它的后代。</li>
+<li><code>init</code> 线程加载系统的各个模块，比如窗口程序和网络程序，直至执行 <code>/bin/login</code> 程序，跳出登录界面，等待用户输入用户名和密码。</li>
+</ol>
+</li>
+</ul>
+<h1 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h1>
+<h2 id="进程"><a class="markdownIt-Anchor" href="#进程"></a> 进程</h2>
+<p>进程的本质就是操作系统执行的一个程序。</p>
+<ul>
+<li>与每个进程相关的是地址空间(<code>address space</code>)，这是从某个最小值的存储位置（通常是 0）到某个最大值的存储位置的列表。在这个地址空间中，进程可以进行读写操作。<strong>地址空间中存放有可执行程序，程序所需要的数据和它的栈。</strong></li>
+<li>与每个进程相关的还有资源集，通常包括寄存器(<code>registers</code>)（寄存器一般包括<strong>程序计数器</strong>(<code>program counter</code>)和<strong>堆栈指针</strong>(<code>stack pointer</code>)）、打开文件的清单、突发的报警、有关的进程清单和其他需要执行程序的信息。</li>
+</ul>
+<h2 id="地址空间"><a class="markdownIt-Anchor" href="#地址空间"></a> 地址空间</h2>
+<p>地址空间用来保存正在执行的程序。<br />
+每个进程有一些可以使用的地址集合，典型值从 0 开始直到某个最大值。一个进程可拥有的最大地址空间小于主存。在这种情况下，即使进程用完其地址空间，内存也会有足够的内存运行该进程。</p>
+<h1 id="操作系统结构"><a class="markdownIt-Anchor" href="#操作系统结构"></a> 操作系统结构</h1>
+<h2 id="单体系统"><a class="markdownIt-Anchor" href="#单体系统"></a> 单体系统</h2>
+<p>到目前为止，在大多数系统中，整个系统在内核态以单一程序的方式运行。<br />
+在单体系统中构造实际目标程序时，会首先编译所有单个过程（或包含这些过程的文件），然后使用系统链接器将它们全部绑定到一个可执行文件中。<br />
+在单体系统中，对于每个系统调用都会有一个服务程序来保障和运行。需要一组实用程序来弥补服务程序需要的功能，例如从用户程序中获取数据。可将各种过程划分为一个三层模型。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200916163823.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="分层系统"><a class="markdownIt-Anchor" href="#分层系统"></a> 分层系统</h2>
+<p>分层系统使用层来分隔不同的功能单元。每一层只与该层的上层和下层通信。每一层都使用下面的层来执行其功能。层之间的通信通过预定义的固定接口通信。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200916163904.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="微内核"><a class="markdownIt-Anchor" href="#微内核"></a> 微内核</h2>
+<p>在分层方式中，设计者要确定在哪里划分 <strong>内核-用户</strong> 的边界。传统上，所有的层都在内核中，但是这样做没有必要。事实上，尽可能减少内核态中功能可能是更好的做法。因为内核中的错误很难处理，一旦内核态中出错误会拖累整个系统。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200916165043.png" srcset="/img/loading.gif" alt="" /><br />
+所以，为了实现高可靠性，将操作系统划分成小的、层级之间能够更好定义的模块是很有必要的，只有一个模块 — 微内核 — 运行在内核态，其余模块可以作为普通用户进程运行。由于把每个设备驱动和文件系统分别作为普通用户进程，这些模块中的错误虽然会使这些模块崩溃，但是不会使整个系统死机。</p>
+<h2 id="客户-服务器模式"><a class="markdownIt-Anchor" href="#客户-服务器模式"></a> 客户-服务器模式</h2>
+<p>微内核思想的策略是把进程划分为两类：<strong>服务器</strong>，每个服务器用来提供服务；<strong>客户端</strong>，使用这些服务。这个模式就是所谓的 <strong>客户-服务器模式</strong>。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200916164806.png" srcset="/img/loading.gif" alt="" /><br />
+客户-服务器模式会有两种载体，一种情况是一台计算机既是客户又是服务器，在这种方式下，操作系统会有某种优化；但是普遍情况下是客户端和服务器在不同的机器上，它们通过局域网或广域网连接。</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/15/LeetCode-215-kth-largest-element-in-an-array/">
+                        <span class="hidden-mobile">LeetCode 215. 数组中的第K个最大元素</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <!-- <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> -->
+      Crafted with
+      <i class="iconfont icon-love" style="color: #f30;"></i>
+      by <a href="https://github.com/likailee" target="_blank" rel="noopener">Likai Lee</a>
+      | &copy; 2017 - 2020
+      <!-- <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a> -->
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?66c61a5fd59052d1b39d89c246846ae5";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
