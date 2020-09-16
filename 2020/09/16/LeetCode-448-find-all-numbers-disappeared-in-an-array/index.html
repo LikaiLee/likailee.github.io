@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 41. 缺失的第一个正数 - Likai Lee</title>
+  <title>LeetCode 448. 找到所有数组中消失的数字 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 41. 缺失的第一个正数
+                LeetCode 448. 找到所有数组中消失的数字
               
             </span>
 
@@ -154,7 +154,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-16 19:40">
+    <time datetime="2020-09-16 19:55">
       2020年9月16日 晚上
     </time>
   </div>
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      269 字
+      118 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      2
        分钟
     </span>
   
@@ -212,56 +212,21 @@
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/first-missing-positive/" target="_blank" rel="noopener">41. 缺失的第一个正数</a></p>
-<h1 id="哈希"><a class="markdownIt-Anchor" href="#哈希"></a> 哈希</h1>
-<p>空间不符合</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">firstMissingPositive</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = nums.length;
-    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-    &#125;
-    Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;
-        map.put(num, <span class="hljs-number">1</span>);
-    &#125;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len + <span class="hljs-number">1</span>; i++) &#123;
-        <span class="hljs-keyword">if</span> (!map.containsKey(i)) &#123;
-            <span class="hljs-keyword">return</span> i;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
-&#125;</code></pre>
-<h1 id="二分"><a class="markdownIt-Anchor" href="#二分"></a> 二分</h1>
-<p>时间不符合</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">firstMissingPositive</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = nums.length;
-    quickSort(nums, <span class="hljs-number">0</span>, len - <span class="hljs-number">1</span>);
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len; i++) &#123;
-        <span class="hljs-keyword">int</span> pos = binarySearch(i, nums);
-        <span class="hljs-keyword">if</span> (pos == -<span class="hljs-number">1</span>) &#123;
-            <span class="hljs-keyword">return</span> i;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> len + <span class="hljs-number">1</span>;
-&#125;</code></pre>
-<h1 id="原地哈希"><a class="markdownIt-Anchor" href="#原地哈希"></a> 原地哈希</h1>
-<p>第 i 个位置存放的数 = i + 1</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">firstMissingPositive</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+              <p><a href="https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/" target="_blank" rel="noopener">448. 找到所有数组中消失的数字</a></p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">findDisappearedNumbers</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
     <span class="hljs-keyword">int</span> len = nums.length;
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-comment">// nums[i] = i + 1</span>
-        <span class="hljs-comment">// 未出现的数一定在 [1, len + 1]</span>
-        <span class="hljs-keyword">while</span> (nums[i] &gt; <span class="hljs-number">0</span> &amp;&amp; nums[i] &lt;= len &amp;&amp; nums[i] != nums[nums[i] - <span class="hljs-number">1</span>]) &#123;
+        <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span> &lt;= nums[i] &amp;&amp; nums[i] &lt;= len &amp;&amp; nums[i] != nums[nums[i] - <span class="hljs-number">1</span>]) &#123;
             swap(nums, i, nums[i] - <span class="hljs-number">1</span>);
         &#125;
     &#125;
-    <span class="hljs-comment">// 当 第 i 个位置上的数不是 i + 1 时，说明 i + 1 没有出现过</span>
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
         <span class="hljs-keyword">if</span> (nums[i] != i + <span class="hljs-number">1</span>) &#123;
-            <span class="hljs-keyword">return</span> i + <span class="hljs-number">1</span>;
+            res.add(i + <span class="hljs-number">1</span>);
         &#125;
     &#125;
-    <span class="hljs-keyword">return</span> len + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> res;
 &#125;
 
 <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j)</span> </span>&#123;
@@ -289,8 +254,6 @@
                     
                       <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
-                    
                   </div>
                 
               </div>
@@ -302,18 +265,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/16/LeetCode-448-find-all-numbers-disappeared-in-an-array/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 448. 找到所有数组中消失的数字</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/16/os-overview/">
-                        <span class="hidden-mobile">操作系统总览</span>
+                      <a href="/2020/09/16/LeetCode-41-first-missing-positive/">
+                        <span class="hidden-mobile">LeetCode 41. 缺失的第一个正数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
