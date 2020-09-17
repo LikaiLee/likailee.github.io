@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 315. 计算右侧小于当前元素的个数</title>
+    <link href="/2020/09/17/LeetCode-315-count-of-smaller-numbers-after-self/"/>
+    <url>/2020/09/17/LeetCode-315-count-of-smaller-numbers-after-self/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/" target="_blank" rel="noopener">315. 计算右侧小于当前元素的个数</a></p><p>利用索引数组，对索引数组排序，就可根据索引保存对应位置的逆序数。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">countSmaller</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> list;    &#125;    <span class="hljs-comment">// 索引数组</span>    <span class="hljs-keyword">int</span>[] indexes = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    <span class="hljs-comment">// 保存每个位置的逆序数</span>    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        indexes[i] = i;    &#125;    mergeSort(indexes, nums, res, <span class="hljs-number">0</span>, len - <span class="hljs-number">1</span>);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> count : res) &#123;        list.add(count);    &#125;    <span class="hljs-keyword">return</span> list;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">mergeSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] indexes, <span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span>[] res, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;    <span class="hljs-keyword">if</span> (left &gt;= right) &#123;        <span class="hljs-keyword">return</span>;    &#125;    <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;    mergeSort(indexes, nums, res, left, mid);    mergeSort(indexes, nums, res, mid + <span class="hljs-number">1</span>, right);    <span class="hljs-keyword">if</span> (nums[indexes[mid]] &lt;= nums[indexes[mid + <span class="hljs-number">1</span>]]) &#123;        <span class="hljs-keyword">return</span>;    &#125;    mergeAndCountSmaller(indexes, nums, res, left, mid, right);&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">mergeAndCountSmaller</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] indexes, <span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span>[] res, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> mid, <span class="hljs-keyword">int</span> right)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = right - left + <span class="hljs-number">1</span>;    <span class="hljs-keyword">int</span>[] tmp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    <span class="hljs-keyword">int</span> i = left, j = mid + <span class="hljs-number">1</span>, k = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (i &lt;= mid &amp;&amp; j &lt;= right) &#123;        <span class="hljs-comment">// 比较索引对应位置上的数</span>        <span class="hljs-keyword">if</span> (nums[indexes[i]] &lt;= nums[indexes[j]]) &#123;            <span class="hljs-comment">// 更新比 nums[idx[i]] 小的数</span>            res[indexes[i]] += j - mid - <span class="hljs-number">1</span>;            tmp[k++] = indexes[i++];        &#125; <span class="hljs-keyword">else</span> &#123;            tmp[k++] = indexes[j++];        &#125;    &#125;    <span class="hljs-comment">// 合并剩下的数</span>    <span class="hljs-keyword">while</span> (i &lt;= mid) &#123;        <span class="hljs-comment">// 左边还有剩余，说明右边比它小的都已经归并回去了</span>        res[indexes[i]] += j - mid - <span class="hljs-number">1</span>;        tmp[k++] = indexes[i++];    &#125;    <span class="hljs-keyword">while</span> (j &lt;= right) &#123;        tmp[k++] = indexes[j++];    &#125;    System.arraycopy(tmp, <span class="hljs-number">0</span>, indexes, left, len);&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 442. 数组中重复的数据</title>
     <link href="/2020/09/16/LeetCode-442-find-all-duplicates-in-an-array/"/>
     <url>/2020/09/16/LeetCode-442-find-all-duplicates-in-an-array/</url>
