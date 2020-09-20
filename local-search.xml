@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>LeetCode 88. 合并两个有序数组</title>
+    <link href="/2020/09/20/LeetCode-88-merge-sorted-array/"/>
+    <url>/2020/09/20/LeetCode-88-merge-sorted-array/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/merge-sorted-array/" target="_blank" rel="noopener">88. 合并两个有序数组</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span>[] nums2, <span class="hljs-keyword">int</span> n)</span> </span>&#123;    <span class="hljs-keyword">int</span> k = m + n - <span class="hljs-number">1</span>;    m--;    n--;    <span class="hljs-keyword">while</span> (m &gt;= <span class="hljs-number">0</span> &amp;&amp; n &gt;= <span class="hljs-number">0</span>) &#123;        nums1[k--] = nums1[m] &gt; nums2[n] ? nums1[m--] : nums2[n--];    &#125;    <span class="hljs-keyword">while</span> (n &gt;= <span class="hljs-number">0</span>) &#123;        nums1[k--] = nums2[n--];    &#125;&#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span>[] nums2, <span class="hljs-keyword">int</span> n)</span> </span>&#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;            nums1[m++] = nums2[i];        &#125;        Arrays.sort(nums1);    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>LeetCode 66. 加一</title>
+    <link href="/2020/09/19/LeetCode-66-plus-one/"/>
+    <url>/2020/09/19/LeetCode-66-plus-one/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/plus-one/" target="_blank" rel="noopener">66. 加一</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] plusOne(<span class="hljs-keyword">int</span>[] digits) &#123;    <span class="hljs-keyword">int</span> len = digits.length;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;        digits[i]++;        <span class="hljs-comment">// 超过 10，则对 10 取余，下一位进位</span>        <span class="hljs-keyword">if</span> (digits[i] &gt;= <span class="hljs-number">10</span>) &#123;            digits[i] = digits[i] % <span class="hljs-number">10</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// 不超过 10，返回结果</span>            <span class="hljs-keyword">return</span> digits;        &#125;    &#125;    <span class="hljs-comment">// 第一位也超过 10，则长度 + 1，如 999</span>    <span class="hljs-keyword">int</span>[] newDigits = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len + <span class="hljs-number">1</span>];    newDigits[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;    <span class="hljs-keyword">return</span> newDigits;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>数学</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 27. 移除元素</title>
     <link href="/2020/09/18/LeetCode-27-remove-element/"/>
     <url>/2020/09/18/LeetCode-27-remove-element/</url>

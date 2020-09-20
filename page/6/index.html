@@ -170,6 +170,107 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/01/LeetCode-387-first-unique-character-in-a-string/">LeetCode 387. 字符串中的第一个唯一字符</a>
+
+      <a href="/2020/09/01/LeetCode-387-first-unique-character-in-a-string/" class="index-excerpt">
+        
+        
+          
+        
+        <div>387. 字符串中的第一个唯一字符
+ 解法一
+记录每个字母出现的次数。
+public int firstUniqChar(String s) &#123;
+    char[] chars = s.toCharArray();
+    int[] counts = new int[26];
+    // 记录每个字母出现的次数
+    for (char c : chars) &#123;
+   </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-01
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/01/sorting-algorithms/">排序算法</a>
+
+      <a href="/2020/09/01/sorting-algorithms/" class="index-excerpt">
+        
+        
+          
+        
+        <div>[TOC]
+ 插入排序
+ 1. 直接插入排序
+
+将每个元素依次插入前面已经排序好的序列。需要反复把已排序元素向后移，为新元素提供插入空间。
+
+
+空间复杂度：O(1)O(1)O(1)
+时间复杂度：每趟操作都要比较关键字和移动元素，而比较次数和移动次数取决于待排序表的初始状态。
+
+最好情况：元素已经有序，每个元素只需比较一次 - O(n)O(n)O(n)
+最坏情况：元素逆序 - O(n2)O(n^2)</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-01
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/31/LeetCode-771-jewels-and-stones/">LeetCode 771. 宝石与石头</a>
 
       <a href="/2020/08/31/LeetCode-771-jewels-and-stones/" class="index-excerpt">
@@ -553,100 +654,6 @@ public int[] countBits(int num) &#123;
               <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/28/LeetCode-190-reverse-bits/">LeetCode 190. 颠倒二进制位</a>
-
-      <a href="/2020/08/28/LeetCode-190-reverse-bits/" class="index-excerpt">
-        
-        
-          
-        
-        <div>190. 颠倒二进制位
- 解法一
-逐位移动，n 从右往左取，取出的每一位放到 res 中，res 从左往右放。
-public int reverseBits(int n) &#123;
-    int res = 0;
-    int mask = 31;
-    for (int i = 0; i &lt; 32; i++) &#123;
-        // 先左移空出最右边一位，再加上 n </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-28
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/28/LeetCode-50-powx-n/">LeetCode 50. Pow(x, n)</a>
-
-      <a href="/2020/08/28/LeetCode-50-powx-n/" class="index-excerpt">
-        
-        
-          
-        
-        <div>50. Pow(x, n)
- 快速幂 + 递归
-x77←x38⋅x←x19←x9⋅x←x4⋅x←x2←x←x0x^{77} \leftarrow x^{38} \cdot x \leftarrow x^{19} \leftarrow x^9 \cdot x \leftarrow x^4 \cdot x \leftarrow x^2 \leftarrow x \leftarrow x^0
-x77←x</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-28
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
             
