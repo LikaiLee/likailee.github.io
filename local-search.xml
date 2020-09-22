@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 75. 颜色分类</title>
+    <link href="/2020/09/22/LeetCode-75-sort-colors/"/>
+    <url>/2020/09/22/LeetCode-75-sort-colors/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/sort-colors/" target="_blank" rel="noopener">75. 颜色分类</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sortColors</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-comment">// 0,0,0,.zero.1,1,1,1,1.two.2,2,2,2,2,len</span>    <span class="hljs-comment">// [0, zero) 0</span>    <span class="hljs-comment">// [zero, i) 1</span>    <span class="hljs-comment">// [two, len) 2</span>    <span class="hljs-comment">// `0` 的边界从 0 开始</span>    <span class="hljs-keyword">int</span> zero = <span class="hljs-number">0</span>;    <span class="hljs-comment">// `2` 的边界从最后一个元素开始</span>    <span class="hljs-keyword">int</span> two = len - <span class="hljs-number">1</span>;    <span class="hljs-comment">// 遍历起点</span>    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 当 i == two 时，还差一个元素未访问</span>    <span class="hljs-keyword">while</span> (i &lt;= two) &#123;        <span class="hljs-keyword">if</span> (nums[i] == <span class="hljs-number">0</span>) &#123;            swap(nums, i, zero);            zero++;            i++;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[i] == <span class="hljs-number">1</span>) &#123;            i++;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[i] == <span class="hljs-number">2</span>) &#123;            <span class="hljs-comment">// 此时不需要 i++，否则交换过来的 nums[i] 未判断</span>            swap(nums, i, two);            two--;        &#125;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 451. 根据字符出现频率排序</title>
     <link href="/2020/09/21/LeetCode-451-sort-characters-by-frequency/"/>
     <url>/2020/09/21/LeetCode-451-sort-characters-by-frequency/</url>
@@ -833,9 +862,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1266,9 +1295,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>字符串</tag>
-      
       <tag>排序</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2320,9 +2349,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
