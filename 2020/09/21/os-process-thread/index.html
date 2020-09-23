@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12.7k 字
+      17.1k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      133
+      180
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月22日 下午
+                  本文最后更新于：2020年9月23日 下午
                 
               </p>
             
@@ -683,8 +683,218 @@ semaphore full = <span class="hljs-number">0</span>;
 <li>但是如果是在分布式系统中，可能同时具有多个 <code>CPU</code> 的情况，并且每个 <code>CPU</code> 都有自己的私有内存呢，它们通过网络相连，那么这些原语将会失效。因为信号量太低级了，而管程在少数几种编程语言之外无法使用，所以还需要其他方法。</li>
 </ul>
 <h2 id="消息传递"><a class="markdownIt-Anchor" href="#消息传递"></a> 消息传递</h2>
+<p><code>消息传递(messaage passing)</code> 使用两个原语 <code>send</code> 和 <code>receive</code>，它们像信号量而不像管程，是系统调用而不是语言级别。示例如下</p>
+<pre><code class="hljs c">send(destination, &amp;message);
+
+receive(source, &amp;message);</code></pre>
+<p><code>send</code> 方法用于向一个给定的目标发送一条消息，<code>receive</code> 从一个给定的源接受一条消息。如果没有消息，接受者可能被阻塞，直到接受一条消息或者带着错误码返回。</p>
+<h3 id="设计要点"><a class="markdownIt-Anchor" href="#设计要点"></a> 设计要点</h3>
+<p>消息传递系统现在面临着许多信号量和管程所未涉及的问题和设计难点，尤其对那些在网络中不同机器上的通信状况。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200923130422.png" srcset="/img/loading.gif" alt="" /></p>
+<ul>
+<li>
+<p><strong>消息丢失</strong> - 为了防止消息丢失，发送方和接收方可以达成一致：一旦接受到消息后，接收方马上回送一条特殊的 <code>确认(acknowledgement)</code> 消息。如果发送方在一段时间间隔内未收到确认，则重发消息。</p>
+</li>
+<li>
+<p><strong>确认消息丢失</strong> - 发送者将重发消息，这样接受者将收到两次相同的消息。对于接收者来说，如何区分新的消息和一条重发的老消息是非常重要的。通常采用<strong>在每条原始消息中嵌入一个连续的序号</strong>来解决此问题。如果接受者收到一条消息，它具有与前面某一条消息一样的序号，就知道这条消息是重复的，可以忽略。</p>
+</li>
+</ul>
+<h3 id="用消息传递解决生产者-消费者问题"><a class="markdownIt-Anchor" href="#用消息传递解决生产者-消费者问题"></a> 用消息传递解决生产者-消费者问题</h3>
+<pre><code class="hljs c"><span class="hljs-comment">/* buffer 中槽的数量 */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 100													</span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">producer</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>&#123;
+  
+  <span class="hljs-keyword">int</span> item;
+  <span class="hljs-comment">/* buffer 中槽的数量 */</span>
+  message m;													
+  
+  <span class="hljs-keyword">while</span>(TRUE)&#123;
+    <span class="hljs-comment">/* 生成放入缓冲区的数据 */</span>
+    item = produce_item();						
+    <span class="hljs-comment">/* 等待消费者发送空缓冲区 */</span>
+    receive(consumer,&amp;m);							
+    <span class="hljs-comment">/* 建立一个待发送的消息 */</span>
+    build_message(&amp;m,item);						
+    <span class="hljs-comment">/* 发送给消费者 */</span>
+    send(consumer,&amp;m);								
+  &#125;
+  
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">consumer</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>&#123;
+  
+  <span class="hljs-keyword">int</span> item,i;
+  message m;
+  
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i &lt; N;i++)&#123;						
+    <span class="hljs-comment">/* 发送 N 个缓冲区 */</span>
+    send(producer,&amp;m);								
+  &#125;
+  <span class="hljs-keyword">while</span>(TRUE)&#123;
+    <span class="hljs-comment">/* 接受包含数据的消息 */</span>
+    receive(producer,&amp;m);							
+    <span class="hljs-comment">/* 将数据从消息中提取出来 */</span>
+    item = extract_item(&amp;m);					
+    <span class="hljs-comment">/* 将空缓冲区发送回生产者 */</span>
+    send(producer,&amp;m);								
+    <span class="hljs-comment">/* 处理数据 */</span>
+    consume_item(item);								
+  &#125;
+  
+&#125;</code></pre>
+<p>在该解决方案中共使用 <code>N</code> 条消息，这就类似于一块共享内存缓冲区的 <code>N</code> 个槽。消费者首先将 <code>N</code> 条空消息发送给生产者。当生产者向消费者传递一个数据项时，它取走一条空消息并返回一条填充了内容的消息。通过这种方式，系统中总的消息数量保持不变，所以消息都可以存放在事先确定数量的内存中。</p>
 <h2 id="屏障"><a class="markdownIt-Anchor" href="#屏障"></a> 屏障</h2>
-<h2 id="避免锁读-复制-更新"><a class="markdownIt-Anchor" href="#避免锁读-复制-更新"></a> 避免锁：读-复制-更新</h2>
+<p>屏障是用于<strong>进程组</strong>而不是进程间的生产者-消费者情况的。在某些应用中划分了若干阶段，并且规定，除非<strong>所有的进程都就绪</strong>准备进入下一个阶段，否则任何进程都不能进入下一个阶段，可以通过在每个阶段的结尾安装一个 <code>屏障(barrier)</code> 来实现这种行为。当一个进程到达屏障时，它会被屏障所拦截，直到所有的屏障都到达为止。屏障可用于一组进程同步，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200923131256.png" srcset="/img/loading.gif" alt="" /></p>
+<h1 id="调度"><a class="markdownIt-Anchor" href="#调度"></a> 调度</h1>
+<p>在多道程序系统中，<strong>调度的实质是一种资源分配</strong>，多个进程或者线程同时竞争 <code>CPU</code> 和<code>时间片</code>，通过调度算法来选择需要运行的进程/线程。</p>
+<h2 id="调度介绍"><a class="markdownIt-Anchor" href="#调度介绍"></a> 调度介绍</h2>
+<p>批处理系统的时代：依次运行磁带上的每一个作业。<br />
+对于多道程序设计系统，会复杂一些，因为通常会有多个用户在等待服务。一些大型机仍然将 <code>批处理</code> 和 <code>分时服务</code> 结合使用，需要调度程序决定下一个运行的是一个批处理作业还是终端上的用户。由于在这些机器中 <code>CPU</code> 是稀缺资源，所以好的调度程序可以在提高性能和用户的满意度方面取得很大的成果。</p>
+<h3 id="进程行为"><a class="markdownIt-Anchor" href="#进程行为"></a> 进程行为</h3>
+<p><strong>几乎所有的进程（磁盘或网络）I/O 请求和计算都是交替运行的。</strong><br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200923134601.png" srcset="/img/loading.gif" alt="" /><br />
+上面 <code>a</code> 是 <code>CPU 密集型</code> 进程；<code>b</code> 是 <code>I/O 密集型</code> 进程，<code>a</code> 因为在计算的时间上花费时间更长，因此称为 <code>计算密集型(compute-bound)</code> 或者 <code>CPU 密集型(CPU-bound)</code>，<code>b</code> 因为 <code>I/O</code> 发生频率比较快因此称为 <code>I/O 密集型(I/O-bound)</code>。</p>
+<ul>
+<li>计算密集型进程有较长的 <code>CPU</code> 集中使用和较小频度的 <code>I/O</code> 等待。</li>
+<li><code>I/O</code> 密集型进程有较短的 <code>CPU</code> 使用时间和较频繁的 <code>I/O</code> 等待。</li>
+</ul>
+<p>注意到上面两种进程的区分关键在于 <strong><code>CPU</code> 的时间占用</strong>而不是 <code>I/O</code> 的时间占用。<br />
+<code>I/O 密集型</code> 的原因是因为<strong>它们没有在 <code>I/O</code> 之间花费更多的计算、而不是 <code>I/O</code> 请求时间特别长</strong>。无论数据到达后需要花费多少时间，它们都需要花费相同的时间来发出读取磁盘块的硬件请求。</p>
+<p>值得注意的是，随着 <code>CPU</code> 的速度越来越快，更多的进程倾向于 <code>I/O 密集型</code>。这种情况出现的原因是 <code>CPU</code> 速度的提升要远远高于硬盘。这种情况导致的结果是，未来对 <code>I/O</code> 密集型进程的调度处理似乎更为重要。这里的基本思想是，如果需要运行 <code>I/O</code> 密集型进程，那么就应该让它尽快得到机会，以便发出磁盘请求并保持磁盘始终忙碌。</p>
+<h3 id="何时调度"><a class="markdownIt-Anchor" href="#何时调度"></a> 何时调度</h3>
+<p>第一个和调度有关的问题是<strong>何时进行调度决策</strong>。存在着需要调度处理的各种情形。</p>
+<ul>
+<li>
+<p>首先，在创建一个新进程后，需要决定是运行父进程还是子进程。因为二者的进程都处于就绪态下，这是正常的调度决策，可以任意选择，也就是说，调度程序可以任意的选择子进程或父进程开始运行。</p>
+</li>
+<li>
+<p>第二，在进程退出时需要作出调度决定。因为此进程不再运行（因为它将不再存在），因此必须从就绪进程中选择其他进程运行。如果没有进程处于就绪态，系统提供的空闲进程通常会运行。</p>
+</li>
+</ul>
+<h3 id="调度算法的分类"><a class="markdownIt-Anchor" href="#调度算法的分类"></a> 调度算法的分类</h3>
+<p>不同的环境下需要不同的调度算法。之所以出现这种情况，是因为不同的应用程序和不同的操作系统有不同的目标。也就是说，<strong>在不同的系统中，调度程序的优化也是不同的</strong>。这里有必要划分出三种环境：</p>
+<ol>
+<li>
+<p><code>批处理(Batch)</code>：<br />
+批处理系统广泛应用于商业领域，比如用来处理工资单、存货清单、账目收入、账目支出、利息计算、索赔处理和其他周期性作业。在批处理系统中，<strong>一般会选择使用<code>非抢占式算法</code>或者<code>周期性比较长的抢占式算法</code></strong>。这种方法可以<code>减少线程切换</code>因此能够提升性能。</p>
+</li>
+<li>
+<p><code>交互式(Interactive)</code>：<br />
+在交互式用户环境中，为了避免一个进程霸占 <code>CPU</code> 拒绝为其他进程服务，所以需要<code>抢占式算法</code>。即使没有进程有意要一直运行下去，但是，由于某个进程出现错误也有可能无限期的排斥其他所有进程。为了避免这种情况，抢占式也是必须的。服务器也属于此类别，因为它们通常为多个（远程）用户提供服务，而这些用户都非常着急，计算机用户总是很忙。</p>
+</li>
+<li>
+<p><code>实时(Real time)</code>：<br />
+在实时系统中，抢占有时是不需要的，因为进程知道自己可能运行不了很长时间，通常很快的做完自己的工作并阻塞。</p>
+</li>
+</ol>
+<p>实时系统与交互式系统的差别是，实时系统只运行那些用来推进现有应用的程序，而交互式系统是通用的，它可以运行任意的非协作甚至是有恶意的程序。</p>
+<h3 id="调度算法的目标"><a class="markdownIt-Anchor" href="#调度算法的目标"></a> 调度算法的目标</h3>
+<p>所有系统:</p>
+<ul>
+<li>公平：给每个进程公平的 <code>CPU</code> 份额。</li>
+<li>策略强制执行：保证规定的策略被执行。</li>
+<li>平衡：保持系统的所有部分都忙碌。</li>
+</ul>
+<p>批处理系统：</p>
+<ul>
+<li>吞吐量：系统每小时完成的作业数量。</li>
+<li>周转时间：一个批处理提交开始直到作业完成时刻为止平均时间。该数据度量了用户要得到输出所需的平均等待时间。周转时间越小越好。</li>
+<li><code>CPU</code> 利用率：保持 <code>CPU</code> 时钟忙碌。</li>
+</ul>
+<p>交互式系统：</p>
+<ul>
+<li>减少响应时间。</li>
+<li>均衡性：满足用户期望。</li>
+</ul>
+<p>实时系统</p>
+<ul>
+<li>必须满足最后的截止时间：避免数据丢失。</li>
+<li>可预测性：多媒体系统中避免品质降低。</li>
+</ul>
+<h2 id="批处理中的调度"><a class="markdownIt-Anchor" href="#批处理中的调度"></a> 批处理中的调度</h2>
+<h3 id="先来先服务"><a class="markdownIt-Anchor" href="#先来先服务"></a> 先来先服务</h3>
+<p><code>先来先服务(first-come,first-serverd)</code> <strong>将按照请求顺序为进程分配 <code>CPU</code>。</strong> 最基本的，会有一个就绪进程的等待队列。</p>
+<ul>
+<li>当第一个任务从外部进入系统时，将会立即启动并允许运行任意长的时间。它不会因为运行时间太长而中断。当其他作业进入时，它们排到就绪队列尾部。</li>
+<li>当正在运行的进程阻塞，处于等待队列的第一个进程就开始运行。</li>
+<li>当一个阻塞的进程重新处于就绪态时，它会像一个新到达的任务，会排在队列的末尾，即排在所有进程最后。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200923142129.png" srcset="/img/loading.gif" alt="" /></li>
+</ul>
+<p>缺点：<strong>没有优先级的关系</strong>，试想一下，如果有 100 个 I/O 进程正在排队，第 101 个是一个 CPU 密集型进程，那岂不是需要等 100 个 I/O 进程运行完毕才会等到一个 CPU 密集型进程运行，这在实际情况下根本不可能，所以需要 <code>优先级</code> 或者 <code>抢占式</code> 进程的出现来优先选择重要的进程运行。</p>
+<h3 id="最短作业优先"><a class="markdownIt-Anchor" href="#最短作业优先"></a> 最短作业优先</h3>
+<p><code>最短作业优先(Shortest Job First)</code> 以作业的长短来计算优先级，作业越短，其优先级越高。</p>
+<blockquote>
+<p>需要注意的是，在所有的进程都可以运行的情况下，最短作业优先的算法才是最优的。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200923142638.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="最短剩余时间优先"><a class="markdownIt-Anchor" href="#最短剩余时间优先"></a> 最短剩余时间优先</h3>
+<p>最短作业优先的<code>抢占式</code>版本被称作为 <code>最短剩余时间优先(Shortest Remaining Time Next)</code> 算法。使用这个算法，调度程序总是选择<strong>剩余运行时间最短</strong>的那个进程运行。当一个新作业到达时，其整个时间同当前进程的剩余时间做比较。如果新的进程比当前运行进程需要更少的时间，当前进程就被挂起，而运行新的进程。这种方式能够使短期作业获得良好的服务。</p>
+<h2 id="交互式系统中的调度"><a class="markdownIt-Anchor" href="#交互式系统中的调度"></a> 交互式系统中的调度</h2>
+<h3 id="轮询调度"><a class="markdownIt-Anchor" href="#轮询调度"></a> 轮询调度</h3>
+<p>一种最古老、最简单、最公平并且最广泛使用的算法就是 <code>轮询算法(round-robin)</code>。每个进程都会被分配一个时间段，称为 <code>时间片(quantum)</code>，在这个时间片内允许进程运行。</p>
+<p>切换时机：</p>
+<ul>
+<li>如果时间片结束时进程还在运行的话，则抢占一个 <code>CPU</code> 并将其分配给另一个进程。</li>
+<li>如果进程在时间片结束前阻塞或结束，则 <code>CPU</code> 立即进行切换。</li>
+</ul>
+<p>时间片大小：</p>
+<ul>
+<li>小时间片有利于短作业，但会频繁执行进程调度和上下文切换。</li>
+<li>长时间片，为了使每个进程在一个时间片内完成，RR 算法便退化为 FCFS 算法，无法满足短作业和交互用户的需求。</li>
+<li>一个较为可取的时间片大小是略大于一次典型的交互所需要的时间，使大多数交互式进程能在一个时间片内完成，从而可以获得很小的响应时间。</li>
+</ul>
+<p>轮询算法比较容易实现。调度程序所做的就是维护一个可运行进程的列表，就像下图中的 <code>a</code>，当一个进程用完时间片后就被移到队列的末尾，就像下图的 <code>b</code>。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200923143142.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="优先级调度"><a class="markdownIt-Anchor" href="#优先级调度"></a> 优先级调度</h3>
+<p><code>优先级调度(priority scheduling)</code> 是把处理机分配给就绪队列中优先级最高的进程。</p>
+<p>但是也不意味着高优先级的进程能够永远一直运行下去，调度程序会在每个时钟中断期间降低当前运行进程的优先级。如果此操作导致其优先级降低到下一个最高进程的优先级以下，则会发生进程切换。或者，可以为每个进程分配允许运行的最大时间间隔。当时间间隔用完后，下一个高优先级的进程会得到运行的机会。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200923144447.png" srcset="/img/loading.gif" alt="" /><br />
+算法类型：</p>
+<ul>
+<li>非抢占式：一旦 CPU 分配给就绪队列中优先级最高的进程后，该进程便一直执行下去直至完成。</li>
+<li>抢占式：在优先级最高的进程执行期间，只要出现另一个优先级更高的进程，就将 CPU 分配给新的最高优先级进程。</li>
+</ul>
+<p>优先级类型：</p>
+<ul>
+<li>静态优先级：在创建进程时确定优先级，在进程的整个运行期间保持不变。</li>
+<li>动态优先级：在创建进程之初，先赋予一个优先级，然后其值随进程的推进或等待时间的增加而改变，以便获得更好的调度性能。</li>
+</ul>
+<h3 id="多级队列"><a class="markdownIt-Anchor" href="#多级队列"></a> 多级队列</h3>
+<p>将系统中的进程就绪队列从一个拆分为若干个，将不同类型或性质的进程固定分配在不同的就绪队列，不同的就绪队列采用不同的调度算法，一个就绪队列中的进程可以设置不同的优先级，就绪队列本身也可以设置不同的优先级。</p>
+<h3 id="最短进程优先"><a class="markdownIt-Anchor" href="#最短进程优先"></a> 最短进程优先</h3>
+<p>根据进程过去的行为进行推测，并执行估计运行时间最短的那一个。<br />
+假设每个终端上每条命令的预估运行时间为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">T_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，现在假设测量到其下一次运行时间为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">T_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，可以用两个值的加权来改进估计时间，即 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><msub><mi>T</mi><mn>0</mn></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>a</mi><mo stretchy="false">)</mo><msub><mi>T</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">aT_0 + (1 - a)T_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathdefault">a</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mclose">)</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。通过选择 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span> 的值，可以决定是尽快忘掉老的运行时间，还是在一段长时间内始终记住它们。当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">a = \frac{1}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> 时，可以得到下面这个序列：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">T_0 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><msub><mi>T</mi><mn>0</mn></msub><mn>2</mn></mfrac><mo>+</mo><mfrac><msub><mi>T</mi><mn>1</mn></msub><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{T_0}{2} + \frac{T_1}{2}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><msub><mi>T</mi><mn>0</mn></msub><mn>4</mn></mfrac><mo>+</mo><mfrac><msub><mi>T</mi><mn>1</mn></msub><mn>4</mn></mfrac><mo>+</mo><mfrac><msub><mi>T</mi><mn>2</mn></msub><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{T_0}{4} + \frac{T_1}{4} + \frac{T_2}{2}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">4</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">4</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><msub><mi>T</mi><mn>0</mn></msub><mn>8</mn></mfrac><mo>+</mo><mfrac><msub><mi>T</mi><mn>1</mn></msub><mn>8</mn></mfrac><mo>+</mo><mfrac><msub><mi>T</mi><mn>2</mn></msub><mn>4</mn></mfrac><mo>+</mo><mfrac><msub><mi>T</mi><mn>3</mn></msub><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{T_0}{8} + \frac{T_1}{8} + \frac{T_2}{4} + \frac{T_3}{2}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">8</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">8</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">4</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>可以看到，在三轮过后，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">T_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 在新的估计值中所占比重下降至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">1/8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">8</span></span></span></span>。</p>
+<p>有时把这种通过当前测量值和先前估计值进行加权平均从而得到下一个估计值的技术称作 <code>老化(aging)</code>。这种方法会使用很多预测值基于当前值的情况。</p>
+<h3 id="保证调度"><a class="markdownIt-Anchor" href="#保证调度"></a> 保证调度</h3>
+<p>对用户做出明确的性能保证。一种实际而且容易实现的保证是：在一个有 <code>n</code> 个进程运行的单用户系统中，若所有的进程都等价，则每个进程将获得 <code>1/n</code> 的 <code>CPU</code> 时间。</p>
+<h3 id="彩票调度"><a class="markdownIt-Anchor" href="#彩票调度"></a> 彩票调度</h3>
+<p><code>彩票调度(lottery scheduling)算法</code> 为进程提供各种系统资源（例如 CPU 时间）的彩票。当做出一个调度决策的时候，就随机抽出一张彩票，拥有彩票的进程将获得该资源。在应用到 CPU 调度时，系统可以每秒持有 50 次抽奖，每个中奖者将获得比如 20 毫秒的 CPU 时间作为奖励。</p>
+<ul>
+<li>
+<p><strong>所有的进程是平等的，但是某些进程能够更平等一些。</strong> 一些重要的进程可以给它们额外的彩票，以便增加他们赢得的机会。<br />
+如果出售了 100 张彩票，而且有一个进程持有了它们中的 20 张，它就会有 20% 的机会去赢得彩票中奖。在长时间的运行中，它就会获得 20% 的CPU。相反，对于优先级调度程序，很难说明拥有优先级 40 究竟是什么意思，这里的规则很清楚，拥有彩票 f 份额的进程大约得到系统资源的 f 份额。</p>
+</li>
+<li>
+<p><strong>如果希望进程之间协作的话可以交换它们之间的票据。</strong> 例如，客户端进程给服务器进程发送了一条消息后阻塞，客户端进程可能会把自己所有的票据都交给服务器，来增加下一次服务器运行的机会。当服务完成后，它会把彩票还给客户端让其有机会再次运行。事实上，如果没有客户机，服务器也根本不需要彩票。</p>
+</li>
+</ul>
+<h3 id="公平分享调度"><a class="markdownIt-Anchor" href="#公平分享调度"></a> 公平分享调度</h3>
+<p>一些系统在调度前会把<strong>进程的拥有者</strong>考虑在内。在这种模型下，<strong>每个用户都会分配一些 <code>CPU</code> 时间，而调度程序会选择进程并强制执行。</strong> 因此如果两个用户每个都会有 <code>50%</code> 的 <code>CPU</code> 时间片保证，那么无论一个用户有多少个进程，都将获得相同的 <code>CPU</code> 份额。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200923151340.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="实时系统中的调度"><a class="markdownIt-Anchor" href="#实时系统中的调度"></a> 实时系统中的调度</h2>
+<h2 id="调度策略和机制"><a class="markdownIt-Anchor" href="#调度策略和机制"></a> 调度策略和机制</h2>
+<h2 id="线程调度"><a class="markdownIt-Anchor" href="#线程调度"></a> 线程调度</h2>
 
             </article>
             <hr>
@@ -911,6 +1121,13 @@ semaphore full = <span class="hljs-number">0</span>;
 
 
 
+
+  
+
+  
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
+  
 
 
 
