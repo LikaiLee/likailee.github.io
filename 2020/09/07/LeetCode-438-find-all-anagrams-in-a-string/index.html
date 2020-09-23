@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      451 字
+      465 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      7
        分钟
     </span>
   
@@ -276,6 +276,7 @@
         right++;
         <span class="hljs-comment">// 字符数等于目标大小</span>
         <span class="hljs-keyword">while</span> (count == pLen) &#123;
+            <span class="hljs-comment">// 异位词：窗口长度 == 目标长度 才更新</span>
             <span class="hljs-keyword">if</span> (right - left == pLen) &#123;
                 res.add(left);
             &#125;
