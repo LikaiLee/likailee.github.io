@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      242 字
+      451 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      6
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月7日 晚上
+                  本文最后更新于：2020年9月23日 晚上
                 
               </p>
             
@@ -241,6 +241,56 @@
         <span class="hljs-comment">// 长度满足目标长度</span>
         <span class="hljs-keyword">if</span> (right - left == len) &#123;
             res.add(left);
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> res;
+&#125;</code></pre>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">findAnagrams</span><span class="hljs-params">(String s, String p)</span> </span>&#123;
+    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-keyword">char</span>[] sChar = s.toCharArray();
+    <span class="hljs-keyword">char</span>[] pChar = p.toCharArray();
+    <span class="hljs-comment">// 窗口中每个有效字符的出现次数</span>
+    <span class="hljs-keyword">int</span>[] window = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];
+    <span class="hljs-comment">// 需要的字符出现次数</span>
+    <span class="hljs-keyword">int</span>[] needs = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : pChar) &#123;
+        needs[c - <span class="hljs-string">'a'</span>]++;
+    &#125;
+    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> sLen = s.length();
+    <span class="hljs-keyword">int</span> pLen = p.length();
+    <span class="hljs-comment">// 窗口中满足要求的有效字符数</span>
+    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span> (right &lt; sLen) &#123;
+        <span class="hljs-keyword">int</span> pos = sChar[right] - <span class="hljs-string">'a'</span>;
+        <span class="hljs-comment">// 不是有效字符</span>
+        <span class="hljs-keyword">if</span> (needs[pos] == <span class="hljs-number">0</span>) &#123;
+            right++;
+            <span class="hljs-keyword">continue</span>;
+        &#125;
+        <span class="hljs-comment">// 当前字符满足要求</span>
+        <span class="hljs-keyword">if</span> (window[pos] &lt; needs[pos]) &#123;
+            count++;
+        &#125;
+        window[pos]++;
+        right++;
+        <span class="hljs-comment">// 字符数等于目标大小</span>
+        <span class="hljs-keyword">while</span> (count == pLen) &#123;
+            <span class="hljs-keyword">if</span> (right - left == pLen) &#123;
+                res.add(left);
+            &#125;
+            <span class="hljs-keyword">int</span> leftPos = sChar[left] - <span class="hljs-string">'a'</span>;
+            <span class="hljs-comment">// left 不在目标字符中</span>
+            <span class="hljs-keyword">if</span> (needs[leftPos] == <span class="hljs-number">0</span>) &#123;
+                left++;
+                <span class="hljs-keyword">continue</span>;
+            &#125;
+            <span class="hljs-comment">// left 在目标字符中</span>
+            <span class="hljs-keyword">if</span> (window[leftPos] == needs[leftPos]) &#123;
+                count--;
+            &#125;
+            window[leftPos]--;
+            left++;
         &#125;
     &#125;
     <span class="hljs-keyword">return</span> res;
