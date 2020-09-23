@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 76. 最小覆盖子串</title>
+    <link href="/2020/09/23/LeetCode-76-minimum-window-substring/"/>
+    <url>/2020/09/23/LeetCode-76-minimum-window-substring/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/minimum-window-substring/" target="_blank" rel="noopener">76. 最小覆盖子串</a></p><p>使用一个计数器统计窗口内目标字符的出现次数，当满足要求时，移动 left，并更新最小长度，若移除的字符为目标字符，则计数器也要减小。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">minWindow</span><span class="hljs-params">(String s, String t)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] sChar = s.toCharArray();    <span class="hljs-keyword">char</span>[] tChar = t.toCharArray();    <span class="hljs-keyword">int</span> sLen = s.length();    <span class="hljs-keyword">int</span> tLen = t.length();    <span class="hljs-comment">// 只统计窗口内目标字符的出现次数</span>    <span class="hljs-keyword">int</span>[] window = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">128</span>];    <span class="hljs-keyword">int</span>[] needs = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">128</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : tChar) &#123;        needs[c]++;    &#125;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>, begin = <span class="hljs-number">0</span>, minLen = sLen + <span class="hljs-number">1</span>;    <span class="hljs-comment">// 滑动窗口内包含 t 中字符的个数</span>    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (right &lt; sLen) &#123;        <span class="hljs-keyword">char</span> c = sChar[right];        <span class="hljs-comment">// 当前字符不在 t 中，right 向右移动</span>        <span class="hljs-keyword">if</span> (needs[c] == <span class="hljs-number">0</span>) &#123;            right++;            <span class="hljs-keyword">continue</span>;        &#125;        <span class="hljs-comment">// 统计窗口中目标字符的长度</span>        <span class="hljs-keyword">if</span> (window[c] &lt; needs[c]) &#123;            count++;        &#125;        <span class="hljs-comment">// 更新窗口中目标字符出现次数</span>        window[c]++;        right++;        <span class="hljs-comment">// 有效字符个数满足要求</span>        <span class="hljs-keyword">while</span> (count == tLen) &#123;            <span class="hljs-comment">// 更新最小长度</span>            <span class="hljs-keyword">if</span> (right - left &lt; minLen) &#123;                minLen = right - left;                begin = left;            &#125;            <span class="hljs-comment">// 左边需要移除的字符</span>            <span class="hljs-keyword">char</span> leftChar = sChar[left];            <span class="hljs-comment">// 移除的字符不在目标字符中，则直接移动 left</span>            <span class="hljs-keyword">if</span> (needs[leftChar] == <span class="hljs-number">0</span>) &#123;                left++;                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-comment">// 移除的字符出现的目标字符中，则减少有效字符长度</span>            <span class="hljs-keyword">if</span> (window[leftChar] == needs[leftChar]) &#123;                count--;            &#125;            window[leftChar]--;            left++;        &#125;    &#125;    <span class="hljs-keyword">if</span> (minLen == sLen + <span class="hljs-number">1</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;    &#125;    <span class="hljs-keyword">return</span> s.substring(begin, begin + minLen);&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>滑动窗口</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 283. 移动零</title>
     <link href="/2020/09/22/LeetCode-283-move-zeroes/"/>
     <url>/2020/09/22/LeetCode-283-move-zeroes/</url>
@@ -686,9 +715,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -889,9 +918,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -1038,9 +1067,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1320,9 +1349,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -2376,9 +2405,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
