@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 209. 长度最小的子数组</title>
+    <link href="/2020/09/24/LeetCode-209-minimum-size-subarray-sum/"/>
+    <url>/2020/09/24/LeetCode-209-minimum-size-subarray-sum/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/minimum-size-subarray-sum/" target="_blank" rel="noopener">209. 长度最小的子数组</a></p><h1 id="滑动窗口"><a class="markdownIt-Anchor" href="#滑动窗口"></a> 滑动窗口</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minSubArrayLen</span><span class="hljs-params">(<span class="hljs-keyword">int</span> s, <span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> minLen = Integer.MAX_VALUE;    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        <span class="hljs-comment">// 计算前缀和</span>        sum += nums[right];        right++;        <span class="hljs-comment">// 当前缀和 &gt; target，尝试右移 left</span>        <span class="hljs-keyword">while</span> (sum &gt;= s) &#123;            <span class="hljs-comment">// 更新最小长度</span>            <span class="hljs-keyword">if</span> (right - left &lt; minLen) &#123;                minLen = right - left;            &#125;            <span class="hljs-comment">// 右移 left 之前要减去 left 对应的值</span>            sum -= nums[left];            left++;        &#125;    &#125;    <span class="hljs-keyword">return</span> minLen == Integer.MAX_VALUE ? <span class="hljs-number">0</span> : minLen;&#125;</code></pre><h1 id="二分"><a class="markdownIt-Anchor" href="#二分"></a> 二分</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minSubArrayLen</span><span class="hljs-params">(<span class="hljs-keyword">int</span> s, <span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-comment">// 计算前缀和数组</span>    <span class="hljs-keyword">int</span>[] preSum = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    preSum[<span class="hljs-number">0</span>] = nums[<span class="hljs-number">0</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;        preSum[i] = nums[i] + preSum[i - <span class="hljs-number">1</span>];    &#125;    <span class="hljs-keyword">int</span> minLen = Integer.MAX_VALUE;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">int</span> s1 = s - nums[i];        <span class="hljs-comment">// preSum[i.....j]</span>        <span class="hljs-comment">// 找到一个 preSum[j]，使得 preSum[j] - preSum[i] &gt;= s</span>        <span class="hljs-keyword">int</span> j = binarySearch(preSum, i, len - <span class="hljs-number">1</span>, s1 + preSum[i]);        <span class="hljs-keyword">if</span> (j != -<span class="hljs-number">1</span>) &#123;            minLen = Math.min(minLen, j - i + <span class="hljs-number">1</span>);        &#125;    &#125;    <span class="hljs-keyword">return</span> minLen == Integer.MAX_VALUE ? <span class="hljs-number">0</span> : minLen;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] preSum, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> target)</span> </span>&#123;    <span class="hljs-keyword">int</span> mid = -<span class="hljs-number">1</span>;    <span class="hljs-keyword">while</span> (left &lt;= right) &#123;        mid = left + (right - left) / <span class="hljs-number">2</span>;        <span class="hljs-keyword">if</span> (preSum[mid] == target) &#123;            <span class="hljs-keyword">return</span> mid;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (preSum[mid] &gt; target) &#123;            right = mid - <span class="hljs-number">1</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            left = mid + <span class="hljs-number">1</span>;        &#125;    &#125;    <span class="hljs-comment">// 找不到 == target 的 preSum[j]，则返回第一个 &gt; target 的元素</span>    <span class="hljs-keyword">return</span> preSum[mid] &gt; target ? mid : -<span class="hljs-number">1</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>二分</tag>
+      
+      <tag>滑动窗口</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>操作系统 内存管理</title>
     <link href="/2020/09/24/os-ram-manage/"/>
     <url>/2020/09/24/os-ram-manage/</url>
@@ -622,9 +651,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -707,9 +736,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -738,11 +767,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -767,9 +796,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -796,9 +825,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -825,9 +854,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -854,9 +883,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -883,9 +912,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -912,9 +941,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -943,9 +972,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1059,9 +1088,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1090,11 +1119,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1119,9 +1148,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -1177,9 +1206,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -1262,9 +1291,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -1372,11 +1401,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -1430,9 +1459,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1461,9 +1490,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1490,9 +1519,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -1521,9 +1550,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1550,9 +1579,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1579,9 +1608,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1606,9 +1635,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1633,9 +1662,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1685,9 +1714,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1712,9 +1741,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1739,9 +1768,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2430,9 +2459,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2594,9 +2623,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
