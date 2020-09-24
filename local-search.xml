@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 424. 替换后的最长重复字符</title>
+    <link href="/2020/09/24/LeetCode-424-longest-repeating-character-replacement/"/>
+    <url>/2020/09/24/LeetCode-424-longest-repeating-character-replacement/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/" target="_blank" rel="noopener">424. 替换后的最长重复字符</a></p><p>实际上，窗口始终增大，因为要求最长子串，窗口内的字符出现次数在窗口收缩一位后，没有必要进行更新。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">characterReplacement</span><span class="hljs-params">(String s, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] chars = s.toCharArray();    <span class="hljs-keyword">int</span> len = chars.length;    <span class="hljs-comment">// 窗口内字符的出现次数</span>    <span class="hljs-keyword">int</span>[] freq = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> maxCount = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> maxLen = Integer.MIN_VALUE;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        <span class="hljs-keyword">int</span> cur = chars[right] - <span class="hljs-string">'A'</span>;        freq[cur]++;        right++;        maxCount = Math.max(maxCount, freq[cur]);        <span class="hljs-comment">// 窗口大小 - 重复字符长度 &lt;= k 个替换长度时</span>        <span class="hljs-comment">// 表示可以替换的字符还达不到 k 个，此时可以扩大窗口</span>        <span class="hljs-comment">// 收缩 left 之后，窗口内正好可替换 k 个字符</span>        <span class="hljs-comment">// while (right - left - maxCount &gt; k) &#123;</span>        <span class="hljs-keyword">if</span> (right - left - maxCount &gt; k) &#123;            freq[chars[left] - <span class="hljs-string">'A'</span>]--;            left++;        &#125;        maxLen = Math.max(maxLen, right - left);    &#125;    <span class="hljs-keyword">return</span> maxLen;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>滑动窗口</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 239. 滑动窗口最大值</title>
     <link href="/2020/09/24/LeetCode-239-sliding-window-maximum/"/>
     <url>/2020/09/24/LeetCode-239-sliding-window-maximum/</url>
@@ -21,6 +50,8 @@
     <tags>
       
       <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
       
       <tag>队列</tag>
       
@@ -50,6 +81,8 @@
     <tags>
       
       <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
