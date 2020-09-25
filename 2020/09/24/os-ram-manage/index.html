@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      900 字
+      2.6k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      27
        分钟
     </span>
   
@@ -207,12 +207,13 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月24日 下午
+                  本文最后更新于：2020年9月25日 下午
                 
               </p>
             
             <article class="markdown-body">
-              <p><code>分层存储器体系(memory hierarchy)</code>：<br />
+              <p>[TOC]<br />
+<code>分层存储器体系(memory hierarchy)</code>：<br />
 <img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200924163759.png" srcset="/img/loading.gif" alt="" /></p>
 <p>位于顶层的存储器速度最快，但是相对容量最小，成本非常高。层级结构向下，其访问速度会变慢，但是容量会变大，相对造价也就越便宜。（所以个人感觉相对存储容量来说，访问速度是更重要的）</p>
 <p>操作系统中管理内存层次结构的部分称为 <code>内存管理器(memory manager)</code>，它的主要工作是有效的管理内存，记录哪些内存是正在使用的，在进程需要时分配内存以及在进程完成时回收内存。所有现代操作系统都提供内存管理。</p>
@@ -232,6 +233,59 @@
 </ul>
 <p>按照这种方式组织系统时，通常<strong>同一个时刻只能有一个进程正在运行</strong>。一旦用户键入了一个命令，操作系统就把需要的程序从磁盘复制到内存中并执行；当进程运行结束后，操作系统在用户终端显示提示符并等待新的命令。收到新的命令后，它把新的程序装入内存，覆盖前一个程序。</p>
 <p>在没有存储器抽象的系统中实现并行性一种方式是使用多线程来编程。由于同一进程中的多线程内部共享同一内存映像，那么实现并行也就不是问题了。但是这种方式却并没有被广泛采纳，因为人们通常希望能够在同一时间内运行没有关联的程序，而这正是线程抽象所不能提供的。</p>
+<h1 id="存储器抽象地址空间"><a class="markdownIt-Anchor" href="#存储器抽象地址空间"></a> 存储器抽象：地址空间</h1>
+<p>把物理内存暴露给进程会有几个主要的缺点：</p>
+<ul>
+<li>
+<p>第一个问题是，如果用户程序可以寻址内存的每个字节，它们就可以很容易的<strong>破坏操作系统</strong>，从而使系统停止运行。即使在只有一个用户进程运行的情况下，这个问题也存在。</p>
+</li>
+<li>
+<p>第二点是，<strong>难以运行多个程序</strong>。在个人计算机上，一般会打开很多应用程序，这些进程在不同时刻会有一个进程正在运行，其他应用程序可以通过鼠标来唤醒。在系统中没有物理内存的情况下很难实现。</p>
+</li>
+</ul>
+<h2 id="地址空间概念"><a class="markdownIt-Anchor" href="#地址空间概念"></a> 地址空间概念</h2>
+<p><code>地址空间(the address space)</code> 创建了一种抽象内存供程序使用。<strong>地址空间是进程可以用来寻址内存的地址集。每个进程都有它自己的地址空间，独立于其他进程的地址空间，但是某些进程会希望可以共享地址空间。</strong></p>
+<h3 id="基址寄存器和变址寄存器"><a class="markdownIt-Anchor" href="#基址寄存器和变址寄存器"></a> 基址寄存器和变址寄存器</h3>
+<p>最简单的办法是使用 <code>动态重定位(dynamic relocation)</code> 技术，它就是通过一种简单的方式<strong>将每个进程的地址空间映射到物理内存的不同区域</strong>。<br />
+经典办法是给每个 <code>CPU</code> 配置两个特殊硬件寄存器，通常叫做 <code>基址寄存器(basic register)</code> 和 <code>变址寄存器(limit register)</code>。当使用基址寄存器和变址寄存器时，程序会装载到内存中的连续位置并且在装载期间无需重定位。</p>
+<ul>
+<li>基址寄存器：存储数据内存的起始位置</li>
+<li>变址寄存器：存储应用程序的长度。</li>
+</ul>
+<p>每当进程引用内存以获取指令或读取、写入数据时，<code>CPU</code> 都会自动将基址值添加到进程生成的地址中，然后再将其发送到内存总线上。同时，它检查程序提供的地址是否大于或等于变址寄存器中的值。如果程序提供的地址要超过变址寄存器的范围，那么会产生错误并中止访问。</p>
+<p>执行 <code>JMP 28</code> 这条指令后，硬件会把它解释为 <code>JMP 16412</code>，所以程序能够跳到 <code>CMP</code> 指令，过程如下：<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925132116.png" srcset="/img/loading.gif" alt="" /></p>
+<p>使用基址寄存器和变址寄存器是给每个进程提供私有地址空间的一种非常好的方法，因为每个内存地址在送到内存之前，都会先加上基址寄存器的内容。在很多实际系统中，对基址寄存器和变址寄存器都会以一定的方式加以保护，使得只有操作系统可以修改它们。</p>
+<p>缺点：在每次访问内存时，都会进行 <code>ADD</code> 和 <code>CMP</code> 运算。<code>CMP</code> 指令可以执行的很快，但是加法就会相对慢一些，除非使用特殊的加法电路，否则加法因进位传播时间而变慢。</p>
+<h2 id="交换技术"><a class="markdownIt-Anchor" href="#交换技术"></a> 交换技术</h2>
+<p>实际上，所有<strong>进程需要的 <code>RAM</code> 总容量要远远高于内存的容量</strong>。针对<strong>内存不足</strong>的问题，提出了两种处理方式：</p>
+<ul>
+<li><code>交换(swapping)</code> 技术，即把一个进程完整的调入内存，然后再内存中运行一段时间，再把它放回磁盘。空闲进程会存储在磁盘中，所以这些进程在没有运行时不会占用太多内存。</li>
+<li><code>虚拟内存(virtual memory)</code>，虚拟内存技术能够允许应用程序部分的运行在内存中。</li>
+</ul>
+<h3 id="交换过程"><a class="markdownIt-Anchor" href="#交换过程"></a> 交换过程</h3>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925132623.png" srcset="/img/loading.gif" alt="" /></p>
+<p>刚开始的时候，只有进程 A 在内存中，然后从创建进程 B 和进程 C 或者从磁盘中把它们换入内存，然后在图 d 中，A 被换出内存到磁盘中，最后 A 重新进来。因为图 g 中的进程 A 现在到了不同的位置，所以在装载过程中需要被重新定位，或者在交换程序时通过软件来执行；或者在程序执行期间通过硬件来重定位。基址寄存器和变址寄存器就适用于这种情况。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925132932.png" srcset="/img/loading.gif" alt="" /></p>
+<p>交换在内存创建了多个 <code>空闲区(hole)</code>，内存会把所有的空闲区尽可能向下移动合并成为一个大的空闲区。这项技术称为 <code>内存紧缩(memory compaction)</code>。但是这项技术通常不会使用，因为这项技术会消耗很多 <code>CPU</code> 时间。例如，在一个 16GB 内存的机器上每 8ns 复制 8 字节，它紧缩全部的内存大约要花费 16s。</p>
+<p>如果进程被创建后它的大小是固定的并且不再改变，那么分配策略就比较简单：操作系统会准确的按其需要的大小进行分配。</p>
+<p>进程的 <code>data segment</code> 能够自动增长，会有三种处理方式：</p>
+<ul>
+<li>
+<p>如果一个进程与空闲区相邻，那么可把该空闲区分配给进程以供其增大。</p>
+</li>
+<li>
+<p>如果进程相邻的是另一个进程，就会有两种处理方式：要么把需要增长的进程移动到一个内存中空闲区足够大的区域，要么把一个或多个进程交换出去，已变成生成一个大的空闲区。</p>
+</li>
+<li>
+<p>如果一个进程在内存中不能增长，而且磁盘上的交换区也满了，那么这个进程只有挂起一些空闲空间（或者可以结束该进程）。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925133850.png" srcset="/img/loading.gif" alt="" /></p>
+<p>上面只针对单个或者一小部分需要增长的进程采用的方式，如果大部分进程都要在运行时增长，为了减少因内存区域不够而引起的进程交换和移动所产生的开销，一种可用的方法是，<strong>在换入或移动进程时为它分配一些额外的内存</strong>。然而，<strong>当进程被换出到磁盘上时，应该只交换实际上使用的内存</strong>，将额外的内存交换也是一种浪费，下面是一种为两个进程分配了增长空间的内存配置。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925134003.png" srcset="/img/loading.gif" alt="" /></p>
+<p>如果进程有两个可增长的段，例如，供变量动态分配和释放的作为堆(全局变量)使用的一个 <code>数据段(data segment)</code>，以及存放局部变量与返回地址的一个 <code>堆栈段(stack segment)</code>，就如图 b 所示。在图中可以看到所示进程的<strong>堆栈段在进程所占内存的顶端向下增长</strong>，紧接着在程序段后的<strong>数据段向上增长</strong>。当增长预留的内存区域不够了，处理方式就如上面的流程图(<code>data segment</code> 自动增长的三种处理方式)一样了。</p>
+<h2 id="空闲内存管理"><a class="markdownIt-Anchor" href="#空闲内存管理"></a> 空闲内存管理</h2>
 
             </article>
             <hr>
