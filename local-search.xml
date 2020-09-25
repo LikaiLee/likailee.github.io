@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 643. 子数组最大平均数 I</title>
+    <link href="/2020/09/25/LeetCode-643-maximum-average-subarray-i/"/>
+    <url>/2020/09/25/LeetCode-643-maximum-average-subarray-i/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/maximum-average-subarray-i/" target="_blank" rel="noopener">643. 子数组最大平均数 I</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMaxAverage</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-keyword">double</span> sum = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 计算前 k 个子数组和</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; k; i++) &#123;        sum += nums[i];    &#125;    <span class="hljs-keyword">double</span> res = sum;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = k; i &lt; nums.length; i++) &#123;        <span class="hljs-comment">// [i, i + 1, ... , i + k, i + k + 1]</span>        <span class="hljs-comment">// 0, 1, 2, 3, 4</span>        sum = sum - nums[i - k] + nums[i];        res = Math.max(res, sum);    &#125;    <span class="hljs-keyword">return</span> res / k;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>滑动窗口</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 567. 字符串的排列</title>
     <link href="/2020/09/25/LeetCode-567-permutation-in-string/"/>
     <url>/2020/09/25/LeetCode-567-permutation-in-string/</url>
@@ -862,9 +891,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1065,9 +1094,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -1214,9 +1243,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1496,9 +1525,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -2301,9 +2330,9 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
