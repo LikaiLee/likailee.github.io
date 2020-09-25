@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.6k 字
+      4.2k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      27
+      43
        分钟
     </span>
   
@@ -268,6 +268,7 @@
 <p>刚开始的时候，只有进程 A 在内存中，然后从创建进程 B 和进程 C 或者从磁盘中把它们换入内存，然后在图 d 中，A 被换出内存到磁盘中，最后 A 重新进来。因为图 g 中的进程 A 现在到了不同的位置，所以在装载过程中需要被重新定位，或者在交换程序时通过软件来执行；或者在程序执行期间通过硬件来重定位。基址寄存器和变址寄存器就适用于这种情况。</p>
 <p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925132932.png" srcset="/img/loading.gif" alt="" /></p>
 <p>交换在内存创建了多个 <code>空闲区(hole)</code>，内存会把所有的空闲区尽可能向下移动合并成为一个大的空闲区。这项技术称为 <code>内存紧缩(memory compaction)</code>。但是这项技术通常不会使用，因为这项技术会消耗很多 <code>CPU</code> 时间。例如，在一个 16GB 内存的机器上每 8ns 复制 8 字节，它紧缩全部的内存大约要花费 16s。</p>
+<h3 id="动态内存分配"><a class="markdownIt-Anchor" href="#动态内存分配"></a> 动态内存分配</h3>
 <p>如果进程被创建后它的大小是固定的并且不再改变，那么分配策略就比较简单：操作系统会准确的按其需要的大小进行分配。</p>
 <p>进程的 <code>data segment</code> 能够自动增长，会有三种处理方式：</p>
 <ul>
@@ -286,6 +287,36 @@
 <p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925134003.png" srcset="/img/loading.gif" alt="" /></p>
 <p>如果进程有两个可增长的段，例如，供变量动态分配和释放的作为堆(全局变量)使用的一个 <code>数据段(data segment)</code>，以及存放局部变量与返回地址的一个 <code>堆栈段(stack segment)</code>，就如图 b 所示。在图中可以看到所示进程的<strong>堆栈段在进程所占内存的顶端向下增长</strong>，紧接着在程序段后的<strong>数据段向上增长</strong>。当增长预留的内存区域不够了，处理方式就如上面的流程图(<code>data segment</code> 自动增长的三种处理方式)一样了。</p>
 <h2 id="空闲内存管理"><a class="markdownIt-Anchor" href="#空闲内存管理"></a> 空闲内存管理</h2>
+<p>在进行内存动态分配时，操作系统必须对其进行管理。大致上说，有两种监控内存使用的方式</p>
+<ul>
+<li>位图(<code>bitmap</code>)</li>
+<li>空闲列表(<code>free lists</code>)</li>
+</ul>
+<h3 id="1-使用位图的存储管理"><a class="markdownIt-Anchor" href="#1-使用位图的存储管理"></a> 1. 使用位图的存储管理</h3>
+<p>使用位图方法时，内存可能被划分为小到几个字或大到几千字节的分配单元。每个分配单元对应于位图中的一位，0 表示空闲， 1 表示占用（或者相反）。一块内存区域和其对应的位图如下：<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925161159.png" srcset="/img/loading.gif" alt="" /></p>
+<p>图 <code>a</code> 表示一段有 5 个进程和 3 个空闲区的内存，刻度为内存分配单元，阴影区表示空闲（在位图中用 0 表示）；图 <code>b</code> 表示对应的位图；图 <code>c</code> 表示用链表表示同样的信息。</p>
+<p>分配单元的大小是一个重要的设计因素，<strong>分配单位越小，位图越大</strong>。然而，即使只有 <code>4</code> 字节的分配单元，<code>32</code> 位的内存也仅仅只需要位图中的 <code>1</code> 位。<code>32n</code> 位的内存需要 <code>n</code> 位的位图，所以 <code>1</code> 个位图只占用了 <code>1/32</code> 的内存。如果选择更大的内存单元，位图应该要更小。如果进程的大小不是分配单元的整数倍，那么在最后一个分配单元中会有大量的内存被浪费。</p>
+<p>位图提供了一种简单的方法在固定大小的内存中跟踪内存的使用情况，因为<strong>位图的大小取决于内存和分配单元的大小</strong>。这种方法有一个问题是，当决定为把具有 <code>k</code> 个分配单元的进程放入内存时，<code>内容管理器(memory manager)</code> 必须搜索位图，在位图中找出能够运行 <code>k</code> 个连续 <code>0</code> 位的串。<strong>在位图中找出制定长度的连续 <code>0</code> 串是一个很耗时的操作，这是位图的缺点。</strong></p>
+<h3 id="2-使用链表进行管理"><a class="markdownIt-Anchor" href="#2-使用链表进行管理"></a> 2. 使用链表进行管理</h3>
+<p>另一种记录内存使用情况的方法是，维护一个记录<strong>已分配内存段和空闲内存段的链表</strong>，段会包含进程或者是两个进程的空闲区域。可用上面的 <code>图 c</code> 来表示内存的使用情况。链表中的每一项都可以代表一个 <code>空闲区(H)</code> 或者是 <code>进程(P)</code> 的起始标志，长度和下一个链表项的位置。</p>
+<p>在这个例子中，<code>段链表(segment list)</code> 是按照地址排序的。这种方式的优点是，当进程终止或被交换时，更新列表很简单。一个终止进程通常有两个邻居（除了内存的顶部和底部外）。相邻的可能是进程也可能是空闲区，它们有四种组合方式。<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925163044.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="3-顺序搜索的动态内存分配"><a class="markdownIt-Anchor" href="#3-顺序搜索的动态内存分配"></a> 3. 顺序搜索的动态内存分配</h3>
+<p>当按照地址顺序在链表中存放进程和空闲区时，有几种算法可以为创建的进程（或者从磁盘中换入的进程）分配内存。</p>
+<h4 id="31-首次适配first-fit"><a class="markdownIt-Anchor" href="#31-首次适配first-fit"></a> 3.1 <code>首次适配(first fit)</code></h4>
+<p><strong>内存管理器会沿着段列表进行扫描，直到找个一个足够大的空闲区为止</strong>。除非空闲区大小和要分配的空间大小一样，否则将空闲区分为两部分，一部分供进程使用；一部分生成新的空闲区。首次适配算法是一种速度很快的算法，因为它会尽可能的搜索链表。</p>
+<h4 id="32-下次适配next-fit"><a class="markdownIt-Anchor" href="#32-下次适配next-fit"></a> 3.2 <code>下次适配(next fit)</code></h4>
+<p>它和首次匹配的工作方式相同，只有一个不同之处那就是<strong>下次适配在每次找到合适的空闲区时就会记录当时的位置</strong>，以便下次寻找空闲区时从上次结束的地方开始搜索，而不是像首次匹配算法那样每次都会从头开始搜索。</p>
+<h4 id="33-最佳适配best-fit"><a class="markdownIt-Anchor" href="#33-最佳适配best-fit"></a> 3.3 <code>最佳适配(best fit)</code></h4>
+<p>最佳适配会从头到尾寻找整个链表，找出能够容纳进程的<strong>最小空闲区</strong>。最佳适配算法会试图<strong>找出最接近实际需要的空闲区</strong>，以最好的匹配请求和可用空闲区，而不是先一次拆分一个以后可能会用到的大的空闲区。比如现在我们需要一个大小为 2 的块，那么首次匹配算法会把这个块分配在位置 5 的空闲区，而最佳适配算法会把该块分配在位置为 18 的空闲区，如下：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925162851.png" srcset="/img/loading.gif" alt="" /></p>
+<p>最佳适配会遍历整个链表，所以最佳适配算法的性能要比首次匹配算法差。但最佳适配算法要比首次匹配和下次匹配算法浪费更多的内存，因为它会产生大量无用的小缓冲区，首次匹配算法生成的空闲区会更大一些。</p>
+<h4 id="34-最差适配worst-fit"><a class="markdownIt-Anchor" href="#34-最差适配worst-fit"></a> 3.4 <code>最差适配(worst fit)</code></h4>
+<p><strong>总是分配最大的内存区域</strong>，使新分配的空闲区比较大从而可以继续使用。仿真程序表明最差适配算法也不是一个好主意。</p>
+<h4 id="35-快速适配quick-fit"><a class="markdownIt-Anchor" href="#35-快速适配quick-fit"></a> 3.5 <code>快速适配(quick fit)</code></h4>
+<p><strong>为那些常用大小的空闲区维护单独的链表</strong>。例如，有一个 <code>n</code> 项的表，该表的第一项是指向大小为 <code>4 KB</code> 的空闲区链表表头指针，第二项是指向大小为 <code>8 KB</code> 的空闲区链表表头指针，第三项是指向大小为 <code>12 KB</code> 的空闲区链表表头指针，以此类推。比如 <code>21 KB</code> 这样的空闲区既可以放在 <code>20 KB</code> 的链表中，也可以放在一个专门存放大小比较特别的空闲区链表中。</p>
+<p>快速匹配算法寻找一个指定代销的空闲区也是十分快速的，但它和所有将空闲区按大小排序的方案一样，都有一个共同的缺点，<strong>即在一个进程终止或被换出时，寻找它的相邻块并查看是否可以合并的过程都是非常耗时的。</strong> 如果不进行合并，内存将会很快分裂出大量进程无法利用的小空闲区。</p>
 
             </article>
             <hr>
