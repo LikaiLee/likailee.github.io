@@ -8,7 +8,7 @@
     <link href="/2020/09/27/LeetCode-978-longest-turbulent-subarray/"/>
     <url>/2020/09/27/LeetCode-978-longest-turbulent-subarray/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-turbulent-subarray/" target="_blank" rel="noopener">978. 最长湍流子数组</a></p><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxTurbulenceSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A)</span> </span>&#123;    <span class="hljs-comment">// [9,4,2,10,7,8,8,1,9]</span>    <span class="hljs-comment">// dp[i]: 以第 i 个元素结尾的最大子数组长度</span>    <span class="hljs-comment">/*</span><span class="hljs-comment">      if A[i] == A[i - 1]</span><span class="hljs-comment">        dp[i] = 1</span><span class="hljs-comment">      if A[i - 2], A[i - 1] 上升（下降）</span><span class="hljs-comment">        if A[i - 1], A[i] 下降（上升）</span><span class="hljs-comment">           dp[i] = dp[i - 1] + 1</span><span class="hljs-comment">        else if A[i - 1], A[i] 上升（下降）</span><span class="hljs-comment">           dp[i] = 2</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">int</span> len = A.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> len;    &#125;    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    Arrays.fill(dp, <span class="hljs-number">1</span>);    dp[<span class="hljs-number">1</span>] = A[<span class="hljs-number">1</span>] == A[<span class="hljs-number">0</span>] ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;    <span class="hljs-keyword">int</span> max = dp[<span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 上升</span>        <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">2</span>] &lt; A[i - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// 下降</span>            <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &gt; A[i]) &#123;                dp[i] = dp[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &lt; A[i]) &#123;                dp[i] = <span class="hljs-number">2</span>;            &#125;        &#125;        <span class="hljs-comment">// 下降</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">2</span>] &gt; A[i - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// 上升</span>            <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &lt; A[i]) &#123;                dp[i] = dp[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (dp[i - <span class="hljs-number">1</span>] &gt; dp[i]) &#123;                dp[i] = <span class="hljs-number">2</span>;            &#125;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// A[i - 2] == A[i - 1]</span>            dp[i] = (A[i] == A[i - <span class="hljs-number">1</span>]) ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;        &#125;        max = Math.max(max, dp[i]);    &#125;    <span class="hljs-keyword">return</span> max;&#125;</code></pre><h1 id="滑动窗口"><a class="markdownIt-Anchor" href="#滑动窗口"></a> 滑动窗口</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxTurbulenceSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A)</span> </span>&#123;    <span class="hljs-comment">// [9,4,2,10,7,8,8,1,9]</span>    <span class="hljs-keyword">int</span> len = A.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> len;    &#125;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">2</span>;    <span class="hljs-keyword">int</span> maxLen = A[<span class="hljs-number">0</span>] == A[<span class="hljs-number">1</span>] ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        <span class="hljs-keyword">if</span> (A[right] == A[right - <span class="hljs-number">1</span>]) &#123;            left = right;            right++;            <span class="hljs-keyword">continue</span>;        &#125;        <span class="hljs-comment">// up</span>        <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">2</span>] &lt; A[right - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// up</span>            <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">1</span>] &lt; A[right]) &#123;                left = right - <span class="hljs-number">1</span>;            &#125;        &#125;        <span class="hljs-comment">// down</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">2</span>] &gt; A[right - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// down</span>            <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">1</span>] &gt; A[right]) &#123;                left = right - <span class="hljs-number">1</span>;            &#125;        &#125;        maxLen = Math.max(maxLen, right - left);        right++;    &#125;    <span class="hljs-keyword">return</span> maxLen;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-turbulent-subarray/" target="_blank" rel="noopener">978. 最长湍流子数组</a></p><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxTurbulenceSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A)</span> </span>&#123;    <span class="hljs-comment">// [9,4,2,10,7,8,8,1,9]</span>    <span class="hljs-comment">// dp[i]: 以第 i 个元素结尾的最大子数组长度</span>    <span class="hljs-comment">/*</span><span class="hljs-comment">      if A[i] == A[i - 1]</span><span class="hljs-comment">        dp[i] = 1</span><span class="hljs-comment">      if A[i - 2], A[i - 1] 上升（下降）</span><span class="hljs-comment">        if A[i - 1], A[i] 下降（上升）</span><span class="hljs-comment">           dp[i] = dp[i - 1] + 1</span><span class="hljs-comment">        else if A[i - 1], A[i] 上升（下降）</span><span class="hljs-comment">           dp[i] = 2</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">int</span> len = A.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> len;    &#125;    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    Arrays.fill(dp, <span class="hljs-number">1</span>);    dp[<span class="hljs-number">1</span>] = A[<span class="hljs-number">1</span>] == A[<span class="hljs-number">0</span>] ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;    <span class="hljs-keyword">int</span> max = dp[<span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 上升</span>        <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">2</span>] &lt; A[i - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// 下降</span>            <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &gt; A[i]) &#123;                dp[i] = dp[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &lt; A[i]) &#123;                dp[i] = <span class="hljs-number">2</span>;            &#125;        &#125;        <span class="hljs-comment">// 下降</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">2</span>] &gt; A[i - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// 上升</span>            <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &lt; A[i]) &#123;                dp[i] = dp[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (dp[i - <span class="hljs-number">1</span>] &gt; dp[i]) &#123;                dp[i] = <span class="hljs-number">2</span>;            &#125;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// A[i - 2] == A[i - 1]</span>            dp[i] = (A[i] == A[i - <span class="hljs-number">1</span>]) ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;        &#125;        max = Math.max(max, dp[i]);    &#125;    <span class="hljs-keyword">return</span> max;&#125;</code></pre><h1 id="滑动窗口"><a class="markdownIt-Anchor" href="#滑动窗口"></a> 滑动窗口</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxTurbulenceSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A)</span> </span>&#123;    <span class="hljs-comment">// [9,4,2,10,7,8,8,1,9]</span>    <span class="hljs-keyword">int</span> len = A.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> len;    &#125;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">2</span>;    <span class="hljs-keyword">int</span> maxLen = A[<span class="hljs-number">0</span>] == A[<span class="hljs-number">1</span>] ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        <span class="hljs-keyword">if</span> (A[right] == A[right - <span class="hljs-number">1</span>]) &#123;            left = right;            right++;            <span class="hljs-keyword">continue</span>;        &#125;        <span class="hljs-comment">// up</span>        <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">2</span>] &lt; A[right - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// up</span>            <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">1</span>] &lt; A[right]) &#123;                left = right - <span class="hljs-number">1</span>;            &#125;        &#125;        <span class="hljs-comment">// down</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">2</span>] &gt; A[right - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// down</span>            <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">1</span>] &gt; A[right]) &#123;                left = right - <span class="hljs-number">1</span>;            &#125;        &#125;        right++;        maxLen = Math.max(maxLen, right - left);    &#125;    <span class="hljs-keyword">return</span> maxLen;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -80,9 +80,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -804,9 +804,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -889,9 +889,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -920,11 +920,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -949,9 +949,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -978,9 +978,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -1007,9 +1007,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -1036,9 +1036,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -1065,9 +1065,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1094,9 +1094,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1241,9 +1241,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1272,11 +1272,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1301,9 +1301,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -1359,9 +1359,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -1444,9 +1444,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -1554,11 +1554,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -1612,9 +1612,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1643,9 +1643,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1672,9 +1672,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -1703,9 +1703,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1732,9 +1732,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -1761,9 +1761,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1788,9 +1788,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1815,9 +1815,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1867,9 +1867,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1894,9 +1894,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1921,9 +1921,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2776,9 +2776,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
