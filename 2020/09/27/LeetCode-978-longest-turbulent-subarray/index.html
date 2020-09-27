@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 643. 子数组最大平均数 I - Likai Lee</title>
+  <title>LeetCode 978. 最长湍流子数组 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 643. 子数组最大平均数 I
+                LeetCode 978. 最长湍流子数组
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-25 19:46">
-      2020年9月25日 晚上
+    <time datetime="2020-09-27 21:39">
+      2020年9月27日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      86 字
+      371 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      6
        分钟
     </span>
   
@@ -207,26 +207,92 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月25日 晚上
+                  本文最后更新于：2020年9月27日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/maximum-average-subarray-i/" target="_blank" rel="noopener">643. 子数组最大平均数 I</a></p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMaxAverage</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
-    <span class="hljs-keyword">double</span> sum = <span class="hljs-number">0</span>;
-    <span class="hljs-comment">// 计算前 k 个子数组和</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; k; i++) &#123;
-        sum += nums[i];
+              <p><a href="https://leetcode-cn.com/problems/longest-turbulent-subarray/" target="_blank" rel="noopener">978. 最长湍流子数组</a></p>
+<h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxTurbulenceSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A)</span> </span>&#123;
+    <span class="hljs-comment">// [9,4,2,10,7,8,8,1,9]</span>
+    <span class="hljs-comment">// dp[i]: 以第 i 个元素结尾的最大子数组长度</span>
+    <span class="hljs-comment">/*</span>
+<span class="hljs-comment">      if A[i] == A[i - 1]</span>
+<span class="hljs-comment">        dp[i] = 1</span>
+<span class="hljs-comment">      if A[i - 2], A[i - 1] 上升（下降）</span>
+<span class="hljs-comment">        if A[i - 1], A[i] 下降（上升）</span>
+<span class="hljs-comment">           dp[i] = dp[i - 1] + 1</span>
+<span class="hljs-comment">        else if A[i - 1], A[i] 上升（下降）</span>
+<span class="hljs-comment">           dp[i] = 2</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">int</span> len = A.length;
+    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;
+        <span class="hljs-keyword">return</span> len;
     &#125;
-    <span class="hljs-keyword">double</span> res = sum;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = k; i &lt; nums.length; i++) &#123;
-        <span class="hljs-comment">// [i, i + 1, ... , i + k, i + k + 1]</span>
-        <span class="hljs-comment">// 0, 1, 2, 3, 4</span>
-        sum = sum - nums[i - k] + nums[i];
-        res = Math.max(res, sum);
+    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
+    Arrays.fill(dp, <span class="hljs-number">1</span>);
+    dp[<span class="hljs-number">1</span>] = A[<span class="hljs-number">1</span>] == A[<span class="hljs-number">0</span>] ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;
+    <span class="hljs-keyword">int</span> max = dp[<span class="hljs-number">1</span>];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; len; i++) &#123;
+        <span class="hljs-comment">// 上升</span>
+        <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">2</span>] &lt; A[i - <span class="hljs-number">1</span>]) &#123;
+            <span class="hljs-comment">// 下降</span>
+            <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &gt; A[i]) &#123;
+                dp[i] = dp[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &lt; A[i]) &#123;
+                dp[i] = <span class="hljs-number">2</span>;
+            &#125;
+        &#125;
+        <span class="hljs-comment">// 下降</span>
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">2</span>] &gt; A[i - <span class="hljs-number">1</span>]) &#123;
+            <span class="hljs-comment">// 上升</span>
+            <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &lt; A[i]) &#123;
+                dp[i] = dp[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (dp[i - <span class="hljs-number">1</span>] &gt; dp[i]) &#123;
+                dp[i] = <span class="hljs-number">2</span>;
+            &#125;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-comment">// A[i - 2] == A[i - 1]</span>
+            dp[i] = (A[i] == A[i - <span class="hljs-number">1</span>]) ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;
+        &#125;
+        max = Math.max(max, dp[i]);
     &#125;
-    <span class="hljs-keyword">return</span> res / k;
+    <span class="hljs-keyword">return</span> max;
+&#125;</code></pre>
+<h1 id="滑动窗口"><a class="markdownIt-Anchor" href="#滑动窗口"></a> 滑动窗口</h1>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxTurbulenceSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A)</span> </span>&#123;
+    <span class="hljs-comment">// [9,4,2,10,7,8,8,1,9]</span>
+    <span class="hljs-keyword">int</span> len = A.length;
+    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;
+        <span class="hljs-keyword">return</span> len;
+    &#125;
+    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">2</span>;
+    <span class="hljs-keyword">int</span> maxLen = A[<span class="hljs-number">0</span>] == A[<span class="hljs-number">1</span>] ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;
+    <span class="hljs-keyword">while</span> (right &lt; len) &#123;
+        <span class="hljs-keyword">if</span> (A[right] == A[right - <span class="hljs-number">1</span>]) &#123;
+            left = right;
+            right++;
+            <span class="hljs-keyword">continue</span>;
+        &#125;
+        <span class="hljs-comment">// up</span>
+        <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">2</span>] &lt; A[right - <span class="hljs-number">1</span>]) &#123;
+            <span class="hljs-comment">// up</span>
+            <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">1</span>] &lt; A[right]) &#123;
+                left = right - <span class="hljs-number">1</span>;
+            &#125;
+        &#125;
+        <span class="hljs-comment">// down</span>
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">2</span>] &gt; A[right - <span class="hljs-number">1</span>]) &#123;
+            <span class="hljs-comment">// down</span>
+            <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">1</span>] &gt; A[right]) &#123;
+                left = right - <span class="hljs-number">1</span>;
+            &#125;
+        &#125;
+        maxLen = Math.max(maxLen, right - left);
+        right++;
+    &#125;
+    <span class="hljs-keyword">return</span> maxLen;
 &#125;</code></pre>
             </article>
             <hr>
@@ -246,6 +312,8 @@
                     
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
+                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+                    
                       <a class="hover-with-bg" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
                     
                       <a class="hover-with-bg" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
@@ -261,18 +329,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/27/LeetCode-978-longest-turbulent-subarray/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 978. 最长湍流子数组</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/25/LeetCode-567-permutation-in-string/">
-                        <span class="hidden-mobile">LeetCode 567. 字符串的排列</span>
+                      <a href="/2020/09/25/LeetCode-643-maximum-average-subarray-i/">
+                        <span class="hidden-mobile">LeetCode 643. 子数组最大平均数 I</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
