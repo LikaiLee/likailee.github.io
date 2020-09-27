@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.2k 字
+      7.4k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      43
+      77
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月25日 下午
+                  本文最后更新于：2020年9月27日 晚上
                 
               </p>
             
@@ -317,6 +317,92 @@
 <h4 id="35-快速适配quick-fit"><a class="markdownIt-Anchor" href="#35-快速适配quick-fit"></a> 3.5 <code>快速适配(quick fit)</code></h4>
 <p><strong>为那些常用大小的空闲区维护单独的链表</strong>。例如，有一个 <code>n</code> 项的表，该表的第一项是指向大小为 <code>4 KB</code> 的空闲区链表表头指针，第二项是指向大小为 <code>8 KB</code> 的空闲区链表表头指针，第三项是指向大小为 <code>12 KB</code> 的空闲区链表表头指针，以此类推。比如 <code>21 KB</code> 这样的空闲区既可以放在 <code>20 KB</code> 的链表中，也可以放在一个专门存放大小比较特别的空闲区链表中。</p>
 <p>快速匹配算法寻找一个指定代销的空闲区也是十分快速的，但它和所有将空闲区按大小排序的方案一样，都有一个共同的缺点，<strong>即在一个进程终止或被换出时，寻找它的相邻块并查看是否可以合并的过程都是非常耗时的。</strong> 如果不进行合并，内存将会很快分裂出大量进程无法利用的小空闲区。</p>
+<h1 id="虚拟内存"><a class="markdownIt-Anchor" href="#虚拟内存"></a> 虚拟内存</h1>
+<p>在一些中小应用程序可使用交换技术，<strong>如果应用程序过大，交换技术并不是一个很有效的方案。</strong><br />
+一个典型的 <code>SATA</code> 磁盘的峰值传输速度高达几百兆/秒，这意味着需要好几秒才能换出或者换入一个 <code>1 GB</code> 的程序。</p>
+<p><code>虚拟内存(virtual memory)</code> 的基本思想是，<strong>每个程序都有自己的地址空间，这个地址空间被划分为多个称为 <code>页面(page)</code> 的块。</strong> 每一页都是连续的地址范围。<strong>这些页被映射到物理内存</strong>，但并不是所有的页都必须在内存中才能运行程序。当程序引用到一部分在物理内存中的地址空间时，硬件会立刻执行必要的映射。当程序引用到一部分不在物理内存中的地址空间时，由操作系统负责将缺失的部分装入物理内存并重新执行失败的指令。</p>
+<p>虚拟内存很适合在多道程序设计系统中使用，许多程序的片段同时保存在内存中，当一个程序等待它的一部分读入内存时，可以把 <code>CPU</code> 交给另一个进程使用。</p>
+<h2 id="分页"><a class="markdownIt-Anchor" href="#分页"></a> 分页</h2>
+<p>大部分使用虚拟内存的系统中都会使用一种 <code>分页(paging)</code> 技术。在任何一台计算机上，程序会引用使用一组内存地址。当程序执行</p>
+<pre><code class="hljs assembly">MOV REG, 1000</code></pre>
+<p>这条指令时，它会把内存地址为 <code>1000</code> 的内存单元的内容复制到 <code>REG</code> 中（或者相反，这取决于计算机）。地址可以通过索引、基址寄存器、段寄存器或其他方式产生。</p>
+<p>这些程序生成的地址被称为 <code>虚拟地址(virtual addresses)</code> 并形成 <code>虚拟地址空间(virtual address space)</code>.</p>
+<ul>
+<li>在没有虚拟内存的计算机上，系统直接将虚拟地址送到内存总线上，读写操作都使用同样地址的物理内存。</li>
+<li>在使用虚拟内存时，虚拟地址不会直接发送到内存总线上。相反，会使用 <code>MMU(Memory Management Unit)</code> 内存管理单元<strong>把虚拟地址映射为物理内存地址</strong>，像下图这样：<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927155103.png" srcset="/img/loading.gif" alt="" /></li>
+</ul>
+<p>下面这幅图展示了这种映射是如何工作的：<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927155203.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="1-存在映射的页如何映射"><a class="markdownIt-Anchor" href="#1-存在映射的页如何映射"></a> 1. 存在映射的页如何映射</h3>
+<p>虚拟地址空间由固定大小的单元组成，这种固定大小的单元称为 <code>页(pages)</code>。而相对的，物理内存中也有固定大小的物理单元，称为 <code>页框(page frames)</code>。页和页框的大小一样。在上面这个例子中，页的大小为 <code>4KB</code> ，但是实际的使用过程中页的大小范围可能是 <code>512</code> 字节 - <code>1G</code> 字节的大小。对应于 <code>64 KB</code> 的虚拟地址空间和 <code>32 KB</code> 的物理内存，可得到 <code>16</code> 个虚拟页面和 <code>8</code> 个页框。 <strong><code>RAM</code> 和磁盘之间的交换总是以整个页为单元进行交换的。</strong></p>
+<p>程序试图访问地址时，例如执行下面这条指令：</p>
+<pre><code class="hljs assembly">MOV REG, 0</code></pre>
+<p>会将虚拟地址 <code>0</code> 送到 <code>MMU</code>。<code>MMU</code> 看到虚拟地址落在<code>页面 0</code> （<code>0 - 4095</code>），根据其映射结果，这一页面对应的<code>页框 2</code> （<code>8192 - 12287</code>），因此 <code>MMU</code> 把地址变换为 <code>8192</code> ，并把地址 <code>8192</code> 送到总线上。内存对 <code>MMU</code> 一无所知，它只看到一个对 <code>8192</code> 地址的读写请求并执行它。<code>MMU</code> 从而有效的把所有虚拟地址 <code>0 - 4095</code> 映射到了 <code>8192 - 12287</code> 的物理地址。同样的，指令</p>
+<pre><code class="hljs assembly">MOV REG, 8192</code></pre>
+<p>也被有效的转换为</p>
+<pre><code class="hljs assembly">MOV REG, 24576</code></pre>
+<p>虚拟地址 <code>8192</code>（在<code>虚拟页 2</code> 中）被映射到物理地址 <code>24576</code>（在物理<code>页框 6</code> 中）上。</p>
+<p>通过恰当的设置 <code>MMU</code>，可以把 <code>16</code> 个虚拟页面映射到 <code>8</code> 个页框中的任何一个。但是这并没有解决虚拟地址空间比物理内存大的问题。</p>
+<p>上图中有 <code>8</code> 个物理页框，于是只有 <code>8</code> 个虚拟页被映射到了物理内存中，在上图中用 <code>X</code> 号表示的其他页面没有被映射。在实际的硬件中，会使用一个 <code>在/不在(Present/absent bit)位</code> 记录页面在内存中的实际存在情况。</p>
+<h3 id="2-未映射的页如何映射"><a class="markdownIt-Anchor" href="#2-未映射的页如何映射"></a> 2. 未映射的页如何映射</h3>
+<p>当程序访问一个未映射的页面，如执行指令：</p>
+<pre><code class="hljs assembly">MOV REG, 32780</code></pre>
+<p>将会发生什么情况呢？<code>虚拟页面 8</code> （从 <code>32768</code> 开始）的第 <code>12</code> 个字节所对应的物理地址是什么？<code>MMU</code> 注意到该页面没有被映射（在图中用 <code>X</code> 号表示），于是 <code>CPU</code> 会陷入(<code>trap</code>)到操作系统中。这个陷入称为 <code>缺页中断(page fault)</code> 或者是 <code>缺页错误</code>。操作系统会选择一个很少使用的页并把它的内容写入磁盘（如果它不在磁盘上）。随后把需要访问的页面读到刚才回收的页框中，修改映射关系，然后重新启动引起陷入的指令。有点不太好理解，举个例子来看一下。</p>
+<p>例如，如果操作系统决定放弃 <code>页框 1</code>，那么它将把 <code>虚拟页面 8</code> 装入物理地址 <code>4096</code>，并对 <code>MMU</code> 映射做两处修改。</p>
+<ul>
+<li>首先，它要将虚拟页中的 <code>1</code> 表项标记为<code>未映射</code>，使以后任何对虚拟地址 <code>4096 - 8191</code> 的访问都将导致陷入。</li>
+<li>随后把虚拟页面 <code>8</code> 的表项的叉号改为 <code>1</code>，因此在引起陷阱的指令重新启动时，它将把虚拟地址 <code>32780</code> 映射为物理地址（<code>4096 + 12</code>）。</li>
+</ul>
+<p>下面查看一下 <code>MMU</code> 的内部构造以便了解它们是如何工作的，以及了解为什么我们选用的页大小都是 2 的整数次幂。下图我们可以看到一个虚拟地址的例子：<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927163045.png" srcset="/img/loading.gif" alt="" /></p>
+<blockquote>
+<p>虚拟地址 = 虚拟页号 + 页内偏移量<br />
+物理地址 = (虚拟地址页号 -&gt; 物理地址页号) + 页内偏移量</p>
+</blockquote>
+<p>虚拟地址 <code>8196</code> （<code>0010000000000100</code>）用上面的页表映射图所示的 <code>MMU</code> 映射机制进行映射，输入的 <code>16</code> 位虚拟地址被分为 <code>4</code> 位的<strong>页号</strong>和 <code>12</code> 位的<strong>偏移量</strong>。<code>4</code> 位的页号可以表示 <code>16</code> 个页面，<code>12</code> 位的偏移可以为一页内的全部 <code>4096</code> 个字节。</p>
+<p>可用页号作为 <code>页表(page table)</code> 的索引，以得出对应于该虚拟页面的<strong>页框号</strong>。如果在/不在位是 <code>0</code> ，则引起一个操作系统陷入。如果该位是 <code>1</code>，则将在页表中查到的页框号复制到输出寄存器的<code>高 3 位</code>中，再加上输入虚拟地址中的<code>低 12 位偏移量</code>。如此就构成了 <code>15</code> 位的物理地址。输出寄存器的内容随即被作为物理地址送到总线。</p>
+<h2 id="页表"><a class="markdownIt-Anchor" href="#页表"></a> 页表</h2>
+<p>在上面这个简单的例子中，虚拟地址到物理地址的映射可以总结如下：虚拟地址被分为<strong>虚拟页号</strong>（高位部分）和<strong>偏移量</strong>（低位部分）。例如，对于 <code>16</code> 位地址和 <code>4 KB</code> 的页面大小，<strong>高 4 位</strong>可以指定 <code>16</code> 个虚拟页面中的一页，而<strong>低 12 位</strong>接着确定了所选页面中的偏移量（<code>0-4095</code>）。</p>
+<p>虚拟页号可作为页表的索引用来找到虚拟页中的内容。由页表项可以找到页框号（如果有的话）。然后把页框号拼接到偏移量的高位端，以替换掉虚拟页号，形成物理地址。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927164705.png" srcset="/img/loading.gif" alt="" /></p>
+<p>因此，<strong>页表的目的是把虚拟页映射到页框中</strong>。从数学上说，页表是一个函数，它的参数是虚拟页号，结果是物理页框号。</p>
+<h3 id="页表项的结构"><a class="markdownIt-Anchor" href="#页表项的结构"></a> 页表项的结构</h3>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927164835.png" srcset="/img/loading.gif" alt="" /></p>
+<p>页表项的结构是与机器相关的，但是不同机器上的页表项大致相同。上面是一个页表项的构成，不同计算机的页表项可能不同，但是一般来说都是 <code>32</code> 位的。</p>
+<ul>
+<li>
+<p><code>页框号(Page frame number)</code>: 页表项中最重要的字段，毕竟，页表到页框最重要的一步操作就是要把此值映射过去。</p>
+</li>
+<li>
+<p><code>在/不在(Present/absent bit)位</code>: 如果此位上的值是 1，那么页表项是有效的并且能够被使用。如果此值是 0 的话，则表示该页表项对应的虚拟页面不在内存中，访问该页面会引起一个 <code>缺页中断(page fault)</code>。</p>
+</li>
+<li>
+<p><code>保护位(Protection)</code>: 指出一个页允许什么类型的访问。最简单的表示形式是这个域只有一位，0 表示可读可写，1 表示的是只读。</p>
+</li>
+<li>
+<p><code>修改位(Modified)</code> 和 <code>访问位(Referenced)</code> 会跟踪页面的使用情况。当一个页面被写入时，硬件会自动的设置修改位。修改位在页面重新分配页框时很有用。如果一个页面已经被修改过（即它是 <code>脏</code> 的），则必须把它写回磁盘。如果一个页面没有被修改过（即它是 <code>干净</code> 的），那么重新分配时这个页框会被直接丢弃，因为磁盘上的副本仍然是有效的。这个位有时也叫做 <code>脏位(dirty bit)</code>，因为它反映了页面的状态。</p>
+</li>
+<li>
+<p><code>访问位(Referenced)</code>: 在页面被访问时被设置，不管是读还是写。这个值能够帮助操作系统在发生缺页中断时选择要淘汰的页。不再使用的页要比正在使用的页更适合被淘汰。这个位在后面要讨论的页面置换算法中作用很大。</p>
+</li>
+<li>
+<p><code>高速缓存禁止位</code>: 用于禁止该页面被高速缓存，这个功能对于映射到设备寄存器还是内存中起到了关键作用。通过这一位可以禁用高速缓存。具有独立的 <code>I/O</code> 空间而不是用内存映射 <code>I/O</code> 的机器来说，并不需要这一位。</p>
+</li>
+</ul>
+<p>需要强调一下：<strong>虚拟内存本质上是用来创造一个地址空间的抽象，类似于进程是对 <code>CPU</code> 的抽象。虚拟内存的实现，本质是将虚拟地址空间分解成页，并将每一项映射到物理内存的某个页框。</strong> 因此我们的重点是如何管理这个虚拟内存的抽象。</p>
+<h2 id="快表"><a class="markdownIt-Anchor" href="#快表"></a> 快表</h2>
+<p>大多数程序总是对少量页面进行多次访问，而不是对大量页面进行少量访问。因此，只有很少的页面能够被再次访问，而其他的页表项很少被访问。</p>
+<blockquote>
+<p>页表项一般也被称为 <code>Page Table Entry(PTE)</code>。</p>
+</blockquote>
+<p>基于这种设想，提出了一种方案，即从硬件方面来解决这个问题，为计算机设置一个小型的硬件设备，能够将虚拟地址直接映射到物理地址，而不必再访问内存中的页表。这种设备被称为 <code>转换检测缓冲区(Translation Lookaside Buffer, TLB)</code>，有时又被称为 <code>相联存储器(associate memory)</code>。</p>
+<p><code>TLB</code> 通常位于 <code>MMU</code> 中，包含少量的表项，每个表项都记录了页面的相关信息，除了虚拟页号外，其他表项都和页表是一一对应的。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927172214.png" srcset="/img/loading.gif" alt="" /></p>
+<p><code>TLB</code> 其实就是一种<strong>内存缓存，用于减少访问内存所需要的时间</strong>，它就是 <code>MMU</code> 的一部分，<code>TLB</code> 会将虚拟地址到物理地址的转换存储起来，通常可以称为 <code>地址翻译缓存(address-translation cache)</code>。<code>TLB</code> 通常位于 <code>CPU</code> 和 <code>CPU</code> 缓存之间，它与 <code>CPU</code> 缓存是不同的缓存级别。下面我们来看一下 <code>TLB</code> 是如何工作的。</p>
+<p>当一个 <code>MMU</code> 中的虚拟地址需要进行转换时，硬件首先检查虚拟页号与 <code>TLB</code> 中所有表项进行并行匹配，判断虚拟页是否在 <code>TLB</code> 中。如果找到了有效匹配项，并且要进行的访问操作没有违反保护位的话，则将页框号直接从 <code>TLB</code> 中取出而<strong>不用再直接访问页表</strong>。如果虚拟页在 <code>TLB</code> 中但是违反了保护位的权限的话（比如只允许读但是是一个写指令），则会生成一个 <code>保护错误(protection fault)</code> 返回。</p>
+<p>上面探讨的是虚拟地址在 <code>TLB</code> 中的情况，那么如果虚拟地址不再 <code>TLB</code> 中该怎么办？如果 <code>MMU</code> 检测到没有有效的匹配项，就会进行正常的页表查找，然后从 <code>TLB</code> 中逐出一个表项然后把从页表中找到的项放在 <code>TLB</code> 中。当一个表项被从 <code>TLB</code> 中清除出，将修改位复制到内存中页表项，除了访问位之外，其他位保持不变。当页表项从页表装入 <code>TLB</code> 中时，所有的值都来自于内存。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927172423.png" srcset="/img/loading.gif" alt="" /></p>
 
             </article>
             <hr>
