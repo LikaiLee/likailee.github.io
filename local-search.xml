@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 485. 最大连续1的个数</title>
+    <link href="/2020/09/28/LeetCode-485-max-consecutive-ones/"/>
+    <url>/2020/09/28/LeetCode-485-max-consecutive-ones/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/max-consecutive-ones/" target="_blank" rel="noopener">485. 最大连续1的个数</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findMaxConsecutiveOnes</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;        <span class="hljs-keyword">if</span> (num == <span class="hljs-number">1</span>) &#123;            count++;        &#125; <span class="hljs-keyword">else</span> &#123;            max = Math.max(max, count);            count = <span class="hljs-number">0</span>;        &#125;    &#125;    <span class="hljs-keyword">return</span> Math.max(max, count);&#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findMaxConsecutiveOnes</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        <span class="hljs-keyword">if</span> (nums[right] == <span class="hljs-number">0</span>) &#123;            max = Math.max(right - left, max);            left = right + <span class="hljs-number">1</span>;        &#125;        right++;    &#125;    <span class="hljs-keyword">return</span> Math.max(right - left, max);&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>滑动窗口</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1456. 定长子串中元音的最大数目</title>
     <link href="/2020/09/28/LeetCode-1456-maximum-number-of-vowels-in-a-substring-of-given-length/"/>
     <url>/2020/09/28/LeetCode-1456-maximum-number-of-vowels-in-a-substring-of-given-length/</url>
