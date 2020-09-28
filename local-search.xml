@@ -8,7 +8,7 @@
     <link href="/2020/09/27/LeetCode-978-longest-turbulent-subarray/"/>
     <url>/2020/09/27/LeetCode-978-longest-turbulent-subarray/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-turbulent-subarray/" target="_blank" rel="noopener">978. 最长湍流子数组</a></p><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxTurbulenceSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A)</span> </span>&#123;    <span class="hljs-comment">// [9,4,2,10,7,8,8,1,9]</span>    <span class="hljs-comment">// dp[i]: 以第 i 个元素结尾的最大子数组长度</span>    <span class="hljs-comment">/*</span><span class="hljs-comment">      if A[i] == A[i - 1]</span><span class="hljs-comment">        dp[i] = 1</span><span class="hljs-comment">      if A[i - 2], A[i - 1] 上升（下降）</span><span class="hljs-comment">        if A[i - 1], A[i] 下降（上升）</span><span class="hljs-comment">           dp[i] = dp[i - 1] + 1</span><span class="hljs-comment">        else if A[i - 1], A[i] 上升（下降）</span><span class="hljs-comment">           dp[i] = 2</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">int</span> len = A.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> len;    &#125;    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    Arrays.fill(dp, <span class="hljs-number">1</span>);    dp[<span class="hljs-number">1</span>] = A[<span class="hljs-number">1</span>] == A[<span class="hljs-number">0</span>] ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;    <span class="hljs-keyword">int</span> max = dp[<span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 上升</span>        <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">2</span>] &lt; A[i - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// 下降</span>            <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &gt; A[i]) &#123;                dp[i] = dp[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &lt; A[i]) &#123;                dp[i] = <span class="hljs-number">2</span>;            &#125;        &#125;        <span class="hljs-comment">// 下降</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">2</span>] &gt; A[i - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// 上升</span>            <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &lt; A[i]) &#123;                dp[i] = dp[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (dp[i - <span class="hljs-number">1</span>] &gt; dp[i]) &#123;                dp[i] = <span class="hljs-number">2</span>;            &#125;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// A[i - 2] == A[i - 1]</span>            dp[i] = (A[i] == A[i - <span class="hljs-number">1</span>]) ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;        &#125;        max = Math.max(max, dp[i]);    &#125;    <span class="hljs-keyword">return</span> max;&#125;</code></pre><h1 id="滑动窗口"><a class="markdownIt-Anchor" href="#滑动窗口"></a> 滑动窗口</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxTurbulenceSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A)</span> </span>&#123;    <span class="hljs-comment">// [9,4,2,10,7,8,8,1,9]</span>    <span class="hljs-keyword">int</span> len = A.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> len;    &#125;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">2</span>;    <span class="hljs-keyword">int</span> maxLen = A[<span class="hljs-number">0</span>] == A[<span class="hljs-number">1</span>] ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        <span class="hljs-keyword">if</span> (A[right] == A[right - <span class="hljs-number">1</span>]) &#123;            left = right;            right++;            <span class="hljs-keyword">continue</span>;        &#125;        <span class="hljs-comment">// up</span>        <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">2</span>] &lt; A[right - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// up</span>            <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">1</span>] &lt; A[right]) &#123;                left = right - <span class="hljs-number">1</span>;            &#125;        &#125;        <span class="hljs-comment">// down</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">2</span>] &gt; A[right - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// down</span>            <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">1</span>] &gt; A[right]) &#123;                left = right - <span class="hljs-number">1</span>;            &#125;        &#125;        right++;        maxLen = Math.max(maxLen, right - left);    &#125;    <span class="hljs-keyword">return</span> maxLen;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-turbulent-subarray/" target="_blank" rel="noopener">978. 最长湍流子数组</a></p><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxTurbulenceSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A)</span> </span>&#123;    <span class="hljs-comment">// [9,4,2,10,7,8,8,1,9]</span>    <span class="hljs-comment">// dp[i]: 以第 i 个元素结尾的最大子数组长度</span>    <span class="hljs-comment">/*</span><span class="hljs-comment">      if A[i] == A[i - 1]</span><span class="hljs-comment">        dp[i] = 1</span><span class="hljs-comment">      if A[i - 2], A[i - 1] 上升（下降）</span><span class="hljs-comment">        if A[i - 1], A[i] 下降（上升）</span><span class="hljs-comment">           dp[i] = dp[i - 1] + 1</span><span class="hljs-comment">        else if A[i - 1], A[i] 上升（下降）</span><span class="hljs-comment">           dp[i] = 2</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">int</span> len = A.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> len;    &#125;    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    Arrays.fill(dp, <span class="hljs-number">1</span>);    dp[<span class="hljs-number">1</span>] = A[<span class="hljs-number">1</span>] == A[<span class="hljs-number">0</span>] ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;    <span class="hljs-keyword">int</span> max = dp[<span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 上升</span>        <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">2</span>] &lt; A[i - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// 下降</span>            <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &gt; A[i]) &#123;                dp[i] = dp[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &lt; A[i]) &#123;                dp[i] = <span class="hljs-number">2</span>;            &#125;        &#125;        <span class="hljs-comment">// 下降</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">2</span>] &gt; A[i - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// 上升</span>            <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] &lt; A[i]) &#123;                dp[i] = dp[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (dp[i - <span class="hljs-number">1</span>] &gt; dp[i]) &#123;                dp[i] = <span class="hljs-number">2</span>;            &#125;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// A[i - 2] == A[i - 1]</span>            dp[i] = (A[i] == A[i - <span class="hljs-number">1</span>]) ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;        &#125;        max = Math.max(max, dp[i]);    &#125;    <span class="hljs-keyword">return</span> max;&#125;</code></pre><h1 id="滑动窗口"><a class="markdownIt-Anchor" href="#滑动窗口"></a> 滑动窗口</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxTurbulenceSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = A.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> len;    &#125;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">2</span>;    <span class="hljs-keyword">int</span> maxLen = A[<span class="hljs-number">0</span>] == A[<span class="hljs-number">1</span>] ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        <span class="hljs-keyword">if</span> (A[right] == A[right - <span class="hljs-number">1</span>]) &#123;            left = right;            right++;            <span class="hljs-keyword">continue</span>;        &#125;        <span class="hljs-comment">// up</span>        <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">2</span>] &lt; A[right - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// up</span>            <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">1</span>] &lt; A[right]) &#123;                left = right - <span class="hljs-number">1</span>;            &#125;        &#125;        <span class="hljs-comment">// down</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">2</span>] &gt; A[right - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// down</span>            <span class="hljs-keyword">if</span> (A[right - <span class="hljs-number">1</span>] &gt; A[right]) &#123;                left = right - <span class="hljs-number">1</span>;            &#125;        &#125;        right++;        maxLen = Math.max(maxLen, right - left);    &#125;    <span class="hljs-keyword">return</span> maxLen;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -80,9 +80,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -190,7 +190,7 @@
     <link href="/2020/09/24/os-ram-manage/"/>
     <url>/2020/09/24/os-ram-manage/</url>
     
-    <content type="html"><![CDATA[<p>[TOC]<br /><code>分层存储器体系(memory hierarchy)</code>：<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200924163759.png" srcset="/img/loading.gif" alt="" /></p><p>位于顶层的存储器速度最快，但是相对容量最小，成本非常高。层级结构向下，其访问速度会变慢，但是容量会变大，相对造价也就越便宜。（所以个人感觉相对存储容量来说，访问速度是更重要的）</p><p>操作系统中管理内存层次结构的部分称为 <code>内存管理器(memory manager)</code>，它的主要工作是有效的管理内存，记录哪些内存是正在使用的，在进程需要时分配内存以及在进程完成时回收内存。所有现代操作系统都提供内存管理。</p><h1 id="无存储器抽象"><a class="markdownIt-Anchor" href="#无存储器抽象"></a> 无存储器抽象</h1><p>最简单的存储器抽象是无存储器。早期大型计算机（20 世纪 60 年代之前），小型计算机（20 世纪 70 年代之前）和个人计算机（20 世纪 80 年代之前）都没有存储器抽象。每一个程序都直接访问物理内存。当一个程序执行如下命令：</p><pre><code class="hljs angelscript">MOV REGISTER1, <span class="hljs-number">1000</span></code></pre><p>计算机会把位置为 1000 的物理内存中的内容移到 <code>REGISTER1</code> 中。因此呈现给程序员的内存模型就是物理内存，内存地址从 0 开始到内存地址的最大值中，每个地址中都会包含一个 <code>8 位</code> 位数的内存单元。</p><p>所以这种情况下的计算机<strong>不可能会有两个应用程序同时在内存中</strong>。如果第一个程序向内存地址 2000 的这个位置写入了一个值，那么此值将会替换第二个程序 2000 位置上的值，所以，同时运行两个应用程序是行不通的，两个程序会立刻崩溃。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200924165101.png" srcset="/img/loading.gif" alt="" /></p><p>不过即使存储器模型就是物理内存，还是存在一些可变体的。下面展示了三种变体：</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200924165747.png" srcset="/img/loading.gif" alt="" /></p><p>在上图 <code>a</code> 中，操作系统位于 <code>RAM(Random Access Memory)</code> 的底部，或像是图 <code>b</code> 一样位于 <code>ROM(Read-Only Memory)</code> 顶部；而在图 <code>c</code> 中，<strong>设备驱动程序</strong>位于顶端的 <code>ROM</code> 中，而操作系统位于底部的 <code>RAM</code> 中。</p><ul><li>图 a 的模型以前用在大型机和小型机上，但现在已经很少使用了；</li><li>图 b 中的模型一般用于掌上电脑或者是嵌入式系统中。</li><li>第三种模型就应用在早期个人计算机中了。ROM 系统中的一部分成为 <code>BIOS (Basic Input Output System)</code>。模型 a 和 c 的缺点是<strong>用户程序中的错误可能会破坏操作系统</strong>，可能会导致灾难性的后果。</li></ul><p>按照这种方式组织系统时，通常<strong>同一个时刻只能有一个进程正在运行</strong>。一旦用户键入了一个命令，操作系统就把需要的程序从磁盘复制到内存中并执行；当进程运行结束后，操作系统在用户终端显示提示符并等待新的命令。收到新的命令后，它把新的程序装入内存，覆盖前一个程序。</p><p>在没有存储器抽象的系统中实现并行性一种方式是使用多线程来编程。由于同一进程中的多线程内部共享同一内存映像，那么实现并行也就不是问题了。但是这种方式却并没有被广泛采纳，因为人们通常希望能够在同一时间内运行没有关联的程序，而这正是线程抽象所不能提供的。</p><h1 id="存储器抽象地址空间"><a class="markdownIt-Anchor" href="#存储器抽象地址空间"></a> 存储器抽象：地址空间</h1><p>把物理内存暴露给进程会有几个主要的缺点：</p><ul><li><p>第一个问题是，如果用户程序可以寻址内存的每个字节，它们就可以很容易的<strong>破坏操作系统</strong>，从而使系统停止运行。即使在只有一个用户进程运行的情况下，这个问题也存在。</p></li><li><p>第二点是，<strong>难以运行多个程序</strong>。在个人计算机上，一般会打开很多应用程序，这些进程在不同时刻会有一个进程正在运行，其他应用程序可以通过鼠标来唤醒。在系统中没有物理内存的情况下很难实现。</p></li></ul><h2 id="地址空间概念"><a class="markdownIt-Anchor" href="#地址空间概念"></a> 地址空间概念</h2><p><code>地址空间(the address space)</code> 创建了一种抽象内存供程序使用。<strong>地址空间是进程可以用来寻址内存的地址集。每个进程都有它自己的地址空间，独立于其他进程的地址空间，但是某些进程会希望可以共享地址空间。</strong></p><h3 id="基址寄存器和变址寄存器"><a class="markdownIt-Anchor" href="#基址寄存器和变址寄存器"></a> 基址寄存器和变址寄存器</h3><p>最简单的办法是使用 <code>动态重定位(dynamic relocation)</code> 技术，它就是通过一种简单的方式<strong>将每个进程的地址空间映射到物理内存的不同区域</strong>。<br />经典办法是给每个 <code>CPU</code> 配置两个特殊硬件寄存器，通常叫做 <code>基址寄存器(basic register)</code> 和 <code>变址寄存器(limit register)</code>。当使用基址寄存器和变址寄存器时，程序会装载到内存中的连续位置并且在装载期间无需重定位。</p><ul><li>基址寄存器：存储数据内存的起始位置</li><li>变址寄存器：存储应用程序的长度。</li></ul><p>每当进程引用内存以获取指令或读取、写入数据时，<code>CPU</code> 都会自动将基址值添加到进程生成的地址中，然后再将其发送到内存总线上。同时，它检查程序提供的地址是否大于或等于变址寄存器中的值。如果程序提供的地址要超过变址寄存器的范围，那么会产生错误并中止访问。</p><p>执行 <code>JMP 28</code> 这条指令后，硬件会把它解释为 <code>JMP 16412</code>，所以程序能够跳到 <code>CMP</code> 指令，过程如下：<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925132116.png" srcset="/img/loading.gif" alt="" /></p><p>使用基址寄存器和变址寄存器是给每个进程提供私有地址空间的一种非常好的方法，因为每个内存地址在送到内存之前，都会先加上基址寄存器的内容。在很多实际系统中，对基址寄存器和变址寄存器都会以一定的方式加以保护，使得只有操作系统可以修改它们。</p><p>缺点：在每次访问内存时，都会进行 <code>ADD</code> 和 <code>CMP</code> 运算。<code>CMP</code> 指令可以执行的很快，但是加法就会相对慢一些，除非使用特殊的加法电路，否则加法因进位传播时间而变慢。</p><h2 id="交换技术"><a class="markdownIt-Anchor" href="#交换技术"></a> 交换技术</h2><p>实际上，所有<strong>进程需要的 <code>RAM</code> 总容量要远远高于内存的容量</strong>。针对<strong>内存不足</strong>的问题，提出了两种处理方式：</p><ul><li><code>交换(swapping)</code> 技术，即把一个进程完整的调入内存，然后再内存中运行一段时间，再把它放回磁盘。空闲进程会存储在磁盘中，所以这些进程在没有运行时不会占用太多内存。</li><li><code>虚拟内存(virtual memory)</code>，虚拟内存技术能够允许应用程序部分的运行在内存中。</li></ul><h3 id="交换过程"><a class="markdownIt-Anchor" href="#交换过程"></a> 交换过程</h3><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925132623.png" srcset="/img/loading.gif" alt="" /></p><p>刚开始的时候，只有进程 A 在内存中，然后从创建进程 B 和进程 C 或者从磁盘中把它们换入内存，然后在图 d 中，A 被换出内存到磁盘中，最后 A 重新进来。因为图 g 中的进程 A 现在到了不同的位置，所以在装载过程中需要被重新定位，或者在交换程序时通过软件来执行；或者在程序执行期间通过硬件来重定位。基址寄存器和变址寄存器就适用于这种情况。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925132932.png" srcset="/img/loading.gif" alt="" /></p><p>交换在内存创建了多个 <code>空闲区(hole)</code>，内存会把所有的空闲区尽可能向下移动合并成为一个大的空闲区。这项技术称为 <code>内存紧缩(memory compaction)</code>。但是这项技术通常不会使用，因为这项技术会消耗很多 <code>CPU</code> 时间。例如，在一个 16GB 内存的机器上每 8ns 复制 8 字节，它紧缩全部的内存大约要花费 16s。</p><h3 id="动态内存分配"><a class="markdownIt-Anchor" href="#动态内存分配"></a> 动态内存分配</h3><p>如果进程被创建后它的大小是固定的并且不再改变，那么分配策略就比较简单：操作系统会准确的按其需要的大小进行分配。</p><p>进程的 <code>data segment</code> 能够自动增长，会有三种处理方式：</p><ul><li><p>如果一个进程与空闲区相邻，那么可把该空闲区分配给进程以供其增大。</p></li><li><p>如果进程相邻的是另一个进程，就会有两种处理方式：要么把需要增长的进程移动到一个内存中空闲区足够大的区域，要么把一个或多个进程交换出去，已变成生成一个大的空闲区。</p></li><li><p>如果一个进程在内存中不能增长，而且磁盘上的交换区也满了，那么这个进程只有挂起一些空闲空间（或者可以结束该进程）。</p></li></ul><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925133850.png" srcset="/img/loading.gif" alt="" /></p><p>上面只针对单个或者一小部分需要增长的进程采用的方式，如果大部分进程都要在运行时增长，为了减少因内存区域不够而引起的进程交换和移动所产生的开销，一种可用的方法是，<strong>在换入或移动进程时为它分配一些额外的内存</strong>。然而，<strong>当进程被换出到磁盘上时，应该只交换实际上使用的内存</strong>，将额外的内存交换也是一种浪费，下面是一种为两个进程分配了增长空间的内存配置。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925134003.png" srcset="/img/loading.gif" alt="" /></p><p>如果进程有两个可增长的段，例如，供变量动态分配和释放的作为堆(全局变量)使用的一个 <code>数据段(data segment)</code>，以及存放局部变量与返回地址的一个 <code>堆栈段(stack segment)</code>，就如图 b 所示。在图中可以看到所示进程的<strong>堆栈段在进程所占内存的顶端向下增长</strong>，紧接着在程序段后的<strong>数据段向上增长</strong>。当增长预留的内存区域不够了，处理方式就如上面的流程图(<code>data segment</code> 自动增长的三种处理方式)一样了。</p><h2 id="空闲内存管理"><a class="markdownIt-Anchor" href="#空闲内存管理"></a> 空闲内存管理</h2><p>在进行内存动态分配时，操作系统必须对其进行管理。大致上说，有两种监控内存使用的方式</p><ul><li>位图(<code>bitmap</code>)</li><li>空闲列表(<code>free lists</code>)</li></ul><h3 id="1-使用位图的存储管理"><a class="markdownIt-Anchor" href="#1-使用位图的存储管理"></a> 1. 使用位图的存储管理</h3><p>使用位图方法时，内存可能被划分为小到几个字或大到几千字节的分配单元。每个分配单元对应于位图中的一位，0 表示空闲， 1 表示占用（或者相反）。一块内存区域和其对应的位图如下：<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925161159.png" srcset="/img/loading.gif" alt="" /></p><p>图 <code>a</code> 表示一段有 5 个进程和 3 个空闲区的内存，刻度为内存分配单元，阴影区表示空闲（在位图中用 0 表示）；图 <code>b</code> 表示对应的位图；图 <code>c</code> 表示用链表表示同样的信息。</p><p>分配单元的大小是一个重要的设计因素，<strong>分配单位越小，位图越大</strong>。然而，即使只有 <code>4</code> 字节的分配单元，<code>32</code> 位的内存也仅仅只需要位图中的 <code>1</code> 位。<code>32n</code> 位的内存需要 <code>n</code> 位的位图，所以 <code>1</code> 个位图只占用了 <code>1/32</code> 的内存。如果选择更大的内存单元，位图应该要更小。如果进程的大小不是分配单元的整数倍，那么在最后一个分配单元中会有大量的内存被浪费。</p><p>位图提供了一种简单的方法在固定大小的内存中跟踪内存的使用情况，因为<strong>位图的大小取决于内存和分配单元的大小</strong>。这种方法有一个问题是，当决定为把具有 <code>k</code> 个分配单元的进程放入内存时，<code>内容管理器(memory manager)</code> 必须搜索位图，在位图中找出能够运行 <code>k</code> 个连续 <code>0</code> 位的串。<strong>在位图中找出制定长度的连续 <code>0</code> 串是一个很耗时的操作，这是位图的缺点。</strong></p><h3 id="2-使用链表进行管理"><a class="markdownIt-Anchor" href="#2-使用链表进行管理"></a> 2. 使用链表进行管理</h3><p>另一种记录内存使用情况的方法是，维护一个记录<strong>已分配内存段和空闲内存段的链表</strong>，段会包含进程或者是两个进程的空闲区域。可用上面的 <code>图 c</code> 来表示内存的使用情况。链表中的每一项都可以代表一个 <code>空闲区(H)</code> 或者是 <code>进程(P)</code> 的起始标志，长度和下一个链表项的位置。</p><p>在这个例子中，<code>段链表(segment list)</code> 是按照地址排序的。这种方式的优点是，当进程终止或被交换时，更新列表很简单。一个终止进程通常有两个邻居（除了内存的顶部和底部外）。相邻的可能是进程也可能是空闲区，它们有四种组合方式。<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925163044.png" srcset="/img/loading.gif" alt="" /></p><h3 id="3-顺序搜索的动态内存分配"><a class="markdownIt-Anchor" href="#3-顺序搜索的动态内存分配"></a> 3. 顺序搜索的动态内存分配</h3><p>当按照地址顺序在链表中存放进程和空闲区时，有几种算法可以为创建的进程（或者从磁盘中换入的进程）分配内存。</p><h4 id="31-首次适配first-fit"><a class="markdownIt-Anchor" href="#31-首次适配first-fit"></a> 3.1 <code>首次适配(first fit)</code></h4><p><strong>内存管理器会沿着段列表进行扫描，直到找个一个足够大的空闲区为止</strong>。除非空闲区大小和要分配的空间大小一样，否则将空闲区分为两部分，一部分供进程使用；一部分生成新的空闲区。首次适配算法是一种速度很快的算法，因为它会尽可能的搜索链表。</p><h4 id="32-下次适配next-fit"><a class="markdownIt-Anchor" href="#32-下次适配next-fit"></a> 3.2 <code>下次适配(next fit)</code></h4><p>它和首次匹配的工作方式相同，只有一个不同之处那就是<strong>下次适配在每次找到合适的空闲区时就会记录当时的位置</strong>，以便下次寻找空闲区时从上次结束的地方开始搜索，而不是像首次匹配算法那样每次都会从头开始搜索。</p><h4 id="33-最佳适配best-fit"><a class="markdownIt-Anchor" href="#33-最佳适配best-fit"></a> 3.3 <code>最佳适配(best fit)</code></h4><p>最佳适配会从头到尾寻找整个链表，找出能够容纳进程的<strong>最小空闲区</strong>。最佳适配算法会试图<strong>找出最接近实际需要的空闲区</strong>，以最好的匹配请求和可用空闲区，而不是先一次拆分一个以后可能会用到的大的空闲区。比如现在我们需要一个大小为 2 的块，那么首次匹配算法会把这个块分配在位置 5 的空闲区，而最佳适配算法会把该块分配在位置为 18 的空闲区，如下：</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925162851.png" srcset="/img/loading.gif" alt="" /></p><p>最佳适配会遍历整个链表，所以最佳适配算法的性能要比首次匹配算法差。但最佳适配算法要比首次匹配和下次匹配算法浪费更多的内存，因为它会产生大量无用的小缓冲区，首次匹配算法生成的空闲区会更大一些。</p><h4 id="34-最差适配worst-fit"><a class="markdownIt-Anchor" href="#34-最差适配worst-fit"></a> 3.4 <code>最差适配(worst fit)</code></h4><p><strong>总是分配最大的内存区域</strong>，使新分配的空闲区比较大从而可以继续使用。仿真程序表明最差适配算法也不是一个好主意。</p><h4 id="35-快速适配quick-fit"><a class="markdownIt-Anchor" href="#35-快速适配quick-fit"></a> 3.5 <code>快速适配(quick fit)</code></h4><p><strong>为那些常用大小的空闲区维护单独的链表</strong>。例如，有一个 <code>n</code> 项的表，该表的第一项是指向大小为 <code>4 KB</code> 的空闲区链表表头指针，第二项是指向大小为 <code>8 KB</code> 的空闲区链表表头指针，第三项是指向大小为 <code>12 KB</code> 的空闲区链表表头指针，以此类推。比如 <code>21 KB</code> 这样的空闲区既可以放在 <code>20 KB</code> 的链表中，也可以放在一个专门存放大小比较特别的空闲区链表中。</p><p>快速匹配算法寻找一个指定代销的空闲区也是十分快速的，但它和所有将空闲区按大小排序的方案一样，都有一个共同的缺点，<strong>即在一个进程终止或被换出时，寻找它的相邻块并查看是否可以合并的过程都是非常耗时的。</strong> 如果不进行合并，内存将会很快分裂出大量进程无法利用的小空闲区。</p><h1 id="虚拟内存"><a class="markdownIt-Anchor" href="#虚拟内存"></a> 虚拟内存</h1><p>在一些中小应用程序可使用交换技术，<strong>如果应用程序过大，交换技术并不是一个很有效的方案。</strong><br />一个典型的 <code>SATA</code> 磁盘的峰值传输速度高达几百兆/秒，这意味着需要好几秒才能换出或者换入一个 <code>1 GB</code> 的程序。</p><p><code>虚拟内存(virtual memory)</code> 的基本思想是，<strong>每个程序都有自己的地址空间，这个地址空间被划分为多个称为 <code>页面(page)</code> 的块。</strong> 每一页都是连续的地址范围。<strong>这些页被映射到物理内存</strong>，但并不是所有的页都必须在内存中才能运行程序。当程序引用到一部分在物理内存中的地址空间时，硬件会立刻执行必要的映射。当程序引用到一部分不在物理内存中的地址空间时，由操作系统负责将缺失的部分装入物理内存并重新执行失败的指令。</p><p>虚拟内存很适合在多道程序设计系统中使用，许多程序的片段同时保存在内存中，当一个程序等待它的一部分读入内存时，可以把 <code>CPU</code> 交给另一个进程使用。</p><h2 id="分页"><a class="markdownIt-Anchor" href="#分页"></a> 分页</h2><p>大部分使用虚拟内存的系统中都会使用一种 <code>分页(paging)</code> 技术。在任何一台计算机上，程序会引用使用一组内存地址。当程序执行</p><pre><code class="hljs assembly">MOV REG, 1000</code></pre><p>这条指令时，它会把内存地址为 <code>1000</code> 的内存单元的内容复制到 <code>REG</code> 中（或者相反，这取决于计算机）。地址可以通过索引、基址寄存器、段寄存器或其他方式产生。</p><p>这些程序生成的地址被称为 <code>虚拟地址(virtual addresses)</code> 并形成 <code>虚拟地址空间(virtual address space)</code>.</p><ul><li>在没有虚拟内存的计算机上，系统直接将虚拟地址送到内存总线上，读写操作都使用同样地址的物理内存。</li><li>在使用虚拟内存时，虚拟地址不会直接发送到内存总线上。相反，会使用 <code>MMU(Memory Management Unit)</code> 内存管理单元<strong>把虚拟地址映射为物理内存地址</strong>，像下图这样：<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927155103.png" srcset="/img/loading.gif" alt="" /></li></ul><p>下面这幅图展示了这种映射是如何工作的：<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927155203.png" srcset="/img/loading.gif" alt="" /></p><h3 id="1-存在映射的页如何映射"><a class="markdownIt-Anchor" href="#1-存在映射的页如何映射"></a> 1. 存在映射的页如何映射</h3><p>虚拟地址空间由固定大小的单元组成，这种固定大小的单元称为 <code>页(pages)</code>。而相对的，物理内存中也有固定大小的物理单元，称为 <code>页框(page frames)</code>。页和页框的大小一样。在上面这个例子中，页的大小为 <code>4KB</code> ，但是实际的使用过程中页的大小范围可能是 <code>512</code> 字节 - <code>1G</code> 字节的大小。对应于 <code>64 KB</code> 的虚拟地址空间和 <code>32 KB</code> 的物理内存，可得到 <code>16</code> 个虚拟页面和 <code>8</code> 个页框。 <strong><code>RAM</code> 和磁盘之间的交换总是以整个页为单元进行交换的。</strong></p><p>程序试图访问地址时，例如执行下面这条指令：</p><pre><code class="hljs assembly">MOV REG, 0</code></pre><p>会将虚拟地址 <code>0</code> 送到 <code>MMU</code>。<code>MMU</code> 看到虚拟地址落在<code>页面 0</code> （<code>0 - 4095</code>），根据其映射结果，这一页面对应的<code>页框 2</code> （<code>8192 - 12287</code>），因此 <code>MMU</code> 把地址变换为 <code>8192</code> ，并把地址 <code>8192</code> 送到总线上。内存对 <code>MMU</code> 一无所知，它只看到一个对 <code>8192</code> 地址的读写请求并执行它。<code>MMU</code> 从而有效的把所有虚拟地址 <code>0 - 4095</code> 映射到了 <code>8192 - 12287</code> 的物理地址。同样的，指令</p><pre><code class="hljs assembly">MOV REG, 8192</code></pre><p>也被有效的转换为</p><pre><code class="hljs assembly">MOV REG, 24576</code></pre><p>虚拟地址 <code>8192</code>（在<code>虚拟页 2</code> 中）被映射到物理地址 <code>24576</code>（在物理<code>页框 6</code> 中）上。</p><p>通过恰当的设置 <code>MMU</code>，可以把 <code>16</code> 个虚拟页面映射到 <code>8</code> 个页框中的任何一个。但是这并没有解决虚拟地址空间比物理内存大的问题。</p><p>上图中有 <code>8</code> 个物理页框，于是只有 <code>8</code> 个虚拟页被映射到了物理内存中，在上图中用 <code>X</code> 号表示的其他页面没有被映射。在实际的硬件中，会使用一个 <code>在/不在(Present/absent bit)位</code> 记录页面在内存中的实际存在情况。</p><h3 id="2-未映射的页如何映射"><a class="markdownIt-Anchor" href="#2-未映射的页如何映射"></a> 2. 未映射的页如何映射</h3><p>当程序访问一个未映射的页面，如执行指令：</p><pre><code class="hljs assembly">MOV REG, 32780</code></pre><p>将会发生什么情况呢？<code>虚拟页面 8</code> （从 <code>32768</code> 开始）的第 <code>12</code> 个字节所对应的物理地址是什么？<code>MMU</code> 注意到该页面没有被映射（在图中用 <code>X</code> 号表示），于是 <code>CPU</code> 会陷入(<code>trap</code>)到操作系统中。这个陷入称为 <code>缺页中断(page fault)</code> 或者是 <code>缺页错误</code>。操作系统会选择一个很少使用的页并把它的内容写入磁盘（如果它不在磁盘上）。随后把需要访问的页面读到刚才回收的页框中，修改映射关系，然后重新启动引起陷入的指令。有点不太好理解，举个例子来看一下。</p><p>例如，如果操作系统决定放弃 <code>页框 1</code>，那么它将把 <code>虚拟页面 8</code> 装入物理地址 <code>4096</code>，并对 <code>MMU</code> 映射做两处修改。</p><ul><li>首先，它要将虚拟页中的 <code>1</code> 表项标记为<code>未映射</code>，使以后任何对虚拟地址 <code>4096 - 8191</code> 的访问都将导致陷入。</li><li>随后把虚拟页面 <code>8</code> 的表项的叉号改为 <code>1</code>，因此在引起陷阱的指令重新启动时，它将把虚拟地址 <code>32780</code> 映射为物理地址（<code>4096 + 12</code>）。</li></ul><p>下面查看一下 <code>MMU</code> 的内部构造以便了解它们是如何工作的，以及了解为什么我们选用的页大小都是 2 的整数次幂。下图我们可以看到一个虚拟地址的例子：<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927163045.png" srcset="/img/loading.gif" alt="" /></p><blockquote><p>虚拟地址 = 虚拟页号 + 页内偏移量<br />物理地址 = (虚拟地址页号 -&gt; 物理地址页号) + 页内偏移量</p></blockquote><p>虚拟地址 <code>8196</code> （<code>0010000000000100</code>）用上面的页表映射图所示的 <code>MMU</code> 映射机制进行映射，输入的 <code>16</code> 位虚拟地址被分为 <code>4</code> 位的<strong>页号</strong>和 <code>12</code> 位的<strong>偏移量</strong>。<code>4</code> 位的页号可以表示 <code>16</code> 个页面，<code>12</code> 位的偏移可以为一页内的全部 <code>4096</code> 个字节。</p><p>可用页号作为 <code>页表(page table)</code> 的索引，以得出对应于该虚拟页面的<strong>页框号</strong>。如果在/不在位是 <code>0</code> ，则引起一个操作系统陷入。如果该位是 <code>1</code>，则将在页表中查到的页框号复制到输出寄存器的<code>高 3 位</code>中，再加上输入虚拟地址中的<code>低 12 位偏移量</code>。如此就构成了 <code>15</code> 位的物理地址。输出寄存器的内容随即被作为物理地址送到总线。</p><h2 id="页表"><a class="markdownIt-Anchor" href="#页表"></a> 页表</h2><p>在上面这个简单的例子中，虚拟地址到物理地址的映射可以总结如下：虚拟地址被分为<strong>虚拟页号</strong>（高位部分）和<strong>偏移量</strong>（低位部分）。例如，对于 <code>16</code> 位地址和 <code>4 KB</code> 的页面大小，<strong>高 4 位</strong>可以指定 <code>16</code> 个虚拟页面中的一页，而<strong>低 12 位</strong>接着确定了所选页面中的偏移量（<code>0-4095</code>）。</p><p>虚拟页号可作为页表的索引用来找到虚拟页中的内容。由页表项可以找到页框号（如果有的话）。然后把页框号拼接到偏移量的高位端，以替换掉虚拟页号，形成物理地址。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927164705.png" srcset="/img/loading.gif" alt="" /></p><p>因此，<strong>页表的目的是把虚拟页映射到页框中</strong>。从数学上说，页表是一个函数，它的参数是虚拟页号，结果是物理页框号。</p><h3 id="页表项的结构"><a class="markdownIt-Anchor" href="#页表项的结构"></a> 页表项的结构</h3><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927164835.png" srcset="/img/loading.gif" alt="" /></p><p>页表项的结构是与机器相关的，但是不同机器上的页表项大致相同。上面是一个页表项的构成，不同计算机的页表项可能不同，但是一般来说都是 <code>32</code> 位的。</p><ul><li><p><code>页框号(Page frame number)</code>: 页表项中最重要的字段，毕竟，页表到页框最重要的一步操作就是要把此值映射过去。</p></li><li><p><code>在/不在(Present/absent bit)位</code>: 如果此位上的值是 1，那么页表项是有效的并且能够被使用。如果此值是 0 的话，则表示该页表项对应的虚拟页面不在内存中，访问该页面会引起一个 <code>缺页中断(page fault)</code>。</p></li><li><p><code>保护位(Protection)</code>: 指出一个页允许什么类型的访问。最简单的表示形式是这个域只有一位，0 表示可读可写，1 表示的是只读。</p></li><li><p><code>修改位(Modified)</code> 和 <code>访问位(Referenced)</code> 会跟踪页面的使用情况。当一个页面被写入时，硬件会自动的设置修改位。修改位在页面重新分配页框时很有用。如果一个页面已经被修改过（即它是 <code>脏</code> 的），则必须把它写回磁盘。如果一个页面没有被修改过（即它是 <code>干净</code> 的），那么重新分配时这个页框会被直接丢弃，因为磁盘上的副本仍然是有效的。这个位有时也叫做 <code>脏位(dirty bit)</code>，因为它反映了页面的状态。</p></li><li><p><code>访问位(Referenced)</code>: 在页面被访问时被设置，不管是读还是写。这个值能够帮助操作系统在发生缺页中断时选择要淘汰的页。不再使用的页要比正在使用的页更适合被淘汰。这个位在后面要讨论的页面置换算法中作用很大。</p></li><li><p><code>高速缓存禁止位</code>: 用于禁止该页面被高速缓存，这个功能对于映射到设备寄存器还是内存中起到了关键作用。通过这一位可以禁用高速缓存。具有独立的 <code>I/O</code> 空间而不是用内存映射 <code>I/O</code> 的机器来说，并不需要这一位。</p></li></ul><p>需要强调一下：<strong>虚拟内存本质上是用来创造一个地址空间的抽象，类似于进程是对 <code>CPU</code> 的抽象。虚拟内存的实现，本质是将虚拟地址空间分解成页，并将每一项映射到物理内存的某个页框。</strong> 因此我们的重点是如何管理这个虚拟内存的抽象。</p><h2 id="快表"><a class="markdownIt-Anchor" href="#快表"></a> 快表</h2><p>大多数程序总是对少量页面进行多次访问，而不是对大量页面进行少量访问。因此，只有很少的页面能够被再次访问，而其他的页表项很少被访问。</p><blockquote><p>页表项一般也被称为 <code>Page Table Entry(PTE)</code>。</p></blockquote><p>基于这种设想，提出了一种方案，即从硬件方面来解决这个问题，为计算机设置一个小型的硬件设备，能够将虚拟地址直接映射到物理地址，而不必再访问内存中的页表。这种设备被称为 <code>转换检测缓冲区(Translation Lookaside Buffer, TLB)</code>，有时又被称为 <code>相联存储器(associate memory)</code>。</p><p><code>TLB</code> 通常位于 <code>MMU</code> 中，包含少量的表项，每个表项都记录了页面的相关信息，除了虚拟页号外，其他表项都和页表是一一对应的。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927172214.png" srcset="/img/loading.gif" alt="" /></p><p><code>TLB</code> 其实就是一种<strong>内存缓存，用于减少访问内存所需要的时间</strong>，它就是 <code>MMU</code> 的一部分，<code>TLB</code> 会将虚拟地址到物理地址的转换存储起来，通常可以称为 <code>地址翻译缓存(address-translation cache)</code>。<code>TLB</code> 通常位于 <code>CPU</code> 和 <code>CPU</code> 缓存之间，它与 <code>CPU</code> 缓存是不同的缓存级别。下面我们来看一下 <code>TLB</code> 是如何工作的。</p><p>当一个 <code>MMU</code> 中的虚拟地址需要进行转换时，硬件首先检查虚拟页号与 <code>TLB</code> 中所有表项进行并行匹配，判断虚拟页是否在 <code>TLB</code> 中。如果找到了有效匹配项，并且要进行的访问操作没有违反保护位的话，则将页框号直接从 <code>TLB</code> 中取出而<strong>不用再直接访问页表</strong>。如果虚拟页在 <code>TLB</code> 中但是违反了保护位的权限的话（比如只允许读但是是一个写指令），则会生成一个 <code>保护错误(protection fault)</code> 返回。</p><p>上面探讨的是虚拟地址在 <code>TLB</code> 中的情况，那么如果虚拟地址不再 <code>TLB</code> 中该怎么办？如果 <code>MMU</code> 检测到没有有效的匹配项，就会进行正常的页表查找，然后从 <code>TLB</code> 中逐出一个表项然后把从页表中找到的项放在 <code>TLB</code> 中。当一个表项被从 <code>TLB</code> 中清除出，将修改位复制到内存中页表项，除了访问位之外，其他位保持不变。当页表项从页表装入 <code>TLB</code> 中时，所有的值都来自于内存。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927172423.png" srcset="/img/loading.gif" alt="" /></p>]]></content>
+    <content type="html"><![CDATA[<p><code>分层存储器体系(memory hierarchy)</code>：<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200924163759.png" srcset="/img/loading.gif" alt="" /></p><p>位于顶层的存储器速度最快，但是相对容量最小，成本非常高。层级结构向下，其访问速度会变慢，但是容量会变大，相对造价也就越便宜。（所以个人感觉相对存储容量来说，访问速度是更重要的）</p><p>操作系统中管理内存层次结构的部分称为 <code>内存管理器(memory manager)</code>，它的主要工作是有效的管理内存，记录哪些内存是正在使用的，在进程需要时分配内存以及在进程完成时回收内存。所有现代操作系统都提供内存管理。</p><h1 id="无存储器抽象"><a class="markdownIt-Anchor" href="#无存储器抽象"></a> 无存储器抽象</h1><p>最简单的存储器抽象是无存储器。早期大型计算机（20 世纪 60 年代之前），小型计算机（20 世纪 70 年代之前）和个人计算机（20 世纪 80 年代之前）都没有存储器抽象。每一个程序都直接访问物理内存。当一个程序执行如下命令：</p><pre><code class="hljs angelscript">MOV REGISTER1, <span class="hljs-number">1000</span></code></pre><p>计算机会把位置为 1000 的物理内存中的内容移到 <code>REGISTER1</code> 中。因此呈现给程序员的内存模型就是物理内存，内存地址从 0 开始到内存地址的最大值中，每个地址中都会包含一个 <code>8 位</code> 位数的内存单元。</p><p>所以这种情况下的计算机<strong>不可能会有两个应用程序同时在内存中</strong>。如果第一个程序向内存地址 2000 的这个位置写入了一个值，那么此值将会替换第二个程序 2000 位置上的值，所以，同时运行两个应用程序是行不通的，两个程序会立刻崩溃。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200924165101.png" srcset="/img/loading.gif" alt="" /></p><p>不过即使存储器模型就是物理内存，还是存在一些可变体的。下面展示了三种变体：</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200924165747.png" srcset="/img/loading.gif" alt="" /></p><p>在上图 <code>a</code> 中，操作系统位于 <code>RAM(Random Access Memory)</code> 的底部，或像是图 <code>b</code> 一样位于 <code>ROM(Read-Only Memory)</code> 顶部；而在图 <code>c</code> 中，<strong>设备驱动程序</strong>位于顶端的 <code>ROM</code> 中，而操作系统位于底部的 <code>RAM</code> 中。</p><ul><li>图 a 的模型以前用在大型机和小型机上，但现在已经很少使用了；</li><li>图 b 中的模型一般用于掌上电脑或者是嵌入式系统中。</li><li>第三种模型就应用在早期个人计算机中了。ROM 系统中的一部分成为 <code>BIOS (Basic Input Output System)</code>。模型 a 和 c 的缺点是<strong>用户程序中的错误可能会破坏操作系统</strong>，可能会导致灾难性的后果。</li></ul><p>按照这种方式组织系统时，通常<strong>同一个时刻只能有一个进程正在运行</strong>。一旦用户键入了一个命令，操作系统就把需要的程序从磁盘复制到内存中并执行；当进程运行结束后，操作系统在用户终端显示提示符并等待新的命令。收到新的命令后，它把新的程序装入内存，覆盖前一个程序。</p><p>在没有存储器抽象的系统中实现并行性一种方式是使用多线程来编程。由于同一进程中的多线程内部共享同一内存映像，那么实现并行也就不是问题了。但是这种方式却并没有被广泛采纳，因为人们通常希望能够在同一时间内运行没有关联的程序，而这正是线程抽象所不能提供的。</p><h1 id="存储器抽象地址空间"><a class="markdownIt-Anchor" href="#存储器抽象地址空间"></a> 存储器抽象：地址空间</h1><p>把物理内存暴露给进程会有几个主要的缺点：</p><ul><li><p>第一个问题是，如果用户程序可以寻址内存的每个字节，它们就可以很容易的<strong>破坏操作系统</strong>，从而使系统停止运行。即使在只有一个用户进程运行的情况下，这个问题也存在。</p></li><li><p>第二点是，<strong>难以运行多个程序</strong>。在个人计算机上，一般会打开很多应用程序，这些进程在不同时刻会有一个进程正在运行，其他应用程序可以通过鼠标来唤醒。在系统中没有物理内存的情况下很难实现。</p></li></ul><h2 id="地址空间概念"><a class="markdownIt-Anchor" href="#地址空间概念"></a> 地址空间概念</h2><p><code>地址空间(the address space)</code> 创建了一种抽象内存供程序使用。<strong>地址空间是进程可以用来寻址内存的地址集。每个进程都有它自己的地址空间，独立于其他进程的地址空间，但是某些进程会希望可以共享地址空间。</strong></p><h3 id="基址寄存器和变址寄存器"><a class="markdownIt-Anchor" href="#基址寄存器和变址寄存器"></a> 基址寄存器和变址寄存器</h3><p>最简单的办法是使用 <code>动态重定位(dynamic relocation)</code> 技术，它就是通过一种简单的方式<strong>将每个进程的地址空间映射到物理内存的不同区域</strong>。<br />经典办法是给每个 <code>CPU</code> 配置两个特殊硬件寄存器，通常叫做 <code>基址寄存器(basic register)</code> 和 <code>变址寄存器(limit register)</code>。当使用基址寄存器和变址寄存器时，程序会装载到内存中的连续位置并且在装载期间无需重定位。</p><ul><li>基址寄存器：存储数据内存的起始位置</li><li>变址寄存器：存储应用程序的长度。</li></ul><p>每当进程引用内存以获取指令或读取、写入数据时，<code>CPU</code> 都会自动将基址值添加到进程生成的地址中，然后再将其发送到内存总线上。同时，它检查程序提供的地址是否大于或等于变址寄存器中的值。如果程序提供的地址要超过变址寄存器的范围，那么会产生错误并中止访问。</p><p>执行 <code>JMP 28</code> 这条指令后，硬件会把它解释为 <code>JMP 16412</code>，所以程序能够跳到 <code>CMP</code> 指令，过程如下：<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925132116.png" srcset="/img/loading.gif" alt="" /></p><p>使用基址寄存器和变址寄存器是给每个进程提供私有地址空间的一种非常好的方法，因为每个内存地址在送到内存之前，都会先加上基址寄存器的内容。在很多实际系统中，对基址寄存器和变址寄存器都会以一定的方式加以保护，使得只有操作系统可以修改它们。</p><p>缺点：在每次访问内存时，都会进行 <code>ADD</code> 和 <code>CMP</code> 运算。<code>CMP</code> 指令可以执行的很快，但是加法就会相对慢一些，除非使用特殊的加法电路，否则加法因进位传播时间而变慢。</p><h2 id="交换技术"><a class="markdownIt-Anchor" href="#交换技术"></a> 交换技术</h2><p>实际上，所有<strong>进程需要的 <code>RAM</code> 总容量要远远高于内存的容量</strong>。针对<strong>内存不足</strong>的问题，提出了两种处理方式：</p><ul><li><code>交换(swapping)</code> 技术，即把一个进程完整的调入内存，然后再内存中运行一段时间，再把它放回磁盘。空闲进程会存储在磁盘中，所以这些进程在没有运行时不会占用太多内存。</li><li><code>虚拟内存(virtual memory)</code>，虚拟内存技术能够允许应用程序部分的运行在内存中。</li></ul><h3 id="交换过程"><a class="markdownIt-Anchor" href="#交换过程"></a> 交换过程</h3><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925132623.png" srcset="/img/loading.gif" alt="" /></p><p>刚开始的时候，只有进程 A 在内存中，然后从创建进程 B 和进程 C 或者从磁盘中把它们换入内存，然后在图 d 中，A 被换出内存到磁盘中，最后 A 重新进来。因为图 g 中的进程 A 现在到了不同的位置，所以在装载过程中需要被重新定位，或者在交换程序时通过软件来执行；或者在程序执行期间通过硬件来重定位。基址寄存器和变址寄存器就适用于这种情况。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925132932.png" srcset="/img/loading.gif" alt="" /></p><p>交换在内存创建了多个 <code>空闲区(hole)</code>，内存会把所有的空闲区尽可能向下移动合并成为一个大的空闲区。这项技术称为 <code>内存紧缩(memory compaction)</code>。但是这项技术通常不会使用，因为这项技术会消耗很多 <code>CPU</code> 时间。例如，在一个 16GB 内存的机器上每 8ns 复制 8 字节，它紧缩全部的内存大约要花费 16s。</p><h3 id="动态内存分配"><a class="markdownIt-Anchor" href="#动态内存分配"></a> 动态内存分配</h3><p>如果进程被创建后它的大小是固定的并且不再改变，那么分配策略就比较简单：操作系统会准确的按其需要的大小进行分配。</p><p>进程的 <code>data segment</code> 能够自动增长，会有三种处理方式：</p><ul><li><p>如果一个进程与空闲区相邻，那么可把该空闲区分配给进程以供其增大。</p></li><li><p>如果进程相邻的是另一个进程，就会有两种处理方式：要么把需要增长的进程移动到一个内存中空闲区足够大的区域，要么把一个或多个进程交换出去，已变成生成一个大的空闲区。</p></li><li><p>如果一个进程在内存中不能增长，而且磁盘上的交换区也满了，那么这个进程只有挂起一些空闲空间（或者可以结束该进程）。</p></li></ul><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925133850.png" srcset="/img/loading.gif" alt="" /></p><p>上面只针对单个或者一小部分需要增长的进程采用的方式，如果大部分进程都要在运行时增长，为了减少因内存区域不够而引起的进程交换和移动所产生的开销，一种可用的方法是，<strong>在换入或移动进程时为它分配一些额外的内存</strong>。然而，<strong>当进程被换出到磁盘上时，应该只交换实际上使用的内存</strong>，将额外的内存交换也是一种浪费，下面是一种为两个进程分配了增长空间的内存配置。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925134003.png" srcset="/img/loading.gif" alt="" /></p><p>如果进程有两个可增长的段，例如，供变量动态分配和释放的作为堆(全局变量)使用的一个 <code>数据段(data segment)</code>，以及存放局部变量与返回地址的一个 <code>堆栈段(stack segment)</code>，就如图 b 所示。在图中可以看到所示进程的<strong>堆栈段在进程所占内存的顶端向下增长</strong>，紧接着在程序段后的<strong>数据段向上增长</strong>。当增长预留的内存区域不够了，处理方式就如上面的流程图(<code>data segment</code> 自动增长的三种处理方式)一样了。</p><h2 id="空闲内存管理"><a class="markdownIt-Anchor" href="#空闲内存管理"></a> 空闲内存管理</h2><p>在进行内存动态分配时，操作系统必须对其进行管理。大致上说，有两种监控内存使用的方式</p><ul><li>位图(<code>bitmap</code>)</li><li>空闲列表(<code>free lists</code>)</li></ul><h3 id="1-使用位图的存储管理"><a class="markdownIt-Anchor" href="#1-使用位图的存储管理"></a> 1. 使用位图的存储管理</h3><p>使用位图方法时，内存可能被划分为小到几个字或大到几千字节的分配单元。每个分配单元对应于位图中的一位，0 表示空闲， 1 表示占用（或者相反）。一块内存区域和其对应的位图如下：<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925161159.png" srcset="/img/loading.gif" alt="" /></p><p>图 <code>a</code> 表示一段有 5 个进程和 3 个空闲区的内存，刻度为内存分配单元，阴影区表示空闲（在位图中用 0 表示）；图 <code>b</code> 表示对应的位图；图 <code>c</code> 表示用链表表示同样的信息。</p><p>分配单元的大小是一个重要的设计因素，<strong>分配单位越小，位图越大</strong>。然而，即使只有 <code>4</code> 字节的分配单元，<code>32</code> 位的内存也仅仅只需要位图中的 <code>1</code> 位。<code>32n</code> 位的内存需要 <code>n</code> 位的位图，所以 <code>1</code> 个位图只占用了 <code>1/32</code> 的内存。如果选择更大的内存单元，位图应该要更小。如果进程的大小不是分配单元的整数倍，那么在最后一个分配单元中会有大量的内存被浪费。</p><p>位图提供了一种简单的方法在固定大小的内存中跟踪内存的使用情况，因为<strong>位图的大小取决于内存和分配单元的大小</strong>。这种方法有一个问题是，当决定为把具有 <code>k</code> 个分配单元的进程放入内存时，<code>内容管理器(memory manager)</code> 必须搜索位图，在位图中找出能够运行 <code>k</code> 个连续 <code>0</code> 位的串。<strong>在位图中找出制定长度的连续 <code>0</code> 串是一个很耗时的操作，这是位图的缺点。</strong></p><h3 id="2-使用链表进行管理"><a class="markdownIt-Anchor" href="#2-使用链表进行管理"></a> 2. 使用链表进行管理</h3><p>另一种记录内存使用情况的方法是，维护一个记录<strong>已分配内存段和空闲内存段的链表</strong>，段会包含进程或者是两个进程的空闲区域。可用上面的 <code>图 c</code> 来表示内存的使用情况。链表中的每一项都可以代表一个 <code>空闲区(H)</code> 或者是 <code>进程(P)</code> 的起始标志，长度和下一个链表项的位置。</p><p>在这个例子中，<code>段链表(segment list)</code> 是按照地址排序的。这种方式的优点是，当进程终止或被交换时，更新列表很简单。一个终止进程通常有两个邻居（除了内存的顶部和底部外）。相邻的可能是进程也可能是空闲区，它们有四种组合方式。<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925163044.png" srcset="/img/loading.gif" alt="" /></p><h3 id="3-顺序搜索的动态内存分配"><a class="markdownIt-Anchor" href="#3-顺序搜索的动态内存分配"></a> 3. 顺序搜索的动态内存分配</h3><p>当按照地址顺序在链表中存放进程和空闲区时，有几种算法可以为创建的进程（或者从磁盘中换入的进程）分配内存。</p><h4 id="31-首次适配first-fit"><a class="markdownIt-Anchor" href="#31-首次适配first-fit"></a> 3.1 <code>首次适配(first fit)</code></h4><p><strong>内存管理器会沿着段列表进行扫描，直到找个一个足够大的空闲区为止</strong>。除非空闲区大小和要分配的空间大小一样，否则将空闲区分为两部分，一部分供进程使用；一部分生成新的空闲区。首次适配算法是一种速度很快的算法，因为它会尽可能的搜索链表。</p><h4 id="32-下次适配next-fit"><a class="markdownIt-Anchor" href="#32-下次适配next-fit"></a> 3.2 <code>下次适配(next fit)</code></h4><p>它和首次匹配的工作方式相同，只有一个不同之处那就是<strong>下次适配在每次找到合适的空闲区时就会记录当时的位置</strong>，以便下次寻找空闲区时从上次结束的地方开始搜索，而不是像首次匹配算法那样每次都会从头开始搜索。</p><h4 id="33-最佳适配best-fit"><a class="markdownIt-Anchor" href="#33-最佳适配best-fit"></a> 3.3 <code>最佳适配(best fit)</code></h4><p>最佳适配会从头到尾寻找整个链表，找出能够容纳进程的<strong>最小空闲区</strong>。最佳适配算法会试图<strong>找出最接近实际需要的空闲区</strong>，以最好的匹配请求和可用空闲区，而不是先一次拆分一个以后可能会用到的大的空闲区。比如现在我们需要一个大小为 2 的块，那么首次匹配算法会把这个块分配在位置 5 的空闲区，而最佳适配算法会把该块分配在位置为 18 的空闲区，如下：</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200925162851.png" srcset="/img/loading.gif" alt="" /></p><p>最佳适配会遍历整个链表，所以最佳适配算法的性能要比首次匹配算法差。但最佳适配算法要比首次匹配和下次匹配算法浪费更多的内存，因为它会产生大量无用的小缓冲区，首次匹配算法生成的空闲区会更大一些。</p><h4 id="34-最差适配worst-fit"><a class="markdownIt-Anchor" href="#34-最差适配worst-fit"></a> 3.4 <code>最差适配(worst fit)</code></h4><p><strong>总是分配最大的内存区域</strong>，使新分配的空闲区比较大从而可以继续使用。仿真程序表明最差适配算法也不是一个好主意。</p><h4 id="35-快速适配quick-fit"><a class="markdownIt-Anchor" href="#35-快速适配quick-fit"></a> 3.5 <code>快速适配(quick fit)</code></h4><p><strong>为那些常用大小的空闲区维护单独的链表</strong>。例如，有一个 <code>n</code> 项的表，该表的第一项是指向大小为 <code>4 KB</code> 的空闲区链表表头指针，第二项是指向大小为 <code>8 KB</code> 的空闲区链表表头指针，第三项是指向大小为 <code>12 KB</code> 的空闲区链表表头指针，以此类推。比如 <code>21 KB</code> 这样的空闲区既可以放在 <code>20 KB</code> 的链表中，也可以放在一个专门存放大小比较特别的空闲区链表中。</p><p>快速匹配算法寻找一个指定代销的空闲区也是十分快速的，但它和所有将空闲区按大小排序的方案一样，都有一个共同的缺点，<strong>即在一个进程终止或被换出时，寻找它的相邻块并查看是否可以合并的过程都是非常耗时的。</strong> 如果不进行合并，内存将会很快分裂出大量进程无法利用的小空闲区。</p><h1 id="虚拟内存"><a class="markdownIt-Anchor" href="#虚拟内存"></a> 虚拟内存</h1><p>在一些中小应用程序可使用交换技术，<strong>如果应用程序过大，交换技术并不是一个很有效的方案。</strong><br />一个典型的 <code>SATA</code> 磁盘的峰值传输速度高达几百兆/秒，这意味着需要好几秒才能换出或者换入一个 <code>1 GB</code> 的程序。</p><p><code>虚拟内存(virtual memory)</code> 的基本思想是，<strong>每个程序都有自己的地址空间，这个地址空间被划分为多个称为 <code>页面(page)</code> 的块。</strong> 每一页都是连续的地址范围。<strong>这些页被映射到物理内存</strong>，但并不是所有的页都必须在内存中才能运行程序。当程序引用到一部分在物理内存中的地址空间时，硬件会立刻执行必要的映射。当程序引用到一部分不在物理内存中的地址空间时，由操作系统负责将缺失的部分装入物理内存并重新执行失败的指令。</p><p>虚拟内存很适合在多道程序设计系统中使用，许多程序的片段同时保存在内存中，当一个程序等待它的一部分读入内存时，可以把 <code>CPU</code> 交给另一个进程使用。</p><h2 id="分页"><a class="markdownIt-Anchor" href="#分页"></a> 分页</h2><p>大部分使用虚拟内存的系统中都会使用一种 <code>分页(paging)</code> 技术。在任何一台计算机上，程序会引用使用一组内存地址。当程序执行</p><pre><code class="hljs assembly">MOV REG, 1000</code></pre><p>这条指令时，它会把内存地址为 <code>1000</code> 的内存单元的内容复制到 <code>REG</code> 中（或者相反，这取决于计算机）。地址可以通过索引、基址寄存器、段寄存器或其他方式产生。</p><p>这些程序生成的地址被称为 <code>虚拟地址(virtual addresses)</code> 并形成 <code>虚拟地址空间(virtual address space)</code>.</p><ul><li>在没有虚拟内存的计算机上，系统直接将虚拟地址送到内存总线上，读写操作都使用同样地址的物理内存。</li><li>在使用虚拟内存时，虚拟地址不会直接发送到内存总线上。相反，会使用 <code>MMU(Memory Management Unit)</code> 内存管理单元<strong>把虚拟地址映射为物理内存地址</strong>，像下图这样：<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927155103.png" srcset="/img/loading.gif" alt="" /></li></ul><p>下面这幅图展示了这种映射是如何工作的：<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927155203.png" srcset="/img/loading.gif" alt="" /></p><h3 id="1-存在映射的页如何映射"><a class="markdownIt-Anchor" href="#1-存在映射的页如何映射"></a> 1. 存在映射的页如何映射</h3><p>虚拟地址空间由固定大小的单元组成，这种固定大小的单元称为 <code>页(pages)</code>。而相对的，物理内存中也有固定大小的物理单元，称为 <code>页框(page frames)</code>。页和页框的大小一样。在上面这个例子中，页的大小为 <code>4KB</code> ，但是实际的使用过程中页的大小范围可能是 <code>512</code> 字节 - <code>1G</code> 字节的大小。对应于 <code>64 KB</code> 的虚拟地址空间和 <code>32 KB</code> 的物理内存，可得到 <code>16</code> 个虚拟页面和 <code>8</code> 个页框。 <strong><code>RAM</code> 和磁盘之间的交换总是以整个页为单元进行交换的。</strong></p><p>程序试图访问地址时，例如执行下面这条指令：</p><pre><code class="hljs assembly">MOV REG, 0</code></pre><p>会将虚拟地址 <code>0</code> 送到 <code>MMU</code>。<code>MMU</code> 看到虚拟地址落在<code>页面 0</code> （<code>0 - 4095</code>），根据其映射结果，这一页面对应的<code>页框 2</code> （<code>8192 - 12287</code>），因此 <code>MMU</code> 把地址变换为 <code>8192</code> ，并把地址 <code>8192</code> 送到总线上。内存对 <code>MMU</code> 一无所知，它只看到一个对 <code>8192</code> 地址的读写请求并执行它。<code>MMU</code> 从而有效的把所有虚拟地址 <code>0 - 4095</code> 映射到了 <code>8192 - 12287</code> 的物理地址。同样的，指令</p><pre><code class="hljs assembly">MOV REG, 8192</code></pre><p>也被有效的转换为</p><pre><code class="hljs assembly">MOV REG, 24576</code></pre><p>虚拟地址 <code>8192</code>（在<code>虚拟页 2</code> 中）被映射到物理地址 <code>24576</code>（在物理<code>页框 6</code> 中）上。</p><p>通过恰当的设置 <code>MMU</code>，可以把 <code>16</code> 个虚拟页面映射到 <code>8</code> 个页框中的任何一个。但是这并没有解决虚拟地址空间比物理内存大的问题。</p><p>上图中有 <code>8</code> 个物理页框，于是只有 <code>8</code> 个虚拟页被映射到了物理内存中，在上图中用 <code>X</code> 号表示的其他页面没有被映射。在实际的硬件中，会使用一个 <code>在/不在(Present/absent bit)位</code> 记录页面在内存中的实际存在情况。</p><h3 id="2-未映射的页如何映射"><a class="markdownIt-Anchor" href="#2-未映射的页如何映射"></a> 2. 未映射的页如何映射</h3><p>当程序访问一个未映射的页面，如执行指令：</p><pre><code class="hljs assembly">MOV REG, 32780</code></pre><p>将会发生什么情况呢？<code>虚拟页面 8</code> （从 <code>32768</code> 开始）的第 <code>12</code> 个字节所对应的物理地址是什么？<code>MMU</code> 注意到该页面没有被映射（在图中用 <code>X</code> 号表示），于是 <code>CPU</code> 会陷入(<code>trap</code>)到操作系统中。这个陷入称为 <code>缺页中断(page fault)</code> 或者是 <code>缺页错误</code>。操作系统会选择一个很少使用的页并把它的内容写入磁盘（如果它不在磁盘上）。随后把需要访问的页面读到刚才回收的页框中，修改映射关系，然后重新启动引起陷入的指令。有点不太好理解，举个例子来看一下。</p><p>例如，如果操作系统决定放弃 <code>页框 1</code>，那么它将把 <code>虚拟页面 8</code> 装入物理地址 <code>4096</code>，并对 <code>MMU</code> 映射做两处修改。</p><ul><li>首先，它要将虚拟页中的 <code>1</code> 表项标记为<code>未映射</code>，使以后任何对虚拟地址 <code>4096 - 8191</code> 的访问都将导致陷入。</li><li>随后把虚拟页面 <code>8</code> 的表项的叉号改为 <code>1</code>，因此在引起陷阱的指令重新启动时，它将把虚拟地址 <code>32780</code> 映射为物理地址（<code>4096 + 12</code>）。</li></ul><p>下面查看一下 <code>MMU</code> 的内部构造以便了解它们是如何工作的，以及了解为什么我们选用的页大小都是 2 的整数次幂。下图我们可以看到一个虚拟地址的例子：<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927163045.png" srcset="/img/loading.gif" alt="" /></p><blockquote><p>虚拟地址 = 虚拟页号 + 页内偏移量<br />物理地址 = (虚拟地址页号 -&gt; 物理地址页号) + 页内偏移量</p></blockquote><p>虚拟地址 <code>8196</code> （<code>0010000000000100</code>）用上面的页表映射图所示的 <code>MMU</code> 映射机制进行映射，输入的 <code>16</code> 位虚拟地址被分为 <code>4</code> 位的<strong>页号</strong>和 <code>12</code> 位的<strong>偏移量</strong>。<code>4</code> 位的页号可以表示 <code>16</code> 个页面，<code>12</code> 位的偏移可以为一页内的全部 <code>4096</code> 个字节。</p><p>可用页号作为 <code>页表(page table)</code> 的索引，以得出对应于该虚拟页面的<strong>页框号</strong>。如果在/不在位是 <code>0</code> ，则引起一个操作系统陷入。如果该位是 <code>1</code>，则将在页表中查到的页框号复制到输出寄存器的<code>高 3 位</code>中，再加上输入虚拟地址中的<code>低 12 位偏移量</code>。如此就构成了 <code>15</code> 位的物理地址。输出寄存器的内容随即被作为物理地址送到总线。</p><h2 id="页表"><a class="markdownIt-Anchor" href="#页表"></a> 页表</h2><p>在上面这个简单的例子中，虚拟地址到物理地址的映射可以总结如下：虚拟地址被分为<strong>虚拟页号</strong>（高位部分）和<strong>偏移量</strong>（低位部分）。例如，对于 <code>16</code> 位地址和 <code>4 KB</code> 的页面大小，<strong>高 4 位</strong>可以指定 <code>16</code> 个虚拟页面中的一页，而<strong>低 12 位</strong>接着确定了所选页面中的偏移量（<code>0-4095</code>）。</p><p>虚拟页号可作为页表的索引用来找到虚拟页中的内容。由页表项可以找到页框号（如果有的话）。然后把页框号拼接到偏移量的高位端，以替换掉虚拟页号，形成物理地址。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927164705.png" srcset="/img/loading.gif" alt="" /></p><p>因此，<strong>页表的目的是把虚拟页映射到页框中</strong>。从数学上说，页表是一个函数，它的参数是虚拟页号，结果是物理页框号。</p><h3 id="页表项的结构"><a class="markdownIt-Anchor" href="#页表项的结构"></a> 页表项的结构</h3><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927164835.png" srcset="/img/loading.gif" alt="" /></p><p>页表项的结构是与机器相关的，但是不同机器上的页表项大致相同。上面是一个页表项的构成，不同计算机的页表项可能不同，但是一般来说都是 <code>32</code> 位的。</p><ul><li><p><code>页框号(Page frame number)</code>: 页表项中最重要的字段，毕竟，页表到页框最重要的一步操作就是要把此值映射过去。</p></li><li><p><code>在/不在(Present/absent bit)位</code>: 如果此位上的值是 1，那么页表项是有效的并且能够被使用。如果此值是 0 的话，则表示该页表项对应的虚拟页面不在内存中，访问该页面会引起一个 <code>缺页中断(page fault)</code>。</p></li><li><p><code>保护位(Protection)</code>: 指出一个页允许什么类型的访问。最简单的表示形式是这个域只有一位，0 表示可读可写，1 表示的是只读。</p></li><li><p><code>修改位(Modified)</code> 和 <code>访问位(Referenced)</code> 会跟踪页面的使用情况。当一个页面被写入时，硬件会自动的设置修改位。修改位在页面重新分配页框时很有用。如果一个页面已经被修改过（即它是 <code>脏</code> 的），则必须把它写回磁盘。如果一个页面没有被修改过（即它是 <code>干净</code> 的），那么重新分配时这个页框会被直接丢弃，因为磁盘上的副本仍然是有效的。这个位有时也叫做 <code>脏位(dirty bit)</code>，因为它反映了页面的状态。</p></li><li><p><code>访问位(Referenced)</code>: 在页面被访问时被设置，不管是读还是写。这个值能够帮助操作系统在发生缺页中断时选择要淘汰的页。不再使用的页要比正在使用的页更适合被淘汰。这个位在后面要讨论的页面置换算法中作用很大。</p></li><li><p><code>高速缓存禁止位</code>: 用于禁止该页面被高速缓存，这个功能对于映射到设备寄存器还是内存中起到了关键作用。通过这一位可以禁用高速缓存。具有独立的 <code>I/O</code> 空间而不是用内存映射 <code>I/O</code> 的机器来说，并不需要这一位。</p></li></ul><p>需要强调一下：<strong>虚拟内存本质上是用来创造一个地址空间的抽象，类似于进程是对 <code>CPU</code> 的抽象。虚拟内存的实现，本质是将虚拟地址空间分解成页，并将每一项映射到物理内存的某个页框。</strong> 因此我们的重点是如何管理这个虚拟内存的抽象。</p><h2 id="快表"><a class="markdownIt-Anchor" href="#快表"></a> 快表</h2><p>大多数程序总是对少量页面进行多次访问，而不是对大量页面进行少量访问。因此，只有很少的页面能够被再次访问，而其他的页表项很少被访问。</p><blockquote><p>页表项一般也被称为 <code>Page Table Entry(PTE)</code>。</p></blockquote><p>基于这种设想，提出了一种方案，即从硬件方面来解决这个问题，为计算机设置一个小型的硬件设备，能够将虚拟地址直接映射到物理地址，而不必再访问内存中的页表。这种设备被称为 <code>转换检测缓冲区(Translation Lookaside Buffer, TLB)</code>，有时又被称为 <code>相联存储器(associate memory)</code>。</p><p><code>TLB</code> 通常位于 <code>MMU</code> 中，包含少量的表项，每个表项都记录了页面的相关信息，除了虚拟页号外，其他表项都和页表是一一对应的。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927172214.png" srcset="/img/loading.gif" alt="" /></p><p><code>TLB</code> 其实就是一种<strong>内存缓存，用于减少访问内存所需要的时间</strong>，它就是 <code>MMU</code> 的一部分，<code>TLB</code> 会将虚拟地址到物理地址的转换存储起来，通常可以称为 <code>地址翻译缓存(address-translation cache)</code>。<code>TLB</code> 通常位于 <code>CPU</code> 和 <code>CPU</code> 缓存之间，它与 <code>CPU</code> 缓存是不同的缓存级别。下面我们来看一下 <code>TLB</code> 是如何工作的。</p><p>当一个 <code>MMU</code> 中的虚拟地址需要进行转换时，硬件首先检查虚拟页号与 <code>TLB</code> 中所有表项进行并行匹配，判断虚拟页是否在 <code>TLB</code> 中。如果找到了有效匹配项，并且要进行的访问操作没有违反保护位的话，则将页框号直接从 <code>TLB</code> 中取出而<strong>不用再直接访问页表</strong>。如果虚拟页在 <code>TLB</code> 中但是违反了保护位的权限的话（比如只允许读但是是一个写指令），则会生成一个 <code>保护错误(protection fault)</code> 返回。</p><p>上面探讨的是虚拟地址在 <code>TLB</code> 中的情况，那么如果虚拟地址不再 <code>TLB</code> 中该怎么办？如果 <code>MMU</code> 检测到没有有效的匹配项，就会进行正常的页表查找，然后从 <code>TLB</code> 中逐出一个表项然后把从页表中找到的项放在 <code>TLB</code> 中。当一个表项被从 <code>TLB</code> 中清除出，将修改位复制到内存中页表项，除了访问位之外，其他位保持不变。当页表项从页表装入 <code>TLB</code> 中时，所有的值都来自于内存。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200927172423.png" srcset="/img/loading.gif" alt="" /></p><h1 id="页面置换算法"><a class="markdownIt-Anchor" href="#页面置换算法"></a> 页面置换算法</h1><p>当发生缺页中断时，操作系统必须在内存中选择一个页面将其换出内存，以便为即将调入的页面腾出空间。<br />如果要换出的页面在内存驻留期间已经被修改过，就必须把它写回磁盘以更新该页面在磁盘上的副本；如果该页面没有被修改过，那么磁盘副本已经是最新的，不需要回写，直接用调入的页面覆盖被淘汰的页面就可以了。</p><p>当发生缺页中断时，虽然可以随机的选择一个页面进行置换，但是如果每次都选择一个不常用的页面会提升系统的性能。</p><blockquote><p><code>抖动（Thrashing）</code>: 如果一个经常使用的页面被换出，那么这个页面在短时间内又可能被重复使用，那么就可能会造成额外的性能开销。</p></blockquote><h2 id="1-最优页面置换算法"><a class="markdownIt-Anchor" href="#1-最优页面置换算法"></a> 1. 最优页面置换算法</h2><p>最优 <code>(Optimal)</code> 页面置换算法是一种理论上的算法，<strong>其所选择的被淘汰页将是以后永不使用的，或许是在最长（未来）时间内不再被访问的页面。</strong> 采用最优置换算法通常可保证获得最低的缺页率。但由于目前人们还无法预知，一个进程在内存的若干个页面中，哪一个页面是未来最长时间内不再被访问的，因而该算法是无法实现的，但可以利用该算法取评价其他算法。</p><p>最优化的页面算法表明应该标记最大的页面。如果一个页面在 800 万条指令内不会被使用，另外一个页面在 600 万条指令内不会被使用，则置换前一个页面，从而把需要调入这个页面而发生的缺页中断推迟。计算机也像人类一样，会把不愿意做的事情尽可能的往后拖。</p><p>这个算法最大的问题时<strong>无法实现</strong>。当缺页中断发生时，操作系统无法知道各个页面的下一次将在什么时候被访问。这种算法在实际过程中根本不会使用。</p><h2 id="2-最近未使用页面置换算法-nru"><a class="markdownIt-Anchor" href="#2-最近未使用页面置换算法-nru"></a> 2. 最近未使用页面置换算法 (NRU)</h2><p>为了能够让操作系统收集页面使用信息，大部分使用虚拟地址的计算机都有两个状态位，<code>R</code> 和 <code>M</code>，来和每个页面进行关联。每当<strong>访问</strong>页面时都设置 <code>R</code>，<strong>写入</strong>页面时设置 <code>M</code>，这些位包含在每个页表项中，就像下面所示：<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200928123701.png" srcset="/img/loading.gif" alt="" /><br />因为每次访问时都会更新这些位，因此由硬件来设置它们非常重要。一旦某个位被设置为 <code>1</code>，就会一直保持 <code>1</code> 直到操作系统下次来修改此位。</p><p>如果硬件没有这些位，那么可以使用操作系统的<code>缺页中断</code>和<code>时钟中断</code>机制来进行模拟。当启动一个进程时，将其所有的页面都标记为不在内存；一旦访问任何一个页面就会引发一次缺页中断，此时操作系统就可以设置 <code>R 位(在它的内部表中)</code>，修改页表项使其指向正确的页面，并设置为 <code>READ ONLY</code> 模式，然后重新启动引起缺页中断的指令。如果页面随后被修改，就会发生另一个缺页异常。从而允许操作系统设置 <code>M</code> 位并把页面的模式设置为 <code>READ/WRITE</code>。</p><p>可以用 <code>R</code> 位和 <code>M</code> 位来构造一个简单的页面置换算法：当启动一个进程时，操作系统将其所有页面的两个位都设置为 <code>0</code>。<code>R</code> 位定期的被清零（在每个时钟中断）。用来将最近未引用的页面和已引用的页面分开。</p><p>当出现缺页中断后，操作系统会检查所有的页面，并根据它们的 <code>R</code> 位和 <code>M</code> 位将当前值分为四类：</p><ul><li>第 0 类：没有引用 R，没有修改 M</li><li>第 1 类：没有引用 R，已修改 M</li><li>第 2 类：引用 R ，没有修改 M</li><li>第 3 类：已被访问 R，已被修改 M</li></ul><p>尽管看起来好像无法实现第一类页面，但是当第三类页面的 <code>R</code> 位被时钟中断清除时，它们就会发生。时钟中断不会清除 <code>M</code> 位，因为需要这个信息才能知道是否写回磁盘中。清除 <code>R</code> 但不清除 <code>M</code> 会导致出现一类页面。</p><p><code>NRU(Not Recently Used)</code> 算法从编号最小的非空类中随机删除一个页面。此算法隐含的思想是，在一个时钟内（约 20 ms）<strong>淘汰一个已修改但是没有被访问的页面</strong>要比一个大量引用的未修改页面好，NRU 的主要优点是<strong>易于理解并且能够有效的实现</strong>。</p><h2 id="3-先进先出页面置换算法-fifo"><a class="markdownIt-Anchor" href="#3-先进先出页面置换算法-fifo"></a> 3. 先进先出页面置换算法 (FIFO)</h2><p>操作系统维护一个所有在当前内存中的页面的链表，最早进入的放在表头，最新进入的页面放在表尾。在发生缺页异常时，会把头部的页移除并且把新的页添加到表尾。<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200928125343.png" srcset="/img/loading.gif" alt="" /></p><h2 id="4-第二次机会页面置换算法"><a class="markdownIt-Anchor" href="#4-第二次机会页面置换算法"></a> 4. 第二次机会页面置换算法</h2><p>FIFO 可能会把经常使用的页面置换出去，为了避免这一问题，我们对该算法做一个简单的修改：我们检查最老页面的 <code>R</code> 位，</p><ul><li>如果是 <code>0</code> ，那么这个页面就是<strong>最老的而且没有被使用</strong>，那么这个页面就会被立刻换出。</li><li>如果 <code>R</code> 位是 <code>1</code>，那么就清除此位，此页面会被放在链表的尾部，修改它的装入时间就像刚放进来的一样。然后继续搜索。</li></ul><p>这种算法叫做 <code>第二次机会(second chance)</code> 算法，就像下面这样，我们看到页面 <code>A</code> 到 <code>H</code> 保留在链表中，并按到达内存的时间排序。<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200928131405.png" srcset="/img/loading.gif" alt="" /></p><p>假设缺页异常发生在时刻 <code>20</code> 处，这时最老的页面是 <code>A</code> ，它是在 <code>0</code> 时刻到达的。</p><ul><li>如果 <code>A</code> 的 <code>R</code> 位是 <code>0</code>，那么它将被淘汰出内存，或者把它写回磁盘（如果它已经被修改过），或者只是简单的放弃（如果它是未被修改过）。</li><li>如果它的 <code>R</code> 位已经设置了，则将 <code>A</code> 放到链表的尾部并且重新设置装入时间为当前时刻（20 处），然后清除 <code>R</code> 位。然后从 <code>B</code> 页面开始继续搜索合适的页面。</li></ul><p>寻找第二次机会的是在<strong>最近的时钟间隔中未被访问过的页面</strong>。如果所有的页面都被访问过，该算法就会被简化为单纯的 <code>FIFO</code> 算法。<br />具体来说，假设图 <code>a</code> 中所有页面都设置了 <code>R</code> 位。操作系统将页面依次移到链表末尾，每次都在添加到末尾时清除 <code>R</code> 位。最后，算法又会回到页面 <code>A</code>，此时的 <code>R</code> 位已经被清除，那么页面 <code>A</code> 就会被执行出链处理，因此算法能够正常结束。</p><h2 id="5-时钟页面置换算法-clock"><a class="markdownIt-Anchor" href="#5-时钟页面置换算法-clock"></a> 5. 时钟页面置换算法 (Clock)</h2><p>第二次页面置换算法经常要在链表中移动页面，既降低了效率，而且这种算法也不是必须的。一种比较好的方式是把所有的页面都保存在一个类似钟面的环形链表中，一个表针指向最老的页面。如下图所示：</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200928131906.png" srcset="/img/loading.gif" alt="" /><br />当缺页错误出现时，算法首先检查表针指向的页面，</p><ul><li>如果它的 <code>R</code> 位是 <code>0</code> 就淘汰该页面，并把新的页面插入到这个位置，然后把表针向前移动一位；</li><li>如果 <code>R</code> 位是 <code>1</code> 就清除 R 位并把表针前移一个位置。</li></ul><p>重复这个过程直到找到了一个 <code>R</code> 位为 <code>0</code> 的页面位置。</p><h2 id="6-最近最少使用页面置换算法-lru"><a class="markdownIt-Anchor" href="#6-最近最少使用页面置换算法-lru"></a> 6. 最近最少使用页面置换算法 (LRU)</h2><p>在前面几条指令中频繁使用的页面很可能在后面的几条指令中被使用。反过来说，已经很久没有使用的页面有可能在未来一段时间内仍不会被使用。这个思想揭示了一个可以实现的算法：在缺页中断时，置换未使用时间最长的页面。这个策略称为 <code>LRU(Least Recently Used)</code>，最近最少使用页面置换算法。</p><p>虽然 <code>LRU</code> 在理论上是可以实现的，但是从长远看来代价比较高。为了完全实现 <code>LRU</code>，会在内存中维护一个所有页面的链表，<strong>最频繁使用的页位于表头，最近最少使用的页位于表尾</strong>。困难的是在<strong>每次内存引用时更新整个链表</strong>。在链表中找到一个页面，删除它，然后把它移动到表头是一个非常耗时的操作，即使使用硬件来实现也是一样的费时。</p><p>然而，还有其他方法可以通过硬件实现 <code>LRU</code>。这个方法要求硬件有一个 <code>64</code> 位的计数器，它在每条指令执行完成后自动加 <code>1</code>，每个页表必须有一个足够容纳这个计数器值的域。在每次访问内存后，将当前的值保存到被访问页面的页表项中。一旦发生缺页异常，操作系统就检查所有页表项中计数器的值，找到值最小的一个页面，这个页面就是最少使用的页面。</p><h2 id="7-nfu-老化算法"><a class="markdownIt-Anchor" href="#7-nfu-老化算法"></a> 7. NFU, 老化算法</h2><p>尽管上面的 <code>LRU</code> 算法在原则上是可以实现的，但是很少有机器能够拥有那些特殊的硬件。上面是硬件的实现方式，那么现在考虑要用软件来实现 <code>LRU</code> 。一种可以实现的方案是 <code>NFU(Not Frequently Used，最不常用)</code> 算法。它需要一个软件计数器来和每个页面关联，初始化的时候是 <code>0</code>。在每个时钟中断时，操作系统会浏览内存中的所有页，会将每个页面的 <code>R</code> 位（<code>0</code> 或 <code>1</code>）加到它的计数器上。这个计数器大体上跟踪了各个页面访问的频繁程度。当缺页异常出现时，则置换计数器值最小的页面。</p><p>只需要对 <code>NFU</code> 做一个简单的修改就可以让它模拟 <code>LRU</code>，这个修改有两个步骤</p><ol><li>在 <code>R</code> 位被添加进来之前先把<strong>计数器右移一位</strong>；</li><li><code>R</code> 位被添加到<strong>最左边</strong>的位而不是最右边的位。<br />修改以后的算法称为 <code>老化(aging)</code> 算法，下图解释了老化算法是如何工作的。</li></ol><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200928135317.png" srcset="/img/loading.gif" alt="" /></p><p>我们假设在第一个时钟周期内页面 <code>0 - 5</code> 的 <code>R</code> 位依次是 <code>1，0，1，0，1，1</code>。也就是说，在 <code>0</code> 个时钟周期到 <code>1</code> 个时钟周期之间，<code>0，2，4，5</code> 都被引用了，从而把它们的 <code>R</code> 位设置为 <code>1</code>，剩下的设置为 <code>0</code>。在相关的六个计数器被右移之后 <code>R</code> 位被添加到 左侧 ，就像上图中的 <code>a</code>。剩下的四列显示了接下来的四个时钟周期内的六个计数器变化。</p><blockquote><p>CPU正在以某个频率前进，该频率的周期称为时钟滴答或时钟周期。一个 100Mhz 的处理器每秒将接收100,000,000个时钟滴答。</p></blockquote><p>当缺页异常出现时，<strong>将置换计数器值最小的页面</strong>。如果一个页面在前面 <code>4</code> 个时钟周期内都没有被访问过，那么它的计数器应该会有四个连续的 <code>0</code>，因此它的值肯定要比前面 <code>3</code> 个时钟周期内都没有被访问过的页面的计数器小。</p><p>这个算法与 <code>LRU</code> 算法有两个重要的区别：看一下上图中的 <code>e</code>，第三列和第五列：</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200928135342.png" srcset="/img/loading.gif" alt="" /></p><p>它们在两个时钟周期内都没有被访问过，在此之前的时钟周期内都引用了两个页面。根据 <code>LRU</code> 算法，如果需要置换的话，那么应该在这两个页面中选择一个。那么问题来了，我们应该选择哪个？现在的问题是我们不知道时钟周期 1 到时钟周期 2 内它们中哪个页面是后被访问到的。<strong>因为在每个时钟周期内只记录了一位，所以无法区分在一个时钟周期内哪个页面最早被引用，哪个页面是最后被引用的。</strong> 因此，我们能做的就是置换 <code>页面3</code>，因为页面 <code>3</code> 在周期 <code>0 - 1</code> 内都没有被访问过，而页面 <code>5</code> 却被引用过。</p><p><code>LRU</code> 与老化之前的第 2 个区别是，在老化期间，<strong>计数器具有有限数量的位</strong>（这个例子中是 8 位），这就限制了以往的访问记录。如果两个页面的计数器都是 <code>0</code> ，那么我们可以随便选择一个进行置换。实际上，有可能其中一个页面的访问次数实在 <code>9</code> 个时钟周期以前，而另外一个页面是在 <code>1000</code> 个时钟周期之前，但是我们却无法看到这些。在实际过程中，如果时钟周期是 20 ms，8 位一般是够用的。所以我们经常拿 20 ms 来举例。</p><h2 id="8-工作集页面置换算法"><a class="markdownIt-Anchor" href="#8-工作集页面置换算法"></a> 8. 工作集页面置换算法</h2><p>在最单纯的分页系统中，刚启动进程时，在内存中并没有页面。此时如果 <code>CPU</code> 尝试匹配第一条指令，就会得到一个缺页异常，使操作系统装入含有第一条指令的页面。其他的错误比如 <code>全局变量和 堆栈</code> 引起的缺页异常通常会紧接着发生。一段时间以后，进程需要的大部分页面都在内存中了，此时进程开始在较少的缺页异常环境中运行。这个策略称为 <code>请求调页(demand paging)</code>，因为页面是根据需要被调入的，而不是预先调入的。</p><p>在一个大的地址空间中系统的读所有的页面，将会造成很多缺页异常，因此会导致没有足够的内存来容纳这些页面。不过幸运的是，大部分进程不是这样工作的，它们都会以 <code>局部性方式(locality of reference)</code> 来访问，这意味着在执行的任何阶段，程序只引用其中的一小部分。</p><p>一个进程当前正在使用的页面的集合称为它的 <code>工作集(working set)</code>，如果整个工作集都在内存中，那么进程在运行到下一运行阶段之前，不会产生很多缺页中断。如果内存太小从而无法容纳整个工作集，那么进程的运行过程中会产生大量的缺页中断，会导致运行速度也会变得缓慢。因为通常只需要几纳秒就能执行一条指令，而通常需要十毫秒才能从磁盘上读入一个页面。如果一个程序每 10 ms 只能执行一到两条指令，那么它将需要很长时间才能运行完。如果只是执行几条指令就会产生中断，那么就称作这个程序产生了 颠簸(thrashing)。</p><p>在多道程序的系统中，通常会把进程移到磁盘上，这样可以让其他进程有机会占用 <code>CPU</code>。有一个问题是，当进程想要再次把之前调回磁盘的页面调回内存怎么办？从技术的角度上来讲，并不需要做什么，此进程会一直产生缺页中断直到它的工作集被调回内存。然后，每次装入一个进程需要 20、100 甚至 1000 次缺页中断，速度显然太慢了，并且由于 <code>CPU</code> 需要几毫秒时间处理一个缺页中断，因此由相当多的 <code>CPU</code> 时间也被浪费了。</p><p>因此，不少分页系统中都会设法跟踪进程的工作集，确保这些工作集在进程运行时被调入内存。这个方法叫做 <code>工作集模式(working set model)</code>。它被设计用来<strong>减少缺页中断的次数</strong>。在进程运行前首先装入工作集页面的这一个过程被称为 <code>预先调页(prepaging)</code>，工作集是随着时间来变化的。</p><p>根据研究表明，大多数程序并不是均匀的访问地址空间的，而访问往往是集中于一小部分页面。一次内存访问可能会取出一条指令，也可能会取出数据，或者是存储数据。<br />在任一时刻 <code>t</code>，都存在一个集合，它包含所有最近 <code>k</code> 次内存访问所访问过的页面。这个集合 <code>w(k,t)</code> 就是工作集。因为最近 <code>k = 1</code> 次访问肯定会访问最近 <code>k &gt; 1</code> 次访问所访问过的页面，所以 <code>w(k,t)</code> 是 k 的单调递减函数。随着 <code>k</code> 的增大，<code>w(k,t)</code> 是不会无限变大的，因为程序不可能访问比所能容纳页面数量上限还多的页面。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200928141451.png" srcset="/img/loading.gif" alt="" /></p><p><strong>事实上大多数应用程序只会任意访问一小部分页面集合，但是这个集合会随着时间而缓慢变化</strong>，所以一开始曲线会快速上升而 <code>k</code> 较大时上升缓慢。为了实现工作集模型，操作系统必须跟踪哪些页面在工作集中。一个进程从它开始执行到当前所实际使用的 <code>CPU</code> 时间总数通常称作 <code>当前实际运行时间</code>。<strong>进程的工作集可以被称为在过去的 <code>t</code> 秒实际运行时间中它所访问过的页面集合。</strong></p><p>下面来简单描述一下工作集的页面置换算法，基本思路就是<strong>找出一个不在工作集中的页面并淘汰它</strong>。<br /><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200928141619.png" srcset="/img/loading.gif" alt="" /></p><h2 id="9-工作集时钟页面置换算法"><a class="markdownIt-Anchor" href="#9-工作集时钟页面置换算法"></a> 9. 工作集时钟页面置换算法</h2><p>当缺页异常发生后，需要扫描整个页表才能确定被淘汰的页面，因此基本工作集算法还是比较浪费时间的。一个对基本工作集算法的提升是<strong>基于时钟算法但是却使用工作集的信息</strong>，这种算法称为<code>WSClock(工作集时钟)</code>。由于它的实现简单并且具有高性能，因此在实践中被广泛应用。</p><p>与时钟算法一样，所需的数据结构是一个以页框为元素的循环列表，就像下面这样：</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200928142410.png" srcset="/img/loading.gif" alt="" /></p><p>最初的时候，该表是空的。当装入第一个页面后，把它加载到该表中。随着更多的页面的加入，它们形成一个环形结构。每个表项包含来自基本工作集算法的上次使用时间，以及 <code>R</code> 位（已标明）和 <code>M</code> 位（未标明）。</p><p>与时钟算法一样，在每个缺页异常时，首先检查指针指向的页面。</p><ul><li><code>R = 1</code>，该页面在当前时钟周期内就被使用过，那么该页面就不适合被淘汰。然后把该页面的 <code>R</code> 设置为 <code>0</code>，指针指向下一个页面，并重复该算法。该事件序列化后的状态参见图 <code>b</code>。</li><li><code>R = 0</code><ul><li>如果页面的使用期限大于 <code>t</code> 并且页面为<code>未访问过</code>，那么这个页面就不会在工作集中，并且在磁盘上会有一个此页面的副本。申请重新调入一个新的页面，并把新的页面放在其中，如图 <code>d</code> 所示。</li><li>如果页面<code>被修改过</code>，就不能重新申请页面，因为这个页面在磁盘上没有有效的副本。为了避免由于调度写磁盘操作引起的进程切换，指针继续向前走，算法继续对下一个页面进行操作。毕竟，有可能存在一个老的，没有被修改过的页面可以立即使用。</li></ul></li></ul><h2 id="页面置换算法小结"><a class="markdownIt-Anchor" href="#页面置换算法小结"></a> 页面置换算法小结</h2><table><thead><tr><th style="text-align:center">算法</th><th style="text-align:center">描述</th></tr></thead><tbody><tr><td style="text-align:center">最优算法</td><td style="text-align:center">不可实现，但可以用作基准</td></tr><tr><td style="text-align:center">NRU(最近未使用) 算法</td><td style="text-align:center">和 LRU 算法很相似</td></tr><tr><td style="text-align:center">FIFO(先进先出) 算法</td><td style="text-align:center">有可能会抛弃重要的页面</td></tr><tr><td style="text-align:center">第二次机会算法</td><td style="text-align:center">比 FIFO 有较大的改善</td></tr><tr><td style="text-align:center">时钟算法</td><td style="text-align:center">实际使用</td></tr><tr><td style="text-align:center">LRU(最近最少)算法</td><td style="text-align:center">比较优秀，但是很难实现</td></tr><tr><td style="text-align:center">NFU(最不经常使用)算法</td><td style="text-align:center">和 LRU 很类似</td></tr><tr><td style="text-align:center">老化算法</td><td style="text-align:center">近似 LRU 的高效算法</td></tr><tr><td style="text-align:center">工作集算法</td><td style="text-align:center">实施起来开销很大</td></tr><tr><td style="text-align:center">工作集时钟算法</td><td style="text-align:center">比较有效的算法</td></tr></tbody></table><ul><li><p>最优算法在当前页面中<strong>置换最后要访问</strong>的页面。不幸的是，没有办法来判定哪个页面是最后一个要访问的，因此实际上该算法不能使用。然而，它可以作为衡量其他算法的标准。</p></li><li><p><code>NRU</code> 算法根据 <code>R</code> 位和 <code>M</code> 位的状态将页面分为四类。从编号最小的类别中随机选择一个页面。<code>NRU</code> 算法易于实现，但是性能不是很好。存在更好的算法。</p></li><li><p><code>FIFO</code> 会跟踪页面加载进入内存中的顺序，并把页面放入一个链表中。有可能删除存在时间最长但是还在使用的页面，因此这个算法也不是一个很好的选择。</p></li><li><p>第二次机会算法是对 <code>FIFO</code> 的一个修改，它会在删除页面之前检查这个页面是否仍在使用。如果页面正在使用，就会进行保留。这个改进大大提高了性能。</p></li><li><p><code>时钟</code> 算法是第二次机会算法的另外一种实现形式，时钟算法和第二次算法的性能差不多，但是会花费更少的时间来执行算法。</p></li><li><p><code>LRU</code> 算法是一个非常优秀的算法，但是没有特殊的硬件(TLB)很难实现。</p></li><li><p><code>NFU</code> 算法是一种近似于 <code>LRU</code> 的算法，它的性能不是非常好。</p></li><li><p><code>老化</code> 算法是一种更接近 LRU 算法的实现，并且可以更好的实现，因此是一个很好的选择</p></li><li><p>最后两种算法都使用了工作集算法。工作集算法提供了合理的性能开销，但是它的实现比较复杂。<code>WSClock</code> 是另外一种变体，它不仅能够提供良好的性能，而且可以高效地实现。</p></li></ul>]]></content>
     
     
     <categories>
@@ -804,9 +804,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -889,9 +889,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -920,11 +920,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -949,9 +949,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -978,9 +978,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1007,9 +1007,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1036,9 +1036,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1065,9 +1065,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -1094,9 +1094,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -1241,9 +1241,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -1272,11 +1272,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -1301,9 +1301,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1359,9 +1359,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1444,9 +1444,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1554,11 +1554,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -1612,9 +1612,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -1643,9 +1643,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -1672,9 +1672,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -1703,9 +1703,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -1732,9 +1732,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -1761,9 +1761,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -1788,9 +1788,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -1815,9 +1815,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -1867,9 +1867,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -1894,9 +1894,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -1921,9 +1921,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2776,9 +2776,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
