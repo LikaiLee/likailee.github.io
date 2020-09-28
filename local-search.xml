@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 1004. 最大连续1的个数 III</title>
+    <link href="/2020/09/28/LeetCode-1004-max-consecutive-ones-iii/"/>
+    <url>/2020/09/28/LeetCode-1004-max-consecutive-ones-iii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/max-consecutive-ones-iii/" target="_blank" rel="noopener">1004. 最大连续1的个数 III</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestOnes</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A, <span class="hljs-keyword">int</span> K)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = A.length;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> windowCount = <span class="hljs-number">0</span>, max = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        <span class="hljs-keyword">if</span> (A[right] == <span class="hljs-number">1</span>) &#123;            windowCount++;        &#125;        right++;        <span class="hljs-comment">// 可替换的 0 个数 &gt; K, 收缩左边界</span>        <span class="hljs-keyword">while</span> (right - left - windowCount &gt; K) &#123;            <span class="hljs-keyword">if</span> (A[left] == <span class="hljs-number">1</span>) &#123;                windowCount--;            &#125;            left++;        &#125;        max = Math.max(max, right - left);    &#125;    <span class="hljs-keyword">return</span> max;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 485. 最大连续1的个数</title>
     <link href="/2020/09/28/LeetCode-485-max-consecutive-ones/"/>
     <url>/2020/09/28/LeetCode-485-max-consecutive-ones/</url>
@@ -22,9 +51,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -51,9 +80,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -80,9 +109,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
       <tag>队列</tag>
       
@@ -138,11 +167,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
+      <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
       
-      <tag>滑动窗口</tag>
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -169,9 +198,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -198,11 +227,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
+      <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
       
-      <tag>滑动窗口</tag>
+      <tag>字符串</tag>
       
     </tags>
     
@@ -229,9 +258,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -258,9 +287,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
       <tag>队列</tag>
       
@@ -289,9 +318,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -345,9 +374,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -401,9 +430,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -862,9 +891,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -891,9 +920,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -1038,9 +1067,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1183,9 +1212,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1212,9 +1241,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1241,9 +1270,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1359,11 +1388,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
+      <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
       
-      <tag>滑动窗口</tag>
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1390,9 +1419,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1504,9 +1533,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1672,9 +1701,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>排序</tag>
       
@@ -1730,9 +1759,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -1761,9 +1790,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1821,9 +1850,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1850,9 +1879,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2728,9 +2757,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
