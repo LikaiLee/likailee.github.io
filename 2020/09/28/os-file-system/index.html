@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.7k 字
+      8.7k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      49
+      90
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月28日 下午
+                  本文最后更新于：2020年9月29日 下午
                 
               </p>
             
@@ -373,6 +373,108 @@ cp /usr/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span cla
 <li>链表分配</li>
 <li>索引分配</li>
 </ul>
+<h3 id="1-连续分配"><a class="markdownIt-Anchor" href="#1-连续分配"></a> 1. 连续分配</h3>
+<blockquote>
+<p><code>CD-ROM</code>, <code>DVD</code>, 蓝光光盘使用了连续分配方式。</p>
+</blockquote>
+<p>最简单的分配方案是把每个文件作为一连串连续数据块存储在磁盘上。因此，在具有 1KB 块的磁盘上，将为 50 KB 文件分配 50 个连续块。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929143042.png" srcset="/img/loading.gif" alt="" /></p>
+<p>连续的磁盘空间分配有两个优点。</p>
+<ul>
+<li>
+<p>第一，连续文件存储<strong>实现起来比较简单</strong>，只需要记住两个数字就可以：一个是第一个块的文件地址和文件的块数量。给定第一个块的编号，可以通过简单的加法找到任何其他块的编号。</p>
+</li>
+<li>
+<p>第二点是<strong>读取性能比较强</strong>，可以通过一次操作从文件中读取整个文件。只需要一次寻找第一个块。后面就不再需要寻道时间和旋转延迟，所以数据会以全带宽进入磁盘。</p>
+</li>
+</ul>
+<p>因此，连续的空间分配具有<strong>实现简单、高性能</strong>的特点。</p>
+<p>但是随着时间的推移，磁盘会变得很零碎。下图解释了这种现象：<br />
+<img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929143412.png" srcset="/img/loading.gif" alt="" /></p>
+<p>这里有两个文件 <code>D</code> 和 <code>F</code> 被删除了。当删除一个文件时，此文件所占用的块也随之释放，就会在磁盘空间中留下一些空闲块。磁盘并不会在这个位置挤压掉空闲块，因为这会复制空闲块之后的所有文件，可能会有上百万的块，这个量级就太大了。</p>
+<p>刚开始的时候，这个碎片不是问题，因为每个新文件都会在之前文件的结尾处进行写入。然而，磁盘最终会被填满，<strong>因此要么压缩磁盘、要么重新使用空闲块的空间</strong>。</p>
+<ul>
+<li>压缩磁盘的开销太大，因此不可行；</li>
+<li>重新使用空闲块的空间会维护一个<strong>空闲列表</strong>，这个是可行的。但是这种情况又存在一个问题，为空闲块匹配合适大小的文件，需要知道该文件的最终大小。</li>
+</ul>
+<h3 id="2-链表分配"><a class="markdownIt-Anchor" href="#2-链表分配"></a> 2. 链表分配</h3>
+<p>第二种存储文件的方式是为每个文件构造磁盘块链表，每个文件都是磁盘块的链接列表。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929144116.png" srcset="/img/loading.gif" alt="" /></p>
+<p>每个块的第一个字作为指向下一块的指针，块的其他部分存放数据。整个的链表分配方案：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929144259.png" srcset="/img/loading.gif" alt="" /></p>
+<p>与连续分配方案不同，这一方法<strong>可以充分利用每个磁盘块</strong>。除了最后一个磁盘块外，不会因为磁盘碎片而浪费存储空间。同样，在目录项中，只要存储了第一个文件块，那么其他文件块也能够被找到。</p>
+<ul>
+<li>
+<p>在链表的分配方案中，尽管顺序读取非常方便，但是随机访问却很困难。</p>
+</li>
+<li>
+<p>由于指针会占用一些字节，每个磁盘块实际存储数据的字节数并不再是 <code>2</code> 的整数次幂。虽然这个问题并不会很严重，但是这种方式降低了程序运行效率。许多程序都是以长度为 <code>2</code> 的整数次幂来读写磁盘，由于每个块的前几个字节被指针所使用，所以<strong>要读出一个完成的块大小信息，就需要当前块的信息和下一块的信息拼凑而成，因此就引发了查找和拼接的开销</strong>。</p>
+</li>
+</ul>
+<h3 id="3-使用内存表进行链表分配"><a class="markdownIt-Anchor" href="#3-使用内存表进行链表分配"></a> 3. 使用内存表进行链表分配</h3>
+<p>由于连续分配和链表分配都有其不可忽视的缺点。所以提出了使用内存中的表来解决分配问题。取出每个磁盘块的指针字，把它们放在内存的一个表中，就可以解决上述链表的两个不足之处。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929144918.png" srcset="/img/loading.gif" alt="" /></p>
+<p>上图表示了链表形成的磁盘块的内容。这两个图中都有两个文件，文件 <code>A</code> 依次使用了磁盘块地址 <strong>4</strong>、<strong>7</strong>、 <strong>2</strong>、 <strong>10</strong>、 <strong>12</strong>，文件 B 使用了<strong>6</strong>、<strong>3</strong>、<strong>11</strong> 和 <strong>14</strong>。也就是说，文件 <code>A</code> 从地址 <code>4</code> 处开始，顺着链表走就能找到文件 <code>A</code> 的全部磁盘块。同样，从第 <code>6</code> 块开始，顺着链走到最后，也能够找到文件 <code>B</code> 的全部磁盘块。这两个链表都以不属于有效磁盘编号的特殊标记（-1）结束。内存中的这种表格称为 <code>文件分配表(File Application Table, FAT)</code>。</p>
+<p>使用这种组织方式，整个块都可以存放数据。进而，随机访问也容易很多。虽然仍要顺着链在内存中查找给定的偏移量，但是整个链都存放在内存中，所以不需要任何磁盘引用。与前面的方法相同，不管文件有多大，在目录项中只需记录一个整数（起始块号），按照它就可以找到文件的全部块。</p>
+<p>这种方式存在缺点，那就是<strong>必须要把整个链表放在内存中</strong>。对于 1TB 的磁盘和 1KB 的大小的块，那么这张表需要有 10 亿项。每一项对应于这 10 亿个磁盘块中的一块。每项至少 3 个字节，为了提高查找速度，有时需要 4 个字节。根据系统对空间或时间的优化方案，这张表要占用 3GB 或 2.4GB 的内存。FAT 的管理方式不能较好地扩展并应用于大型磁盘中。而这正是最初 MS-DOS 文件比较实用，并仍被各个 Windows 版本所完全支持。</p>
+<h3 id="4-inode"><a class="markdownIt-Anchor" href="#4-inode"></a> 4. inode</h3>
+<p>最后一个记录各个文件分别包含哪些磁盘块的方法是给每个文件赋予一个称为 <code>inode(索引节点)</code> 的数据结构，每个文件都与一个 <code>inode</code> 进行关联，<code>inode</code> 由整数进行标识。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929150217.png" srcset="/img/loading.gif" alt="" /></p>
+<p>给出 <code>inode</code> 的长度，就能够找到文件中的所有块。</p>
+<p>相对于在内存中使用表的方式而言，这种机制具有很大的优势。即<strong>只有在文件打开时，其 <code>inode</code> 才会在内存中</strong>。如果每个 <code>inode</code> 需要 <code>n</code> 个字节，最多 <code>k</code> 个文件同时打开，那么 <code>inode</code> 占有总共打开的文件是 <code>kn</code> 字节。仅需预留这么多空间。</p>
+<p>这个数组要比我们上面描述的 <code>FAT(文件分配表)</code> 占用的空间小的多。原因是<strong>用于保存所有磁盘块的链接列表的表的大小与磁盘本身成正比</strong>。如果磁盘有 <code>n</code> 个块，那么这个表也需要 <code>n</code> 项。随着磁盘空间的变大，那么该表也随之线性增长。相反，<code>inode</code> 需要在内存中有数组，其大小和可能需要打开的最大文件个数成正比。它与磁盘是 <code>100GB</code>、<code>4000GB</code> 还是 <code>10000GB</code> 无关。</p>
+<p><code>inode</code> 的一个问题是如果每个节点都会有固定大小的磁盘地址，那么文件增长到所能允许的最大容量外会发生什么？一个解决方案是<strong>最后一个磁盘地址不指向数据块</strong>，而是指向一个包含额外磁盘块地址的地址，如上图所示。一个更高级的解决方案是：<strong>有两个或者更多包含磁盘地址的块，或者指向其他存放地址的磁盘块的磁盘块。</strong> <code>Windows</code> 的 <code>NTFS</code> 文件系统采用了相似的方法，所不同的仅仅是大的 <code>inode</code> 也可以表示小的文件。</p>
+<blockquote>
+<p><code>NTFS</code> 的全称是 <code>New Technology File System</code>，是微软公司开发的专用系统文件，<code>NTFS</code> 取代 <code>FAT(文件分配表)</code> 和 <code>HPFS(高性能文件系统)</code>，并在此基础上进一步改进。例如增强对元数据的支持，使用更高级的数据结构以提升性能、可靠性和磁盘空间利用率等。</p>
+</blockquote>
+<h2 id="目录的实现"><a class="markdownIt-Anchor" href="#目录的实现"></a> 目录的实现</h2>
+<p>文件只有打开后才能够被读取。在文件打开后，操作系统会使用用户提供的路径名来定位磁盘中的目录。目录项提供了查找文件磁盘块所需要的信息。根据系统的不同，提供的信息也不同，可能提供的信息是整个文件的磁盘地址，或者是第一个块的数量（两个链表方案）或 inode 的数量。不过不管用哪种情况，目录系统的主要功能就是 <strong>将文件的 <code>ASCII</code> 码的名称映射到定位数据所需的信息上。</strong></p>
+<p>与此关系密切的问题是属性应该存放在哪里。每个文件系统包含不同的文件属性，例如文件的所有者和创建时间，需要存储的位置。一种显而易见的方法是直接把文件属性存放在目录中。有一些系统恰好是这么做的，如下：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929151603.png" srcset="/img/loading.gif" alt="" /></p>
+<p>在这种简单的设计中，目录有一个固定大小的目录项列表，每个文件对应一项，其中包含一个固定长度的文件名，文件属性的结构体以及用以说明磁盘块位置的一个或多个磁盘地址。</p>
+<p>对于采用 <code>inode</code> 的系统，会把 <code>inode</code> 存储在属性中而不是目录项中。在这种情况下，目录项会更短：仅仅只有文件名称和 <code>inode</code> 数量。这种方式如下所示：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929151753.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="可变长度扩展名"><a class="markdownIt-Anchor" href="#可变长度扩展名"></a> 可变长度扩展名</h3>
+<p>到目前为止，我们已经假设文件具有较短的、固定长度的名字。在 <code>MS-DOS</code> 中，具有 1 - 8 个字符的基本名称和 1 - 3 个字符的可拓展名称。在 <code>UNIX</code> 版本 7 中，文件有 1 - 14 个字符，包括任何拓展。然而，几乎所有的现代操作系统都支持可变长度的扩展名。这是如何实现的呢？</p>
+<p>最简单的方式是给予文件名一个长度限制，比如 255 个字符，然后使用上图中的设计，并为每个文件名保留 255 个字符空间。这种处理很简单，但是浪费了大量的目录空间，因为只有很少的文件会有那么长的文件名称。所以，需要一种其他的结构来处理。</p>
+<p>一种可选择的方式是放弃所有目录项大小相同的想法。在这种方法中，每个目录项都包含一个固定部分，这个固定部分通常以目录项的长度开始，后面是固定格式的数据，通常包括所有者、创建时间、保护信息和其他属性。这个固定长度的头的后面是一个任意长度的实际文件名，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929151951.png" srcset="/img/loading.gif" alt="" /></p>
+<p>这个例子中，有三个文件，分别是 <code>project-budget</code>、<code>personnel</code> 和 <code>foo</code>。每个文件名以一个特殊字符（通常是 0 ）结束，用矩形中的叉进行表示。为了使每个目录项从字的边界开始，每个文件名被填充成整数个字，如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929152139.png" srcset="/img/loading.gif" alt="" /></p>
+<p>这个方法的缺点是当文件被移除后，就会留下一块固定长度的空间，而新添加进来的文件大小不一定和空闲空间大小一致。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929152203.png" srcset="/img/loading.gif" alt="" /></p>
+<p>这个问题与我们上面探讨的连续磁盘文件的问题是一样的，由于整个目录在内存中，所以只有对目录进行<strong>紧凑拼接</strong>操作才可节省空间。另一个问题是，一个目录项可能会分布在多个页上，在读取文件名时可能发生<strong>缺页中断</strong>。</p>
+<p>处理可变长度文件名字的另外一种方法是，<strong>使目录项自身具有固定长度，而将文件名放在目录末尾的堆栈中。</strong> 如上图所示的这种方式。这种方法的优点是当目录项被移除后，下一个文件将能够正常匹配移除文件的空间。当然，必须要对堆进行管理，因为在处理文件名的时候也会发生缺页异常。</p>
+<h3 id="加快文件查找"><a class="markdownIt-Anchor" href="#加快文件查找"></a> 加快文件查找</h3>
+<p>到目前为止的所有设计中，在需要查找文件名时，所有的方案都是线性的从头到尾对目录进行搜索。对于特别长的目录，线性搜索的效率很低。提高文件检索效率的一种方式是在每个目录上使用 <code>哈希表(hash table)</code>。</p>
+<ul>
+<li>
+<p>添加：无论采用哪种方式，<strong>在添加一个文件时都要对与散列值相对 应的散列表进行检查。</strong> 如果没有使用过，就会将一个指向目录项的指针指向这里。文件目录项紧跟着哈希表后面。如果已经使用过，就会构造一个链表，链表的表头指针存放在表项中，并通过哈希值将所有的表项相连。</p>
+</li>
+<li>
+<p>查找：查找文件的过程和添加类似，首先对文件名进行哈希处理，在哈希表中查找是否有这个哈希值，如果有的话，就检查这条链上所有的哈希项，查看文件名是否存在。如果哈希不在链上，那么文件就不在目录中。</p>
+</li>
+</ul>
+<p>使用哈希表的优势是查找非常迅速，缺点是管理起来非常复杂。只有在系统中会有成千上万个目录项存在时，才会考虑使用散列表作为解决方案。</p>
+<p>另外一种在大量目录中加快查找指令目录的方法是使用<code>缓存</code>，缓存查找的结果。在开始查找之前，会首先检查文件名是否在缓存中。如果在缓存中，那么文件就能立刻定位。当然，只有在较少的文件下进行多次查找，缓存才会发挥最大功效。</p>
+<h2 id="共享文件"><a class="markdownIt-Anchor" href="#共享文件"></a> 共享文件</h2>
+<p>当多个用户在同一个项目中工作时，他们通常需要共享文件。如果这个共享文件同时出现在多个用户目录下，那么他们协同工作起来就很方便。下面的这张图我们在上面提到过，但是有一个更改的地方，就是 <code>C</code> 的一个文件也出现在了 <code>B</code> 的目录下。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929153128.png" srcset="/img/loading.gif" alt="" /></p>
+<p>如果按照如上图的这种组织方式而言，那么 <code>B</code> 的目录与该共享文件的联系称为 <code>链接(link)</code>。那么文件系统现在就是一个 <code>有向无环图(Directed Acyclic Graph, 简称 DAG)</code>，而不是一棵树了。</p>
+<p>将文件系统组织成为有向无环图会使得维护复杂化，但也是必须要付出的代价。</p>
+<p>共享文件很方便，但这也会带来一些问题。<strong>如果目录中包含磁盘地址，则当链接文件时，必须把 <code>C</code> 目录中的磁盘地址复制到 <code>B</code> 目录中。</strong> 如果 <code>B</code> 或者 <code>C</code> 随后又向文件中添加内容，则仅在执行追加的用户的目录中显示新写入的数据块。这种变更将会对其他用户不可见，从而破坏了共享的目的。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929153402.png" srcset="/img/loading.gif" alt="" /></p>
+<p>有两种方案可以解决这种问题。</p>
+<ul>
+<li>
+<p>第一种解决方案，<strong>磁盘块不列入目录中</strong>，而是会把磁盘块放在与文件本身相关联的 <code>inode</code> 中。目录将指向这个 <code>inode</code>。这是 <code>UNIX</code> 中使用的方式。</p>
+</li>
+<li>
+<p>在第二种解决方案中，通过让系统建立一个类型为 <code>LINK</code> 的新文件，并把该文件放在 <code>B</code> 的目录下，使得 <code>B</code> 与 <code>C</code> 建立链接。新的文件中只包含了它所链接的文件的路径名。当 <code>B</code> 想要读取文件时，操作系统会检查 <code>B</code> 的目录下存在一个类型为 <code>LINK</code> 的文件，进而找到该链接的文件和路径名，然后再去读文件，这种方式称为 <code>符号链接(symbolic linking)</code>。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929153627.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="日志结构文件系统"><a class="markdownIt-Anchor" href="#日志结构文件系统"></a> 日志结构文件系统</h2>
 
             </article>
             <hr>
