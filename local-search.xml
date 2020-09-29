@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 1208. 尽可能使字符串相等</title>
+    <link href="/2020/09/29/LeetCode-1208-get-equal-substrings-within-budget/"/>
+    <url>/2020/09/29/LeetCode-1208-get-equal-substrings-within-budget/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/get-equal-substrings-within-budget/" target="_blank" rel="noopener">1208. 尽可能使字符串相等</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">equalSubstring</span><span class="hljs-params">(String s, String t, <span class="hljs-keyword">int</span> maxCost)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] sChar = s.toCharArray();    <span class="hljs-keyword">char</span>[] tChar = t.toCharArray();    <span class="hljs-keyword">int</span> len = s.length();    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> windowCost = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> maxLen = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        <span class="hljs-comment">// 计算窗口内字符代价</span>        windowCost += Math.abs(sChar[right] - tChar[right]);        right++;        <span class="hljs-comment">// 收缩左边界</span>        <span class="hljs-keyword">if</span> (windowCost &gt; maxCost) &#123;            windowCost -= Math.abs(sChar[left] - tChar[left]);            left++;        &#125;        <span class="hljs-comment">// 计算最大长度</span>        maxLen = Math.max(maxLen, right - left);    &#125;    <span class="hljs-keyword">return</span> maxLen;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1052. 爱生气的书店老板</title>
     <link href="/2020/09/29/LeetCode-1052-grumpy-bookstore-owner/"/>
     <url>/2020/09/29/LeetCode-1052-grumpy-bookstore-owner/</url>
