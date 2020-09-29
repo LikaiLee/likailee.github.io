@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 1423. 可获得的最大点数</title>
+    <link href="/2020/09/29/LeetCode-1423-maximum-points-you-can-obtain-from-cards/"/>
+    <url>/2020/09/29/LeetCode-1423-maximum-points-you-can-obtain-from-cards/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/maximum-points-you-can-obtain-from-cards/" target="_blank" rel="noopener">1423. 可获得的最大点数</a></p><p>左边取 <code>i</code> 个，则右边取 <code>k - i</code> 个，依次比较最大值。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxScore</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] cardPoints, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = cardPoints.length;    <span class="hljs-keyword">int</span> leftSum = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> rightSum = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 右边 k 个之和</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">1</span>; i &gt;= len - k; i--) &#123;        rightSum += cardPoints[i];    &#125;    <span class="hljs-comment">// 左边取 0 个</span>    <span class="hljs-keyword">int</span> max = rightSum;    <span class="hljs-comment">// 从左边开始取 1 ~ k 个</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; k; i++) &#123;        leftSum += cardPoints[i];        <span class="hljs-comment">// 减去右边多的部分: 1 -&gt; k - 1, 2 -&gt; k - 2......</span>        rightSum -= cardPoints[len - k + i];        max = Math.max(max, leftSum + rightSum);    &#125;    <span class="hljs-keyword">return</span> max;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>滑动窗口</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 59 - II. 队列的最大值</title>
     <link href="/2020/09/29/LeetCode-offer-59-II-dui-lie-de-zui-da-zhi-lcof/"/>
     <url>/2020/09/29/LeetCode-offer-59-II-dui-lie-de-zui-da-zhi-lcof/</url>
@@ -922,9 +949,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -951,9 +978,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -1098,9 +1125,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1450,9 +1477,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1732,9 +1759,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>排序</tag>
       
