@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8.7k 字
+      10.6k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      90
+      110
        分钟
     </span>
   
@@ -212,8 +212,7 @@
               </p>
             
             <article class="markdown-body">
-              <p>[TOC]</p>
-<h1 id="文件"><a class="markdownIt-Anchor" href="#文件"></a> 文件</h1>
+              <h1 id="文件"><a class="markdownIt-Anchor" href="#文件"></a> 文件</h1>
 <h2 id="文件命名"><a class="markdownIt-Anchor" href="#文件命名"></a> 文件命名</h2>
 <p>文件是一种抽象机制，它提供了一种方式用来存储信息以及在后面进行读取。可能任何一种机制最重要的特性就是管理对象的命名方式。在创建一个文件后，它会给文件一个命名。当进程终止时，文件会继续存在，并且其他进程可以使用名称访问该文件。</p>
 <p>文件命名规则对于不同的操作系统来说是不一样的，但是所有现代操作系统都允许使用 1 - 8 个字母的字符串作为合法文件名。</p>
@@ -475,6 +474,48 @@ cp /usr/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span cla
 </ul>
 <p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929153627.png" srcset="/img/loading.gif" alt="" /></p>
 <h2 id="日志结构文件系统"><a class="markdownIt-Anchor" href="#日志结构文件系统"></a> 日志结构文件系统</h2>
+<p><code>日志结构文件系统(Log-structured File System, LFS)</code> 旨在解决以下问题：</p>
+<ul>
+<li>
+<p>不断增长的系统内存</p>
+</li>
+<li>
+<p>顺序 <code>I/O</code> 性能胜过随机 <code>I/O</code> 性能</p>
+</li>
+<li>
+<p>现有低效率的文件系统</p>
+</li>
+<li>
+<p>文件系统不支持 <code>RAID（虚拟化）</code></p>
+</li>
+</ul>
+<p>不论是 <code>UNIX</code> 还是 <code>FFS</code>，都有大量的随机读写，因此成为整个系统的性能瓶颈。同时因为 <code>Page cache</code> 的存在，作者认为随机读不是主要问题：随着越来越大的内存，大部分的读操作都能被 <code>cache</code>，因此 <code>LFS</code> 主要要解决的是<strong>减少对硬盘的随机写操作</strong>。</p>
+<p>在这种设计中，<code>inode</code> 甚至具有与 <code>UNIX</code> 中相同的结构，但是现在它们分散在整个日志中，而不是位于磁盘上的固定位置。所以，<code>inode</code> 很难定位。为了能够找到 <code>inode</code> ，维护了一个由 <code>inode</code> 索引的 <code>inode map</code>。表项 <code>i</code> 指向磁盘中的第 <code>i</code> 个 <code>inode</code>。这个映射保存在磁盘中，但是也保存在缓存中，因此，使用最频繁的部分大部分时间都在内存中。</p>
+<blockquote>
+<p>日志结构文件系统主要使用四种数据结构：<code>Inode</code>、<code>Inode Map</code>、<code>Segment</code>、<code>Segment Usage Table</code>。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929160054.png" srcset="/img/loading.gif" alt="" /></p>
+<p>到目前为止，所有写入最初都缓存在内存中，并且追加在日志末尾，所有缓存的写入都定期在单个段中写入磁盘。所以，现在打开文件也就意味着用映射定位文件的索引节点。一旦 inode 被定位后，磁盘块的地址就能够被找到。所有这些块本身都将位于日志中某处的分段中。</p>
+<p>真实情况下的磁盘容量是有限的，所以最终日志会占满整个磁盘空间，这种情况下就会出现没有新的磁盘块被写入到日志中。幸运的是，许多现有段可能具有不再需要的块。例如，如果一个文件被覆盖了，那么它的 <code>inode</code> 将被指向新的块，但是旧的磁盘块仍在先前写入的段中占据着空间。</p>
+<p>为了处理这个问题，LFS 有一个 <code>清理（clean）线程</code>，<strong>它会循环扫描日志并对日志进行压缩</strong>。首先，通过查看日志中第一部分的信息来查看其中存在哪些索引节点和文件。它会检查当前 <code>inode</code> 的映射来查看 <code>inode</code> 否在当前块中，是否仍在被使用。如果不是，该信息将被丢弃。如果仍然在使用，那么 <code>inode</code> 和块就会进入内存等待写回到下一个段中。然后原来的段被标记为空闲，以便日志可以用来存放新的数据。用这种方法，清理线程遍历日志，从后面移走旧的段，然后将有效的数据放入内存等待写到下一个段中。由此一来整个磁盘会形成一个大的环形缓冲区，写线程将新的段写在前面，而清理线程则清理后面的段。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929160520.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="日志文件系统"><a class="markdownIt-Anchor" href="#日志文件系统"></a> 日志文件系统</h2>
+<p>虽然日志结构系统的设计很优雅，但是由于它们和现有的文件系统不相匹配，因此还没有广泛使用。不过，从日志文件结构系统衍生出来一种新的日志系统，叫做日志文件系统，它会保存一个系统下一步将要做什么的日志。微软的 <code>NTFS</code> 文件系统、<code>Linux</code> 的 <code>ext3</code> 就使用了日志。 <code>OS X</code> 将日志系统作为可供选项。为了看清它是如何工作的，我们下面讨论一个例子，比如 <code>移除文件</code>，这个操作在 <code>UNIX</code> 中需要三个步骤完成：</p>
+<ol>
+<li>在目录中删除文件</li>
+<li>释放 <code>inode</code> 到空闲 <code>inode</code> 池</li>
+<li>将所有磁盘块归还给空闲磁盘池。</li>
+</ol>
+<p>为了让日志能够正确工作，被写入的日志操作必须是 <code>幂等的(idempotent)</code>，它意味着只要有必要，它们就可以重复执行很多次，并不会带来破坏。像操作 <code>更新位表并标记 inode k 或者块 n 是空闲的</code> 可以重复执行任意次。同样地，查找一个目录并且删除所有叫 foobar 的项也是幂等的。相反，把从 inode k 新释放的块加入空闲表的末端不是幂等的，因为它们可能已经被释放并存放在那里了。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929161137.png" srcset="/img/loading.gif" alt="" /></p>
+<p>为了增加可靠性，一个文件系统可以引入数据库中 <code>原子事务(atomic transaction)</code> 的概念。使用这个概念，一组动作可以被界定在开始事务和结束事务操作之间。这样，文件系统就会知道它必须完成所有的动作，要么就一个不做。</p>
+<h2 id="虚拟文件系统"><a class="markdownIt-Anchor" href="#虚拟文件系统"></a> 虚拟文件系统</h2>
+<p>即使在同一台计算机上或者在同一个操作系统下，都会使用很多不同的文件系统。Windows 中的主要文件系统是 NTFS 文件系统，但不是说 Windows 只有 NTFS 操作系统，它还有一些其他的例如旧的 FAT -32 或 FAT -16 驱动器或分区，其中包含仍需要的数据，闪存驱动器，旧的 CD-ROM 或 DVD（每个都有自己的独特文件系统）。<strong>Windows 通过指定不同的盘符来处理这些不同的文件系统</strong>，比如 <code>C:</code>，<code>D:</code> 等。盘符可以显示存在也可以隐式存在，如果你想找指定位置的文件，那么盘符是显示存在；如果当一个进程打开一个文件时，此时盘符是隐式存在，所以 Windows 知道向哪个文件系统传递请求。</p>
+<p><code>UNIX</code> 采用了一种不同的方式，即 <strong><code>UNIX</code> 把多种文件系统整合到一个统一的结构中</strong>。一个 <code>Linux</code> 系统可以使用 ext2 作为根文件系统，ext3 分区装载在 /usr 下，另一块采用 Reiser FS 文件系统的硬盘装载到 /home下，以及一个 ISO 9660 的 CD - ROM 临时装载到 /mnt 下。从用户的观点来看，只有一个文件系统层级，但是事实上它们是由多个文件系统组合而成，<strong>对于用户和进程是不可见的</strong>。</p>
+<p><code>UNIX</code> 操作系统使用一种 <code>虚拟文件系统(Virtual File System, VFS)</code> 来尝试将多种文件系统构成一个有序的结构。关键的思想是<strong>抽象出所有文件系统都共有的部分，并将这部分代码放在一层，这一层再调用具体文件系统来管理数据。</strong> 下面是一个 <code>VFS</code> 的系统结构：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200929161745.png" srcset="/img/loading.gif" alt="" /></p>
+<p>所有和文件相关的系统调用在最初的处理上都指向虚拟文件系统。这些来自用户进程的调用，都是标准的 <code>POSIX</code> 系统调用，比如 <code>open</code>、<code>read</code>、<code>write</code> 和 <code>seek</code> 等。VFS 对用户进程有一个 <code>上层</code> 接口，这个接口就是著名的 <code>POSIX</code> 接口。</p>
+<p><code>VFS</code> 也有一个对于实际文件的 <code>下层</code> 接口，就是上图中标记为 <code>VFS</code> 的接口。这个接口包含许多<strong>功能调用</strong>，这样 <code>VFS</code> 可以使每一个文件系统完成任务。因此，要创建一个可以与 <code>VFS</code> 一起使用的新文件系统，新文件系统的设计者必须确保它提供了 <code>VFS</code> 要求的功能。一个明显的例子是从磁盘读取特定的块，然后将其放入文件系统的缓冲区高速缓存中，然后返回指向该块的指针的函数。 因此，<code>VFS</code> 具有两个不同的接口：<strong>上一个到用户进程，下一个到具体文件系统</strong>。</p>
 
             </article>
             <hr>
