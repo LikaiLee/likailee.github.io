@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 1052. 爱生气的书店老板</title>
+    <link href="/2020/09/29/LeetCode-1052-grumpy-bookstore-owner/"/>
+    <url>/2020/09/29/LeetCode-1052-grumpy-bookstore-owner/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/grumpy-bookstore-owner/" target="_blank" rel="noopener">1052. 爱生气的书店老板</a></p><p>计算可补偿的最大值。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxSatisfied</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] customers, <span class="hljs-keyword">int</span>[] grumpy, <span class="hljs-keyword">int</span> X)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = customers.length;    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> windowComplement = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> maxComp = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        <span class="hljs-keyword">if</span> (grumpy[right] == <span class="hljs-number">1</span>) &#123;            <span class="hljs-comment">// 可补充的值</span>            windowComplement += customers[right];        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// 原始值</span>            sum += customers[right];        &#125;        right++;        <span class="hljs-comment">// 窗口大小 = X</span>        <span class="hljs-keyword">if</span> (right - left &gt;= X) &#123;            maxComp = Math.max(maxComp, windowComplement);            <span class="hljs-keyword">if</span> (grumpy[left] == <span class="hljs-number">1</span>) &#123;                windowComplement -= customers[left];            &#125;            left++;        &#125;    &#125;    <span class="hljs-keyword">return</span> sum + maxComp;&#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxSatisfied</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] customers, <span class="hljs-keyword">int</span>[] grumpy, <span class="hljs-keyword">int</span> X)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = customers.length;    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> windowComplement = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> maxComp = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">if</span> (grumpy[i] == <span class="hljs-number">0</span>) &#123;            sum += customers[i];            customers[i] = <span class="hljs-number">0</span>;        &#125;    &#125;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        windowComplement += customers[right];        right++;        <span class="hljs-comment">// 窗口大小 = X</span>        <span class="hljs-keyword">if</span> (right - left &gt;= X) &#123;            maxComp = Math.max(maxComp, windowComplement);            windowComplement -= customers[left];            left++;        &#125;    &#125;    <span class="hljs-keyword">return</span> sum + maxComp;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1423. 可获得的最大点数</title>
     <link href="/2020/09/29/LeetCode-1423-maximum-points-you-can-obtain-from-cards/"/>
     <url>/2020/09/29/LeetCode-1423-maximum-points-you-can-obtain-from-cards/</url>
