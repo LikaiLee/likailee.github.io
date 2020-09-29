@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>剑指 Offer 59 - II. 队列的最大值</title>
+    <link href="/2020/09/29/LeetCode-offer-59-II-dui-lie-de-zui-da-zhi-lcof/"/>
+    <url>/2020/09/29/LeetCode-offer-59-II-dui-lie-de-zui-da-zhi-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/" target="_blank" rel="noopener">剑指 Offer 59 - II. 队列的最大值</a></p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MaxQueue</span> </span>&#123;    <span class="hljs-keyword">private</span> LinkedList&lt;Integer&gt; queue;    <span class="hljs-keyword">private</span> ArrayDeque&lt;Integer&gt; deque;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MaxQueue</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-comment">// 保存入队元素</span>        queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        <span class="hljs-comment">// 最大值队列</span>        deque = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">max_value</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> deque.isEmpty() ? -<span class="hljs-number">1</span> : deque.peekFirst();    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">push_back</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;        queue.addLast(value);        <span class="hljs-comment">// 更新最大值</span>        <span class="hljs-keyword">while</span> (!deque.isEmpty() &amp;&amp; deque.peekLast() &lt; value) &#123;            deque.pollLast();        &#125;        deque.addLast(value);    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">pop_front</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">int</span> front = queue.isEmpty() ? -<span class="hljs-number">1</span> : queue.pollFirst();        <span class="hljs-comment">// 出队元素为最大值，则从最大值队列中出队</span>        <span class="hljs-keyword">if</span> (!deque.isEmpty() &amp;&amp; deque.peekFirst().equals(front)) &#123;            deque.pollFirst();        &#125;        <span class="hljs-keyword">return</span> front;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>滑动窗口</tag>
+      
+      <tag>队列</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1004. 最大连续1的个数 III</title>
     <link href="/2020/09/28/LeetCode-1004-max-consecutive-ones-iii/"/>
     <url>/2020/09/28/LeetCode-1004-max-consecutive-ones-iii/</url>
@@ -92,8 +123,8 @@
   
   <entry>
     <title>剑指 Offer 59 - I. 滑动窗口的最大值</title>
-    <link href="/2020/09/28/LeetCode-offer-59-hua-dong-chuang-kou-de-zui-da-zhi-lcof/"/>
-    <url>/2020/09/28/LeetCode-offer-59-hua-dong-chuang-kou-de-zui-da-zhi-lcof/</url>
+    <link href="/2020/09/28/LeetCode-offer-59-I-hua-dong-chuang-kou-de-zui-da-zhi-lcof/"/>
+    <url>/2020/09/28/LeetCode-offer-59-I-hua-dong-chuang-kou-de-zui-da-zhi-lcof/</url>
     
     <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/" target="_blank" rel="noopener">剑指 Offer 59 - I. 滑动窗口的最大值</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] maxSlidingWindow(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k) &#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;&#125;;    &#125;    ArrayDeque&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len - k + <span class="hljs-number">1</span>];    <span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">while</span> (!queue.isEmpty() &amp;&amp; nums[queue.peekLast()] &lt; nums[i]) &#123;            queue.removeLast();        &#125;        queue.addLast(i);        <span class="hljs-keyword">if</span> (queue.peekFirst() &lt;= i - k) &#123;            queue.removeFirst();        &#125;        <span class="hljs-keyword">if</span> (i &gt;= k - <span class="hljs-number">1</span>) &#123;            res[j++] = nums[queue.peekFirst()];        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
     
@@ -1270,9 +1301,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -2757,9 +2788,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
