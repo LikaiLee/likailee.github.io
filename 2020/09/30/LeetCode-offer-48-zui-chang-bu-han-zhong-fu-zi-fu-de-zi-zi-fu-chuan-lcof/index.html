@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      88 字
+      263 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      4
        分钟
     </span>
   
@@ -213,6 +213,28 @@
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/" target="_blank" rel="noopener">剑指 Offer 48. 最长不含重复字符的子字符串</a></p>
+<h1 id="set"><a class="markdownIt-Anchor" href="#set"></a> Set</h1>
+<p>记录字符是否出现。</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(String s)</span> </span>&#123;
+    <span class="hljs-keyword">char</span>[] chars = s.toCharArray();
+    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> len = chars.length;
+    Set&lt;Character&gt; set = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+    <span class="hljs-keyword">int</span> maxLen = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span> (right &lt; len) &#123;
+        <span class="hljs-keyword">char</span> c = chars[right];
+        right++;
+        <span class="hljs-keyword">while</span> (set.contains(c)) &#123;
+            set.remove(chars[left]);
+            left++;
+        &#125;
+        set.add(c);
+        maxLen = Math.max(maxLen, right - left);
+    &#125;
+    <span class="hljs-keyword">return</span> maxLen;
+&#125;</code></pre>
+<h1 id="hashmap"><a class="markdownIt-Anchor" href="#hashmap"></a> HashMap</h1>
+<p>记录字符的最后一次出现位置。</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(String s)</span> </span>&#123;
     <span class="hljs-keyword">char</span>[] chars = s.toCharArray();
     <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;
@@ -227,6 +249,27 @@
         map.put(c, right);
         maxLen = Math.max(maxLen, right - left + <span class="hljs-number">1</span>);
         right++;
+    &#125;
+    <span class="hljs-keyword">return</span> maxLen;
+&#125;</code></pre>
+<h1 id="数组哈希"><a class="markdownIt-Anchor" href="#数组哈希"></a> 数组哈希</h1>
+<p>记录字符出现次数</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(String s)</span> </span>&#123;
+    <span class="hljs-keyword">char</span>[] chars = s.toCharArray();
+    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> len = chars.length;
+    <span class="hljs-keyword">int</span>[] freq = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">128</span>];
+    <span class="hljs-keyword">int</span> maxLen = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span> (right &lt; len) &#123;
+        <span class="hljs-keyword">char</span> c = chars[right];
+        right++;
+        <span class="hljs-comment">// 收缩左边界，直到 right 对应字符未出现</span>
+        <span class="hljs-keyword">while</span> (freq[c] &gt; <span class="hljs-number">0</span>) &#123;
+            freq[chars[left]]--;
+            left++;
+        &#125;
+        freq[c]++;
+        maxLen = Math.max(maxLen, right - left);
     &#125;
     <span class="hljs-keyword">return</span> maxLen;
 &#125;</code></pre>
@@ -246,9 +289,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
-                    
                       <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+                    
+                      <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
                       <a class="hover-with-bg" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
                     
