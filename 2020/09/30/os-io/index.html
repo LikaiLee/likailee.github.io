@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 205. 同构字符串 - Likai Lee</title>
+  <title>操作系统 输入输出 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 205. 同构字符串
+                操作系统 输入输出
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-11 19:22">
-      2020年9月11日 晚上
+    <time datetime="2020-09-30 16:58">
+      2020年9月30日 下午
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      199 字
+      1.8k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      19
        分钟
     </span>
   
@@ -207,57 +207,69 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月11日 晚上
+                  本文最后更新于：2020年9月30日 下午
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/isomorphic-strings/" target="_blank" rel="noopener">205. 同构字符串</a></p>
-<p>需要从两个方向判断！</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isIsomorphic</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">return</span> check(s, t) &amp;&amp; check(t, s);
-&#125;
+              <p>[TOC]</p>
+<h1 id="io-硬件原理"><a class="markdownIt-Anchor" href="#io-硬件原理"></a> I/O 硬件原理</h1>
+<h2 id="io-设备"><a class="markdownIt-Anchor" href="#io-设备"></a> I/O 设备</h2>
+<p><code>I/O 设备(I/O devices)</code> 可以分成两种：<code>块设备(block devices)</code> 和 <code>字符设备(character devices)</code>。</p>
+<h3 id="块设备"><a class="markdownIt-Anchor" href="#块设备"></a> 块设备</h3>
+<p>块设备是一个能存储<strong>固定大小</strong>块信息的设备，它支持以固定大小的块，扇区或群集读取和（可选）写入数据。每个块都有自己的物理地址。通常块的大小在 <code>512 - 65536</code> 之间。所有传输的信息都会以连续的块为单位。块设备的基本特征是<strong>每个块都较为对立，能够独立的进行读写</strong>。常见的块设备有 硬盘、蓝光光盘、USB 盘。</p>
+<p>缺点：基于给定固态存储器的块设备比基于相同类型的存储器的字节寻址要慢一些，因为<strong>必须在块的开头开始读取或写入</strong>。所以，要读取该块的任何部分，必须寻找到该块的开始，读取整个块，如果不使用该块，则将其丢弃。要写入块的一部分，必须寻找到块的开始，将整个块读入内存，修改数据，再次寻找到块的开头处，然后将整个块写回设备。</p>
+<h3 id="字符设备"><a class="markdownIt-Anchor" href="#字符设备"></a> 字符设备</h3>
+<p>字符设备<strong>以字符为单位发送或接收一个字符流</strong>，而不考虑任何块结构。字符设备是<strong>不可寻址</strong>的，也没有任何寻道操作。常见的字符设备有 打印机、网络设备、鼠标、以及大多数与磁盘不同的设备。</p>
+<h2 id="设备控制器"><a class="markdownIt-Anchor" href="#设备控制器"></a> 设备控制器</h2>
+<p>设备控制器的主要功能是，<strong>控制一个或多个 <code>I/O</code> 设备，以实现 <code>I/O</code> 设备和计算机之间的数据交换</strong>。它是 <code>CPU</code> 与 <code>I/O</code> 设备之间的接口，接收从 <code>CPU</code> 发来的命令，去控制 <code>I/O</code> 设备工作。<br />
+设备控制器从连接的设备处接收数据，并将其存储在控制器内部的一些 <code>特殊目的寄存器(special purpose registers)</code> 也就是<code>本地缓冲区</code>中。</p>
+<p>每个设备控制器都会有一个应用程序与之对应，设备控制器通过应用程序的接口通过中断与操作系统进行通信。设备控制器是硬件，而设备驱动程序是软件。</p>
+<h2 id="内存映射-io"><a class="markdownIt-Anchor" href="#内存映射-io"></a> 内存映射 I/O</h2>
+<p><code>CPU</code> 如何与设备寄存器和设备数据缓冲区进行通信呢？存在两个可选的方式。</p>
+<h3 id="1-利用特定的-io-指令"><a class="markdownIt-Anchor" href="#1-利用特定的-io-指令"></a> 1. 利用特定的 I/O 指令</h3>
+<p>第一种方法是，每个控制寄存器都被分配一个 <code>I/O 端口(I/O port)</code> 号，这是一个 8 位或 16 位的整数。所有 <code>I/O</code> 端口的集合形成了受保护的 <code>I/O</code> 端口空间，以便普通用户程序无法访问它（只有操作系统可以访问）。使用特殊的 I/O 指令像是</p>
+<pre><code class="hljs assembly">IN REG, PORT</code></pre>
+<p>CPU 可以读取控制寄存器 PORT 的内容并将结果放在 <code>CPU</code> 寄存器 <code>REG</code> 中。类似的，使用</p>
+<pre><code class="hljs assembly">OUT PORT, REG</code></pre>
+<p><code>CPU</code> 可以将 <code>REG</code> 的内容写到控制寄存器中。大多数早期计算机，包括几乎所有大型主机，如 IBM 360 及其所有后续机型，都是以这种方式工作的。</p>
+<p>在这一方案中，内存地址空间和 I/O 地址空间是不相同的，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200930162507.png" srcset="/img/loading.gif" alt="" /></p>
+<p>指令</p>
+<pre><code class="hljs assembly">IN R0,4</code></pre>
+<p>和</p>
+<pre><code class="hljs assembly">MOV R0,4</code></pre>
+<p>这一设计中完全不同。前者读取 <code>I/O端口</code> 4 的内容并将其放入 R0，而后者读取<code>存储器</code>字 4 的内容并将其放入 R0。这些示例中的 <code>4</code> 代表<strong>不同且不相关的地址空间</strong>。</p>
+<h3 id="2-内存映像-io"><a class="markdownIt-Anchor" href="#2-内存映像-io"></a> 2. 内存映像 I/O</h3>
+<p>在这种方式中，不再区分内存单元地址和设备控制器中的寄存器地址，它将<strong>所有控制寄存器映射到内存空间中</strong>。</p>
+<p><code>内存映射的 I/O</code> 是在 CPU 与其连接的外围设备之间交换数据和指令的一种方式，这种方式是处理器和 IO 设备<strong>共享同一内存位置的内存</strong>，即处理器和 <code>I/O</code> 设备使用内存地址进行映射。</p>
+<p>当地址处于 <code>0 ~ n - 1</code> 范围时，被认为是内存地址，否则被认为是某个控制器的寄存器地址。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200930163143.png" srcset="/img/loading.gif" alt="" /></p>
+<p>优点：</p>
+<ol>
+<li>
+<p>如果需要特殊的 I/O 指令读写设备控制寄存器，那么访问这些寄存器需要使用汇编代码，因为在 C 或 C++ 中不存在执行 IN 和 OUT 指令的方法。调用这样的过程增加了 I/O 的开销。在内存映射中，<strong>控制寄存器只是内存中的变量，在 C 语言中可以和其他变量一样进行寻址</strong>。</p>
+</li>
+<li>
+<p>对于内存映射 I/O ，<strong>不需要特殊的保护机制</strong>就能够阻止用户进程执行 I/O 操作。操作系统需要保证的是禁止把控制寄存器的地址空间放在用户的虚拟地址中就可以了。</p>
+</li>
+<li>
+<p>对于内存映射 I/O，可以引用内存的每一条指令也可以引用控制寄存器，便于引用。</p>
+</li>
+</ol>
+<h2 id="直接内存访问dma"><a class="markdownIt-Anchor" href="#直接内存访问dma"></a> 直接内存访问（DMA）</h2>
+<p>无论一个 <code>CPU</code> 是否具有内存映射 <code>I/O</code>，它都需要寻址设备控制器以便与它们交换数据。<code>CPU</code> 可以从 <code>I/O</code> 控制器通过<strong>中断</strong>每次请求一个字节的数据，但是这么做会浪费 <code>CPU</code> 时间，所以经常会用到一种称为 <code>直接内存访问(Direct Memory Access)</code> 的方案，如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200930163602.png" srcset="/img/loading.gif" alt="" /></p>
+<p><strong><code>DMA</code> 控制器能够独立于 CPU 从而访问系统总线</strong>，如上图所示。它包含几个可由 CPU 读写的寄存器，其中包括一个<code>内存地址寄存器</code>，<code>字节计数寄存器</code>和一个或多个<code>控制寄存器</code>。控制寄存器指定要使用的 <code>I/O</code> 端口、传送方向（从 <code>I/O</code> 设备读或写到 <code>I/O</code> 设备）、传送单位（每次一个字节或者每次一个字）以及在一次突发传送中要传送的字节数。</p>
+<h3 id="dma-工作原理"><a class="markdownIt-Anchor" href="#dma-工作原理"></a> DMA 工作原理</h3>
+<ol>
+<li>首先 <code>CPU</code> 通过设置 <code>DMA</code> 控制器的寄存器对它进行编程，所以 <code>DMA</code> 控制器知道将什么数据传送到什么地方。<code>DMA</code> 控制器还要向磁盘控制器发出一个命令，通知它从磁盘读数据到其内部的缓冲区并检验校验和。当有效数据位于磁盘控制器的缓冲区中时，<code>DMA</code> 就可以开始了。</li>
+<li><code>DMA</code> 控制器通过在总线上发出一个读请求到磁盘控制器而发起 <code>DMA</code> 传送。这个读请求就像其他读请求一样，<strong>磁盘控制器并不知道或者并不关心它是来自 <code>CPU</code> 还是来自 <code>DMA</code> 控制器。</strong> 通常情况下，要写的内存地址在总线的地址线上，所以当磁盘控制器去匹配下一个字时，它知道将该字写到什么地方。</li>
+<li>通过总线进行数据交换。</li>
+<li>当写操作完成时，磁盘控制器在总线上发出一个应答信号到 <code>DMA</code> 控制器。</li>
+</ol>
+<h2 id="中断"><a class="markdownIt-Anchor" href="#中断"></a> 中断</h2>
 
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = s.length();
-    Map&lt;Character, Character&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-keyword">char</span> c = s.charAt(i);
-        <span class="hljs-keyword">char</span> key = t.charAt(i);
-        <span class="hljs-keyword">if</span> (map.containsKey(key)) &#123;
-            <span class="hljs-keyword">char</span> target = map.get(key);
-            <span class="hljs-keyword">if</span> (c != target) &#123;
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-            &#125;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            map.put(key, c);
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-&#125;</code></pre>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isIsomorphic</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-comment">// 双向验证</span>
-    <span class="hljs-keyword">return</span> check(s, t) &amp;&amp; check(t, s);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = s.length();
-    <span class="hljs-keyword">int</span>[] map = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">128</span>];
-    <span class="hljs-keyword">char</span>[] chars1 = s.toCharArray();
-    <span class="hljs-keyword">char</span>[] chars2 = t.toCharArray();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-keyword">int</span> target = map[chars1[i]];
-        <span class="hljs-comment">// 判断对应位置是否匹配</span>
-        <span class="hljs-keyword">if</span> (target != <span class="hljs-number">0</span>) &#123;
-            <span class="hljs-keyword">if</span> (target != chars2[i]) &#123;
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-            &#125;
-        &#125;
-        <span class="hljs-comment">// 新增 map</span>
-        map[chars1[i]] = chars2[i];
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-&#125;</code></pre>
             </article>
             <hr>
             <div>
@@ -266,7 +278,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                      <a class="hover-with-bg" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
                     
                   </div>
                 
@@ -274,11 +286,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-                    
-                      <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+                      <a class="hover-with-bg" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
                     
                   </div>
                 
@@ -291,18 +299,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/12/LeetCode-224-basic-calculator/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 224. 基本计算器</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/10/LeetCode-583-delete-operation-for-two-strings/">
-                        <span class="hidden-mobile">LeetCode 583. 两个字符串的删除操作</span>
+                      <a href="/2020/09/29/LeetCode-1208-get-equal-substrings-within-budget/">
+                        <span class="hidden-mobile">LeetCode 1208. 尽可能使字符串相等</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
