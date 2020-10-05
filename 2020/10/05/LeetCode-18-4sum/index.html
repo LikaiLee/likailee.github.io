@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 42. 接雨水 - Likai Lee</title>
+  <title>LeetCode 18. 四数之和 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 42. 接雨水
+                LeetCode 18. 四数之和
               
             </span>
 
@@ -154,7 +154,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-10-05 14:37">
+    <time datetime="2020-10-05 15:13">
       2020年10月5日 下午
     </time>
   </div>
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      403 字
+      202 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      3
        分钟
     </span>
   
@@ -212,77 +212,46 @@
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/trapping-rain-water/" target="_blank" rel="noopener">42. 接雨水</a></p>
-<h1 id="单调栈"><a class="markdownIt-Anchor" href="#单调栈"></a> 单调栈</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">trap</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] height)</span> </span>&#123;
-    ArrayDeque&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
-    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; height.length; i++) &#123;
-        <span class="hljs-comment">// 当前高度 &gt; 栈顶时，计算栈顶元素上的积水</span>
-        <span class="hljs-keyword">while</span> (!stack.isEmpty() &amp;&amp; height[i] &gt; height[stack.peek()]) &#123;
-            <span class="hljs-comment">// 栈顶元素的高度</span>
-            <span class="hljs-keyword">int</span> top = height[stack.pop()];
-            <span class="hljs-keyword">if</span> (stack.isEmpty()) &#123;
-                <span class="hljs-keyword">break</span>;
+              <p><a href="https://leetcode-cn.com/problems/4sum/" target="_blank" rel="noopener">18. 四数之和</a><br />
+固定一个数进行三数之和的查找。</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; fourSum(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> target) &#123;
+    Arrays.sort(nums);
+    List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-keyword">int</span> len = nums.length;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">3</span>; i++) &#123;
+        <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">0</span> &amp;&amp; nums[i] == nums[i - <span class="hljs-number">1</span>]) &#123;
+            <span class="hljs-keyword">continue</span>;
+        &#125;
+        <span class="hljs-comment">// 查找 三数之和</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i + <span class="hljs-number">1</span>; j &lt; len - <span class="hljs-number">2</span>; j++) &#123;
+            <span class="hljs-keyword">if</span> (j &gt; i + <span class="hljs-number">1</span> &amp;&amp; nums[j] == nums[j - <span class="hljs-number">1</span>]) &#123;
+                <span class="hljs-keyword">continue</span>;
             &#125;
-            <span class="hljs-comment">// 可形成积水的宽度</span>
-            <span class="hljs-keyword">int</span> width = i - stack.peek() - <span class="hljs-number">1</span>;
-            <span class="hljs-comment">// 栈顶元素的两侧均 &gt; 栈顶高度，取最小值</span>
-            <span class="hljs-keyword">int</span> minHeight = Math.min(height[i], height[stack.peek()]);
-            res += width * (minHeight - top);
-        &#125;
-        stack.push(i);
-    &#125;
-    <span class="hljs-keyword">return</span> res;
-&#125;</code></pre>
-<h1 id="双指针"><a class="markdownIt-Anchor" href="#双指针"></a> 双指针</h1>
-<p>分别找到当前列的左右最高点，计算积水。</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">trap</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] height)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">int</span> len = height.length;
-    <span class="hljs-comment">// 最左边和最右边无法保存水，可跳过</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123;
-        <span class="hljs-comment">// 找出左边最高的列</span>
-        <span class="hljs-keyword">int</span> leftMax = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i - <span class="hljs-number">1</span>; j &gt;= <span class="hljs-number">0</span>; j--) &#123;
-            leftMax = Math.max(leftMax, height[j]);
-        &#125;
-        <span class="hljs-comment">// 找出右边最高的列</span>
-        <span class="hljs-keyword">int</span> rightMax = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i + <span class="hljs-number">1</span>; j &lt; len; j++) &#123;
-            rightMax = Math.max(rightMax, height[j]);
-        &#125;
-        <span class="hljs-comment">// 当前列均小于 左边和右边时，当前列才能保存水</span>
-        <span class="hljs-keyword">int</span> minHeight = Math.min(leftMax, rightMax);
-        <span class="hljs-keyword">if</span> (minHeight &gt; height[i]) &#123;
-            res += minHeight - height[i];
+            <span class="hljs-keyword">int</span> left = j + <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">int</span> right = len - <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">while</span> (left &lt; right) &#123;
+                <span class="hljs-keyword">int</span> sum = nums[i] + nums[j] + nums[left] + nums[right];
+                <span class="hljs-keyword">if</span> (sum == target) &#123;
+                    res.add(Arrays.asList(nums[i], nums[j], nums[left], nums[right]));
+                    <span class="hljs-comment">// 跳过重复数字</span>
+                    <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; nums[left] == nums[left + <span class="hljs-number">1</span>]) &#123;
+                        left++;
+                    &#125;
+                    <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; nums[right] == nums[right - <span class="hljs-number">1</span>]) &#123;
+                        right--;
+                    &#125;
+                    left++;
+                    right--;
+                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (sum &gt; target) &#123;
+                    right--;
+                &#125; <span class="hljs-keyword">else</span> &#123;
+                    left++;
+                &#125;
+            &#125;
         &#125;
     &#125;
     <span class="hljs-keyword">return</span> res;
 &#125;</code></pre>
-<h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">trap</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] height)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">int</span> len = height.length;
-    <span class="hljs-keyword">int</span>[] leftMax = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
-    <span class="hljs-keyword">int</span>[] rightMax = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
-    <span class="hljs-comment">// 计算左边最高</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;
-        leftMax[i] = Math.max(leftMax[i - <span class="hljs-number">1</span>], height[i - <span class="hljs-number">1</span>]);
-    &#125;
-    <span class="hljs-comment">// 计算右边最高</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">2</span>; i &gt; <span class="hljs-number">0</span>; i--) &#123;
-        rightMax[i] = Math.max(rightMax[i + <span class="hljs-number">1</span>], height[i + <span class="hljs-number">1</span>]);
-    &#125;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123;
-        <span class="hljs-keyword">int</span> minHeight = Math.min(leftMax[i], rightMax[i]);
-        <span class="hljs-keyword">if</span> (minHeight &gt; height[i]) &#123;
-            res += minHeight - height[i];
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> res;
-&#125;</code></pre>
-
             </article>
             <hr>
             <div>
@@ -303,10 +272,6 @@
                     
                       <a class="hover-with-bg" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%A0%88/">栈</a>
-                    
                   </div>
                 
               </div>
@@ -318,18 +283,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/05/LeetCode-18-4sum/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 18. 四数之和</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/10/04/LeetCode-16-3sum-closest/">
-                        <span class="hidden-mobile">LeetCode 16. 最接近的三数之和</span>
+                      <a href="/2020/10/05/LeetCode-42-trapping-rain-water/">
+                        <span class="hidden-mobile">LeetCode 42. 接雨水</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
