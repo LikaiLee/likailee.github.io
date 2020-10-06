@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 167. 两数之和 II - 输入有序数组</title>
+    <link href="/2020/10/06/LeetCode-167-two-sum-ii-input-array-is-sorted/"/>
+    <url>/2020/10/06/LeetCode-167-two-sum-ii-input-array-is-sorted/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/" target="_blank" rel="noopener">167. 两数之和 II - 输入有序数组</a></p><h1 id="双指针"><a class="markdownIt-Anchor" href="#双指针"></a> 双指针</h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] twoSum(<span class="hljs-keyword">int</span>[] numbers, <span class="hljs-keyword">int</span> target) &#123;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = numbers.length - <span class="hljs-number">1</span>;    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-keyword">int</span> sum = numbers[left] + numbers[right];        <span class="hljs-keyword">if</span> (target &gt; sum) &#123;            left++;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (target &lt; sum) &#123;            right--;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;left + <span class="hljs-number">1</span>, right + <span class="hljs-number">1</span>&#125;;        &#125;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>];&#125;</code></pre><h1 id="二分"><a class="markdownIt-Anchor" href="#二分"></a> 二分</h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] twoSum(<span class="hljs-keyword">int</span>[] numbers, <span class="hljs-keyword">int</span> target) &#123;    <span class="hljs-keyword">int</span> len = numbers.length;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">int</span> right = binarySearch(numbers, i + <span class="hljs-number">1</span>, len - <span class="hljs-number">1</span>, target - numbers[i]);        <span class="hljs-keyword">if</span> (right != -<span class="hljs-number">1</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;i + <span class="hljs-number">1</span>, right + <span class="hljs-number">1</span>&#125;;        &#125;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>];&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> target)</span> </span>&#123;    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;        <span class="hljs-keyword">if</span> (nums[mid] == target) &#123;            <span class="hljs-keyword">return</span> mid;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] &gt; target) &#123;            right = mid;        &#125; <span class="hljs-keyword">else</span> &#123;            left = mid + <span class="hljs-number">1</span>;        &#125;    &#125;    <span class="hljs-keyword">return</span> nums[left] == target ? left : -<span class="hljs-number">1</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>二分</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 18. 四数之和</title>
     <link href="/2020/10/05/LeetCode-18-4sum/"/>
     <url>/2020/10/05/LeetCode-18-4sum/</url>
@@ -1231,9 +1260,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1260,9 +1289,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -1407,9 +1436,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1759,9 +1788,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2043,9 +2072,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>排序</tag>
       
