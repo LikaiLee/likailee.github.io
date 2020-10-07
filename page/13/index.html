@@ -406,13 +406,11 @@ public int uniquePaths(int m, int n) &#123;
           
         
         <div>35. 搜索插入位置
-标准的二分
 public int searchInsert(int[] nums, int target) &#123;
-        if (nums.length == 0) &#123;
-            return 0;
-        &#125;
-        int left = 0;
-        int right = nums.length;</div>
+    int left = 0;
+    int right = nums.length - 1;
+    while (left &lt; right) &#123;
+        int mid = left + (right - left + 1) / 2;</div>
       </a>
 
       <div class="index-btm post-metas">

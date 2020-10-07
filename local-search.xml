@@ -105,9 +105,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -217,9 +217,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -358,9 +358,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -563,11 +563,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -623,11 +623,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -1608,9 +1608,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1637,9 +1637,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1666,9 +1666,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -1784,11 +1784,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -1931,9 +1931,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -2157,9 +2157,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -2188,9 +2188,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2248,9 +2248,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2277,9 +2277,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2904,9 +2904,9 @@
     
     <tags>
       
-      <tag>数据结构</tag>
-      
       <tag>并查集</tag>
+      
+      <tag>数据结构</tag>
       
     </tags>
     
@@ -3155,9 +3155,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -3492,7 +3492,7 @@
     <link href="/2020/08/17/LeetCode-35-search-insert-position/"/>
     <url>/2020/08/17/LeetCode-35-search-insert-position/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/search-insert-position/" target="_blank" rel="noopener">35. 搜索插入位置</a></p><p>标准的二分</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">searchInsert</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> target)</span> </span>&#123;        <span class="hljs-keyword">if</span> (nums.length == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> right = nums.length;        <span class="hljs-keyword">while</span> (left &lt; right) &#123;            <span class="hljs-keyword">int</span> mid = (left + right) &gt;&gt;&gt; <span class="hljs-number">1</span>;            <span class="hljs-keyword">if</span> (target == nums[mid]) &#123;                <span class="hljs-keyword">return</span> mid;            &#125;            <span class="hljs-keyword">if</span> (nums[mid] &gt; target) &#123;                right = mid;            &#125; <span class="hljs-keyword">else</span> &#123;                left = mid + <span class="hljs-number">1</span>;            &#125;        &#125;        <span class="hljs-keyword">return</span> left;    &#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/search-insert-position/" target="_blank" rel="noopener">35. 搜索插入位置</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">searchInsert</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> target)</span> </span>&#123;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> right = nums.length - <span class="hljs-number">1</span>;    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-keyword">int</span> mid = left + (right - left + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;        <span class="hljs-keyword">if</span> (nums[mid] &gt; target) &#123;            right = mid - <span class="hljs-number">1</span>;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] &lt; target) &#123;            left = mid;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">return</span> mid;        &#125;     &#125;    <span class="hljs-comment">// 单独处理 left == right 的情况</span>    <span class="hljs-keyword">return</span> nums[left] &gt;= target ? left : left + <span class="hljs-number">1</span>;&#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">searchInsert</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> target)</span> </span>&#123;        <span class="hljs-keyword">if</span> (nums.length == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> right = nums.length;        <span class="hljs-keyword">while</span> (left &lt; right) &#123;            <span class="hljs-keyword">int</span> mid = (left + right) &gt;&gt;&gt; <span class="hljs-number">1</span>;            <span class="hljs-keyword">if</span> (target == nums[mid]) &#123;                <span class="hljs-keyword">return</span> mid;            &#125;            <span class="hljs-keyword">if</span> (nums[mid] &gt; target) &#123;                right = mid;            &#125; <span class="hljs-keyword">else</span> &#123;                left = mid + <span class="hljs-number">1</span>;            &#125;        &#125;        <span class="hljs-keyword">return</span> left;    &#125;</code></pre>]]></content>
     
     
     <categories>
