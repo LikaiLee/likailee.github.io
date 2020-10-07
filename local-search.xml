@@ -78,9 +78,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -188,11 +188,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -234,7 +234,7 @@
     <link href="/2020/09/30/os-io/"/>
     <url>/2020/09/30/os-io/</url>
     
-    <content type="html"><![CDATA[<p>[TOC]</p><h1 id="io-硬件原理"><a class="markdownIt-Anchor" href="#io-硬件原理"></a> I/O 硬件原理</h1><h2 id="io-设备"><a class="markdownIt-Anchor" href="#io-设备"></a> I/O 设备</h2><p><code>I/O 设备(I/O devices)</code> 可以分成两种：<code>块设备(block devices)</code> 和 <code>字符设备(character devices)</code>。</p><h3 id="块设备"><a class="markdownIt-Anchor" href="#块设备"></a> 块设备</h3><p>块设备是一个能存储<strong>固定大小</strong>块信息的设备，它支持以固定大小的块，扇区或群集读取和（可选）写入数据。每个块都有自己的物理地址。通常块的大小在 <code>512 - 65536</code> 之间。所有传输的信息都会以连续的块为单位。块设备的基本特征是<strong>每个块都较为对立，能够独立的进行读写</strong>。常见的块设备有 硬盘、蓝光光盘、USB 盘。</p><p>缺点：基于给定固态存储器的块设备比基于相同类型的存储器的字节寻址要慢一些，因为<strong>必须在块的开头开始读取或写入</strong>。所以，要读取该块的任何部分，必须寻找到该块的开始，读取整个块，如果不使用该块，则将其丢弃。要写入块的一部分，必须寻找到块的开始，将整个块读入内存，修改数据，再次寻找到块的开头处，然后将整个块写回设备。</p><h3 id="字符设备"><a class="markdownIt-Anchor" href="#字符设备"></a> 字符设备</h3><p>字符设备<strong>以字符为单位发送或接收一个字符流</strong>，而不考虑任何块结构。字符设备是<strong>不可寻址</strong>的，也没有任何寻道操作。常见的字符设备有 打印机、网络设备、鼠标、以及大多数与磁盘不同的设备。</p><h2 id="设备控制器"><a class="markdownIt-Anchor" href="#设备控制器"></a> 设备控制器</h2><p>设备控制器的主要功能是，<strong>控制一个或多个 <code>I/O</code> 设备，以实现 <code>I/O</code> 设备和计算机之间的数据交换</strong>。它是 <code>CPU</code> 与 <code>I/O</code> 设备之间的接口，接收从 <code>CPU</code> 发来的命令，去控制 <code>I/O</code> 设备工作。<br />设备控制器从连接的设备处接收数据，并将其存储在控制器内部的一些 <code>特殊目的寄存器(special purpose registers)</code> 也就是<code>本地缓冲区</code>中。</p><p>每个设备控制器都会有一个应用程序与之对应，设备控制器通过应用程序的接口通过中断与操作系统进行通信。设备控制器是硬件，而设备驱动程序是软件。</p><h2 id="内存映射-io"><a class="markdownIt-Anchor" href="#内存映射-io"></a> 内存映射 I/O</h2><p><code>CPU</code> 如何与设备寄存器和设备数据缓冲区进行通信呢？存在两个可选的方式。</p><h3 id="1-利用特定的-io-指令"><a class="markdownIt-Anchor" href="#1-利用特定的-io-指令"></a> 1. 利用特定的 I/O 指令</h3><p>第一种方法是，每个控制寄存器都被分配一个 <code>I/O 端口(I/O port)</code> 号，这是一个 8 位或 16 位的整数。所有 <code>I/O</code> 端口的集合形成了受保护的 <code>I/O</code> 端口空间，以便普通用户程序无法访问它（只有操作系统可以访问）。使用特殊的 I/O 指令像是</p><pre><code class="hljs assembly">IN REG, PORT</code></pre><p>CPU 可以读取控制寄存器 PORT 的内容并将结果放在 <code>CPU</code> 寄存器 <code>REG</code> 中。类似的，使用</p><pre><code class="hljs assembly">OUT PORT, REG</code></pre><p><code>CPU</code> 可以将 <code>REG</code> 的内容写到控制寄存器中。大多数早期计算机，包括几乎所有大型主机，如 IBM 360 及其所有后续机型，都是以这种方式工作的。</p><p>在这一方案中，内存地址空间和 I/O 地址空间是不相同的，如下图所示：</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200930162507.png" srcset="/img/loading.gif" alt="" /></p><p>指令</p><pre><code class="hljs assembly">IN R0,4</code></pre><p>和</p><pre><code class="hljs assembly">MOV R0,4</code></pre><p>这一设计中完全不同。前者读取 <code>I/O端口</code> 4 的内容并将其放入 R0，而后者读取<code>存储器</code>字 4 的内容并将其放入 R0。这些示例中的 <code>4</code> 代表<strong>不同且不相关的地址空间</strong>。</p><h3 id="2-内存映像-io"><a class="markdownIt-Anchor" href="#2-内存映像-io"></a> 2. 内存映像 I/O</h3><p>在这种方式中，不再区分内存单元地址和设备控制器中的寄存器地址，它将<strong>所有控制寄存器映射到内存空间中</strong>。</p><p><code>内存映射的 I/O</code> 是在 CPU 与其连接的外围设备之间交换数据和指令的一种方式，这种方式是处理器和 IO 设备<strong>共享同一内存位置的内存</strong>，即处理器和 <code>I/O</code> 设备使用内存地址进行映射。</p><p>当地址处于 <code>0 ~ n - 1</code> 范围时，被认为是内存地址，否则被认为是某个控制器的寄存器地址。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200930163143.png" srcset="/img/loading.gif" alt="" /></p><p>优点：</p><ol><li><p>如果需要特殊的 I/O 指令读写设备控制寄存器，那么访问这些寄存器需要使用汇编代码，因为在 C 或 C++ 中不存在执行 IN 和 OUT 指令的方法。调用这样的过程增加了 I/O 的开销。在内存映射中，<strong>控制寄存器只是内存中的变量，在 C 语言中可以和其他变量一样进行寻址</strong>。</p></li><li><p>对于内存映射 I/O ，<strong>不需要特殊的保护机制</strong>就能够阻止用户进程执行 I/O 操作。操作系统需要保证的是禁止把控制寄存器的地址空间放在用户的虚拟地址中就可以了。</p></li><li><p>对于内存映射 I/O，可以引用内存的每一条指令也可以引用控制寄存器，便于引用。</p></li></ol><h2 id="直接内存访问dma"><a class="markdownIt-Anchor" href="#直接内存访问dma"></a> 直接内存访问（DMA）</h2><p>无论一个 <code>CPU</code> 是否具有内存映射 <code>I/O</code>，它都需要寻址设备控制器以便与它们交换数据。<code>CPU</code> 可以从 <code>I/O</code> 控制器通过<strong>中断</strong>每次请求一个字节的数据，但是这么做会浪费 <code>CPU</code> 时间，所以经常会用到一种称为 <code>直接内存访问(Direct Memory Access)</code> 的方案，如下图所示</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200930163602.png" srcset="/img/loading.gif" alt="" /></p><p><strong><code>DMA</code> 控制器能够独立于 CPU 从而访问系统总线</strong>，如上图所示。它包含几个可由 CPU 读写的寄存器，其中包括一个<code>内存地址寄存器</code>，<code>字节计数寄存器</code>和一个或多个<code>控制寄存器</code>。控制寄存器指定要使用的 <code>I/O</code> 端口、传送方向（从 <code>I/O</code> 设备读或写到 <code>I/O</code> 设备）、传送单位（每次一个字节或者每次一个字）以及在一次突发传送中要传送的字节数。</p><h3 id="dma-工作原理"><a class="markdownIt-Anchor" href="#dma-工作原理"></a> DMA 工作原理</h3><ol><li>首先 <code>CPU</code> 通过设置 <code>DMA</code> 控制器的寄存器对它进行编程，所以 <code>DMA</code> 控制器知道将什么数据传送到什么地方。<code>DMA</code> 控制器还要向磁盘控制器发出一个命令，通知它从磁盘读数据到其内部的缓冲区并检验校验和。当有效数据位于磁盘控制器的缓冲区中时，<code>DMA</code> 就可以开始了。</li><li><code>DMA</code> 控制器通过在总线上发出一个读请求到磁盘控制器而发起 <code>DMA</code> 传送。这个读请求就像其他读请求一样，<strong>磁盘控制器并不知道或者并不关心它是来自 <code>CPU</code> 还是来自 <code>DMA</code> 控制器。</strong> 通常情况下，要写的内存地址在总线的地址线上，所以当磁盘控制器去匹配下一个字时，它知道将该字写到什么地方。</li><li>通过总线进行数据交换。</li><li>当写操作完成时，磁盘控制器在总线上发出一个应答信号到 <code>DMA</code> 控制器。</li></ol><h2 id="中断"><a class="markdownIt-Anchor" href="#中断"></a> 中断</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200930174048.png" srcset="/img/loading.gif" alt="" /></p><p>当一个 I/O 设备完成它的工作后，它就会产生一个中断，它通过在总线上声明已分配的信号来实现此目的。主板上的中断控制器芯片会检测到这个信号，然后执行中断操作。</p><ul><li>如果在中断前没有其他中断操作阻塞的话，中断控制器将立刻对中断进行处理。</li><li>如果在中断前还有其他中断操作正在执行，或者有其他设备发出<strong>优先级更高</strong>的中断信号的话，那么这个设备将暂时不会处理。在这种情况下，该设备会继续在总线上置起中断信号，直到得到 <code>CPU</code> 服务。</li></ul><p>硬件通常在服务程序开始前保存当前信息。对于不同的 <code>CPU</code> 来说，哪些信息需要保存以及保存在哪里差别很大。不管其他的信息是否保存，<strong>程序计数器必须要被保存，这对所有的 CPU 来说都是相同的，以此来恢复中断的进程。</strong> 所有可见寄存器和大量内部寄存器也应该被保存。</p><p>上面说到硬件应该保存当前信息，那么保存在哪里是个问题，一种选择是将其放入到<strong>内部寄存器</strong>中，在需要时操作系统可以读出这些内部寄存器。这种方法会造成的问题是：一段时间内设备无法响应，直到所有的内部寄存器中存储的信息被读出后，才能恢复运行，以免第二个内部寄存器重写内部寄存器的状态。</p><p>第二种方式是在<strong>堆栈</strong>中保存信息，这也是大部分 <code>CPU</code> 所使用的方式。但是，这种方法也存在问题，因为使用的堆栈不确定，如果使用的是当前堆栈，则它很可能是用户进程的堆栈。堆栈指针甚至不合法，这样当硬件试图在它所指的地址处写入时，将会导致致命错误。如果使用的是内核堆栈，堆栈指针是合法的并且指向一个固定的页面，这样的机会可能会更大。然而，切换到内核态需要切换 <code>MMU</code> 上下文，并且可能使高速缓存或者 <code>TLB</code> 失效。静态或动态重新装载这些东西将增加中断处理的时间，浪费 <code>CPU</code> 时间。</p>]]></content>
+    <content type="html"><![CDATA[<p>[TOC]</p><h1 id="io-硬件原理"><a class="markdownIt-Anchor" href="#io-硬件原理"></a> I/O 硬件原理</h1><h2 id="io-设备"><a class="markdownIt-Anchor" href="#io-设备"></a> I/O 设备</h2><p><code>I/O 设备(I/O devices)</code> 可以分成两种：<code>块设备(block devices)</code> 和 <code>字符设备(character devices)</code>。</p><h3 id="块设备"><a class="markdownIt-Anchor" href="#块设备"></a> 块设备</h3><p>块设备是一个能存储<strong>固定大小</strong>块信息的设备，它支持以固定大小的块，扇区或群集读取和（可选）写入数据。每个块都有自己的物理地址。通常块的大小在 <code>512 - 65536</code> 之间。所有传输的信息都会以连续的块为单位。块设备的基本特征是<strong>每个块都较为对立，能够独立的进行读写</strong>。常见的块设备有 硬盘、蓝光光盘、USB 盘。</p><p>缺点：基于给定固态存储器的块设备比基于相同类型的存储器的字节寻址要慢一些，因为<strong>必须在块的开头开始读取或写入</strong>。所以，要读取该块的任何部分，必须寻找到该块的开始，读取整个块，如果不使用该块，则将其丢弃。要写入块的一部分，必须寻找到块的开始，将整个块读入内存，修改数据，再次寻找到块的开头处，然后将整个块写回设备。</p><h3 id="字符设备"><a class="markdownIt-Anchor" href="#字符设备"></a> 字符设备</h3><p>字符设备<strong>以字符为单位发送或接收一个字符流</strong>，而不考虑任何块结构。字符设备是<strong>不可寻址</strong>的，也没有任何寻道操作。常见的字符设备有 打印机、网络设备、鼠标、以及大多数与磁盘不同的设备。</p><h2 id="设备控制器"><a class="markdownIt-Anchor" href="#设备控制器"></a> 设备控制器</h2><p>设备控制器的主要功能是，<strong>控制一个或多个 <code>I/O</code> 设备，以实现 <code>I/O</code> 设备和计算机之间的数据交换</strong>。它是 <code>CPU</code> 与 <code>I/O</code> 设备之间的接口，接收从 <code>CPU</code> 发来的命令，去控制 <code>I/O</code> 设备工作。<br />设备控制器从连接的设备处接收数据，并将其存储在控制器内部的一些 <code>特殊目的寄存器(special purpose registers)</code> 也就是<code>本地缓冲区</code>中。</p><p>每个设备控制器都会有一个应用程序与之对应，设备控制器通过应用程序的接口通过中断与操作系统进行通信。设备控制器是硬件，而设备驱动程序是软件。</p><h2 id="内存映射-io"><a class="markdownIt-Anchor" href="#内存映射-io"></a> 内存映射 I/O</h2><p><code>CPU</code> 如何与设备寄存器和设备数据缓冲区进行通信呢？存在两个可选的方式。</p><h3 id="1-利用特定的-io-指令"><a class="markdownIt-Anchor" href="#1-利用特定的-io-指令"></a> 1. 利用特定的 I/O 指令</h3><p>第一种方法是，每个控制寄存器都被分配一个 <code>I/O 端口(I/O port)</code> 号，这是一个 8 位或 16 位的整数。所有 <code>I/O</code> 端口的集合形成了受保护的 <code>I/O</code> 端口空间，以便普通用户程序无法访问它（只有操作系统可以访问）。使用特殊的 I/O 指令像是</p><pre><code class="hljs assembly">IN REG, PORT</code></pre><p>CPU 可以读取控制寄存器 PORT 的内容并将结果放在 <code>CPU</code> 寄存器 <code>REG</code> 中。类似的，使用</p><pre><code class="hljs assembly">OUT PORT, REG</code></pre><p><code>CPU</code> 可以将 <code>REG</code> 的内容写到控制寄存器中。大多数早期计算机，包括几乎所有大型主机，如 IBM 360 及其所有后续机型，都是以这种方式工作的。</p><p>在这一方案中，内存地址空间和 I/O 地址空间是不相同的，如下图所示：</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200930162507.png" srcset="/img/loading.gif" alt="" /></p><p>指令</p><pre><code class="hljs assembly">IN R0,4</code></pre><p>和</p><pre><code class="hljs assembly">MOV R0,4</code></pre><p>这一设计中完全不同。前者读取 <code>I/O端口</code> 4 的内容并将其放入 R0，而后者读取<code>存储器</code>字 4 的内容并将其放入 R0。这些示例中的 <code>4</code> 代表<strong>不同且不相关的地址空间</strong>。</p><h3 id="2-内存映像-io"><a class="markdownIt-Anchor" href="#2-内存映像-io"></a> 2. 内存映像 I/O</h3><p>在这种方式中，不再区分内存单元地址和设备控制器中的寄存器地址，它将<strong>所有控制寄存器映射到内存空间中</strong>。</p><p><code>内存映射的 I/O</code> 是在 CPU 与其连接的外围设备之间交换数据和指令的一种方式，这种方式是处理器和 IO 设备<strong>共享同一内存位置的内存</strong>，即处理器和 <code>I/O</code> 设备使用内存地址进行映射。</p><p>当地址处于 <code>0 ~ n - 1</code> 范围时，被认为是内存地址，否则被认为是某个控制器的寄存器地址。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200930163143.png" srcset="/img/loading.gif" alt="" /></p><p>优点：</p><ol><li><p>如果需要特殊的 I/O 指令读写设备控制寄存器，那么访问这些寄存器需要使用汇编代码，因为在 C 或 C++ 中不存在执行 IN 和 OUT 指令的方法。调用这样的过程增加了 I/O 的开销。在内存映射中，<strong>控制寄存器只是内存中的变量，在 C 语言中可以和其他变量一样进行寻址</strong>。</p></li><li><p>对于内存映射 I/O ，<strong>不需要特殊的保护机制</strong>就能够阻止用户进程执行 I/O 操作。操作系统需要保证的是禁止把控制寄存器的地址空间放在用户的虚拟地址中就可以了。</p></li><li><p>对于内存映射 I/O，可以引用内存的每一条指令也可以引用控制寄存器，便于引用。</p></li></ol><h2 id="直接内存访问dma"><a class="markdownIt-Anchor" href="#直接内存访问dma"></a> 直接内存访问（DMA）</h2><p>无论一个 <code>CPU</code> 是否具有内存映射 <code>I/O</code>，它都需要寻址设备控制器以便与它们交换数据。<code>CPU</code> 可以从 <code>I/O</code> 控制器通过<strong>中断</strong>每次请求一个字节的数据，但是这么做会浪费 <code>CPU</code> 时间，所以经常会用到一种称为 <code>直接内存访问(Direct Memory Access)</code> 的方案，如下图所示</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200930163602.png" srcset="/img/loading.gif" alt="" /></p><p><strong><code>DMA</code> 控制器能够独立于 CPU 从而访问系统总线</strong>，如上图所示。它包含几个可由 CPU 读写的寄存器，其中包括一个<code>内存地址寄存器</code>，<code>字节计数寄存器</code>和一个或多个<code>控制寄存器</code>。控制寄存器指定要使用的 <code>I/O</code> 端口、传送方向（从 <code>I/O</code> 设备读或写到 <code>I/O</code> 设备）、传送单位（每次一个字节或者每次一个字）以及在一次突发传送中要传送的字节数。</p><h3 id="dma-工作原理"><a class="markdownIt-Anchor" href="#dma-工作原理"></a> DMA 工作原理</h3><ol><li>首先 <code>CPU</code> 通过设置 <code>DMA</code> 控制器的寄存器对它进行编程，所以 <code>DMA</code> 控制器知道将什么数据传送到什么地方。<code>DMA</code> 控制器还要向磁盘控制器发出一个命令，通知它从磁盘读数据到其内部的缓冲区并检验校验和。当有效数据位于磁盘控制器的缓冲区中时，<code>DMA</code> 就可以开始了。</li><li><code>DMA</code> 控制器通过在总线上发出一个读请求到磁盘控制器而发起 <code>DMA</code> 传送。这个读请求就像其他读请求一样，<strong>磁盘控制器并不知道或者并不关心它是来自 <code>CPU</code> 还是来自 <code>DMA</code> 控制器。</strong> 通常情况下，要写的内存地址在总线的地址线上，所以当磁盘控制器去匹配下一个字时，它知道将该字写到什么地方。</li><li>通过总线进行数据交换。</li><li>当写操作完成时，磁盘控制器在总线上发出一个应答信号到 <code>DMA</code> 控制器。</li></ol><h2 id="中断"><a class="markdownIt-Anchor" href="#中断"></a> 中断</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200930174048.png" srcset="/img/loading.gif" alt="" /></p><p>当一个 I/O 设备完成它的工作后，它就会产生一个中断，它通过在总线上声明已分配的信号来实现此目的。主板上的中断控制器芯片会检测到这个信号，然后执行中断操作。</p><ul><li>如果在中断前没有其他中断操作阻塞的话，中断控制器将立刻对中断进行处理。</li><li>如果在中断前还有其他中断操作正在执行，或者有其他设备发出<strong>优先级更高</strong>的中断信号的话，那么这个设备将暂时不会处理。在这种情况下，该设备会继续在总线上置起中断信号，直到得到 <code>CPU</code> 服务。</li></ul><p>硬件通常在服务程序开始前保存当前信息。对于不同的 <code>CPU</code> 来说，哪些信息需要保存以及保存在哪里差别很大。不管其他的信息是否保存，<strong>程序计数器必须要被保存，这对所有的 CPU 来说都是相同的，以此来恢复中断的进程。</strong> 所有可见寄存器和大量内部寄存器也应该被保存。</p><p>上面说到硬件应该保存当前信息，那么保存在哪里是个问题，一种选择是将其放入到<strong>内部寄存器</strong>中，在需要时操作系统可以读出这些内部寄存器。这种方法会造成的问题是：一段时间内设备无法响应，直到所有的内部寄存器中存储的信息被读出后，才能恢复运行，以免第二个内部寄存器重写内部寄存器的状态。</p><p>第二种方式是在<strong>堆栈</strong>中保存信息，这也是大部分 <code>CPU</code> 所使用的方式。但是，这种方法也存在问题，因为使用的堆栈不确定，如果使用的是当前堆栈，则它很可能是用户进程的堆栈。堆栈指针甚至不合法，这样当硬件试图在它所指的地址处写入时，将会导致致命错误。如果使用的是内核堆栈，堆栈指针是合法的并且指向一个固定的页面，这样的机会可能会更大。然而，切换到内核态需要切换 <code>MMU</code> 上下文，并且可能使高速缓存或者 <code>TLB</code> 失效。静态或动态重新装载这些东西将增加中断处理的时间，浪费 <code>CPU</code> 时间。</p><h1 id="io-软件原理"><a class="markdownIt-Anchor" href="#io-软件原理"></a> IO 软件原理</h1><h2 id="io-软件目标"><a class="markdownIt-Anchor" href="#io-软件目标"></a> I/O 软件目标</h2><h3 id="1-设备独立性"><a class="markdownIt-Anchor" href="#1-设备独立性"></a> 1. 设备独立性</h3><p><code>设备独立性(device independence)</code> 意味着我们<strong>能够编写访问任何设备的应用程序</strong>，而不用事先指定特定的设备。比如你编写了一个能够从设备读入文件的应用程序，那么这个应用程序可以从硬盘、DVD 或者 USB 进行读入，不必再为每个设备定制应用程序。这其实就体现了设备独立性的概念。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201007134014.png" srcset="/img/loading.gif" alt="" /></p><p>再比如说你可以输入一条下面的指令</p><pre><code class="hljs gradle"><span class="hljs-keyword">sort</span> 输入 输出</code></pre><p>那么上面这个 <code>输入</code> 就可以接收来自任意类型的磁盘或者键盘，并且 <code>输出</code> 可以写入到任意类型的磁盘或者屏幕。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201007134238.png" srcset="/img/loading.gif" alt="" /></p><p>计算机操作系统是这些硬件的媒介，因为不同硬件它们的指令序列不同，所以需要操作系统来做指令间的转换。</p><p>与设备独立性密切相关的一个指标就是 <code>统一命名(uniform naming)</code>。设备的代号应该是一个整数或者是字符串，它们不应该依赖于具体的设备。在 <code>UNIX</code> 中，所有的磁盘都能够被集成到文件系统中，所以用户不用记住每个设备的具体名称，直接记住对应的路径即可，如果路径记不住，也可以通过 <code>ls</code> 等指令找到具体的集成位置。举个例子来说，比如一个 USB 磁盘被挂载到了 <code>/usr/likai/backup</code> 下，那么你把文件复制到 <code>/usr/likai/backup/device</code> 下，就相当于是把文件复制到了磁盘中，通过这种方式，实现了向任何磁盘写入文件都相当于是向指定的路径输出文件。</p><h3 id="2-错误处理"><a class="markdownIt-Anchor" href="#2-错误处理"></a> 2. 错误处理</h3><p><code>I/O</code> 软件实现的第二个重要的目标就是 <code>错误处理(error handling)</code>。通常情况下来说，错误应该交给硬件层面去处理。如果设备控制器发现了读错误的话，它会尽可能的去修复这个错误。如果设备控制器处理不了这个问题，那么设备驱动程序应该进行处理，设备驱动程序会再次尝试读取操作，很多错误都是偶然性的，如果设备驱动程序无法处理这个错误，才会把错误向上抛到硬件层面（上层）进行处理，很多时候，<strong>上层并不需要知道下层是如何解决错误的</strong>。这就很像项目经理不用把每个决定都告诉老板；程序员不用把每行代码如何写告诉项目经理。这种处理方式不够透明。</p><h3 id="3-同步和异步传输"><a class="markdownIt-Anchor" href="#3-同步和异步传输"></a> 3. 同步和异步传输</h3><p><code>I/O</code> 软件实现的第三个目标就是 <code>同步(synchronous)</code> 和 <code>异步(asynchronous，即中断驱动)</code> 传输。</p><ul><li>同步传输中数据通常以<strong>块或帧</strong>的形式发送。发送方和接收方在数据传输之前应该具有<strong>同步时钟</strong>。</li><li>异步传输中，数据通常以<strong>字节</strong>或者<strong>字符</strong>的形式发送，异步传输则不需要同步时钟，但是会在传输之前向数据添加<strong>奇偶校验位</strong>。</li></ul><p>大部分 <code>物理 IO(physical I/O)</code> 是异步的。物理 I/O 中的 <code>CPU</code> 是很聪明的，CPU 传输完成后会转而做其他事情，它和中断心灵相通，等到中断发生后，<code>CPU</code> 才会回到传输这件事情上来。</p><blockquote><p><code>I/O</code> 分为两种：<code>物理 I/O</code> 和 <code>逻辑 I/O(Logical I/O)</code>。</p><p><code>物理 I/O</code> 通常是从磁盘等<strong>存储设备</strong>实际获取数据。<code>逻辑 I/O</code> 是对<strong>存储器</strong>（块，缓冲区）获取数据。</p></blockquote><h3 id="4-缓冲"><a class="markdownIt-Anchor" href="#4-缓冲"></a> 4. 缓冲</h3><p><code>I/O</code> 软件的最后一个问题是 <code>缓冲(buffering)</code>。通常情况下，从一个设备发出的数据不会直接到达最后的设备。其间会经过一系列的校验、检查、缓冲等操作才能到达。举个例子来说，从网络上发送一个数据包，会经过一系列检查之后首先到达缓冲区，从而消除缓冲区填满速率和缓冲区过载。</p><h3 id="5-共享和独占"><a class="markdownIt-Anchor" href="#5-共享和独占"></a> 5. 共享和独占</h3><p>有些 I/O 设备能够被许多用户共同使用。一些设备比如磁盘，让多个用户使用一般不会产生什么问题，但是某些设备必须具有独占性，即只允许单个用户使用完成后才能让其他用户使用。</p><h2 id="控制-io-设备的方法"><a class="markdownIt-Anchor" href="#控制-io-设备的方法"></a> 控制 I/O 设备的方法</h2><h3 id="1-使用程序控制-io"><a class="markdownIt-Anchor" href="#1-使用程序控制-io"></a> 1. 使用程序控制 I/O</h3><p>使用程序控制 <code>I/O</code> 又被称为 <code>可编程I/O</code>，它是指由 <code>CPU</code> 在驱动程序软件控制下启动的数据传输，来访问设备上的寄存器或者其他存储器。<code>CPU</code> 会发出命令，然后等待 <code>I/O</code> 操作的完成。由于 <code>CPU</code> 的速度比 <code>I/O</code> 模块的速度快很多，因此可编程 <code>I/O</code> 的问题在于，<code>CPU</code> 必须等待很长时间才能等到处理结果。<code>CPU</code> 在等待时会采用 <code>轮询(polling)</code> 或者 <code>忙等(busy waiting)</code> 的方式，结果，整个系统的性能被严重拉低。可编程 <code>I/O</code> 十分简单，如果需要等待的时间非常短的话，可编程 <code>I/O</code> 倒是一个很好的方式。一个可编程的 <code>I/O</code> 会经历如下操作：</p><ul><li><code>CPU</code> 请求 I/O 操作</li><li><code>I/O</code> 模块执行响应</li><li><code>I/O</code> 模块设置状态位</li><li><code>CPU</code> 会定期检查状态位</li><li><code>I/O</code> <strong>不会直接通知</strong> <code>CPU</code> 操作完成，<code>I/O</code> 也不会中断 <code>CPU</code></li><li><code>CPU</code> 可能会等待或在随后的过程中返回</li></ul><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201007135543.png" srcset="/img/loading.gif" alt="" /></p><h3 id="2-使用中断驱动-io"><a class="markdownIt-Anchor" href="#2-使用中断驱动-io"></a> 2. 使用中断驱动 I/O</h3><p>在 <code>CPU</code> 等待 <code>I/O</code> 设备的同时，能够做其他事情，等到 <code>I/O</code> 设备完成后，它就会产生一个中断，这个中断会停止当前进程并保存当前的状态。一个可能的示意图如下：</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201007135557.png" srcset="/img/loading.gif" alt="" /></p><p>尽管中断减轻了 <code>CPU</code> 和 <code>I/O</code> 设备的等待时间的负担，但是由于还需要在 <code>CPU</code> 和 <code>I/O</code> 模块之前进行大量的逐字传输，因此在大量数据传输中效率仍然很低。下面是中断的基本操作</p><ul><li><code>CPU</code> 进行读取操作</li><li><code>I/O</code> 设备从外围设备获取数据，同时 <code>CPU</code> 执行其他操作</li><li><code>I/O</code> 设备<strong>中断通知</strong> <code>CPU</code></li><li><code>CPU</code> 请求数据</li><li><code>I/O</code> 模块传输数据</li></ul><h3 id="3-使用-dma-驱动-io"><a class="markdownIt-Anchor" href="#3-使用-dma-驱动-io"></a> 3. 使用 DMA 驱动 I/O</h3><p><code>DMA</code> 的中文名称是直接内存访问，它意味着 <strong><code>CPU</code> 授予 <code>I/O</code> 模块权限在不涉及 <code>CPU</code> 的情况下读取或写入内存。</strong> 也就是 <code>DMA</code> 可以不需要 <code>CPU</code> 的参与。这个过程由称为 <code>DMA 控制器（DMAC）</code> 的芯片管理。由于 <code>DMA</code> 设备可以直接在内存之间传输数据，而不是使用 <code>CPU</code> 作为中介，因此可以缓解总线上的拥塞。<code>DMA</code> 通过允许 <code>CPU</code> 执行任务，同时 <code>DMA</code> 系统通过系统和内存总线传输数据来提高系统并发性。</p>]]></content>
     
     
     <categories>
@@ -331,9 +331,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -536,11 +536,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -594,13 +594,13 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -1260,9 +1260,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1289,9 +1289,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -1318,9 +1318,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -1403,9 +1403,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -1434,9 +1434,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
       
@@ -1463,9 +1463,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1492,9 +1492,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1521,9 +1521,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1550,9 +1550,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1579,11 +1579,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -1608,11 +1608,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -1755,13 +1755,13 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -1786,9 +1786,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
       
@@ -1815,9 +1815,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1873,9 +1873,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1902,11 +1902,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -1960,9 +1960,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -2070,9 +2070,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
       
@@ -2128,11 +2128,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -2159,11 +2159,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2188,9 +2188,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -2219,11 +2219,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2248,11 +2248,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2277,9 +2277,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2304,9 +2304,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2331,9 +2331,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2383,9 +2383,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2410,9 +2410,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2437,9 +2437,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2877,9 +2877,9 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
@@ -3292,9 +3292,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       

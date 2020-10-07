@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      4.2k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      25
+      45
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月30日 晚上
+                  本文最后更新于：2020年10月7日 下午
                 
               </p>
             
@@ -278,6 +278,59 @@
 <p>硬件通常在服务程序开始前保存当前信息。对于不同的 <code>CPU</code> 来说，哪些信息需要保存以及保存在哪里差别很大。不管其他的信息是否保存，<strong>程序计数器必须要被保存，这对所有的 CPU 来说都是相同的，以此来恢复中断的进程。</strong> 所有可见寄存器和大量内部寄存器也应该被保存。</p>
 <p>上面说到硬件应该保存当前信息，那么保存在哪里是个问题，一种选择是将其放入到<strong>内部寄存器</strong>中，在需要时操作系统可以读出这些内部寄存器。这种方法会造成的问题是：一段时间内设备无法响应，直到所有的内部寄存器中存储的信息被读出后，才能恢复运行，以免第二个内部寄存器重写内部寄存器的状态。</p>
 <p>第二种方式是在<strong>堆栈</strong>中保存信息，这也是大部分 <code>CPU</code> 所使用的方式。但是，这种方法也存在问题，因为使用的堆栈不确定，如果使用的是当前堆栈，则它很可能是用户进程的堆栈。堆栈指针甚至不合法，这样当硬件试图在它所指的地址处写入时，将会导致致命错误。如果使用的是内核堆栈，堆栈指针是合法的并且指向一个固定的页面，这样的机会可能会更大。然而，切换到内核态需要切换 <code>MMU</code> 上下文，并且可能使高速缓存或者 <code>TLB</code> 失效。静态或动态重新装载这些东西将增加中断处理的时间，浪费 <code>CPU</code> 时间。</p>
+<h1 id="io-软件原理"><a class="markdownIt-Anchor" href="#io-软件原理"></a> IO 软件原理</h1>
+<h2 id="io-软件目标"><a class="markdownIt-Anchor" href="#io-软件目标"></a> I/O 软件目标</h2>
+<h3 id="1-设备独立性"><a class="markdownIt-Anchor" href="#1-设备独立性"></a> 1. 设备独立性</h3>
+<p><code>设备独立性(device independence)</code> 意味着我们<strong>能够编写访问任何设备的应用程序</strong>，而不用事先指定特定的设备。比如你编写了一个能够从设备读入文件的应用程序，那么这个应用程序可以从硬盘、DVD 或者 USB 进行读入，不必再为每个设备定制应用程序。这其实就体现了设备独立性的概念。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201007134014.png" srcset="/img/loading.gif" alt="" /></p>
+<p>再比如说你可以输入一条下面的指令</p>
+<pre><code class="hljs gradle"><span class="hljs-keyword">sort</span> 输入 输出</code></pre>
+<p>那么上面这个 <code>输入</code> 就可以接收来自任意类型的磁盘或者键盘，并且 <code>输出</code> 可以写入到任意类型的磁盘或者屏幕。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201007134238.png" srcset="/img/loading.gif" alt="" /></p>
+<p>计算机操作系统是这些硬件的媒介，因为不同硬件它们的指令序列不同，所以需要操作系统来做指令间的转换。</p>
+<p>与设备独立性密切相关的一个指标就是 <code>统一命名(uniform naming)</code>。设备的代号应该是一个整数或者是字符串，它们不应该依赖于具体的设备。在 <code>UNIX</code> 中，所有的磁盘都能够被集成到文件系统中，所以用户不用记住每个设备的具体名称，直接记住对应的路径即可，如果路径记不住，也可以通过 <code>ls</code> 等指令找到具体的集成位置。举个例子来说，比如一个 USB 磁盘被挂载到了 <code>/usr/likai/backup</code> 下，那么你把文件复制到 <code>/usr/likai/backup/device</code> 下，就相当于是把文件复制到了磁盘中，通过这种方式，实现了向任何磁盘写入文件都相当于是向指定的路径输出文件。</p>
+<h3 id="2-错误处理"><a class="markdownIt-Anchor" href="#2-错误处理"></a> 2. 错误处理</h3>
+<p><code>I/O</code> 软件实现的第二个重要的目标就是 <code>错误处理(error handling)</code>。通常情况下来说，错误应该交给硬件层面去处理。如果设备控制器发现了读错误的话，它会尽可能的去修复这个错误。如果设备控制器处理不了这个问题，那么设备驱动程序应该进行处理，设备驱动程序会再次尝试读取操作，很多错误都是偶然性的，如果设备驱动程序无法处理这个错误，才会把错误向上抛到硬件层面（上层）进行处理，很多时候，<strong>上层并不需要知道下层是如何解决错误的</strong>。这就很像项目经理不用把每个决定都告诉老板；程序员不用把每行代码如何写告诉项目经理。这种处理方式不够透明。</p>
+<h3 id="3-同步和异步传输"><a class="markdownIt-Anchor" href="#3-同步和异步传输"></a> 3. 同步和异步传输</h3>
+<p><code>I/O</code> 软件实现的第三个目标就是 <code>同步(synchronous)</code> 和 <code>异步(asynchronous，即中断驱动)</code> 传输。</p>
+<ul>
+<li>同步传输中数据通常以<strong>块或帧</strong>的形式发送。发送方和接收方在数据传输之前应该具有<strong>同步时钟</strong>。</li>
+<li>异步传输中，数据通常以<strong>字节</strong>或者<strong>字符</strong>的形式发送，异步传输则不需要同步时钟，但是会在传输之前向数据添加<strong>奇偶校验位</strong>。</li>
+</ul>
+<p>大部分 <code>物理 IO(physical I/O)</code> 是异步的。物理 I/O 中的 <code>CPU</code> 是很聪明的，CPU 传输完成后会转而做其他事情，它和中断心灵相通，等到中断发生后，<code>CPU</code> 才会回到传输这件事情上来。</p>
+<blockquote>
+<p><code>I/O</code> 分为两种：<code>物理 I/O</code> 和 <code>逻辑 I/O(Logical I/O)</code>。</p>
+<p><code>物理 I/O</code> 通常是从磁盘等<strong>存储设备</strong>实际获取数据。<code>逻辑 I/O</code> 是对<strong>存储器</strong>（块，缓冲区）获取数据。</p>
+</blockquote>
+<h3 id="4-缓冲"><a class="markdownIt-Anchor" href="#4-缓冲"></a> 4. 缓冲</h3>
+<p><code>I/O</code> 软件的最后一个问题是 <code>缓冲(buffering)</code>。通常情况下，从一个设备发出的数据不会直接到达最后的设备。其间会经过一系列的校验、检查、缓冲等操作才能到达。举个例子来说，从网络上发送一个数据包，会经过一系列检查之后首先到达缓冲区，从而消除缓冲区填满速率和缓冲区过载。</p>
+<h3 id="5-共享和独占"><a class="markdownIt-Anchor" href="#5-共享和独占"></a> 5. 共享和独占</h3>
+<p>有些 I/O 设备能够被许多用户共同使用。一些设备比如磁盘，让多个用户使用一般不会产生什么问题，但是某些设备必须具有独占性，即只允许单个用户使用完成后才能让其他用户使用。</p>
+<h2 id="控制-io-设备的方法"><a class="markdownIt-Anchor" href="#控制-io-设备的方法"></a> 控制 I/O 设备的方法</h2>
+<h3 id="1-使用程序控制-io"><a class="markdownIt-Anchor" href="#1-使用程序控制-io"></a> 1. 使用程序控制 I/O</h3>
+<p>使用程序控制 <code>I/O</code> 又被称为 <code>可编程I/O</code>，它是指由 <code>CPU</code> 在驱动程序软件控制下启动的数据传输，来访问设备上的寄存器或者其他存储器。<code>CPU</code> 会发出命令，然后等待 <code>I/O</code> 操作的完成。由于 <code>CPU</code> 的速度比 <code>I/O</code> 模块的速度快很多，因此可编程 <code>I/O</code> 的问题在于，<code>CPU</code> 必须等待很长时间才能等到处理结果。<code>CPU</code> 在等待时会采用 <code>轮询(polling)</code> 或者 <code>忙等(busy waiting)</code> 的方式，结果，整个系统的性能被严重拉低。可编程 <code>I/O</code> 十分简单，如果需要等待的时间非常短的话，可编程 <code>I/O</code> 倒是一个很好的方式。一个可编程的 <code>I/O</code> 会经历如下操作：</p>
+<ul>
+<li><code>CPU</code> 请求 I/O 操作</li>
+<li><code>I/O</code> 模块执行响应</li>
+<li><code>I/O</code> 模块设置状态位</li>
+<li><code>CPU</code> 会定期检查状态位</li>
+<li><code>I/O</code> <strong>不会直接通知</strong> <code>CPU</code> 操作完成，<code>I/O</code> 也不会中断 <code>CPU</code></li>
+<li><code>CPU</code> 可能会等待或在随后的过程中返回</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201007135543.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="2-使用中断驱动-io"><a class="markdownIt-Anchor" href="#2-使用中断驱动-io"></a> 2. 使用中断驱动 I/O</h3>
+<p>在 <code>CPU</code> 等待 <code>I/O</code> 设备的同时，能够做其他事情，等到 <code>I/O</code> 设备完成后，它就会产生一个中断，这个中断会停止当前进程并保存当前的状态。一个可能的示意图如下：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201007135557.png" srcset="/img/loading.gif" alt="" /></p>
+<p>尽管中断减轻了 <code>CPU</code> 和 <code>I/O</code> 设备的等待时间的负担，但是由于还需要在 <code>CPU</code> 和 <code>I/O</code> 模块之前进行大量的逐字传输，因此在大量数据传输中效率仍然很低。下面是中断的基本操作</p>
+<ul>
+<li><code>CPU</code> 进行读取操作</li>
+<li><code>I/O</code> 设备从外围设备获取数据，同时 <code>CPU</code> 执行其他操作</li>
+<li><code>I/O</code> 设备<strong>中断通知</strong> <code>CPU</code></li>
+<li><code>CPU</code> 请求数据</li>
+<li><code>I/O</code> 模块传输数据</li>
+</ul>
+<h3 id="3-使用-dma-驱动-io"><a class="markdownIt-Anchor" href="#3-使用-dma-驱动-io"></a> 3. 使用 DMA 驱动 I/O</h3>
+<p><code>DMA</code> 的中文名称是直接内存访问，它意味着 <strong><code>CPU</code> 授予 <code>I/O</code> 模块权限在不涉及 <code>CPU</code> 的情况下读取或写入内存。</strong> 也就是 <code>DMA</code> 可以不需要 <code>CPU</code> 的参与。这个过程由称为 <code>DMA 控制器（DMAC）</code> 的芯片管理。由于 <code>DMA</code> 设备可以直接在内存之间传输数据，而不是使用 <code>CPU</code> 作为中介，因此可以缓解总线上的拥塞。<code>DMA</code> 通过允许 <code>CPU</code> 执行任务，同时 <code>DMA</code> 系统通过系统和内存总线传输数据来提高系统并发性。</p>
 
             </article>
             <hr>
