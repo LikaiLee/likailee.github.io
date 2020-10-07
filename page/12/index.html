@@ -170,6 +170,61 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/22/LeetCode-121-best-time-to-buy-and-sell-stock/">LeetCode 121. 买卖股票的最佳时机</a>
+
+      <a href="/2020/08/22/LeetCode-121-best-time-to-buy-and-sell-stock/" class="index-excerpt">
+        
+        
+          
+        
+        <div>121. 买卖股票的最佳时机
+ 解法一
+状态：
+dp[i][j][s]: 第 i 天最多进行了 j 次交易后，持有股票状态为 s 的最大利润。
+
+i: 第 i 天
+j: 到今天进行的最大交易次数
+s: 今天是否持有股票
+
+状态转移方程：
+
+dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1] + prices[i])
+
+昨天就没有持有，然后今天选择 rest</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-22
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/21/LeetCode-337-house-robber-iii/">LeetCode 337. 打家劫舍 III</a>
 
       <a href="/2020/08/21/LeetCode-337-house-robber-iii/" class="index-excerpt">
@@ -208,9 +263,9 @@ Map&lt;TreeNode, Integer&gt; memo = new HashMap&lt;&gt;();
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
               <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
             
           </div>
         
@@ -517,9 +572,9 @@ base: 两个字符串中有一个为空，则 dp[0][j] = 0 或 dp[i][0] = 0
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-            
               <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
             
               <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
             
@@ -622,54 +677,6 @@ private int dp(int amount, int[] coins, int[] mem)</div>
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/MySQL/">MySQL</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/18/LeetCode-63-unique-paths-ii/">LeetCode 63. 不同路径 II</a>
-
-      <a href="/2020/08/18/LeetCode-63-unique-paths-ii/" class="index-excerpt">
-        
-        
-          
-        
-        <div>63. 不同路径 II
-一开始判断第一行或第一列的障碍时没有及时 break，导致若只有一行或一列的情况下出错。
-class Solution &#123;
-    public int uniquePathsWithObstacles(int[][] obstacleGrid) &#123;
-        /**
-         * base: 若左边或上边存在障碍，则不能继续往下走
-   </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-18
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
             
           </div>
         
