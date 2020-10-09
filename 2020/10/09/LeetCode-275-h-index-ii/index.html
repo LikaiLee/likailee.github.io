@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 205. 同构字符串 - Likai Lee</title>
+  <title>LeetCode 275. H 指数 II - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 205. 同构字符串
+                LeetCode 275. H 指数 II
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-11 19:22">
-      2020年9月11日 晚上
+    <time datetime="2020-10-09 22:14">
+      2020年10月9日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      199 字
+      90 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      1
        分钟
     </span>
   
@@ -207,56 +207,30 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月11日 晚上
+                  本文最后更新于：2020年10月9日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/isomorphic-strings/" target="_blank" rel="noopener">205. 同构字符串</a></p>
-<p>需要从两个方向判断！</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isIsomorphic</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">return</span> check(s, t) &amp;&amp; check(t, s);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = s.length();
-    Map&lt;Character, Character&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-keyword">char</span> c = s.charAt(i);
-        <span class="hljs-keyword">char</span> key = t.charAt(i);
-        <span class="hljs-keyword">if</span> (map.containsKey(key)) &#123;
-            <span class="hljs-keyword">char</span> target = map.get(key);
-            <span class="hljs-keyword">if</span> (c != target) &#123;
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-            &#125;
+              <p><a href="https://leetcode-cn.com/problems/h-index-ii/" target="_blank" rel="noopener">275. H 指数 II</a></p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">hIndex</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] citations)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> len = citations.length;
+    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span> || citations[len - <span class="hljs-number">1</span>] == <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    &#125;
+    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = len - <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">while</span> (left &lt; right) &#123;
+        <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;
+        <span class="hljs-comment">// 引用次数：citations[h]</span>
+        <span class="hljs-comment">// 论文数：len - h</span>
+        <span class="hljs-comment">// h index : (引用次数 &gt;= h 的论文数) &gt;= h 篇</span>
+        <span class="hljs-keyword">if</span> (citations[mid] &gt;= len - mid) &#123;
+            right = mid;
         &#125; <span class="hljs-keyword">else</span> &#123;
-            map.put(key, c);
+            left = mid + <span class="hljs-number">1</span>;
         &#125;
     &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-&#125;</code></pre>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isIsomorphic</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-comment">// 双向验证</span>
-    <span class="hljs-keyword">return</span> check(s, t) &amp;&amp; check(t, s);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = s.length();
-    <span class="hljs-keyword">int</span>[] map = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">128</span>];
-    <span class="hljs-keyword">char</span>[] chars1 = s.toCharArray();
-    <span class="hljs-keyword">char</span>[] chars2 = t.toCharArray();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-keyword">int</span> target = map[chars1[i]];
-        <span class="hljs-comment">// 判断对应位置是否匹配</span>
-        <span class="hljs-keyword">if</span> (target != <span class="hljs-number">0</span>) &#123;
-            <span class="hljs-keyword">if</span> (target != chars2[i]) &#123;
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-            &#125;
-        &#125;
-        <span class="hljs-comment">// 新增 map</span>
-        map[chars1[i]] = chars2[i];
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    <span class="hljs-keyword">return</span> len - left;
 &#125;</code></pre>
             </article>
             <hr>
@@ -274,11 +248,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-                    
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+                      <a class="hover-with-bg" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
                     
                   </div>
                 
@@ -291,18 +263,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/12/LeetCode-224-basic-calculator/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 224. 基本计算器</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/10/LeetCode-583-delete-operation-for-two-strings/">
-                        <span class="hidden-mobile">LeetCode 583. 两个字符串的删除操作</span>
+                      <a href="/2020/10/09/LeetCode-offer-57-II-he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/">
+                        <span class="hidden-mobile">剑指 Offer 57 - II. 和为s的连续正数序列</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
