@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.2k 字
+      7.1k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      45
+      74
        分钟
     </span>
   
@@ -207,13 +207,12 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月7日 下午
+                  本文最后更新于：2020年10月9日 下午
                 
               </p>
             
             <article class="markdown-body">
-              <p>[TOC]</p>
-<h1 id="io-硬件原理"><a class="markdownIt-Anchor" href="#io-硬件原理"></a> I/O 硬件原理</h1>
+              <h1 id="io-硬件原理"><a class="markdownIt-Anchor" href="#io-硬件原理"></a> I/O 硬件原理</h1>
 <h2 id="io-设备"><a class="markdownIt-Anchor" href="#io-设备"></a> I/O 设备</h2>
 <p><code>I/O 设备(I/O devices)</code> 可以分成两种：<code>块设备(block devices)</code> 和 <code>字符设备(character devices)</code>。</p>
 <h3 id="块设备"><a class="markdownIt-Anchor" href="#块设备"></a> 块设备</h3>
@@ -331,6 +330,74 @@
 </ul>
 <h3 id="3-使用-dma-驱动-io"><a class="markdownIt-Anchor" href="#3-使用-dma-驱动-io"></a> 3. 使用 DMA 驱动 I/O</h3>
 <p><code>DMA</code> 的中文名称是直接内存访问，它意味着 <strong><code>CPU</code> 授予 <code>I/O</code> 模块权限在不涉及 <code>CPU</code> 的情况下读取或写入内存。</strong> 也就是 <code>DMA</code> 可以不需要 <code>CPU</code> 的参与。这个过程由称为 <code>DMA 控制器（DMAC）</code> 的芯片管理。由于 <code>DMA</code> 设备可以直接在内存之间传输数据，而不是使用 <code>CPU</code> 作为中介，因此可以缓解总线上的拥塞。<code>DMA</code> 通过允许 <code>CPU</code> 执行任务，同时 <code>DMA</code> 系统通过系统和内存总线传输数据来提高系统并发性。</p>
+<h1 id="io-层次结构"><a class="markdownIt-Anchor" href="#io-层次结构"></a> I/O 层次结构</h1>
+<p>I/O 软件通常组织成四个层次，它们的大致结构如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201009130854.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="中断处理程序"><a class="markdownIt-Anchor" href="#中断处理程序"></a> 中断处理程序</h2>
+<p>中断处理程序又被称为 <code>中断服务程序</code> 或者是 <code>ISR(Interrupt Service Routines)</code>，它是最靠近硬件的一层。中断处理程序由硬件中断、软件中断或者是软件异常启动产生的中断，用于实现设备驱动程序或受保护的操作模式（例如系统调用）之间的转换。</p>
+<p>中断处理程序负责处理中断发生时的所有操作，操作完成后阻塞，然后启动中断驱动程序来解决阻塞。通常会有三种通知方式，依赖于不同的具体实现：</p>
+<ol>
+<li>信号量实现中：在信号量上使用 <code>up</code> 进行通知；</li>
+<li>管程实现：对管程中的条件变量执行 <code>signal</code> 操作；</li>
+<li>还有一些情况是发送一些消息。</li>
+</ol>
+<p>下面是一些通用的中断处理程序的步骤，不同的操作系统实现细节不一样</p>
+<ol>
+<li>保存所有没有被中断硬件保存的寄存器</li>
+<li>为中断服务程序设置<strong>上下文环境</strong>，可能包括设置 TLB、MMU 和页表</li>
+<li>为中断服务程序设置栈</li>
+<li>对中断控制器作出响应，如果不存在集中的中断控制器，则继续响应中断</li>
+<li>把寄存器从保存它的地方拷贝到进程表中</li>
+<li>运行中断服务程序，它会从发出中断的设备控制器的寄存器中提取信息</li>
+<li>操作系统会选择一个合适的进程来运行。如果中断造成了一些优先级更高的进程变为就绪态，则选择运行这些优先级高的进程</li>
+<li>为进程设置 MMU 上下文，可能也会需要 TLB，根据实际情况决定</li>
+<li>加载进程的寄存器，包括 PSW 寄存器</li>
+<li>开始运行新的进程</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201009132314.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="设备驱动程序"><a class="markdownIt-Anchor" href="#设备驱动程序"></a> 设备驱动程序</h2>
+<p>每个设备控制器内部都会有寄存器用来和设备进行沟通，发送指令，读取设备的状态等。因此，每个连接到计算机的 I/O 设备都需要有某些特定设备的代码对其进行控制，例如鼠标控制器需要从鼠标接受指令，告诉下一步应该移动到哪里，键盘控制器需要知道哪个按键被按下等。这些<strong>提供 I/O 设备到设备控制器转换的过程的代码称为 <code>设备驱动程序(Device driver)</code>。</strong></p>
+<p>为了能够访问设备的硬件，<strong>设备驱动程序通常是操作系统内核的一部分。</strong><br />
+但是也可以构造用户空间的设备驱动程序，通过系统调用来完成读写操作。这样就避免了一个问题，有问题的驱动程序会干扰内核，从而造成崩溃。所以，<strong>在用户空间实现设备驱动程序可以保证系统稳定性。</strong></p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201009134753.png" srcset="/img/loading.gif" alt="" /></p>
+<p>在 <code>UNIX</code> 系统中，操作系统是一个二进制程序，包含需要编译到其内部的所有驱动程序，如果你要对 <code>UNIX</code> 添加一个新设备，需要<strong>重新编译内核</strong>，将新的驱动程序装到二进制程序中。</p>
+<p>然而随着大多数个人计算机的出现，由于 <code>I/O</code> 设备的广泛应用，上面这种静态编译的方式不再有效，因此，从 <code>MS-DOS</code> 开始，操作系统转向驱动程序在执行期间<strong>动态装载</strong>到系统中。</p>
+<p>设备驱动程序接受到读写请求后，会检查当前设备是否在使用，如果设备在使用，请求被排入队列中，等待后续的处理。如果此时设备是空闲的，驱动程序会检查硬件以了解请求是否能够被处理。在传输开始前，会启动设备。等待设备就绪完成，再进行实际的控制。<strong>控制设备就是对设备发出指令。</strong></p>
+<p>发出命令后，设备控制器便开始将它们写入控制器的<code>设备寄存器</code>。在将每个命令写入控制器后，会检查控制器是否接受了这条命令并准备接受下一个命令。一般控制设备会发出一系列的指令，这称为 <code>指令序列</code>，设备控制器会依次检查每个命令是否被接受，下一条指令是否能够被接收，直到所有的序列发出为止。</p>
+<p>发出指令后，一般会有两种可能出现的情况。</p>
+<ul>
+<li>在大多数情况下，设备驱动程序会进行等待直到控制器完成它的事情。设备控制器会阻塞，直到中断来解除阻塞状态。</li>
+<li>还有一种情况是操作是可以无延迟的完成，所以驱动程序不需要阻塞。</li>
+</ul>
+<p>设备驱动程序必须是<strong>可重入</strong>的，因为设备驱动程序会阻塞和唤醒然后再次阻塞。<strong>驱动程序不允许进行系统调用</strong>，但是它们通常需要与内核的其余部分进行交互。</p>
+<h2 id="与设备无关的-io-软件"><a class="markdownIt-Anchor" href="#与设备无关的-io-软件"></a> 与设备无关的 I/O 软件</h2>
+<p><code>设备无关性</code> 也就是不需要特定的设备。设备驱动程序与设备无关的软件之间的界限取决于具体的系统。</p>
+<p>与设备无关的 I/O 软件的基本功能是<strong>执行对所有设备公共的 <code>I/O</code> 功能，并且向用户层软件提供一个统一的接口。</strong></p>
+<h3 id="缓冲"><a class="markdownIt-Anchor" href="#缓冲"></a> 缓冲</h3>
+<p>无论是对于块设备还是字符设备来说，缓冲都是一个非常重要的考量标准。下面是从 <code>ADSL(调制解调器)</code> 读取数据的过程。</p>
+<p>用户程序调用 <code>read</code> 系统调用<strong>阻塞用户进程</strong>，等待字符的到来，这是对到来的字符进行处理的一种方式。每一个到来的字符都会造成中断。中断服务程序会给用户进程提供字符，并解除阻塞。将字符提供给用户程序后，进程会去读取其他字符并继续阻塞，这种模型如下：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201009142221.png" srcset="/img/loading.gif" alt="" /></p>
+<p>这一种方案是没有缓冲区的存在，因为用户进程如果读不到数据会阻塞，直到读到数据为止，这种情况效率比较低，而且阻塞式的方式，会直接阻止用户进程做其他事情，这对用户来说是不能接受的。还有一种情况就是每次用户进程都会重启，对于每个字符的到来都会重启用户进程，这种效率会严重降低，所以无缓冲区的软件不是一个很好的设计。</p>
+<p>作为一个改良点，我们可以尝试在<strong>用户空间中使用一个能读取 n 个字节缓冲区</strong>来读取 n 个字符。这样的话，中断服务程序会把字符放到缓冲区中直到缓冲区变满为止，然后再去唤醒用户进程。这种方案要比上面的方案改良很多。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201009142840.png" srcset="/img/loading.gif" alt="" /></p>
+<p>但是这种方案也存在问题，当字符到来时，如果缓冲区被分页，会被调出内存。解决方案是把缓冲区锁定在内存中，但是这种方案也会出现问题，如果少量的缓冲区被锁定还好，如果大量的缓冲区被锁定在内存中，那么可以换进换出的页面就会收缩，造成系统性能的下降。</p>
+<p>一种解决方案是在<strong>内核中内部创建一块缓冲区</strong>，让中断服务程序将字符放在内核内部的缓冲区中。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201009143125.png" srcset="/img/loading.gif" alt="" /></p>
+<p>当内核中的缓冲区要满的时候，会将用户空间中的页面调入内存，然后将内核空间的缓冲区复制到用户空间的缓冲区中，这种方案也面临一个问题就是假如用户空间的页面被换入内存，此时内核空间的缓冲区已满，这时候仍有新的字符到来，这个时候会怎么办？因为缓冲区满了，没有空间来存储新的字符了。</p>
+<p>一种非常简单的方式就是<strong>再设置一个缓冲区</strong>就行了，在第一个缓冲区填满后，在缓冲区清空前，使用第二个缓冲区，这种解决方式如下：</p>
+<p>当第二个缓冲区也满了的时候，它也会把数据复制到用户空间中，然后第一个缓冲区用于接受新的字符。这种具有两个缓冲区的设计被称为 <code>双缓冲(double buffering)</code>。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201009143518.png" srcset="/img/loading.gif" alt="" /></p>
+<p>还有一种缓冲形式是 <code>循环缓冲(circular buffer)</code>。它由一个内存区域和两个指针组成。一个指针指向下一个空闲字，新的数据可以放在此处。另外一个指针指向缓冲区中尚未删除数据的第一个字。在许多情况下，硬件会在添加新的数据时，移动第一个指针；而操作系统会在删除和处理无用数据时会移动第二个指针。两个指针到达顶部时就回到底部重新开始。</p>
+<p>缓冲技术应用广泛，但它也有缺点。如果数据被缓冲次数太多，会影响性能。考虑例如如下这种情况，</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201009143601.png" srcset="/img/loading.gif" alt="" /></p>
+<p>数据经过用户进程 -&gt; 内核空间 -&gt; 网络控制器，这里的网络控制器应该就相当于是 缓冲区，然后发送到网络上，再到接收方的网络控制器 -&gt; 接收方的内核缓冲 -&gt; 接收方的用户缓冲，一条数据包被缓存了太多次，很容易降低性能。</p>
+<h3 id="错误处理"><a class="markdownIt-Anchor" href="#错误处理"></a> 错误处理</h3>
+<p>I/O 错误的一类是程序员<strong>编程错误</strong>，比如还没有打开文件前就读流，或者不关闭流导致内存溢出等等。这类问题由程序员处理；</p>
+<p>另外一类是<strong>实际的 <code>I/O</code> 错误</strong>，例如向一个磁盘坏块写入数据，无论怎么写都写入不了。这类问题由驱动程序处理，驱动程序处理不了交给硬件处理。</p>
+<h3 id="分配和释放"><a class="markdownIt-Anchor" href="#分配和释放"></a> 分配和释放</h3>
+<p>一些设备例如打印机，它只能由一个进程来使用，这就需要操作系统根据实际情况判断是否能够对设备的请求进行检查，判断是否能够接受其他请求，一种比较简单直接的方式是在特殊文件上执行 <code>open</code> 操作。如果设备不可用，那么直接 <code>open</code> 会导致失败。还有一种方式是不直接导致失败，而是让其阻塞，等到另外一个进程释放资源后，在进行 <code>open</code> 打开操作。这种方式就把选择权交给了用户，由用户判断是否应该等待。</p>
+<h2 id="用户空间的-io-软件"><a class="markdownIt-Anchor" href="#用户空间的-io-软件"></a> 用户空间的 I/O 软件</h2>
+<p>虽然大部分 I/O 软件都在内核结构中，但是还有一些在用户空间实现的 I/O 软件。一些 I/O 软件和库过程在用户空间存在，然后以提供系统调用的方式实现。</p>
 
             </article>
             <hr>
