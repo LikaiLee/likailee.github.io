@@ -4,9 +4,38 @@
   
   
   <entry>
+    <title>剑指 Offer 57 - II. 和为s的连续正数序列</title>
+    <link href="/2020/10/09/LeetCode-offer-57-II-he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/"/>
+    <url>/2020/10/09/LeetCode-offer-57-II-he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/" target="_blank" rel="noopener">剑指 Offer 57 - II. 和为s的连续正数序列</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[][] findContinuousSequence(<span class="hljs-keyword">int</span> target) &#123;    List&lt;<span class="hljs-keyword">int</span>[]&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    <span class="hljs-keyword">int</span> left = <span class="hljs-number">1</span>, right = <span class="hljs-number">1</span>;    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> len = target / <span class="hljs-number">2</span> + <span class="hljs-number">1</span>;    <span class="hljs-keyword">while</span> (right &lt;= len) &#123;        sum += right;        right++;        <span class="hljs-keyword">while</span> (sum &gt; target) &#123;            sum -= left;            left++;        &#125;        <span class="hljs-keyword">if</span> (sum == target) &#123;            <span class="hljs-keyword">int</span>[] arr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[right - left];            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = left, j = <span class="hljs-number">0</span>; i &lt; right; i++) &#123;                arr[j++] = i;            &#125;            list.add(arr);        &#125;    &#125;    <span class="hljs-keyword">int</span>[][] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[list.size()][];    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] arr : list) &#123;        res[i++] = arr;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>滑动窗口</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>操作系统 死锁</title>
-    <link href="/2020/10/09/os-deaklock/"/>
-    <url>/2020/10/09/os-deaklock/</url>
+    <link href="/2020/10/09/os-deadlock/"/>
+    <url>/2020/10/09/os-deadlock/</url>
     
     <content type="html"><![CDATA[<p>[TOC]</p><h1 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h1><p>大部分的死锁都和资源有关，在进程对设备、文件具有<strong>独占性</strong>（排他性）时会产生死锁。我们把这类需要排他性使用的对象称为 <code>资源(resource)</code>。</p><p>资源主要有可抢占资源和不可抢占资源。</p><ul><li><code>可抢占资源(preemptable resource)</code> 可以从拥有它的进程中抢占而不会造成其他影响，内存就是一种可抢占性资源，任何进程都能够抢先获得内存的使用权。</li><li><code>不可抢占资源(nonpreemtable resource)</code> 指的是除非引起错误或者异常，否则进程无法抢占指定资源，这种不可抢占的资源比如有光盘，在进程执行调度的过程中，其他进程是不能得到该资源的。</li></ul><p>死锁与<strong>不可抢占</strong>资源有关，虽然抢占式资源也会造成死锁，不过这种情况的解决办法通常是在进程之间重新分配资源来化解。所以，我们的重点自然就会放在了不可抢占资源上。</p><p>如果在请求时资源不存在，请求进程就会强制等待。在某些操作系统中，当请求资源失败时进程会自动阻塞，当自资源可以获取时进程会自动唤醒。在另外一些操作系统中，请求资源失败并显示错误代码，然后等待进程等待一会儿再继续重试。</p><p>请求资源失败的进程会陷入一种<strong>请求资源、休眠、再请求资源</strong>的循环中。此类进程虽然没有阻塞，但是处于从目的和结果考虑，这类进程和阻塞差不多，因为这类进程并没有做任何有用的工作。</p>]]></content>
     
@@ -130,9 +159,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -242,9 +271,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -383,9 +412,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -588,11 +617,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -648,11 +677,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -1633,9 +1662,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1662,9 +1691,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1809,11 +1838,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -1956,9 +1985,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -2182,9 +2211,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -2213,9 +2242,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2273,9 +2302,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2302,9 +2331,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
