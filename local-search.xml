@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 1095. 山脉数组中查找目标值</title>
+    <link href="/2020/10/10/LeetCode-1095-find-in-mountain-array/"/>
+    <url>/2020/10/10/LeetCode-1095-find-in-mountain-array/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/find-in-mountain-array/" target="_blank" rel="noopener">1095. 山脉数组中查找目标值</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findInMountainArray</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target, MountainArray mountainArr)</span> </span>&#123;        <span class="hljs-keyword">int</span> len = mountainArr.length();        <span class="hljs-comment">// 获取山顶</span>        <span class="hljs-keyword">int</span> top = getTop(len, mountainArr);        <span class="hljs-comment">// 在左边查找</span>        <span class="hljs-keyword">int</span> ascPos = findInAsc(<span class="hljs-number">0</span>, top, target, mountainArr);        <span class="hljs-keyword">if</span> (ascPos != -<span class="hljs-number">1</span>) &#123;            <span class="hljs-keyword">return</span> ascPos;        &#125;        <span class="hljs-comment">// 在右边查找</span>        <span class="hljs-keyword">return</span> findInDesc(top, len - <span class="hljs-number">1</span>, target, mountainArr);    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findInAsc</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> target, MountainArray mountainArr)</span> </span>&#123;        <span class="hljs-keyword">while</span> (left &lt; right) &#123;            <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;            <span class="hljs-keyword">int</span> midVal = mountainArr.get(mid);            <span class="hljs-keyword">if</span> (midVal == target) &#123;                <span class="hljs-keyword">return</span> mid;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (midVal &gt; target) &#123;                right = mid;            &#125; <span class="hljs-keyword">else</span> &#123;                left = mid + <span class="hljs-number">1</span>;            &#125;        &#125;        <span class="hljs-keyword">return</span> mountainArr.get(left) == target ? left : -<span class="hljs-number">1</span>;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findInDesc</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> target, MountainArray mountainArr)</span> </span>&#123;        <span class="hljs-keyword">while</span> (left &lt; right) &#123;            <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;            <span class="hljs-keyword">int</span> midVal = mountainArr.get(mid);            <span class="hljs-keyword">if</span> (midVal == target) &#123;                <span class="hljs-keyword">return</span> mid;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (midVal &gt; target) &#123;                left = mid + <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> &#123;                right = mid;            &#125;        &#125;        <span class="hljs-keyword">return</span> mountainArr.get(left) == target ? left : -<span class="hljs-number">1</span>;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getTop</span><span class="hljs-params">(<span class="hljs-keyword">int</span> len, MountainArray mountainArr)</span> </span>&#123;        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = len - <span class="hljs-number">1</span>;        <span class="hljs-keyword">while</span> (left &lt; right) &#123;            <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;            <span class="hljs-comment">// 3, 4, 5, 2, 1</span>            <span class="hljs-keyword">if</span> (mountainArr.get(mid) &lt; mountainArr.get(mid + <span class="hljs-number">1</span>)) &#123;                left = mid + <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> &#123;                right = mid;            &#125;        &#125;        <span class="hljs-keyword">return</span> left;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>二分</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 436. 寻找右区间</title>
     <link href="/2020/10/10/LeetCode-436-find-right-interval/"/>
     <url>/2020/10/10/LeetCode-436-find-right-interval/</url>
@@ -1778,9 +1807,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -3267,9 +3296,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
