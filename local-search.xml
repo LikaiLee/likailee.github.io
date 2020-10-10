@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 436. 寻找右区间</title>
+    <link href="/2020/10/10/LeetCode-436-find-right-interval/"/>
+    <url>/2020/10/10/LeetCode-436-find-right-interval/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/find-right-interval/" target="_blank" rel="noopener">436. 寻找右区间</a></p><ul><li>区间的终点总是大于它的起始点 =&gt; 只需要比较起点。</li><li>区间都不具有相同的起始点 =&gt; 可以保存排序前的<strong>起点</strong>和<strong>索引</strong>的关系。</li></ul><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] findRightInterval(<span class="hljs-keyword">int</span>[][] intervals) &#123;    <span class="hljs-keyword">int</span> len = intervals.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">0</span>];    &#125;    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    <span class="hljs-keyword">int</span>[] starts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 存储起点</span>        starts[i] = intervals[i][<span class="hljs-number">0</span>];        <span class="hljs-comment">// 存储每个起点的原始位置</span>        map.put(intervals[i][<span class="hljs-number">0</span>], i);    &#125;    Arrays.sort(starts);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 在起点数组中查找起点，该起点 &gt;= 区间 i 的终点</span>        <span class="hljs-keyword">int</span> index = binarySearch(starts, intervals[i][<span class="hljs-number">1</span>]);        res[i] = index == -<span class="hljs-number">1</span> ? -<span class="hljs-number">1</span> : map.get(starts[index]);    &#125;    <span class="hljs-keyword">return</span> res;&#125;<span class="hljs-comment">/**</span><span class="hljs-comment"> * 查找第一个 &gt;= end 的区间起点</span><span class="hljs-comment"> *</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> starts</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> end</span><span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span><span class="hljs-comment"> */</span><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] starts, <span class="hljs-keyword">int</span> end)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = starts.length;    <span class="hljs-keyword">if</span> (starts[len - <span class="hljs-number">1</span>] &lt; end) &#123;        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;    &#125;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = len - <span class="hljs-number">1</span>;    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;        <span class="hljs-keyword">if</span> (starts[mid] &lt; end) &#123;            left = mid + <span class="hljs-number">1</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            right = mid;        &#125;    &#125;    <span class="hljs-keyword">return</span> left;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>二分</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 275. H 指数 II</title>
     <link href="/2020/10/09/LeetCode-275-h-index-ii/"/>
     <url>/2020/10/09/LeetCode-275-h-index-ii/</url>
@@ -23,6 +52,8 @@
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -186,9 +217,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -298,9 +329,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -439,9 +470,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -644,11 +675,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -704,11 +735,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1689,9 +1720,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1718,9 +1749,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1747,9 +1778,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1865,11 +1896,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2012,9 +2043,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2238,9 +2269,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -2269,9 +2300,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2329,9 +2360,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2358,9 +2389,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2985,9 +3016,9 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
@@ -3236,9 +3267,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
