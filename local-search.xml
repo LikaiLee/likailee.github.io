@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 530. 二叉搜索树的最小绝对差</title>
+    <link href="/2020/10/12/LeetCode-530-minimum-absolute-difference-in-bst/"/>
+    <url>/2020/10/12/LeetCode-530-minimum-absolute-difference-in-bst/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/minimum-absolute-difference-in-bst/" target="_blank" rel="noopener">530. 二叉搜索树的最小绝对差</a></p><h1 id="迭代"><a class="markdownIt-Anchor" href="#迭代"></a> 迭代</h1><p>中序遍历</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getMinimumDifference</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    ArrayDeque&lt;TreeNode&gt; stack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    TreeNode curNode = root;    <span class="hljs-keyword">int</span> pre = Integer.MAX_VALUE, res = Integer.MAX_VALUE;    <span class="hljs-keyword">while</span> (!stack.isEmpty() || curNode != <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">while</span> (curNode != <span class="hljs-keyword">null</span>) &#123;            stack.push(curNode);            curNode = curNode.left;        &#125;        TreeNode top = stack.pop();        <span class="hljs-comment">// 计算当前结点和上一个结点的差值</span>        res = Math.min(Math.abs(top.val - pre), res);        <span class="hljs-comment">// 当前值作为 pre</span>        pre = top.val;        <span class="hljs-comment">// 遍历右子树</span>        curNode = top.right;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre><h1 id="递归"><a class="markdownIt-Anchor" href="#递归"></a> 递归</h1><pre><code class="hljs java"><span class="hljs-keyword">int</span> res = Integer.MAX_VALUE;TreeNode prevNode;<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getMinimumDifference</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    inOrder(root);    <span class="hljs-keyword">return</span> res;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">inOrder</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span>;    &#125;    <span class="hljs-comment">// 遍历左子树</span>    inOrder(root.left);    <span class="hljs-comment">// 计算最小差值</span>    <span class="hljs-keyword">if</span> (prevNode != <span class="hljs-keyword">null</span>) &#123;        res = Math.min(res, root.val - prevNode.val);    &#125;    <span class="hljs-comment">// 更新前一个结点</span>    prevNode = root;    <span class="hljs-comment">// 遍历右子树</span>    inOrder(root.right);&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>DFS</tag>
+      
+      <tag>树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 4. 寻找两个正序数组的中位数</title>
     <link href="/2020/10/12/LeetCode-4-median-of-two-sorted-arrays/"/>
     <url>/2020/10/12/LeetCode-4-median-of-two-sorted-arrays/</url>
@@ -331,9 +360,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -443,9 +472,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -584,9 +613,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -789,11 +818,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -849,11 +878,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -1834,9 +1863,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1863,9 +1892,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2010,11 +2039,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2157,9 +2186,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -2383,9 +2412,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -2414,9 +2443,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2474,9 +2503,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2503,9 +2532,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3130,9 +3159,9 @@
     
     <tags>
       
-      <tag>数据结构</tag>
-      
       <tag>并查集</tag>
+      
+      <tag>数据结构</tag>
       
     </tags>
     

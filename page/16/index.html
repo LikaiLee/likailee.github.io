@@ -170,6 +170,59 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/09/LeetCode-126-word-ladder-ii/">LeetCode 126. 单词接龙 II</a>
+
+      <a href="/2020/08/09/LeetCode-126-word-ladder-ii/" class="index-excerpt">
+        
+        
+          
+        
+        <div>126. 单词接龙 II
+
+找的是最短路径，且可能有多个
+一开始用的 List 存放每层元素，结果 回溯的时候难以访问下一层，最好用 Map 存放
+！！最短路径要及时剪枝
+！！不能用 used 数组标记访问过的元素，而是标记当前层和以上层已经访问过的数组，因为若存在多个最短路径，元素可能重复使用，used 数组标记后会把下层的元素也标记，会导致漏解。
+
+public List&lt;List&lt</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-09
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/08/LeetCode-127-word-ladder/">LeetCode 127. 单词接龙</a>
 
       <a href="/2020/08/08/LeetCode-127-word-ladder/" class="index-excerpt">
@@ -610,62 +663,11 @@ MySQL 实例可以不需要参数文件，这时所有的参数值取决于编�
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/04/LeetCode-17-letter-combinations-of-a-phone-number/">LeetCode 17. 电话号码的字母组合</a>
-
-      <a href="/2020/08/04/LeetCode-17-letter-combinations-of-a-phone-number/" class="index-excerpt">
-        
-        
-          
-        
-        <div>17. 电话号码的字母组合
- 回溯
-选择列表：每个 digit 对应的字母列表
-路径：已选字母组合 + 选择列表的字母
-终止条件：递归深度达到 digits 的长度
-// 2 ~ 9 每个位置所对应的选择列表
-String[] map = &#123;"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"&#125;;
-Li</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-04
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/BFS/">BFS</a>
-            
-              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/15/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/17/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/15/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/17/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
