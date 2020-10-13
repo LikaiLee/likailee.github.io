@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 1283. 使结果不超过阈值的最小除数</title>
+    <link href="/2020/10/13/LeetCode-1283-find-the-smallest-divisor-given-a-threshold/"/>
+    <url>/2020/10/13/LeetCode-1283-find-the-smallest-divisor-given-a-threshold/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/find-the-smallest-divisor-given-a-threshold/" target="_blank" rel="noopener">1283. 使结果不超过阈值的最小除数</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">smallestDivisor</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> threshold)</span> </span>&#123;    <span class="hljs-keyword">int</span> right = Integer.MIN_VALUE;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;        right = Math.max(right, num);    &#125;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">1</span>;    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;        <span class="hljs-keyword">int</span> sum = calcSum(nums, mid);        <span class="hljs-keyword">if</span> (sum &gt; threshold) &#123;            left = mid + <span class="hljs-number">1</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            right = mid;        &#125;    &#125;    <span class="hljs-keyword">return</span> left;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calcSum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> divider)</span> </span>&#123;    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;        <span class="hljs-comment">// 向上取整技巧，快得很！</span>        sum += (num + divider - <span class="hljs-number">1</span>) / divider;    &#125;    <span class="hljs-keyword">return</span> sum;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>二分</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 287. 寻找重复数</title>
     <link href="/2020/10/13/LeetCode-287-find-the-duplicate-number/"/>
     <url>/2020/10/13/LeetCode-287-find-the-duplicate-number/</url>
@@ -526,9 +553,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
@@ -932,9 +959,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
@@ -1656,9 +1683,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -1741,9 +1768,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -1772,11 +1799,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -1801,9 +1828,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1830,9 +1857,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1859,9 +1886,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1888,9 +1915,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -1917,9 +1944,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -1946,9 +1973,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -2093,9 +2120,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
@@ -2124,11 +2151,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2153,9 +2180,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -2211,9 +2238,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -2240,9 +2267,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
@@ -2298,9 +2325,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -2408,11 +2435,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -2466,9 +2493,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -2497,9 +2524,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -2526,9 +2553,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -2557,9 +2584,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -2586,9 +2613,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -2615,9 +2642,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2642,9 +2669,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2669,9 +2696,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2721,9 +2748,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2748,9 +2775,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2775,9 +2802,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -3630,9 +3657,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
