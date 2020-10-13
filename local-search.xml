@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 1292. 元素和小于等于阈值的正方形的最大边长</title>
+    <link href="/2020/10/13/LeetCode-1292-maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/"/>
+    <url>/2020/10/13/LeetCode-1292-maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/" target="_blank" rel="noopener">1292. 元素和小于等于阈值的正方形的最大边长</a></p><h1 id="前缀和"><a class="markdownIt-Anchor" href="#前缀和"></a> 前缀和</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxSideLength</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] mat, <span class="hljs-keyword">int</span> threshold)</span> </span>&#123;    <span class="hljs-keyword">int</span> m = mat.length, n = mat[<span class="hljs-number">0</span>].length;    <span class="hljs-comment">// 计算前缀和</span>    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[m + <span class="hljs-number">1</span>][n + <span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) &#123;            dp[i][j] = mat[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + dp[i - <span class="hljs-number">1</span>][j] + dp[i][j - <span class="hljs-number">1</span>] - dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];        &#125;    &#125;    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 最大的正方形边长</span>    <span class="hljs-keyword">int</span> maxSideLen = Math.min(m, n);    <span class="hljs-comment">// 遍历每个可能的边长所组成的正方形</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">1</span>; k &lt;= maxSideLen; k++) &#123;        <span class="hljs-comment">// 以 dp[i][j]为右下角 计算正方形</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) &#123;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) &#123;                <span class="hljs-comment">// 无法组成正方形</span>                <span class="hljs-keyword">if</span> (k &gt; i || k &gt; j) &#123;                    <span class="hljs-keyword">continue</span>;                &#125;                <span class="hljs-keyword">int</span> rect = dp[i][j] - dp[i - k][j] - dp[i][j - k] + dp[i - k][j - k];                <span class="hljs-comment">// 更新最大边长</span>                <span class="hljs-keyword">if</span> (rect &lt;= threshold) &#123;                    res = Math.max(k, res);                &#125;            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre><h1 id="前缀和-二分"><a class="markdownIt-Anchor" href="#前缀和-二分"></a> 前缀和 + 二分</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxSideLength</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] mat, <span class="hljs-keyword">int</span> threshold)</span> </span>&#123;    <span class="hljs-keyword">int</span> m = mat.length, n = mat[<span class="hljs-number">0</span>].length;    <span class="hljs-comment">// 计算前缀和</span>    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[m + <span class="hljs-number">1</span>][n + <span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) &#123;            dp[i][j] = mat[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + dp[i - <span class="hljs-number">1</span>][j] + dp[i][j - <span class="hljs-number">1</span>] - dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];        &#125;    &#125;    <span class="hljs-comment">// 最大的正方形边长</span>    <span class="hljs-keyword">int</span> right = Math.min(m, n);    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;        <span class="hljs-keyword">boolean</span> canIncrease = verifyRect(dp, threshold, mid, m, n);        <span class="hljs-keyword">if</span> (canIncrease) &#123;            <span class="hljs-comment">// mid 对应的正方形满足要求，可以增大</span>            left = mid;        &#125; <span class="hljs-keyword">else</span> &#123;            right = mid - <span class="hljs-number">1</span>;        &#125;    &#125;    <span class="hljs-keyword">return</span> left;&#125;<span class="hljs-comment">/**</span><span class="hljs-comment"> * 判断以 len 为边长的正方形是否能满足 threshold</span><span class="hljs-comment"> *</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> dp</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> threshold</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> len</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> m</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> n</span><span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span><span class="hljs-comment"> */</span><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">verifyRect</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] dp, <span class="hljs-keyword">int</span> threshold, <span class="hljs-keyword">int</span> len, <span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> n)</span> </span>&#123;    <span class="hljs-comment">// 以 dp[i][j] 为右下角 计算正方形</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) &#123;            <span class="hljs-comment">// 无法组成正方形</span>            <span class="hljs-keyword">if</span> (len &gt; i || len &gt; j) &#123;                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-keyword">int</span> sum = dp[i][j] - dp[i - len][j] - dp[i][j - len] + dp[i - len][j - len];            <span class="hljs-keyword">if</span> (sum &lt;= threshold) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>二分</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1283. 使结果不超过阈值的最小除数</title>
     <link href="/2020/10/13/LeetCode-1283-find-the-smallest-divisor-given-a-threshold/"/>
     <url>/2020/10/13/LeetCode-1283-find-the-smallest-divisor-given-a-threshold/</url>
@@ -443,9 +470,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -553,11 +580,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -696,9 +723,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -901,11 +928,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -959,13 +986,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1683,9 +1710,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -1768,9 +1795,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -1799,11 +1826,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1828,9 +1855,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -1857,9 +1884,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -1886,9 +1913,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -1915,9 +1942,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -1944,11 +1971,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1973,11 +2000,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2004,9 +2031,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2120,13 +2147,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2151,11 +2178,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2180,9 +2207,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -2238,9 +2265,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -2267,11 +2294,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2325,9 +2352,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -2435,11 +2462,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -2493,11 +2520,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -2524,11 +2551,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2553,9 +2580,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -2584,11 +2611,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2613,11 +2640,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2642,9 +2669,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2669,9 +2696,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2696,9 +2723,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2748,9 +2775,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2775,9 +2802,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2802,9 +2829,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3242,9 +3269,9 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
@@ -3493,9 +3520,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3657,9 +3684,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
