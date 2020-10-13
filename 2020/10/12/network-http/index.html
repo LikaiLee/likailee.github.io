@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Likai Lee">
+  <meta name="keywords" content="">
+  <title>HTTP 协议 - Likai Lee</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Likai Lee</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/bg/1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                HTTP 协议
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-10-12 18:25">
+      2020年10月12日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年10月13日 下午
+                
+              </p>
+            
+            <article class="markdown-body">
+              <p>[TOC]</p>
+<h1 id="http-状态码"><a class="markdownIt-Anchor" href="#http-状态码"></a> HTTP 状态码</h1>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201013133853.jpg" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="1xx"><a class="markdownIt-Anchor" href="#1xx"></a> 1xx</h2>
+<p>1xx 类状态码属于<strong>提示信息</strong>，是协议处理中的一种<strong>中间状态</strong>，实际用到的比较少。</p>
+<h2 id="2xx"><a class="markdownIt-Anchor" href="#2xx"></a> 2xx</h2>
+<p>2xx 类状态码表示服务器<strong>成功处理</strong>了客户端的请求。</p>
+<ul>
+<li>
+<p>「<code>200 OK</code>」是最常见的成功状态码，表示一切正常。如果是非 <code>HEAD</code> 请求，服务器返回的响应头都会有 <code>body</code> 数据。</p>
+</li>
+<li>
+<p>「<code>204 No Content</code>」也是常见的成功状态码，与 <code>200</code> 基本相同，但响应头没有 <code>body</code> 数据。</p>
+</li>
+<li>
+<p>「<code>206 Partial Content</code>」是应用于<strong>分块下载或断点续传</strong>，表示响应返回的 <code>body</code> 数据并不是资源的全部，而是其中的一部分，也是服务器处理成功的状态。</p>
+</li>
+</ul>
+<h2 id="3xx"><a class="markdownIt-Anchor" href="#3xx"></a> 3xx</h2>
+<p>3xx 类状态码表示客户端请求的资源发送了变动，需要客户端用新的 <code>URL</code> 重新发送请求获取资源，也就是重定向。</p>
+<ul>
+<li>「<code>301 Moved Permanently</code>」表示<strong>永久重定向</strong>，说明请求的资源已经不存在了，需改用新的 <code>URL</code> 再次访问。</li>
+<li>「<code>302 Found</code>」表示<strong>临时重定向</strong>，说明请求的资源还在，但暂时需要用另一个 <code>URL</code> 来访问。<br />
+<code>301</code> 和 <code>302</code> 都会在响应头里使用字段 <code>Location</code>，指明后续要跳转的 <code>URL</code>，浏览器会自动重定向新的 URL。</li>
+<li>「<code>304 Not Modified</code>」不具有跳转的含义，表示<strong>资源未修改</strong>，重定向已存在的缓冲文件，也称<strong>缓存重定向</strong>，用于<strong>缓存控制</strong>。</li>
+</ul>
+<h2 id="4xx"><a class="markdownIt-Anchor" href="#4xx"></a> 4xx</h2>
+<p>4xx 类状态码表示<strong>客户端发送的报文有误</strong>，服务器无法处理，也就是错误码的含义。</p>
+<ul>
+<li>
+<p>「<code>400 Bad Request</code>」表示客户端请求的报文有错误，但只是个<strong>笼统</strong>的错误。</p>
+</li>
+<li>
+<p>「<code>401 Unauthorized</code>」表示客户端未授权，需登录后访问。</p>
+</li>
+<li>
+<p>「<code>403 Forbidden</code>」表示服务器<strong>禁止访问</strong>资源，并不是客户端的请求出错。</p>
+</li>
+<li>
+<p>「<code>404 Not Found</code>」表示请求的资源在服务器上不存在或未找到，所以无法提供给客户端。</p>
+</li>
+</ul>
+<h2 id="5xx"><a class="markdownIt-Anchor" href="#5xx"></a> 5xx</h2>
+<p>5xx 类状态码表示客户端请求报文正确，但是<strong>服务器处理时内部发生了错误</strong>，属于服务器端的错误码。</p>
+<ul>
+<li>
+<p>「<code>500 Internal Server Error</code>」与 400 类型，是个笼统通用的错误码，服务器发生了什么错误，我们并不知道。</p>
+</li>
+<li>
+<p>「<code>501 Not Implemented</code>」表示客户端请求的<strong>功能还不支持</strong>。</p>
+</li>
+<li>
+<p>「<code>502 Bad Gateway</code>」通常是服务器作为<strong>网关或代理</strong>时返回的错误码，表示服务器自身工作正常，访问后端服务器发生了错误。</p>
+</li>
+<li>
+<p>「<code>503 Service Unavailable</code>」表示服务器当前很忙，暂时<strong>无法响应</strong>服务器。</p>
+</li>
+</ul>
+<h1 id="http-首部"><a class="markdownIt-Anchor" href="#http-首部"></a> HTTP 首部</h1>
+<h2 id="http-报文首部"><a class="markdownIt-Anchor" href="#http-报文首部"></a> HTTP 报文首部</h2>
+<h3 id="1-请求报文"><a class="markdownIt-Anchor" href="#1-请求报文"></a> 1. 请求报文</h3>
+<p>在请求中，<code>HTTP</code> 报文由 <code>方法</code>、<code>URI</code>、<code>HTTP 版本</code>、<code>HTTP 首部字段</code> 等部分构成。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201013140735.png" srcset="/img/loading.gif" alt="" /></p>
+<pre><code class="hljs groovy">GET <span class="hljs-regexp">/ HTTP/</span><span class="hljs-number">1.1</span>
+<span class="hljs-string">Host:</span> hackr.jp
+User-<span class="hljs-string">Agent:</span> Mozilla<span class="hljs-regexp">/5.0 (Windows NT 6.1; WOW64; rv:13.0) Gecko/</span><span class="hljs-number">20100101</span> Firefox/<span class="hljs-number">13.0</span>
+<span class="hljs-string">Accept:</span> text<span class="hljs-regexp">/html,application/</span>xhtml+xml,application<span class="hljs-regexp">/xml;q=0.9,*/</span>*; q=<span class="hljs-number">0.8</span>
+Accept-<span class="hljs-string">Language:</span> ja,en-us;q=<span class="hljs-number">0.7</span>,en;q=<span class="hljs-number">0.3</span>
+Accept-<span class="hljs-string">Encoding:</span> gzip, deflate <span class="hljs-string">DNT:</span> <span class="hljs-number">1</span>
+<span class="hljs-string">Connection:</span> keep-alive
+If-Modified-<span class="hljs-string">Since:</span> Fri, <span class="hljs-number">31</span> Aug <span class="hljs-number">2007</span> <span class="hljs-number">02</span>:<span class="hljs-number">02</span>:<span class="hljs-number">20</span> GMT
+If-None-<span class="hljs-string">Match:</span> <span class="hljs-string">"45bae1-16a-46d776ac"</span>
+Cache-<span class="hljs-string">Control:</span> max-age=<span class="hljs-number">0</span></code></pre>
+<h3 id="2-响应报文"><a class="markdownIt-Anchor" href="#2-响应报文"></a> 2. 响应报文</h3>
+<p>在响应中，<code>HTTP</code> 报文由 <code>状态码</code>、<code>HTTP 版本</code>、<code>HTTP 首部字段</code> 3 部分构成。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201013141307.png" srcset="/img/loading.gif" alt="" /></p>
+<pre><code class="hljs yaml"><span class="hljs-string">HTTP/1.1</span> <span class="hljs-number">304</span> <span class="hljs-string">Not</span> <span class="hljs-string">Modified</span>
+<span class="hljs-attr">Date:</span> <span class="hljs-string">Thu,</span> <span class="hljs-number">07</span> <span class="hljs-string">Jun</span> <span class="hljs-number">2012</span> <span class="hljs-number">07</span><span class="hljs-string">:21:36</span> <span class="hljs-string">GMT</span>
+<span class="hljs-attr">Server:</span> <span class="hljs-string">Apache</span>
+<span class="hljs-attr">Connection:</span> <span class="hljs-string">close</span>
+<span class="hljs-attr">Etag:</span> <span class="hljs-string">"45bae1-16a-46d776ac"</span></code></pre>
+<h2 id="http-首部字段"><a class="markdownIt-Anchor" href="#http-首部字段"></a> HTTP 首部字段</h2>
+<p>HTTP 首部字段以键值对的形式构成，当 HTTP 报文首部中出现了两个或两个以上具有相同首部字段名时，<strong>根据浏览器内部处理逻辑的不同，结果可能并不一致</strong>。有些浏览器会优先处理第一次出现的 首部字段，而有些则会优先处理最后出现的首部字段。</p>
+<h3 id="http-首部字段类型"><a class="markdownIt-Anchor" href="#http-首部字段类型"></a> HTTP 首部字段类型</h3>
+<ol>
+<li>通用首部字段（<code>General Header Fields</code>）：请求报文和响应报文两方都会使用的首部。</li>
+<li>请求首部字段（<code>Request Header Fields</code>）：从客户端向服务器端发送请求报文时使用的首部。补充了请求的附加内容、客户端信息、响应内容相关优先级等信息。</li>
+<li>响应首部字段（<code>Response Header Fields</code>）：从服务器端向客户端返回响应报文时使用的首部。补充了响应的附加 内容，也会要求客户端附加额外的内容信息。</li>
+<li>实体首部字段（<code>Entity Header Fields</code>）：针对请求报文和响应报文的实体部分使用的首部。补充了资源内容更 新时间等与实体有关的信息。</li>
+</ol>
+<h3 id="http11-首部字段"><a class="markdownIt-Anchor" href="#http11-首部字段"></a> HTTP/1.1 首部字段</h3>
+<h4 id="1-通用首部字段"><a class="markdownIt-Anchor" href="#1-通用首部字段"></a> 1. 通用首部字段</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">首部字段名</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Cache-Control</td>
+<td style="text-align:left">控制缓存的行为</td>
+</tr>
+<tr>
+<td style="text-align:left">Connection</td>
+<td style="text-align:left">逐跳首部、连接的管理</td>
+</tr>
+<tr>
+<td style="text-align:left">Date</td>
+<td style="text-align:left">创建报文的日期时间</td>
+</tr>
+<tr>
+<td style="text-align:left">Pragma</td>
+<td style="text-align:left">报文指令</td>
+</tr>
+<tr>
+<td style="text-align:left">Trailer</td>
+<td style="text-align:left">报文末端的首部一览</td>
+</tr>
+<tr>
+<td style="text-align:left">Transfer-Encoding</td>
+<td style="text-align:left">指定报文主体的传输编码方式</td>
+</tr>
+<tr>
+<td style="text-align:left">Upgrade</td>
+<td style="text-align:left">升级为其他协议</td>
+</tr>
+<tr>
+<td style="text-align:left">Via</td>
+<td style="text-align:left">代理服务器的相关信息</td>
+</tr>
+<tr>
+<td style="text-align:left">Warning</td>
+<td style="text-align:left">错误通知</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-请求首部字段"><a class="markdownIt-Anchor" href="#2-请求首部字段"></a> 2. 请求首部字段</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">首部字段名</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Accept</td>
+<td style="text-align:left">用户代理可处理的媒体类型</td>
+</tr>
+<tr>
+<td style="text-align:left">Accept-Charset</td>
+<td style="text-align:left">优先的字符集</td>
+</tr>
+<tr>
+<td style="text-align:left">Accept-Encoding</td>
+<td style="text-align:left">优先的内容编码</td>
+</tr>
+<tr>
+<td style="text-align:left">Accept-Language</td>
+<td style="text-align:left">优先的语言（自然语言）</td>
+</tr>
+<tr>
+<td style="text-align:left">Authorization</td>
+<td style="text-align:left">Web认证信息</td>
+</tr>
+<tr>
+<td style="text-align:left">Expect</td>
+<td style="text-align:left">期待服务器的特定行为</td>
+</tr>
+<tr>
+<td style="text-align:left">From</td>
+<td style="text-align:left">用户的电子邮箱地址</td>
+</tr>
+<tr>
+<td style="text-align:left">Host</td>
+<td style="text-align:left">请求资源所在服务器</td>
+</tr>
+<tr>
+<td style="text-align:left">If-Match</td>
+<td style="text-align:left">比较实体标记（ETag）</td>
+</tr>
+<tr>
+<td style="text-align:left">If-Modified-Since</td>
+<td style="text-align:left">比较资源的更新时间</td>
+</tr>
+<tr>
+<td style="text-align:left">If-None-Match</td>
+<td style="text-align:left">比较实体标记（与 If-Match 相反）</td>
+</tr>
+<tr>
+<td style="text-align:left">If-Range</td>
+<td style="text-align:left">资源未更新时发送实体 Byte 的范围请求</td>
+</tr>
+<tr>
+<td style="text-align:left">If-Unmodified-Since</td>
+<td style="text-align:left">比较资源的更新时间（与If-Modified-Since相反）</td>
+</tr>
+<tr>
+<td style="text-align:left">Max-Forwards</td>
+<td style="text-align:left">最大传输逐跳数</td>
+</tr>
+<tr>
+<td style="text-align:left">Proxy-Authorization</td>
+<td style="text-align:left">代理服务器要求客户端的认证信息</td>
+</tr>
+<tr>
+<td style="text-align:left">Range</td>
+<td style="text-align:left">实体的字节范围请求</td>
+</tr>
+<tr>
+<td style="text-align:left">Referer</td>
+<td style="text-align:left">对请求中 URI 的原始获取方</td>
+</tr>
+<tr>
+<td style="text-align:left">TE</td>
+<td style="text-align:left">传输编码的优先级</td>
+</tr>
+<tr>
+<td style="text-align:left">User-Agent</td>
+<td style="text-align:left">HTTP 客户端程序的信息</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-响应首部字段"><a class="markdownIt-Anchor" href="#3-响应首部字段"></a> 3. 响应首部字段</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">首部字段名</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Accept-Ranges</td>
+<td style="text-align:left">是否接受字节范围请求</td>
+</tr>
+<tr>
+<td style="text-align:left">Age</td>
+<td style="text-align:left">推算资源创建经过时间</td>
+</tr>
+<tr>
+<td style="text-align:left">ETag</td>
+<td style="text-align:left">资源的匹配信息</td>
+</tr>
+<tr>
+<td style="text-align:left">Location</td>
+<td style="text-align:left">令客户端重定向至指定URI</td>
+</tr>
+<tr>
+<td style="text-align:left">Proxy-Authenticate</td>
+<td style="text-align:left">代理服务器对客户端的认证信息</td>
+</tr>
+<tr>
+<td style="text-align:left">Retry-After</td>
+<td style="text-align:left">对再次发起请求的时机要求</td>
+</tr>
+<tr>
+<td style="text-align:left">Server</td>
+<td style="text-align:left">HTTP服务器的安装信息</td>
+</tr>
+<tr>
+<td style="text-align:left">Vary</td>
+<td style="text-align:left">代理服务器缓存的管理信息</td>
+</tr>
+<tr>
+<td style="text-align:left">WWW-Authenticate</td>
+<td style="text-align:left">服务器对客户端的认证信息</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4-实体首部字段"><a class="markdownIt-Anchor" href="#4-实体首部字段"></a> 4. 实体首部字段</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">首部字段名</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Allow</td>
+<td style="text-align:left">资源可支持的HTTP方法</td>
+</tr>
+<tr>
+<td style="text-align:left">Content-Encoding</td>
+<td style="text-align:left">实体主体适用的编码方式</td>
+</tr>
+<tr>
+<td style="text-align:left">Content-Language</td>
+<td style="text-align:left">实体主体的自然语言</td>
+</tr>
+<tr>
+<td style="text-align:left">Content-Length</td>
+<td style="text-align:left">实体主体的大小（单位：字节）</td>
+</tr>
+<tr>
+<td style="text-align:left">Content-Location</td>
+<td style="text-align:left">替代对应资源的URI</td>
+</tr>
+<tr>
+<td style="text-align:left">Content-MD5</td>
+<td style="text-align:left">实体主体的报文摘要</td>
+</tr>
+<tr>
+<td style="text-align:left">Content-Range</td>
+<td style="text-align:left">实体主体的位置范围</td>
+</tr>
+<tr>
+<td style="text-align:left">Content-Type</td>
+<td style="text-align:left">实体主体的媒体类型</td>
+</tr>
+<tr>
+<td style="text-align:left">Expires</td>
+<td style="text-align:left">实体主体过期的日期时间</td>
+</tr>
+<tr>
+<td style="text-align:left">Last-Modified</td>
+<td style="text-align:left">资源的最后修改日期时间</td>
+</tr>
+</tbody>
+</table>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BD%91%E7%BB%9C/">网络</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/12/LeetCode-530-minimum-absolute-difference-in-bst/">
+                        <span class="hidden-mobile">LeetCode 530. 二叉搜索树的最小绝对差</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <!-- <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> -->
+      Crafted with
+      <i class="iconfont icon-love" style="color: #f30;"></i>
+      by <a href="https://github.com/likailee" target="_blank" rel="noopener">Likai Lee</a>
+      | &copy; 2017 - 2020
+      <!-- <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a> -->
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?66c61a5fd59052d1b39d89c246846ae5";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
