@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      3.9k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20
+      43
        分钟
     </span>
   
@@ -271,7 +271,7 @@
 </li>
 </ul>
 <h1 id="http-首部"><a class="markdownIt-Anchor" href="#http-首部"></a> HTTP 首部</h1>
-<h2 id="http-报文首部"><a class="markdownIt-Anchor" href="#http-报文首部"></a> HTTP 报文首部</h2>
+<h2 id="报文首部"><a class="markdownIt-Anchor" href="#报文首部"></a> 报文首部</h2>
 <h3 id="1-请求报文"><a class="markdownIt-Anchor" href="#1-请求报文"></a> 1. 请求报文</h3>
 <p>在请求中，<code>HTTP</code> 报文由 <code>方法</code>、<code>URI</code>、<code>HTTP 版本</code>、<code>HTTP 首部字段</code> 等部分构成。</p>
 <p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201013140735.png" srcset="/img/loading.gif" alt="" /></p>
@@ -293,9 +293,9 @@ Cache-<span class="hljs-string">Control:</span> max-age=<span class="hljs-number
 <span class="hljs-attr">Server:</span> <span class="hljs-string">Apache</span>
 <span class="hljs-attr">Connection:</span> <span class="hljs-string">close</span>
 <span class="hljs-attr">Etag:</span> <span class="hljs-string">"45bae1-16a-46d776ac"</span></code></pre>
-<h2 id="http-首部字段"><a class="markdownIt-Anchor" href="#http-首部字段"></a> HTTP 首部字段</h2>
+<h2 id="首部字段"><a class="markdownIt-Anchor" href="#首部字段"></a> 首部字段</h2>
 <p>HTTP 首部字段以键值对的形式构成，当 HTTP 报文首部中出现了两个或两个以上具有相同首部字段名时，<strong>根据浏览器内部处理逻辑的不同，结果可能并不一致</strong>。有些浏览器会优先处理第一次出现的 首部字段，而有些则会优先处理最后出现的首部字段。</p>
-<h3 id="http-首部字段类型"><a class="markdownIt-Anchor" href="#http-首部字段类型"></a> HTTP 首部字段类型</h3>
+<h3 id="首部字段类型"><a class="markdownIt-Anchor" href="#首部字段类型"></a> 首部字段类型</h3>
 <ol>
 <li>通用首部字段（<code>General Header Fields</code>）：请求报文和响应报文两方都会使用的首部。</li>
 <li>请求首部字段（<code>Request Header Fields</code>）：从客户端向服务器端发送请求报文时使用的首部。补充了请求的附加内容、客户端信息、响应内容相关优先级等信息。</li>
@@ -535,6 +535,150 @@ Cache-<span class="hljs-string">Control:</span> max-age=<span class="hljs-number
 </tr>
 </tbody>
 </table>
+<h1 id="getpost"><a class="markdownIt-Anchor" href="#getpost"></a> GET/POST</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类别</th>
+<th style="text-align:center">GET</th>
+<th style="text-align:center">POST</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">功能</td>
+<td style="text-align:center"><strong>获取/查询</strong> 资源信息</td>
+<td style="text-align:center"><strong>更新</strong> 资源信息</td>
+</tr>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">URL / <strong>Body</strong></td>
+<td style="text-align:center">Body</td>
+</tr>
+<tr>
+<td style="text-align:center">长度</td>
+<td style="text-align:center">取决于 URL 长度，受浏览器和服务器限制</td>
+<td style="text-align:center">大数据</td>
+</tr>
+<tr>
+<td style="text-align:center">数据类型</td>
+<td style="text-align:center">ASCII 字符</td>
+<td style="text-align:center">无限制，允许二进制数据。</td>
+</tr>
+<tr>
+<td style="text-align:center">缓存</td>
+<td style="text-align:center">能被缓存，作为书签</td>
+<td style="text-align:center">不能缓存</td>
+</tr>
+<tr>
+<td style="text-align:center">安全性</td>
+<td style="text-align:center">不安全，参数会明文暴露</td>
+<td style="text-align:center">安全</td>
+</tr>
+<tr>
+<td style="text-align:center">幂等性</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">TCP</td>
+<td style="text-align:center">把请求报文一次性发出</td>
+<td style="text-align:center">分为两个 TCP 数据包，首先发 header 部分，如果服务器响应 100(continue)， 然后发 body 部分</td>
+</tr>
+</tbody>
+</table>
+<h1 id="http-特性"><a class="markdownIt-Anchor" href="#http-特性"></a> HTTP 特性</h1>
+<h2 id="优点"><a class="markdownIt-Anchor" href="#优点"></a> 优点</h2>
+<p>HTTP 最凸出的优点是「<strong>简单、灵活和易于扩展、应用广泛和跨平台</strong>」。</p>
+<ol>
+<li>
+<p>简单<br />
+HTTP 基本的报文格式就是 <code>header + body</code>，头部信息也是 <code>key-value</code> 简单文本的形式，易于理解，降低了学习和使用的门槛。</p>
+</li>
+<li>
+<p>灵活和易于扩展<br />
+HTTP协议里的各类请求方法、<code>URI/URL</code>、状态码、头字段等每个组成都允许开发人员<strong>自定义和扩充</strong>。<br />
+同时 HTTP 由于是工作在应用层，则它下层可以随意变化。<br />
+<code>HTTPS</code> 也就是在 <code>HTTP</code> 与 <code>TCP</code> 层之间增加了 <code>SSL/TLS</code> 安全传输层，<code>HTTP/3</code> 甚至把 <code>TCP</code> 层换成了基于 <code>UDP</code> 的 <code>QUIC</code>。</p>
+</li>
+<li>
+<p>应用广泛和跨平台</p>
+</li>
+</ol>
+<h2 id="缺点"><a class="markdownIt-Anchor" href="#缺点"></a> 缺点</h2>
+<ol>
+<li>
+<p>无状态<br />
+<code>HTTP</code> 是一个无状态协议，这意味着每个请求都是独立的，影响客户端与服务器的交互。<br />
+可通过在请求和响应报文中写入 <code>Cookie</code> 信息来控制客户端的状态。或者通过服务器设置 <code>Session</code> 将会话信息保存在服务器上。</p>
+</li>
+<li>
+<p>明文传输<br />
+通信使用明文（不加密），内容可能会被窃听。可以用 <code>HTTPS</code> 的方式解决，也就是通过引入 <code>SSL/TLS</code> 层。</p>
+</li>
+</ol>
+<h1 id="http1x-http2-http3"><a class="markdownIt-Anchor" href="#http1x-http2-http3"></a> HTTP/1.x, HTTP/2, HTTP/3</h1>
+<h2 id="http1x-缺陷"><a class="markdownIt-Anchor" href="#http1x-缺陷"></a> HTTP/1.x 缺陷</h2>
+<h3 id="1-连接无法复用"><a class="markdownIt-Anchor" href="#1-连接无法复用"></a> 1. 连接无法复用</h3>
+<p>连接无法复用会导致<strong>每次请求都经历三次握手和慢启动</strong>。三次握手在高延迟的场景下影响较明显，慢启动则对大量小文件请求影响较大（没有达到最大窗口请求就被终止）。</p>
+<ul>
+<li>
+<p><code>HTTP/1.0</code> 使用短连接，传输数据时，每次都需要重新建立连接，增加延迟。</p>
+</li>
+<li>
+<p><code>HTTP/1.1</code> 使用长连接（<code>Connection: keep-alive</code>）可以复用一部分连接，但对于单个文件被不断请求的服务，<code>keep-alive</code> 可能会极大的影响性能，因为它在文件被请求之后还保持了不必要的连接很长时间。</p>
+</li>
+</ul>
+<h3 id="2-队头阻塞-head-of-line-blocking"><a class="markdownIt-Anchor" href="#2-队头阻塞-head-of-line-blocking"></a> 2. 队头阻塞 (<code>Head-Of-Line Blocking</code>)</h3>
+<p>导致带宽无法被充分利用，以及后续请求被阻塞。<code>HOLB</code> 是指一系列包（<code>package</code>）因为第一个包被阻塞；当页面中需要请求很多资源的时候，会导致在达到最大请求数量时，剩余的资源需要等待其他资源请求完成后才能发起请求。</p>
+<ul>
+<li>
+<p><code>HTTP 1.0</code>：下个请求必须在前一个请求返回后才能发出，<code>request-response</code> 按序发生。显然，如果某个请求长时间没有返回，那么接下来的请求就全部阻塞了。</p>
+</li>
+<li>
+<p><code>HTTP 1.1</code>：尝试使用 <code>管道网络传输（pipeling）</code> 来解决，即<strong>浏览器可以一次性发出多个请求</strong>（同个域名，同一条 <code>TCP</code> 链接）。但 <code>pipeling</code> 要求返回是按序的，那么前一个请求如果很耗时，那么后面的请求即使服务器已经处理完，仍会等待前面的请求处理完才开始按序返回。所以，<code>pipeling</code> 只部分解决了 <code>HOLB</code>。</p>
+</li>
+</ul>
+<h3 id="3-协议开销大"><a class="markdownIt-Anchor" href="#3-协议开销大"></a> 3. 协议开销大</h3>
+<p><code>HTTP 1.x</code> 在使用时，<code>header</code> 里携带的内容过大，在一定程度上增加了传输的成本，并且每次请求 <code>header</code> 基本不怎么变化，尤其在移动端增加用户流量。</p>
+<h3 id="4-安全因素"><a class="markdownIt-Anchor" href="#4-安全因素"></a> 4. 安全因素</h3>
+<p><code>HTTP 1.x</code> 在传输数据时，所有传输的内容都是<strong>明文</strong>，客户端和服务器端都无法验证对方的身份，这在一定程度上无法保证数据的安全性。</p>
+<h2 id="http2-新特性"><a class="markdownIt-Anchor" href="#http2-新特性"></a> HTTP/2 新特性</h2>
+<h3 id="1-二进制传输"><a class="markdownIt-Anchor" href="#1-二进制传输"></a> 1. 二进制传输</h3>
+<p><code>HTTP/2</code> 采用二进制格式传输数据，而非 <code>HTTP 1.x</code> 的文本格式，二进制协议解析起来更高效。 <code>HTTP 1.x</code> 的请求和响应报文，都是由起始行，首部和实体正文（可选）组成，各部分之间以文本换行符分隔。<strong><code>HTTP/2</code> 将请求和响应数据分割为更小的帧，并且它们采用二进制编码。</strong></p>
+<h3 id="2-多路复用"><a class="markdownIt-Anchor" href="#2-多路复用"></a> 2. 多路复用</h3>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201013162824.png" srcset="/img/loading.gif" alt="" /></p>
+<ul>
+<li>同个域名只需要占用一个 <code>TCP</code> 连接，使用一个连接并行发送多个请求和响应,消除了因多个 <code>TCP</code> 连接而带来的延时和内存消耗。</li>
+<li>并行交错地发送多个请求，请求之间互不影响。</li>
+<li>并行交错地发送多个响应，响应之间互不干扰。</li>
+</ul>
+<h3 id="3-头部压缩"><a class="markdownIt-Anchor" href="#3-头部压缩"></a> 3. 头部压缩</h3>
+<p>在 <code>HTTP/1</code> 中，我们使用文本的形式传输 <code>header</code>，在 <code>header</code> 携带 <code>cookie</code> 的情况下，可能每次都需要<strong>重复传输</strong>几百到几千的字节。</p>
+<p>为了减少这块的资源消耗并提升性能， <code>HTTP/2</code> 对这些首部采取了压缩策略：</p>
+<ul>
+<li><code>HTTP/2</code> 在客户端和服务器端使用 <strong>首部表</strong> 来跟踪和存储之前发送的键－值对，对于相同的数据，不再通过每次请求和响应发送；</li>
+<li>首部表在 <code>HTTP/2</code> 的连接存续期内始终存在，由客户端和服务器共同渐进地更新;</li>
+<li>每个新的首部键－值对要么被追加到当前表的末尾，要么替换表中之前的值</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201013163221.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="4-服务端推送"><a class="markdownIt-Anchor" href="#4-服务端推送"></a> 4. 服务端推送</h3>
+<p>某些资源客户端是一定会请求的，这时就可以采取服务端推送的技术，提前给客户端推送必要的资源，这样就可以相对减少一点延迟时间。</p>
+<p>例如服务端可以主动把 JS 和 CSS 文件推送给客户端，而不需要客户端解析 HTML 时再发送这些请求。</p>
+<p><strong>服务端可以主动推送</strong>，客户端也有权利选择是否接收。如果服务端推送的资源已经被浏览器缓存过，浏览器可以通过发送 RST_STREAM 帧来拒收。<strong>主动推送也遵守同源策略</strong>，换句话说，服务器不能随便将第三方资源推送给客户端，而必须是经过双方确认才行。</p>
+<h2 id="http3-新特性"><a class="markdownIt-Anchor" href="#http3-新特性"></a> HTTP/3 新特性</h2>
+<p><code>HTTP/2</code> 使用了多路复用，一般来说同一域名下只需要使用一个 <code>TCP</code> 连接。但当这个连接中出现了丢包的情况，那就会导致 <code>HTTP/2</code> 的表现情况反倒不如 <code>HTTP/1</code> 了。</p>
+<p><strong>因为在出现丢包的情况下，整个 TCP 都要开始等待重传，也就导致了后面的所有数据都被阻塞了。</strong> 但是对于 <code>HTTP/1.1</code> 来说，可以开启多个 <code>TCP</code> 连接，出现这种情况反到只会影响其中一个连接，剩余的 <code>TCP</code> 连接还可以正常传输数据。<br />
+基于这个原因，Google 开发了一个基于 <code>UDP</code> 协议的 <code>QUIC</code> 协议，并且使用在了 <code>HTTP/3</code> 上。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201013164017.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="0-rtt"><a class="markdownIt-Anchor" href="#0-rtt"></a> 0 RTT</h3>
+<p><code>HTTP/1.x</code>，<code>HTTPS</code>，<code>HTTP2.0</code>，都使用了 <code>TCP</code> 进行传输。<code>HTTPS</code> 和 <code>HTTP2</code> 还需要使用 <code>TLS</code> 协议来进行安全传输。这就出现了两个握手延迟，而基于 <code>UDP</code> 协议的 <code>QUIC</code>，<strong>因为 UDP 本身没有连接的概念，连接建立时只需要一次交互，半个握手的时间。</strong></p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201013164452.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="多路复用"><a class="markdownIt-Anchor" href="#多路复用"></a> 多路复用</h3>
+<p>同 <code>HTTP2.0</code> 一样，同一条 <code>QUIC</code> 连接上可以创建多个 <code>stream</code>，来发送多个 <code>HTTP</code> 请求，但是，<code>QUIC</code> 是基于 <code>UDP</code> 的，<strong>一个连接上的多个 <code>stream</code> 之间没有依赖</strong>，所以当发生丢包时，只会影响当前的 <code>stream</code>，也就避免了线头阻塞问题。</p>
+<p>比如下图中 <code>stream2</code> 丢了一个 <code>UDP</code> 包，不会影响后面跟着 <code>Stream3</code> 和 <code>Stream4</code>，不存在 <code>TCP</code> 队头阻塞。虽然 <code>stream2</code> 的那个包需要重新传，但是 <code>stream3</code>、<code>stream4</code> 的包无需等待，就可以发给用户。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201013164652.png" srcset="/img/loading.gif" alt="" /></p>
+<p>另外 <code>QUIC</code> 在<strong>移动端</strong>的表现也会比 <code>TCP</code> 好。因为 <code>TCP</code> 是基于 <code>IP</code> 和<strong>端口</strong>去识别连接的，这种方式在多变的移动端网络环境下是很脆弱的。但是 <code>QUIC</code> 是通过 <code>ID</code> 的方式去识别一个连接，不管你网络环境如何变化，只要 <code>ID</code> 不变，就能迅速重连上。</p>
 
             </article>
             <hr>
