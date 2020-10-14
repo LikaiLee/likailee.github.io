@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 875. 爱吃香蕉的珂珂</title>
+    <link href="/2020/10/14/LeetCode-875-koko-eating-bananas/"/>
+    <url>/2020/10/14/LeetCode-875-koko-eating-bananas/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/koko-eating-bananas/" target="_blank" rel="noopener">875. 爱吃香蕉的珂珂</a><br />可真能吃，不仅吃得多，还吃得久，还吃超时了。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minEatingSpeed</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] piles, <span class="hljs-keyword">int</span> H)</span> </span>&#123;    <span class="hljs-keyword">int</span> maxSpeed = piles[<span class="hljs-number">0</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : piles) &#123;        maxSpeed = Math.max(maxSpeed, num);    &#125;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">1</span>, right = maxSpeed;    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;        <span class="hljs-comment">// 计算 speed = mid 时的耗时</span>        <span class="hljs-keyword">int</span> eatTime = eatInSpeed(mid, piles);        <span class="hljs-comment">// System.out.println("left=" + left + " mid = " + mid + " right=" + right + " time=" + eatTime);</span>        <span class="hljs-keyword">if</span> (eatTime &gt; H) &#123;            <span class="hljs-comment">// 吃太久了，加快速度 [mid + 1, right]</span>            left = mid + <span class="hljs-number">1</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            right = mid;        &#125;    &#125;    <span class="hljs-keyword">return</span> left;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">eatInSpeed</span><span class="hljs-params">(<span class="hljs-keyword">int</span> speed, <span class="hljs-keyword">int</span>[] piles)</span> </span>&#123;    <span class="hljs-comment">// 耗时</span>    <span class="hljs-keyword">int</span> time = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> pile : piles) &#123;        <span class="hljs-comment">// 向上取整</span>        time += (pile + speed - <span class="hljs-number">1</span>) / speed;    &#125;    <span class="hljs-keyword">return</span> time;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>二分</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1292. 元素和小于等于阈值的正方形的最大边长</title>
     <link href="/2020/10/13/LeetCode-1292-maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/"/>
     <url>/2020/10/13/LeetCode-1292-maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/</url>
@@ -3269,9 +3296,9 @@
     
     <tags>
       
-      <tag>数据结构</tag>
-      
       <tag>并查集</tag>
+      
+      <tag>数据结构</tag>
       
     </tags>
     
