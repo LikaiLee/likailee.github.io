@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 71. 简化路径</title>
+    <link href="/2020/10/15/LeetCode-71-simplify-path/"/>
+    <url>/2020/10/15/LeetCode-71-simplify-path/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/simplify-path/" target="_blank" rel="noopener">71. 简化路径</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">simplifyPath</span><span class="hljs-params">(String path)</span> </span>&#123;    ArrayDeque&lt;String&gt; stack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();    <span class="hljs-keyword">int</span> len = path.length();    <span class="hljs-comment">// 多分配一个空间，处理不是以 '/' 结尾的情况</span>    <span class="hljs-keyword">char</span>[] str = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[len + <span class="hljs-number">1</span>];    System.arraycopy(path.toCharArray(), <span class="hljs-number">0</span>, str, <span class="hljs-number">0</span>, len);    <span class="hljs-comment">// 尾部多分配 '/'</span>    str[len] = <span class="hljs-string">'/'</span>;    stack.push(<span class="hljs-string">""</span>);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len; i++) &#123;        <span class="hljs-keyword">if</span> (str[i] == <span class="hljs-string">'/'</span>) &#123;            String folder = sb.toString();            sb.setLength(<span class="hljs-number">0</span>);            <span class="hljs-comment">// 0 或 1 个 '.' 还在当前目录</span>            <span class="hljs-keyword">if</span> (<span class="hljs-string">""</span>.equals(folder) || <span class="hljs-string">"."</span>.equals(folder)) &#123;                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-comment">// 2 个点返回上一级目录</span>            <span class="hljs-keyword">if</span> (<span class="hljs-string">".."</span>.equals(folder)) &#123;                <span class="hljs-comment">// 当前目录不是根目录才可返回上一级</span>                <span class="hljs-keyword">if</span> (!<span class="hljs-string">""</span>.equals(stack.peek())) &#123;                    stack.pop();                &#125;            &#125; <span class="hljs-keyword">else</span> &#123;                <span class="hljs-comment">// 进入下一级目录</span>                stack.push(folder);            &#125;        &#125; <span class="hljs-keyword">else</span> &#123;            sb.append(str[i]);        &#125;    &#125;    List&lt;String&gt; folders = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    <span class="hljs-keyword">while</span> (!stack.isEmpty()) &#123;        folders.add(stack.pop());    &#125;    <span class="hljs-comment">// 目录长度 == 1，此时只有根目录 = ''</span>    <span class="hljs-keyword">if</span> (folders.size() &gt; <span class="hljs-number">1</span>) &#123;        folders.remove(folders.size() - <span class="hljs-number">1</span>);    &#125;    Collections.reverse(folders);    sb.setLength(<span class="hljs-number">0</span>);    <span class="hljs-keyword">for</span> (String folder : folders) &#123;        sb.append(<span class="hljs-string">"/"</span>);        sb.append(folder);    &#125;    <span class="hljs-keyword">return</span> sb.toString();&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>栈</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>TCP/IP 基础</title>
     <link href="/2020/10/15/TCP-IP-basic/"/>
     <url>/2020/10/15/TCP-IP-basic/</url>
