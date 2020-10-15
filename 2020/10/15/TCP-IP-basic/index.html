@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>TCP/IP - Likai Lee</title>
+  <title>TCP/IP 基础 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                TCP/IP
+                TCP/IP 基础
               
             </span>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      677 字
+      1k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      10
        分钟
     </span>
   
@@ -259,6 +259,31 @@
 <h2 id="数据包处理"><a class="markdownIt-Anchor" href="#数据包处理"></a> 数据包处理</h2>
 <p>每一个分层中，都会对所发送的数据附加一个首部，在这个首部中包含了该层必要的信息。每个包首部中至少会包含两个信息：一个是发送端和接收端地址，另一个是上一层的协议类型。</p>
 <p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201015145629.png" srcset="/img/loading.gif" alt="" /></p>
+<h1 id="数据链路"><a class="markdownIt-Anchor" href="#数据链路"></a> 数据链路</h1>
+<h2 id="mac-地址"><a class="markdownIt-Anchor" href="#mac-地址"></a> MAC 地址</h2>
+<p>MAC 地址用于识别数据链路中互连的节点。<br />
+地址格式：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201015151427.png" srcset="/img/loading.gif" alt="" /></p>
+<p><strong>MAC 地址不一定是唯一的。</strong><br />
+即使 MAC 地址 相同，只要不是同属一个数据链路就没问题。如虚拟机分配的虚拟网卡，很难保证 MAC 地址的唯一性。</p>
+<h2 id="共享介质型网络"><a class="markdownIt-Anchor" href="#共享介质型网络"></a> 共享介质型网络</h2>
+<p>共享介质型网络指由多个设备共享一个通信介质的一种网络。</p>
+<ul>
+<li>设备之间使用<strong>同一个信道进行发送和接收。</strong></li>
+<li>基本上采用<strong>半双工通信</strong>方式。</li>
+<li>需要对介质进行<strong>访问控制</strong>。</li>
+</ul>
+<blockquote>
+<p>半双工：共享介质，只发送或只接受的通信方式。<br />
+全双工：专用介质，可以同时发送数据和接收数据。</p>
+</blockquote>
+<p>介质访问控制方式</p>
+<ol>
+<li>争用方式（<code>Contention</code>）：指的是争夺获取数据传输的方式。这种方法通常令网络中的各个站采用<strong>先到先得</strong>的方式占用信道发送数据。</li>
+<li>令牌传递方式：只有获得令牌的站才能发送数据。特点是<strong>不会有冲突，每个站都有通过平等循环获得令牌的方式。</strong></li>
+</ol>
+<h2 id="非共享介质型网络"><a class="markdownIt-Anchor" href="#非共享介质型网络"></a> 非共享介质型网络</h2>
+<p>非共享介质型网络是指不共享介质，是对介质采取<strong>专用</strong>的一种传输控制方式。每个站直连交换机，<strong>由交换机负责转发数据帧</strong>，采用<strong>全双工通信</strong>方式。</p>
 
             </article>
             <hr>
