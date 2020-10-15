@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>TCP/IP</title>
+    <link href="/2020/10/15/TCP-IP/"/>
+    <url>/2020/10/15/TCP-IP/</url>
+    
+    <content type="html"><![CDATA[<p>[TOC]</p><h1 id="网络基础知识"><a class="markdownIt-Anchor" href="#网络基础知识"></a> 网络基础知识</h1><h2 id="osi-参考模型"><a class="markdownIt-Anchor" href="#osi-参考模型"></a> OSI 参考模型</h2><ol><li>应用层：针对特定应用的协议，如电子邮件，远程登录，文件传输。</li><li>表示层：接收不同表现形式的信息，如文字，图像，声音。</li><li>会话层：通信管理，管理传输层以下的分层。</li><li>传输层：负责<strong>端到端的可靠性传输</strong>。</li><li>网络层：<strong>地址管理与路由选择</strong>。</li><li>数据链路层：互连设备之间传送数据帧。</li><li>物理层：比特流与电信号之间的转换。</li></ol><h2 id="传输方式"><a class="markdownIt-Anchor" href="#传输方式"></a> 传输方式</h2><h3 id="1-面向连接型与面向无连接型"><a class="markdownIt-Anchor" href="#1-面向连接型与面向无连接型"></a> 1. 面向连接型与面向无连接型</h3><ul><li>在面向有连接的方式下，必须在通信传输前后，专门进行建立和断开连接的处理。</li><li>在面向无连接的方式下，发送端可于任何时候自由发送数据。不需要确认对端是否存在，即使接收端不存在或无法接受数据，发送端也能将数据发送出去。</li></ul><h3 id="2-电路交换与分组交换"><a class="markdownIt-Anchor" href="#2-电路交换与分组交换"></a> 2. 电路交换与分组交换</h3><ul><li>电路交换中，两台计算机独占线路进行传输，其他计算机只能等线路空闲后才能使用这条电路进行通信。</li><li>分组交换中，把数据分成多个数据包，按照一定的顺序排列之后进行发送。每个分组的首部写入发送端和接收端的地址，所以即使同一条线路同时为多个用户提供服务，也可以明确每个分组数据的目的地。</li></ul><h3 id="3-根据接收端数量分类"><a class="markdownIt-Anchor" href="#3-根据接收端数量分类"></a> 3. 根据接收端数量分类</h3><ol><li>单播：一对一通信。</li><li>广播：将消息从一台主机发送给与之相连的<strong>所有其他主机</strong>。</li><li>多播：将消息从一台主机发送给<strong>某一组主机</strong>。</li><li>任播：在特定的多台主机中选出一台作为接收端进行通信。</li></ol><h2 id="各层网络设备"><a class="markdownIt-Anchor" href="#各层网络设备"></a> 各层网络设备</h2><ul><li>中继器（<code>Repeater</code>）：从物理层上延长网络。</li><li>网桥（<code>Bridge</code>）/ 2 层交换机：从数据链路层上延长网络。</li><li>路由器（<code>Router</code>）/ 3 层交换机：从网络层转发分组数据的 设备。</li><li>4 ~ 7 层交换机：处理传输层以上各层网络传输的设备。</li><li>网关（<code>Gageway</code>）：转换协议的设备。</li></ul><h1 id="tcpip-基础知识"><a class="markdownIt-Anchor" href="#tcpip-基础知识"></a> TCP/IP 基础知识</h1><h2 id="tcpip-具体含义"><a class="markdownIt-Anchor" href="#tcpip-具体含义"></a> TCP/IP 具体含义</h2><p>TCP/IP 是协议群的统称，有时也称为网际协议族。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201015144631.png" srcset="/img/loading.gif" alt="" /></p><h2 id="tcpip-与-osi-参考模型"><a class="markdownIt-Anchor" href="#tcpip-与-osi-参考模型"></a> TCP/IP 与 OSI 参考模型</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201015144926.png" srcset="/img/loading.gif" alt="" /></p><h2 id="数据包处理"><a class="markdownIt-Anchor" href="#数据包处理"></a> 数据包处理</h2><p>每一个分层中，都会对所发送的数据附加一个首部，在这个首部中包含了该层必要的信息。每个包首部中至少会包含两个信息：一个是发送端和接收端地址，另一个是上一层的协议类型。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201015145629.png" srcset="/img/loading.gif" alt="" /></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>网络</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>网络</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 410. 分割数组的最大值</title>
     <link href="/2020/10/14/LeetCode-410-split-array-largest-sum/"/>
     <url>/2020/10/14/LeetCode-410-split-array-largest-sum/</url>
@@ -130,9 +155,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -213,9 +238,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -269,9 +294,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -298,9 +323,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -327,9 +352,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -356,9 +381,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -468,9 +493,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -524,9 +549,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -636,9 +661,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -719,9 +744,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -748,9 +773,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -777,9 +802,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -837,9 +862,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -866,9 +891,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -895,9 +920,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -924,9 +949,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
       <tag>队列</tag>
       
@@ -982,11 +1007,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
+      <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
       
-      <tag>滑动窗口</tag>
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1013,9 +1038,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1042,11 +1067,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
+      <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
       
-      <tag>滑动窗口</tag>
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1073,9 +1098,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1102,9 +1127,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
       <tag>队列</tag>
       
@@ -1133,11 +1158,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
+      <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
       
-      <tag>滑动窗口</tag>
+      <tag>二分</tag>
       
     </tags>
     
@@ -1189,9 +1214,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1737,9 +1762,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -2027,9 +2052,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2056,9 +2081,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2203,11 +2228,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
+      <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
       
-      <tag>滑动窗口</tag>
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2350,9 +2375,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2576,9 +2601,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -2607,9 +2632,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2667,9 +2692,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2696,9 +2721,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
