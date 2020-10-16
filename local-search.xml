@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 341. 扁平化嵌套列表迭代器</title>
+    <link href="/2020/10/16/LeetCode-341-flatten-nested-list-iterator/"/>
+    <url>/2020/10/16/LeetCode-341-flatten-nested-list-iterator/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/flatten-nested-list-iterator/" target="_blank" rel="noopener">341. 扁平化嵌套列表迭代器</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NestedIterator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Iterator</span>&lt;<span class="hljs-title">Integer</span>&gt; </span>&#123;    <span class="hljs-keyword">private</span> ArrayDeque&lt;Integer&gt; deque;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">NestedIterator</span><span class="hljs-params">(List&lt;NestedInteger&gt; nestedList)</span> </span>&#123;        deque = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();        flatten(nestedList, deque);    &#125;    <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">next</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> deque.pollFirst();    &#125;    <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasNext</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> !deque.isEmpty();    &#125;        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">flatten</span><span class="hljs-params">(List&lt;NestedInteger&gt; nestedList, Deque&lt;Integer&gt; deque)</span> </span>&#123;        <span class="hljs-keyword">for</span> (NestedInteger ni : nestedList) &#123;            <span class="hljs-keyword">if</span> (ni.isInteger()) &#123;                deque.addLast(ni.getInteger());            &#125; <span class="hljs-keyword">else</span> &#123;                flatten(ni.getList(), deque);            &#125;        &#125;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>队列</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 316. 去除重复字母</title>
     <link href="/2020/10/16/LeetCode-316-remove-duplicate-letters/"/>
     <url>/2020/10/16/LeetCode-316-remove-duplicate-letters/</url>
