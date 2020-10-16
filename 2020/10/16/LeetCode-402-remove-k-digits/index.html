@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 205. 同构字符串 - Likai Lee</title>
+  <title>LeetCode 402. 移掉K位数字 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 205. 同构字符串
+                LeetCode 402. 移掉K位数字
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-11 19:22">
-      2020年9月11日 晚上
+    <time datetime="2020-10-16 20:20">
+      2020年10月16日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      199 字
+      152 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      2
        分钟
     </span>
   
@@ -207,56 +207,42 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月11日 晚上
+                  本文最后更新于：2020年10月16日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/isomorphic-strings/" target="_blank" rel="noopener">205. 同构字符串</a></p>
-<p>需要从两个方向判断！</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isIsomorphic</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">return</span> check(s, t) &amp;&amp; check(t, s);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = s.length();
-    Map&lt;Character, Character&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-keyword">char</span> c = s.charAt(i);
-        <span class="hljs-keyword">char</span> key = t.charAt(i);
-        <span class="hljs-keyword">if</span> (map.containsKey(key)) &#123;
-            <span class="hljs-keyword">char</span> target = map.get(key);
-            <span class="hljs-keyword">if</span> (c != target) &#123;
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-            &#125;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            map.put(key, c);
+              <p><a href="https://leetcode-cn.com/problems/remove-k-digits/" target="_blank" rel="noopener">402. 移掉K位数字</a></p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">removeKdigits</span><span class="hljs-params">(String num, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
+    ArrayDeque&lt;Character&gt; deque = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
+    <span class="hljs-keyword">char</span>[] nums = num.toCharArray();
+    <span class="hljs-keyword">int</span> dropCount = k;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> digit : nums) &#123;
+        <span class="hljs-comment">// 丢弃栈中比当前数字大的，可以使整个序列变小</span>
+        <span class="hljs-keyword">while</span> (dropCount &gt; <span class="hljs-number">0</span> &amp;&amp; !deque.isEmpty() &amp;&amp; deque.peekLast() &gt; digit) &#123;
+            deque.pollLast();
+            dropCount--;
         &#125;
+        deque.addLast(digit);
     &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-&#125;</code></pre>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isIsomorphic</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-comment">// 双向验证</span>
-    <span class="hljs-keyword">return</span> check(s, t) &amp;&amp; check(t, s);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = s.length();
-    <span class="hljs-keyword">int</span>[] map = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">128</span>];
-    <span class="hljs-keyword">char</span>[] chars1 = s.toCharArray();
-    <span class="hljs-keyword">char</span>[] chars2 = t.toCharArray();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-keyword">int</span> target = map[chars1[i]];
-        <span class="hljs-comment">// 判断对应位置是否匹配</span>
-        <span class="hljs-keyword">if</span> (target != <span class="hljs-number">0</span>) &#123;
-            <span class="hljs-keyword">if</span> (target != chars2[i]) &#123;
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-            &#125;
-        &#125;
-        <span class="hljs-comment">// 新增 map</span>
-        map[chars1[i]] = chars2[i];
+    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();
+    <span class="hljs-comment">// 需要保留的数字个数</span>
+    <span class="hljs-keyword">int</span> len = nums.length - k;
+    <span class="hljs-keyword">int</span> zeroCount = <span class="hljs-number">0</span>;
+    <span class="hljs-comment">// 去除起始的 0</span>
+    <span class="hljs-keyword">while</span> (!deque.isEmpty() &amp;&amp; deque.peekFirst() == <span class="hljs-string">'0'</span>) &#123;
+        deque.pollFirst();
+        zeroCount++;
     &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    <span class="hljs-comment">// 有效长度</span>
+    len -= zeroCount;
+    <span class="hljs-keyword">if</span> (deque.isEmpty() || len == <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"0"</span>;
+    &#125;
+    <span class="hljs-keyword">while</span> (!deque.isEmpty() &amp;&amp; len-- &gt; <span class="hljs-number">0</span>) &#123;
+        sb.append(deque.pollFirst());
+    &#125;
+    <span class="hljs-keyword">return</span> sb.toString();
 &#125;</code></pre>
             </article>
             <hr>
@@ -274,11 +260,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-                    
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+                      <a class="hover-with-bg" href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%A0%88/">栈</a>
                     
                   </div>
                 
@@ -291,18 +277,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/12/LeetCode-224-basic-calculator/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 224. 基本计算器</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/10/LeetCode-583-delete-operation-for-two-strings/">
-                        <span class="hidden-mobile">LeetCode 583. 两个字符串的删除操作</span>
+                      <a href="/2020/10/16/LeetCode-284-peeking-iterator/">
+                        <span class="hidden-mobile">LeetCode 284. 顶端迭代器</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
