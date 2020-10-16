@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 284. 顶端迭代器</title>
+    <link href="/2020/10/16/LeetCode-284-peeking-iterator/"/>
+    <url>/2020/10/16/LeetCode-284-peeking-iterator/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/peeking-iterator/" target="_blank" rel="noopener">284. 顶端迭代器</a></p><h1 id="队列"><a class="markdownIt-Anchor" href="#队列"></a> 队列</h1><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PeekingIterator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Iterator</span>&lt;<span class="hljs-title">Integer</span>&gt; </span>&#123;    <span class="hljs-keyword">private</span> LinkedList&lt;Integer&gt; queue;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PeekingIterator</span><span class="hljs-params">(Iterator&lt;Integer&gt; iterator)</span> </span>&#123;        <span class="hljs-comment">// initialize any member here.</span>        queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        <span class="hljs-comment">// 把 iterator 中的所有元素放到队列中</span>        <span class="hljs-keyword">while</span> (iterator.hasNext()) &#123;            queue.add(iterator.next());        &#125;    &#125;    <span class="hljs-comment">// Returns the next element in the iteration without advancing the iterator.</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">peek</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> queue.peek();    &#125;    <span class="hljs-comment">// hasNext() and next() should behave the same as in the Iterator interface.</span>    <span class="hljs-comment">// Override them if needed.</span>    <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">next</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> queue.poll();    &#125;    <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasNext</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> !queue.isEmpty();    &#125;&#125;</code></pre><h1 id="缓存-top"><a class="markdownIt-Anchor" href="#缓存-top"></a> 缓存 top</h1><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PeekingIterator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Iterator</span>&lt;<span class="hljs-title">Integer</span>&gt; </span>&#123;    Iterator&lt;Integer&gt; iter;    Integer top;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PeekingIterator</span><span class="hljs-params">(Iterator&lt;Integer&gt; iterator)</span> </span>&#123;        <span class="hljs-comment">// initialize any member here.</span>        iter = iterator;        <span class="hljs-comment">// top != null 表示已经调用过 peek()，top 就是 iterator 的顶部元素</span>        <span class="hljs-comment">// top == null 表示还没调用过 peek()，此时应该使 top = iterator 的顶部元素</span>        top = <span class="hljs-keyword">null</span>;    &#125;    <span class="hljs-comment">// Returns the next element in the iteration without advancing the iterator.</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">peek</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">if</span> (top != <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span> top;        &#125;        <span class="hljs-comment">// top == null，表示调用过了 next()，使原来的 top 丢失了</span>        top = iter.next();        <span class="hljs-keyword">return</span> top;    &#125;    <span class="hljs-comment">// hasNext() and next() should behave the same as in the Iterator interface.</span>    <span class="hljs-comment">// Override them if needed.</span>    <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">next</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">if</span> (top == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span> iter.next();        &#125;        <span class="hljs-comment">// 原来的 top 已经在 peek() 的时候删除了</span>        <span class="hljs-comment">// 这时不能再调用 next()</span>        <span class="hljs-keyword">int</span> res = top;        <span class="hljs-comment">// 新的 top 此时还没更新，要由 peek() 赋值</span>        top = <span class="hljs-keyword">null</span>;        <span class="hljs-keyword">return</span> res;    &#125;    <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasNext</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> top != <span class="hljs-keyword">null</span> &amp;&amp; iter.hasNext();    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>队列</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 977. 有序数组的平方</title>
     <link href="/2020/10/16/LeetCode-977-squares-of-a-sorted-array/"/>
     <url>/2020/10/16/LeetCode-977-squares-of-a-sorted-array/</url>
@@ -701,9 +728,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -811,11 +838,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -954,9 +981,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1159,11 +1186,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1217,13 +1244,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1941,9 +1968,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -2026,9 +2053,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -2057,11 +2084,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2086,9 +2113,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -2115,9 +2142,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -2144,9 +2171,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -2173,9 +2200,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -2202,11 +2229,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2231,11 +2258,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2262,9 +2289,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2378,13 +2405,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2409,11 +2436,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2438,9 +2465,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -2496,9 +2523,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -2525,11 +2552,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2583,9 +2610,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -2693,11 +2720,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -2751,11 +2778,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -2782,11 +2809,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2811,9 +2838,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -2842,11 +2869,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2871,11 +2898,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2900,9 +2927,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2927,9 +2954,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2954,9 +2981,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3006,9 +3033,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3033,9 +3060,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3060,9 +3087,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3751,9 +3778,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3915,9 +3942,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
