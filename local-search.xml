@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 946. 验证栈序列</title>
+    <link href="/2020/10/17/LeetCode-946-validate-stack-sequences/"/>
+    <url>/2020/10/17/LeetCode-946-validate-stack-sequences/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/validate-stack-sequences/" target="_blank" rel="noopener">946. 验证栈序列</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">validateStackSequences</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] pushed, <span class="hljs-keyword">int</span>[] popped)</span> </span>&#123;    ArrayDeque&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : pushed) &#123;        stack.push(num);        <span class="hljs-keyword">while</span> (!stack.isEmpty() &amp;&amp; stack.peek() == popped[i]) &#123;            stack.pop();            i++;        &#125;    &#125;    <span class="hljs-keyword">return</span> stack.isEmpty();&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>栈</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 341. 扁平化嵌套列表迭代器</title>
     <link href="/2020/10/16/LeetCode-341-flatten-nested-list-iterator/"/>
     <url>/2020/10/16/LeetCode-341-flatten-nested-list-iterator/</url>
@@ -1835,9 +1862,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>二分</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2028,9 +2055,9 @@
       
       <tag>双指针</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>二分</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
