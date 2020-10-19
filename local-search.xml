@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 844. 比较含退格的字符串</title>
+    <link href="/2020/10/19/LeetCode-844-backspace-string-compare/"/>
+    <url>/2020/10/19/LeetCode-844-backspace-string-compare/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/backspace-string-compare/" target="_blank" rel="noopener">844. 比较含退格的字符串</a></p><h1 id="栈"><a class="markdownIt-Anchor" href="#栈"></a> 栈</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">backspaceCompare</span><span class="hljs-params">(String S, String T)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] s = S.toCharArray();    <span class="hljs-keyword">char</span>[] t = T.toCharArray();    <span class="hljs-keyword">return</span> getString(s).equals(getString(t));&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">getString</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] s)</span> </span>&#123;    ArrayDeque&lt;Character&gt; stack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : s) &#123;        <span class="hljs-keyword">if</span> (c == <span class="hljs-string">'#'</span>) &#123;            <span class="hljs-keyword">if</span> (!stack.isEmpty()) &#123;                stack.pop();            &#125;        &#125; <span class="hljs-keyword">else</span> &#123;            stack.push(c);        &#125;    &#125;    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();    <span class="hljs-keyword">while</span> (!stack.isEmpty()) &#123;        sb.append(stack.pop());    &#125;    <span class="hljs-keyword">return</span> sb.toString();&#125;</code></pre><h1 id="双指针"><a class="markdownIt-Anchor" href="#双指针"></a> 双指针</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">backspaceCompare</span><span class="hljs-params">(String S, String T)</span> </span>&#123;        <span class="hljs-keyword">char</span>[] s = S.toCharArray();        <span class="hljs-keyword">char</span>[] t = T.toCharArray();        <span class="hljs-keyword">int</span> i = s.length - <span class="hljs-number">1</span>, j = t.length - <span class="hljs-number">1</span>;        <span class="hljs-keyword">int</span> skipS = <span class="hljs-number">0</span>, skipT = <span class="hljs-number">0</span>;        <span class="hljs-keyword">while</span> (i &gt;= <span class="hljs-number">0</span> || j &gt;= <span class="hljs-number">0</span>) &#123;            <span class="hljs-comment">// 消除 s 中的 `#`</span>            <span class="hljs-keyword">while</span> (i &gt;= <span class="hljs-number">0</span>) &#123;                <span class="hljs-keyword">if</span> (s[i] == <span class="hljs-string">'#'</span>) &#123;                    skipS++;                    i--;                &#125; <span class="hljs-keyword">else</span> &#123;                    <span class="hljs-comment">// s[i] 为字母</span>                    <span class="hljs-keyword">if</span> (skipS &gt; <span class="hljs-number">0</span>) &#123;                        skipS--;                        i--;                    &#125; <span class="hljs-keyword">else</span> &#123;                        <span class="hljs-comment">// 不需要跳过，比较此时的 s[i]</span>                        <span class="hljs-keyword">break</span>;                    &#125;                &#125;            &#125;            <span class="hljs-keyword">while</span> (j &gt;= <span class="hljs-number">0</span>) &#123;                <span class="hljs-keyword">if</span> (t[j] == <span class="hljs-string">'#'</span>) &#123;                    skipT++;                    j--;                &#125; <span class="hljs-keyword">else</span> &#123;                    <span class="hljs-keyword">if</span> (skipT &gt; <span class="hljs-number">0</span>) &#123;                        skipT--;                        j--;                    &#125; <span class="hljs-keyword">else</span> &#123;                        <span class="hljs-keyword">break</span>;                    &#125;                &#125;            &#125;            <span class="hljs-comment">// 比较 s[i] t[j]</span>            <span class="hljs-comment">// 只有一个遍历结束</span>            <span class="hljs-keyword">if</span> ((i &lt; <span class="hljs-number">0</span> &amp;&amp; j &gt;= <span class="hljs-number">0</span>) || (i &gt;= <span class="hljs-number">0</span> &amp;&amp; j &lt; <span class="hljs-number">0</span>)) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;            <span class="hljs-comment">// s, t 都遍历结束</span>            <span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">0</span> || j &lt; <span class="hljs-number">0</span>) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;            &#125;            <span class="hljs-keyword">if</span> (s[i] != t[j]) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;            i--;            j--;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>栈</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1111. 有效括号的嵌套深度</title>
     <link href="/2020/10/18/LeetCode-1111-maximum-nesting-depth-of-two-valid-parentheses-strings/"/>
     <url>/2020/10/18/LeetCode-1111-maximum-nesting-depth-of-two-valid-parentheses-strings/</url>
@@ -2080,9 +2109,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2109,9 +2138,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -2256,9 +2285,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2459,9 +2488,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -2608,9 +2637,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2892,9 +2921,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -3948,9 +3977,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
