@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      3.2k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      25
+      34
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月16日 下午
+                  本文最后更新于：2020年10月19日 下午
                 
               </p>
             
@@ -291,7 +291,7 @@
 <p>半双工：共享介质，只发送或只接受的通信方式。<br />
 全双工：专用介质，可以同时发送数据和接收数据。</p>
 </blockquote>
-<p>介质访问控制方式</p>
+<p>介质访问控制方式：</p>
 <ol>
 <li>争用方式（<code>Contention</code>）：指的是争夺获取数据传输的方式。这种方法通常令网络中的各个站采用<strong>先到先得</strong>的方式占用信道发送数据。</li>
 <li>令牌传递方式：只有获得令牌的站才能发送数据。特点是<strong>不会有冲突，每个站都有通过平等循环获得令牌的方式。</strong></li>
@@ -368,6 +368,48 @@
 </li>
 </ul>
 <h3 id="子网掩码"><a class="markdownIt-Anchor" href="#子网掩码"></a> 子网掩码</h3>
+<blockquote>
+<p>子网掩码的重要作用：就是将某个IP地址划分成网络地址和主机地址两部分。</p>
+</blockquote>
+<p>子网掩码实际上就是将原来 A/B/C 等分类中的<strong>主机地址部分用作子网地址</strong>，可以将原网络分为多个物理网络的一种机制。</p>
+<p>表示方式：IP 地址网络号全部为 <code>1</code>，主机号全部为 <code>0</code>。<br />
+由此，一个 IP 地址不再受限自己的类别，而是可以使用子网掩码自由地定位自己的网络号部分。</p>
+<p>如：<code>172.20.100.52/26</code> 表示前 <code>26</code> 位是网络号。<br />
+IP 地址：172. 20.  100. 52<br />
+子网掩码：255. 255. 255. 192</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019122155" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="路由控制-2"><a class="markdownIt-Anchor" href="#路由控制-2"></a> 路由控制</h2>
+<p>IP 地址的网络部分用于进行路由控制。路由表中记录着<strong>网络地址</strong>与下一步应该发送至<strong>路由器的地址</strong>。如果路由表中存在多条相同网络地址的记录，就选择一个相同位数最多（<code>最长匹配</code>）的网络地址。</p>
+<ul>
+<li>默认路由：<code>0.0.0.0/0</code> 路由表中任何一个地址都能与之匹配。</li>
+<li>主机路由：<code>IP 地址/32</code> 整个 IP 地址的所有位都将参与路由。</li>
+<li>环回地址：<code>127.0.0.1、localhost</code> 同一台计算机上的程序之间进行网络通信。</li>
+</ul>
+<h2 id="相关协议"><a class="markdownIt-Anchor" href="#相关协议"></a> 相关协议</h2>
+<h3 id="dns"><a class="markdownIt-Anchor" href="#dns"></a> DNS</h3>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019132145.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="arp-rarp"><a class="markdownIt-Anchor" href="#arp-rarp"></a> ARP、RARP</h3>
+<p>ARP 将 IP 地址定位到对应的 MAC 地址。只适用于 IPv4。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019133552.png" srcset="/img/loading.gif" alt="" /></p>
+<p>主机 A 为了获取主机 B 的 MAC 地址，要通过<strong>广播</strong>发送一个 ARP 请求包，这个包中包含了 主机 B 的 IP 地址。由于广播的包可以被同一个链路上所有的主机或路由器接收，<strong>如果请求包中的 IP 地址与自己的 IP 地址一致，那么这个节点就将自己的 MAC 地址放入 ARP 响应包返回给 主机 A。</strong></p>
+<p>RARP 是从 MAC 地址定位 IP 地址的一种协议。例如将打印机等嵌入式设备接入到网络时就会用到。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019134340.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="icmp"><a class="markdownIt-Anchor" href="#icmp"></a> ICMP</h3>
+<p>ICMP 的主要功能包括：确认 IP 包是否成功送达目标地址，通知在发送过程中 IP 包被废弃原因，改善网络设置，进行网络诊断。</p>
+<p>ICMP 的消息大致可以分成两类：一类是通知出错原因的错误消息，另一类是用于诊断的查询信息。</p>
+<h3 id="dhcp"><a class="markdownIt-Anchor" href="#dhcp"></a> DHCP</h3>
+<p>DHCP 可实现自动设置 IP 地址，统一管理 IP 地址分配，让即插即用变得可能。在 IPv4，IPv6 中均可使用。</p>
+<h3 id="nat"><a class="markdownIt-Anchor" href="#nat"></a> NAT</h3>
+<p>NAT 用于在本地网络中使用私有地址，在连接互联网时使用全局 IP 地址。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019152539.png" srcset="/img/loading.gif" alt="" /></p>
+<p>NAPT 将端口号一起转换。</p>
+<blockquote>
+<p>在使用 TCP 或 UDP 的通信当中，只有目标地址、源地址、目标端口、源端口以及协议种类都一致时才被认为是同一个连接。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019153122.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="ip-隧道"><a class="markdownIt-Anchor" href="#ip-隧道"></a> IP 隧道</h3>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019153834.png" srcset="/img/loading.gif" alt="" /></p>
+<p>IP 隧道可以将那些从网络 A 发过来的 IPv6 的包统合为一个数据，再为之追加一个 IPv4 的首部以后转发给网络 C。</p>
 
             </article>
             <hr>

@@ -357,7 +357,7 @@
     <link href="/2020/10/15/TCP-IP-basic/"/>
     <url>/2020/10/15/TCP-IP-basic/</url>
     
-    <content type="html"><![CDATA[<p>[TOC]</p><h1 id="网络基础知识"><a class="markdownIt-Anchor" href="#网络基础知识"></a> 网络基础知识</h1><h2 id="osi-参考模型"><a class="markdownIt-Anchor" href="#osi-参考模型"></a> OSI 参考模型</h2><ol><li>应用层：针对特定应用的协议，如电子邮件，远程登录，文件传输。</li><li>表示层：接收不同表现形式的信息，如文字，图像，声音。</li><li>会话层：通信管理，管理传输层以下的分层。</li><li>传输层：负责<strong>端到端的可靠性传输</strong>。</li><li>网络层：<strong>地址管理与路由选择</strong>。</li><li>数据链路层：互连设备之间传送数据帧。</li><li>物理层：比特流与电信号之间的转换。</li></ol><h2 id="传输方式"><a class="markdownIt-Anchor" href="#传输方式"></a> 传输方式</h2><h3 id="1-面向连接型与面向无连接型"><a class="markdownIt-Anchor" href="#1-面向连接型与面向无连接型"></a> 1. 面向连接型与面向无连接型</h3><ul><li>在面向有连接的方式下，必须在通信传输前后，专门进行建立和断开连接的处理。</li><li>在面向无连接的方式下，发送端可于任何时候自由发送数据。不需要确认对端是否存在，即使接收端不存在或无法接受数据，发送端也能将数据发送出去。</li></ul><h3 id="2-电路交换与分组交换"><a class="markdownIt-Anchor" href="#2-电路交换与分组交换"></a> 2. 电路交换与分组交换</h3><ul><li>电路交换中，两台计算机独占线路进行传输，其他计算机只能等线路空闲后才能使用这条电路进行通信。</li><li>分组交换中，把数据分成多个数据包，按照一定的顺序排列之后进行发送。每个分组的首部写入发送端和接收端的地址，所以即使同一条线路同时为多个用户提供服务，也可以明确每个分组数据的目的地。</li></ul><h3 id="3-根据接收端数量分类"><a class="markdownIt-Anchor" href="#3-根据接收端数量分类"></a> 3. 根据接收端数量分类</h3><ol><li>单播：一对一通信。</li><li>广播：将消息从一台主机发送给与之相连的<strong>所有其他主机</strong>。</li><li>多播：将消息从一台主机发送给<strong>某一组主机</strong>。</li><li>任播：在特定的多台主机中选出一台作为接收端进行通信。</li></ol><h2 id="各层网络设备"><a class="markdownIt-Anchor" href="#各层网络设备"></a> 各层网络设备</h2><ul><li>中继器（<code>Repeater</code>）：从物理层上延长网络。</li><li>网桥（<code>Bridge</code>）/ 2 层交换机：从数据链路层上延长网络。</li><li>路由器（<code>Router</code>）/ 3 层交换机：从网络层转发分组数据的设备。</li><li>4 ~ 7 层交换机：处理传输层以上各层网络传输的设备。</li><li>网关（<code>Gageway</code>）：转换协议的设备。</li></ul><h2 id="路由器和交换机的区别"><a class="markdownIt-Anchor" href="#路由器和交换机的区别"></a> 路由器和交换机的区别</h2><ul><li>交换机主要工作在<strong>数据链路层</strong>；<br />路由器工作在<strong>网络层</strong>。</li><li>交换机转发所依据的对象时：<code>MAC</code> 地址。（物理地址）；<br />路由转发所依据的对象是：<code>IP</code> 地址。（网络地址）。</li><li>交换机主要用于组建局域网；<br />路由器将局域网连接起来，或者接入互联网。</li><li>路由器实现了<strong>不同网络</strong>之间的数据<strong>转发</strong>；<br />交换机实现了<strong>特定网络</strong>内的数据<strong>交换</strong>。</li></ul><h1 id="tcpip-基础知识"><a class="markdownIt-Anchor" href="#tcpip-基础知识"></a> TCP/IP 基础知识</h1><h2 id="tcpip-具体含义"><a class="markdownIt-Anchor" href="#tcpip-具体含义"></a> TCP/IP 具体含义</h2><p>TCP/IP 是协议群的统称，有时也称为网际协议族。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201015144631.png" srcset="/img/loading.gif" alt="" /></p><h2 id="tcpip-与-osi-参考模型"><a class="markdownIt-Anchor" href="#tcpip-与-osi-参考模型"></a> TCP/IP 与 OSI 参考模型</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201015144926.png" srcset="/img/loading.gif" alt="" /></p><h2 id="数据包处理"><a class="markdownIt-Anchor" href="#数据包处理"></a> 数据包处理</h2><p>每一个分层中，都会对所发送的数据附加一个首部，在这个首部中包含了该层必要的信息。每个包首部中至少会包含两个信息：一个是发送端和接收端地址，另一个是上一层的协议类型。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201015145629.png" srcset="/img/loading.gif" alt="" /></p><h1 id="数据链路"><a class="markdownIt-Anchor" href="#数据链路"></a> 数据链路</h1><h2 id="mac-地址与-ip-地址"><a class="markdownIt-Anchor" href="#mac-地址与-ip-地址"></a> MAC 地址与 IP 地址</h2><ul><li><code>MAC</code> 地址（数据链路层）用于识别数据链路中互连的节点。</li><li><code>IP</code> 地址（网络层）用于在连接到网络中的所有主机中识别出进行通信的目标地址。</li></ul><p>MAC 地址格式：</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201015151427.png" srcset="/img/loading.gif" alt="" /></p><p><strong>MAC 地址不一定是唯一的。</strong><br />即使 MAC 地址 相同，只要不是同属一个数据链路就没问题。如虚拟机分配的虚拟网卡，很难保证 MAC 地址的唯一性。</p><h2 id="共享介质型网络"><a class="markdownIt-Anchor" href="#共享介质型网络"></a> 共享介质型网络</h2><p>共享介质型网络指由多个设备共享一个通信介质的一种网络。</p><ul><li>设备之间使用<strong>同一个信道进行发送和接收。</strong></li><li>基本上采用<strong>半双工通信</strong>方式。</li><li>需要对介质进行<strong>访问控制</strong>。</li></ul><blockquote><p>半双工：共享介质，只发送或只接受的通信方式。<br />全双工：专用介质，可以同时发送数据和接收数据。</p></blockquote><p>介质访问控制方式</p><ol><li>争用方式（<code>Contention</code>）：指的是争夺获取数据传输的方式。这种方法通常令网络中的各个站采用<strong>先到先得</strong>的方式占用信道发送数据。</li><li>令牌传递方式：只有获得令牌的站才能发送数据。特点是<strong>不会有冲突，每个站都有通过平等循环获得令牌的方式。</strong></li></ol><h2 id="非共享介质型网络"><a class="markdownIt-Anchor" href="#非共享介质型网络"></a> 非共享介质型网络</h2><p>非共享介质型网络是指不共享介质，是对介质采取<strong>专用</strong>的一种传输控制方式。每个站直连交换机，<strong>由交换机负责转发数据帧</strong>，采用<strong>全双工通信</strong>方式。</p><h1 id="ip-协议"><a class="markdownIt-Anchor" href="#ip-协议"></a> IP 协议</h1><h2 id="基础知识"><a class="markdownIt-Anchor" href="#基础知识"></a> 基础知识</h2><h3 id="网络层与数据链路层的关系"><a class="markdownIt-Anchor" href="#网络层与数据链路层的关系"></a> 网络层与数据链路层的关系</h3><ul><li><p>数据链路层提供两个设备之间的通信功能，在<strong>互连同一种数据链路的节点之间</strong>进行包传递。</p></li><li><p>网络层负责在<strong>没有直连的两个网络之间</strong>进行通信传输。网络层可以<strong>跨越不同的数据链路</strong>，在不同的数据链路上也能实现两端节点之间的数据包传输。</p></li></ul><h3 id="路由控制"><a class="markdownIt-Anchor" href="#路由控制"></a> 路由控制</h3><p>路由控制（<code>Routing</code>）是指将分组数据发送到最终目标地址的功能。</p><p>IP 路由也叫多跳路由，跳（<code>Hop</code>） 是指网络中的一个区间，在每一个区间内决定着 IP 包在下一跳被转发的路径。<br /><strong>多跳路由</strong> 是指路由器或主机在转发 IP 数据包时<strong>只指定下一个路由器或主机</strong>，而不是将到最终目标地址为止的所有通路全部指定出来。因为每一个区间（跳）在转发 IP 数据包时会分别指定下一跳的操作。</p><p>为了将数据包发给目标主机，所有主机都维护着一张路由控制表（<code>Routing Table</code>）。该表记录 IP 数据在下一步应该发给哪个路由器。IP 包将根据路由表在各个数据链路上传输。</p><h3 id="mtu"><a class="markdownIt-Anchor" href="#mtu"></a> MTU</h3><p>数据链路的地址可以被抽象为 IP 地址，对 IP 的上一层来说，不论底层数据链路使用以太网还是无线 LAN 亦或是 PPP，都将被一视同仁。</p><p>不同的数据链路的最大区别：它们各自的最大传输单位（<code>MTU</code>）不同。而我们需要传输比 MTU 更多字节的数据，就需要对 IP 数据包进行 <strong>分片处理（<code>IP Fragmentation</code>）</strong>，将较大的 IP 包分成多个较小的 IP 包。分片的包到了对端目标地址后会再被组合起来传给上一层。</p><h3 id="ip-属于面向无连接型"><a class="markdownIt-Anchor" href="#ip-属于面向无连接型"></a> IP 属于面向无连接型</h3><p>IP 在发包之前，不需要建立与对端目标地址之间的连接。上层如果遇到需要发给 IP 的数据，该数据会立即被压缩成 IP 包发送出去。</p><p>原因：</p><ol><li>简化：面向连接处理相对复杂，需要管理每个连接。</li><li>提速：每次通信之前都要先建立连接，会降低处理速度。</li></ol><blockquote><p>由于 IP 只负责将数据发给目标主机，为了保证通信的可靠性，上层的 TCP 采用面向连接型，负责保证对端主机确实收到数据。</p></blockquote><h2 id="ip-地址"><a class="markdownIt-Anchor" href="#ip-地址"></a> IP 地址</h2><h3 id="组成"><a class="markdownIt-Anchor" href="#组成"></a> 组成</h3><p>IP 地址（IPv4）由 <code>32</code> 位正整数表示，每 <code>8</code> 位一组，分成 4 组，每组以 <code>.</code> 隔开，再将每组数转换为十进制。</p><p>IP 地址由 <code>网络地址（网络号）</code> 和 <code>主机地址（主机号）</code> 组成，网络号在数据链路的每个段配置不同的值。网络号必须保证相互连接的每个段的地址不重复。而<strong>相同段内相连的主机必须有相同的网络地址。主机号则不允许在同一个网段内重复出现。</strong></p><h3 id="分类"><a class="markdownIt-Anchor" href="#分类"></a> 分类</h3><p>根据 IP 地址中从第 <code>1</code> 位到第 <code>4</code> 位划分为 <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>, <code>E</code> 类。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201016134533" srcset="/img/loading.gif" alt="" /></p><ul><li>A 类地址：第 1 字节为网络地址，其它 3 个字节为主机地址。它的第 1 个字节的<code>第一位</code>固定为 <code>0</code>。<ul><li>网络号范围：<code>0.0.0.0 ~ 127.0.0.0</code></li><li>私有地址：<code>10.0.0.0 ~ 10.255.255.255</code></li><li>保留地址：<code>127.x.x.x</code>，用于循环测试</li></ul></li><li>B 类地址：第 1 字节和第 2 字节为网络地址，后 2 个字节为主机地址。它的第 1 个字节的<code>前两位</code>固定为 <code>10</code>。<ul><li>网络号范围：<code>128.0.0.0 ~ 191.255.0.0</code></li><li>私有地址：<code>172.16.0.0 ~ 172.31.255.255</code></li><li>保留地址：<code>169.254.x.x</code>，如果是自动获取 IP 地址，而你在网络上又没有找到可用的 DHCP 服务器。就会得到其中一个 IP。</li><li>广播地址：<code>191.255.255.255</code>，不能分配。</li></ul></li><li>C 类地址：第 1 字节、第 2 字节和第 3 个字节为网络地址，第 4 个字节为主机地址。另外第 1 个字节的<code>前三位</code>固定为 <code>110</code>。<ul><li>网络号范围：<code>192.0.0.0 ~ 223.255.255.0</code></li><li>私有地址：<code>192.168.0.0 ~ 192.168.255.255</code></li></ul></li><li>D 类地址：没有主机地址，常用于多播，它的第 1 个字节的<code>前四位</code>固定为 <code>1110</code>。<ul><li>地址范围：<code>224.0.0.0 ~ 239.255.255.255</code></li></ul></li><li>E 类地址：不分网络地址和主机地址，它的第 1 个字节的<code>前四位</code>固定为 <code>1111</code>。<ul><li>地址范围：<code>240.0.0.0 ~ 255.255.255.254</code></li></ul></li></ul><h3 id="子网掩码"><a class="markdownIt-Anchor" href="#子网掩码"></a> 子网掩码</h3>]]></content>
+    <content type="html"><![CDATA[<p>[TOC]</p><h1 id="网络基础知识"><a class="markdownIt-Anchor" href="#网络基础知识"></a> 网络基础知识</h1><h2 id="osi-参考模型"><a class="markdownIt-Anchor" href="#osi-参考模型"></a> OSI 参考模型</h2><ol><li>应用层：针对特定应用的协议，如电子邮件，远程登录，文件传输。</li><li>表示层：接收不同表现形式的信息，如文字，图像，声音。</li><li>会话层：通信管理，管理传输层以下的分层。</li><li>传输层：负责<strong>端到端的可靠性传输</strong>。</li><li>网络层：<strong>地址管理与路由选择</strong>。</li><li>数据链路层：互连设备之间传送数据帧。</li><li>物理层：比特流与电信号之间的转换。</li></ol><h2 id="传输方式"><a class="markdownIt-Anchor" href="#传输方式"></a> 传输方式</h2><h3 id="1-面向连接型与面向无连接型"><a class="markdownIt-Anchor" href="#1-面向连接型与面向无连接型"></a> 1. 面向连接型与面向无连接型</h3><ul><li>在面向有连接的方式下，必须在通信传输前后，专门进行建立和断开连接的处理。</li><li>在面向无连接的方式下，发送端可于任何时候自由发送数据。不需要确认对端是否存在，即使接收端不存在或无法接受数据，发送端也能将数据发送出去。</li></ul><h3 id="2-电路交换与分组交换"><a class="markdownIt-Anchor" href="#2-电路交换与分组交换"></a> 2. 电路交换与分组交换</h3><ul><li>电路交换中，两台计算机独占线路进行传输，其他计算机只能等线路空闲后才能使用这条电路进行通信。</li><li>分组交换中，把数据分成多个数据包，按照一定的顺序排列之后进行发送。每个分组的首部写入发送端和接收端的地址，所以即使同一条线路同时为多个用户提供服务，也可以明确每个分组数据的目的地。</li></ul><h3 id="3-根据接收端数量分类"><a class="markdownIt-Anchor" href="#3-根据接收端数量分类"></a> 3. 根据接收端数量分类</h3><ol><li>单播：一对一通信。</li><li>广播：将消息从一台主机发送给与之相连的<strong>所有其他主机</strong>。</li><li>多播：将消息从一台主机发送给<strong>某一组主机</strong>。</li><li>任播：在特定的多台主机中选出一台作为接收端进行通信。</li></ol><h2 id="各层网络设备"><a class="markdownIt-Anchor" href="#各层网络设备"></a> 各层网络设备</h2><ul><li>中继器（<code>Repeater</code>）：从物理层上延长网络。</li><li>网桥（<code>Bridge</code>）/ 2 层交换机：从数据链路层上延长网络。</li><li>路由器（<code>Router</code>）/ 3 层交换机：从网络层转发分组数据的设备。</li><li>4 ~ 7 层交换机：处理传输层以上各层网络传输的设备。</li><li>网关（<code>Gageway</code>）：转换协议的设备。</li></ul><h2 id="路由器和交换机的区别"><a class="markdownIt-Anchor" href="#路由器和交换机的区别"></a> 路由器和交换机的区别</h2><ul><li>交换机主要工作在<strong>数据链路层</strong>；<br />路由器工作在<strong>网络层</strong>。</li><li>交换机转发所依据的对象时：<code>MAC</code> 地址。（物理地址）；<br />路由转发所依据的对象是：<code>IP</code> 地址。（网络地址）。</li><li>交换机主要用于组建局域网；<br />路由器将局域网连接起来，或者接入互联网。</li><li>路由器实现了<strong>不同网络</strong>之间的数据<strong>转发</strong>；<br />交换机实现了<strong>特定网络</strong>内的数据<strong>交换</strong>。</li></ul><h1 id="tcpip-基础知识"><a class="markdownIt-Anchor" href="#tcpip-基础知识"></a> TCP/IP 基础知识</h1><h2 id="tcpip-具体含义"><a class="markdownIt-Anchor" href="#tcpip-具体含义"></a> TCP/IP 具体含义</h2><p>TCP/IP 是协议群的统称，有时也称为网际协议族。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201015144631.png" srcset="/img/loading.gif" alt="" /></p><h2 id="tcpip-与-osi-参考模型"><a class="markdownIt-Anchor" href="#tcpip-与-osi-参考模型"></a> TCP/IP 与 OSI 参考模型</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201015144926.png" srcset="/img/loading.gif" alt="" /></p><h2 id="数据包处理"><a class="markdownIt-Anchor" href="#数据包处理"></a> 数据包处理</h2><p>每一个分层中，都会对所发送的数据附加一个首部，在这个首部中包含了该层必要的信息。每个包首部中至少会包含两个信息：一个是发送端和接收端地址，另一个是上一层的协议类型。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201015145629.png" srcset="/img/loading.gif" alt="" /></p><h1 id="数据链路"><a class="markdownIt-Anchor" href="#数据链路"></a> 数据链路</h1><h2 id="mac-地址与-ip-地址"><a class="markdownIt-Anchor" href="#mac-地址与-ip-地址"></a> MAC 地址与 IP 地址</h2><ul><li><code>MAC</code> 地址（数据链路层）用于识别数据链路中互连的节点。</li><li><code>IP</code> 地址（网络层）用于在连接到网络中的所有主机中识别出进行通信的目标地址。</li></ul><p>MAC 地址格式：</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201015151427.png" srcset="/img/loading.gif" alt="" /></p><p><strong>MAC 地址不一定是唯一的。</strong><br />即使 MAC 地址 相同，只要不是同属一个数据链路就没问题。如虚拟机分配的虚拟网卡，很难保证 MAC 地址的唯一性。</p><h2 id="共享介质型网络"><a class="markdownIt-Anchor" href="#共享介质型网络"></a> 共享介质型网络</h2><p>共享介质型网络指由多个设备共享一个通信介质的一种网络。</p><ul><li>设备之间使用<strong>同一个信道进行发送和接收。</strong></li><li>基本上采用<strong>半双工通信</strong>方式。</li><li>需要对介质进行<strong>访问控制</strong>。</li></ul><blockquote><p>半双工：共享介质，只发送或只接受的通信方式。<br />全双工：专用介质，可以同时发送数据和接收数据。</p></blockquote><p>介质访问控制方式：</p><ol><li>争用方式（<code>Contention</code>）：指的是争夺获取数据传输的方式。这种方法通常令网络中的各个站采用<strong>先到先得</strong>的方式占用信道发送数据。</li><li>令牌传递方式：只有获得令牌的站才能发送数据。特点是<strong>不会有冲突，每个站都有通过平等循环获得令牌的方式。</strong></li></ol><h2 id="非共享介质型网络"><a class="markdownIt-Anchor" href="#非共享介质型网络"></a> 非共享介质型网络</h2><p>非共享介质型网络是指不共享介质，是对介质采取<strong>专用</strong>的一种传输控制方式。每个站直连交换机，<strong>由交换机负责转发数据帧</strong>，采用<strong>全双工通信</strong>方式。</p><h1 id="ip-协议"><a class="markdownIt-Anchor" href="#ip-协议"></a> IP 协议</h1><h2 id="基础知识"><a class="markdownIt-Anchor" href="#基础知识"></a> 基础知识</h2><h3 id="网络层与数据链路层的关系"><a class="markdownIt-Anchor" href="#网络层与数据链路层的关系"></a> 网络层与数据链路层的关系</h3><ul><li><p>数据链路层提供两个设备之间的通信功能，在<strong>互连同一种数据链路的节点之间</strong>进行包传递。</p></li><li><p>网络层负责在<strong>没有直连的两个网络之间</strong>进行通信传输。网络层可以<strong>跨越不同的数据链路</strong>，在不同的数据链路上也能实现两端节点之间的数据包传输。</p></li></ul><h3 id="路由控制"><a class="markdownIt-Anchor" href="#路由控制"></a> 路由控制</h3><p>路由控制（<code>Routing</code>）是指将分组数据发送到最终目标地址的功能。</p><p>IP 路由也叫多跳路由，跳（<code>Hop</code>） 是指网络中的一个区间，在每一个区间内决定着 IP 包在下一跳被转发的路径。<br /><strong>多跳路由</strong> 是指路由器或主机在转发 IP 数据包时<strong>只指定下一个路由器或主机</strong>，而不是将到最终目标地址为止的所有通路全部指定出来。因为每一个区间（跳）在转发 IP 数据包时会分别指定下一跳的操作。</p><p>为了将数据包发给目标主机，所有主机都维护着一张路由控制表（<code>Routing Table</code>）。该表记录 IP 数据在下一步应该发给哪个路由器。IP 包将根据路由表在各个数据链路上传输。</p><h3 id="mtu"><a class="markdownIt-Anchor" href="#mtu"></a> MTU</h3><p>数据链路的地址可以被抽象为 IP 地址，对 IP 的上一层来说，不论底层数据链路使用以太网还是无线 LAN 亦或是 PPP，都将被一视同仁。</p><p>不同的数据链路的最大区别：它们各自的最大传输单位（<code>MTU</code>）不同。而我们需要传输比 MTU 更多字节的数据，就需要对 IP 数据包进行 <strong>分片处理（<code>IP Fragmentation</code>）</strong>，将较大的 IP 包分成多个较小的 IP 包。分片的包到了对端目标地址后会再被组合起来传给上一层。</p><h3 id="ip-属于面向无连接型"><a class="markdownIt-Anchor" href="#ip-属于面向无连接型"></a> IP 属于面向无连接型</h3><p>IP 在发包之前，不需要建立与对端目标地址之间的连接。上层如果遇到需要发给 IP 的数据，该数据会立即被压缩成 IP 包发送出去。</p><p>原因：</p><ol><li>简化：面向连接处理相对复杂，需要管理每个连接。</li><li>提速：每次通信之前都要先建立连接，会降低处理速度。</li></ol><blockquote><p>由于 IP 只负责将数据发给目标主机，为了保证通信的可靠性，上层的 TCP 采用面向连接型，负责保证对端主机确实收到数据。</p></blockquote><h2 id="ip-地址"><a class="markdownIt-Anchor" href="#ip-地址"></a> IP 地址</h2><h3 id="组成"><a class="markdownIt-Anchor" href="#组成"></a> 组成</h3><p>IP 地址（IPv4）由 <code>32</code> 位正整数表示，每 <code>8</code> 位一组，分成 4 组，每组以 <code>.</code> 隔开，再将每组数转换为十进制。</p><p>IP 地址由 <code>网络地址（网络号）</code> 和 <code>主机地址（主机号）</code> 组成，网络号在数据链路的每个段配置不同的值。网络号必须保证相互连接的每个段的地址不重复。而<strong>相同段内相连的主机必须有相同的网络地址。主机号则不允许在同一个网段内重复出现。</strong></p><h3 id="分类"><a class="markdownIt-Anchor" href="#分类"></a> 分类</h3><p>根据 IP 地址中从第 <code>1</code> 位到第 <code>4</code> 位划分为 <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>, <code>E</code> 类。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201016134533" srcset="/img/loading.gif" alt="" /></p><ul><li>A 类地址：第 1 字节为网络地址，其它 3 个字节为主机地址。它的第 1 个字节的<code>第一位</code>固定为 <code>0</code>。<ul><li>网络号范围：<code>0.0.0.0 ~ 127.0.0.0</code></li><li>私有地址：<code>10.0.0.0 ~ 10.255.255.255</code></li><li>保留地址：<code>127.x.x.x</code>，用于循环测试</li></ul></li><li>B 类地址：第 1 字节和第 2 字节为网络地址，后 2 个字节为主机地址。它的第 1 个字节的<code>前两位</code>固定为 <code>10</code>。<ul><li>网络号范围：<code>128.0.0.0 ~ 191.255.0.0</code></li><li>私有地址：<code>172.16.0.0 ~ 172.31.255.255</code></li><li>保留地址：<code>169.254.x.x</code>，如果是自动获取 IP 地址，而你在网络上又没有找到可用的 DHCP 服务器。就会得到其中一个 IP。</li><li>广播地址：<code>191.255.255.255</code>，不能分配。</li></ul></li><li>C 类地址：第 1 字节、第 2 字节和第 3 个字节为网络地址，第 4 个字节为主机地址。另外第 1 个字节的<code>前三位</code>固定为 <code>110</code>。<ul><li>网络号范围：<code>192.0.0.0 ~ 223.255.255.0</code></li><li>私有地址：<code>192.168.0.0 ~ 192.168.255.255</code></li></ul></li><li>D 类地址：没有主机地址，常用于多播，它的第 1 个字节的<code>前四位</code>固定为 <code>1110</code>。<ul><li>地址范围：<code>224.0.0.0 ~ 239.255.255.255</code></li></ul></li><li>E 类地址：不分网络地址和主机地址，它的第 1 个字节的<code>前四位</code>固定为 <code>1111</code>。<ul><li>地址范围：<code>240.0.0.0 ~ 255.255.255.254</code></li></ul></li></ul><h3 id="子网掩码"><a class="markdownIt-Anchor" href="#子网掩码"></a> 子网掩码</h3><blockquote><p>子网掩码的重要作用：就是将某个IP地址划分成网络地址和主机地址两部分。</p></blockquote><p>子网掩码实际上就是将原来 A/B/C 等分类中的<strong>主机地址部分用作子网地址</strong>，可以将原网络分为多个物理网络的一种机制。</p><p>表示方式：IP 地址网络号全部为 <code>1</code>，主机号全部为 <code>0</code>。<br />由此，一个 IP 地址不再受限自己的类别，而是可以使用子网掩码自由地定位自己的网络号部分。</p><p>如：<code>172.20.100.52/26</code> 表示前 <code>26</code> 位是网络号。<br />IP 地址：172. 20.  100. 52<br />子网掩码：255. 255. 255. 192</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019122155" srcset="/img/loading.gif" alt="" /></p><h2 id="路由控制-2"><a class="markdownIt-Anchor" href="#路由控制-2"></a> 路由控制</h2><p>IP 地址的网络部分用于进行路由控制。路由表中记录着<strong>网络地址</strong>与下一步应该发送至<strong>路由器的地址</strong>。如果路由表中存在多条相同网络地址的记录，就选择一个相同位数最多（<code>最长匹配</code>）的网络地址。</p><ul><li>默认路由：<code>0.0.0.0/0</code> 路由表中任何一个地址都能与之匹配。</li><li>主机路由：<code>IP 地址/32</code> 整个 IP 地址的所有位都将参与路由。</li><li>环回地址：<code>127.0.0.1、localhost</code> 同一台计算机上的程序之间进行网络通信。</li></ul><h2 id="相关协议"><a class="markdownIt-Anchor" href="#相关协议"></a> 相关协议</h2><h3 id="dns"><a class="markdownIt-Anchor" href="#dns"></a> DNS</h3><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019132145.png" srcset="/img/loading.gif" alt="" /></p><h3 id="arp-rarp"><a class="markdownIt-Anchor" href="#arp-rarp"></a> ARP、RARP</h3><p>ARP 将 IP 地址定位到对应的 MAC 地址。只适用于 IPv4。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019133552.png" srcset="/img/loading.gif" alt="" /></p><p>主机 A 为了获取主机 B 的 MAC 地址，要通过<strong>广播</strong>发送一个 ARP 请求包，这个包中包含了 主机 B 的 IP 地址。由于广播的包可以被同一个链路上所有的主机或路由器接收，<strong>如果请求包中的 IP 地址与自己的 IP 地址一致，那么这个节点就将自己的 MAC 地址放入 ARP 响应包返回给 主机 A。</strong></p><p>RARP 是从 MAC 地址定位 IP 地址的一种协议。例如将打印机等嵌入式设备接入到网络时就会用到。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019134340.png" srcset="/img/loading.gif" alt="" /></p><h3 id="icmp"><a class="markdownIt-Anchor" href="#icmp"></a> ICMP</h3><p>ICMP 的主要功能包括：确认 IP 包是否成功送达目标地址，通知在发送过程中 IP 包被废弃原因，改善网络设置，进行网络诊断。</p><p>ICMP 的消息大致可以分成两类：一类是通知出错原因的错误消息，另一类是用于诊断的查询信息。</p><h3 id="dhcp"><a class="markdownIt-Anchor" href="#dhcp"></a> DHCP</h3><p>DHCP 可实现自动设置 IP 地址，统一管理 IP 地址分配，让即插即用变得可能。在 IPv4，IPv6 中均可使用。</p><h3 id="nat"><a class="markdownIt-Anchor" href="#nat"></a> NAT</h3><p>NAT 用于在本地网络中使用私有地址，在连接互联网时使用全局 IP 地址。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019152539.png" srcset="/img/loading.gif" alt="" /></p><p>NAPT 将端口号一起转换。</p><blockquote><p>在使用 TCP 或 UDP 的通信当中，只有目标地址、源地址、目标端口、源端口以及协议种类都一致时才被认为是同一个连接。</p></blockquote><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019153122.png" srcset="/img/loading.gif" alt="" /></p><h3 id="ip-隧道"><a class="markdownIt-Anchor" href="#ip-隧道"></a> IP 隧道</h3><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019153834.png" srcset="/img/loading.gif" alt="" /></p><p>IP 隧道可以将那些从网络 A 发过来的 IPv6 的包统合为一个数据，再为之追加一个 IPv4 的首部以后转发给网络 C。</p>]]></content>
     
     
     <categories>
@@ -898,9 +898,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -1010,9 +1010,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1151,9 +1151,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1356,11 +1356,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1416,11 +1416,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2080,9 +2080,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2109,9 +2109,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -2256,9 +2256,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2401,9 +2401,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2430,9 +2430,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2459,9 +2459,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2577,11 +2577,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2608,9 +2608,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2724,9 +2724,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2892,9 +2892,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>排序</tag>
       
@@ -2950,9 +2950,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -2981,9 +2981,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3041,9 +3041,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3070,9 +3070,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3948,9 +3948,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
