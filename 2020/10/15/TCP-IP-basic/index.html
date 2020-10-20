@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.1k 字
+      5.6k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      54
+      59
        分钟
     </span>
   
@@ -528,6 +528,21 @@ IP 地址：172. 20.  100. 52<br />
 <ul>
 <li>加法增大：执行拥塞避免算法，使拥塞窗口缓慢增大。</li>
 <li>乘法减小：不论是在慢开始还是在拥塞避免阶段，只要出现超时，就<strong>把窗口阈值 ssthresh 设置为当前的拥塞窗口的一半，与此同时，执行慢开始算法。</strong></li>
+</ul>
+<h3 id="tcp-首部"><a class="markdownIt-Anchor" href="#tcp-首部"></a> TCP 首部</h3>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201020155556.png" srcset="/img/loading.gif" alt="" /></p>
+<ul>
+<li>源端口号（<code>Source Port</code>）：字段长 <code>16</code> 位。</li>
+<li>目标端口号（<code>Destination Port</code>）：字段长 <code>16</code> 位。</li>
+<li>序列号（<code>Sequence Number</code>）：字段长 <code>32</code> 位，指的是发送数据的位置，每发送一次数据，就累加一次该数据字节数的大小。</li>
+<li>确认应答号（<code>Acknowledgement Number</code>）：字段长 <code>32</code> 位，指的是下一个应该收到的数据的序列号。实际上，它是指已收到 <code>确认应答号 - 1</code> 为止的数据。发送端收到这个确认应答号后可以认为在这个序号以前的数据都已经被正常接收。</li>
+<li>数据偏移（<code>Data Offset</code>）：字段长 <code>4</code> 位。表示所传输的数据部分应该从 TCP 包的哪个位开始计算。可以看作是 <strong>TCP 首部的长度</strong>。</li>
+<li>保留（<code>Reserved</code>）：字段长 <code>4</code> 位。一般设置为 <code>0</code>，主要是为了以后扩展时使用。</li>
+<li>控制位（<code>Control Flag</code>）：字段长 <code>8</code> 位。从左至右分别为 <code>CWR</code>、<code>ECE</code>、<code>URG</code>、<code>ACK</code>、<code>PSH</code>、<code>RST</code>、<code>SYN</code>、<code>FIN</code>。</li>
+<li>窗口大小（<code>Window Size</code>）：字段长 <code>16</code> 位。用于通知从确认应答号所指位置开始能接收的数据大小。TCP 不允许发送超过此处所示大小的数据。如果窗口为 <code>0</code>，表示可以发送窗口探测，以了解最新的窗口大小。</li>
+<li>校验和（<code>Checksum</code>）：字段长 <code>16</code> 位。TCP 的校验和和 UDP 相似，区别在于 TCP 的校验和无法关闭。</li>
+<li>紧急指针（<code>Urgent Pointer</code>）：字段长 <code>16</code> 位。一般在暂时中断通信时使用。从数据部分的首位到紧急指针所指示的位置为止为紧急数据。</li>
+<li>选项（<code>Options</code>）：用于提高 TCP 的传输性能。</li>
 </ul>
 
             </article>
