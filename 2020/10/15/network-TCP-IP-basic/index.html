@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.6k 字
+      6.8k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      59
+      72
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月20日 下午
+                  本文最后更新于：2020年10月21日 下午
                 
               </p>
             
@@ -544,6 +544,103 @@ IP 地址：172. 20.  100. 52<br />
 <li>紧急指针（<code>Urgent Pointer</code>）：字段长 <code>16</code> 位。一般在暂时中断通信时使用。从数据部分的首位到紧急指针所指示的位置为止为紧急数据。</li>
 <li>选项（<code>Options</code>）：用于提高 TCP 的传输性能。</li>
 </ul>
+<h1 id="路由协议"><a class="markdownIt-Anchor" href="#路由协议"></a> 路由协议</h1>
+<h2 id="静态路由与动态路由"><a class="markdownIt-Anchor" href="#静态路由与动态路由"></a> 静态路由与动态路由</h2>
+<ul>
+<li>静态路由是指事先设置好路由器和主机中并将路由信息固定的一种方法。
+<ul>
+<li>静态路由通常由使用者手工操作完成。</li>
+<li>一旦某个路由器发生故障，基本上无法自动绕过发生故障的节点。</li>
+</ul>
+</li>
+<li>动态路由是指让路由协议在运行过程中自动地设置路由控制信息的一种方法。
+<ul>
+<li>动态路由设定过程的复杂程度与具体要设置路由协议的类型有直接关系。</li>
+<li>动态路由会给相邻路由器发送自己已知的网络连接信息，直至网络传递完成，路由控制表也制作完成。</li>
+<li>一旦发生故障，只要有一个可绕的路径，数据包就会自动选择这个路径。</li>
+</ul>
+</li>
+</ul>
+<h2 id="路由算法"><a class="markdownIt-Anchor" href="#路由算法"></a> 路由算法</h2>
+<h3 id="距离矢量算法"><a class="markdownIt-Anchor" href="#距离矢量算法"></a> 距离矢量算法</h3>
+<p>距离矢量算法（<code>Distance-Vector</code>）算法是根据<strong>距离</strong>和<strong>方向</strong>决定目标网络或目标主机位置的一种方法。</p>
+<p>路由器之间可以互换目标网络的方向及其距离的相关信息，并以这些信息为基础制作路由控制表。因此，<strong>每一个路由器的位置不同，它们的路由表也是不同的。</strong></p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201021142516.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="链路状态算法"><a class="markdownIt-Anchor" href="#链路状态算法"></a> 链路状态算法</h3>
+<p>链路状态算法是路由器在了解<strong>网络整体状态</strong>的基础上生成路由控制表的一种方法。</p>
+<p>在该方法中，<strong>每个路由器必须保持同样的信息</strong>才能进行正确的路由选择，这意味着可以使路由信息达到一个稳定的状态。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201021142452.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="主要路由协议"><a class="markdownIt-Anchor" href="#主要路由协议"></a> 主要路由协议</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">路由协议</th>
+<th style="text-align:center">下一层协议</th>
+<th style="text-align:center">方式</th>
+<th style="text-align:center">适用范围</th>
+<th style="text-align:center">循环检测</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">RIP</td>
+<td style="text-align:center">UDP</td>
+<td style="text-align:center">距离矢量</td>
+<td style="text-align:center">自治系统内</td>
+<td style="text-align:center">不可以</td>
+</tr>
+<tr>
+<td style="text-align:center">OSPF</td>
+<td style="text-align:center">UDP</td>
+<td style="text-align:center">链路状态</td>
+<td style="text-align:center">自治系统内</td>
+<td style="text-align:center">可以</td>
+</tr>
+<tr>
+<td style="text-align:center">EGP</td>
+<td style="text-align:center">IP</td>
+<td style="text-align:center">距离矢量</td>
+<td style="text-align:center">对外连接</td>
+<td style="text-align:center">不可以</td>
+</tr>
+<tr>
+<td style="text-align:center">BGP</td>
+<td style="text-align:center">IP</td>
+<td style="text-align:center">路径矢量</td>
+<td style="text-align:center">对外连接</td>
+<td style="text-align:center">可以</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rip"><a class="markdownIt-Anchor" href="#rip"></a> RIP</h2>
+<p>特点：</p>
+<ul>
+<li>仅和<strong>相邻路由器</strong>交换信息。</li>
+<li>交换的信息是当前本路由器所知道的全部信息，即自己的<strong>路由表</strong>。</li>
+<li>按固定的时间间隔（<code>30s</code>）交换路由信息。</li>
+</ul>
+<p>路由表中的主要信息就是：到某个网络的距离（最短距离），以及经过的下一跳地址。路由表更新的原则就是<strong>找出到每个目的网络的最短距离</strong>。</p>
+<p>RIP 存在的问题：由于采用距离矢量算法，当网络出现故障时，要经过较长时间才能将此信息传送到所有路由器。</p>
+<h2 id="ospf"><a class="markdownIt-Anchor" href="#ospf"></a> OSPF</h2>
+<p>OPPF 为链路状态型协议，所以能检测网络中的<strong>环路</strong>。</p>
+<p>特点：</p>
+<ul>
+<li>向本自治系统中<strong>所有路由器</strong>发送信息，使用洪泛法（<code>flooding</code>）。</li>
+<li>发送的信息是与本路由器相邻的所有路由器的<strong>链路状态</strong>。链路状态就是说明本路由器和哪些路由器相邻，以及该链路的<code>代价</code>，<strong>OSPF 总是选择一个总代价最小的一条路径</strong>，而 RIP 选择路由器个数最少的路径。</li>
+<li>只有当<strong>链路状态变</strong>化时，路由器才发送信息。</li>
+</ul>
+<p>当网络的个数越多，每次交换的路由信息就越大，当链路状态变化较小时，这在一定程度上浪费了网络带宽。为了使 <strong>OSPF 能够用于规模很大的网络</strong>，OSPF 将一个自治系统再划分为若干个更小的<strong>区域</strong>，所有的其他区域都和<code>主干区域（Backbone Area）</code>相连接，每一个区域内部交换路由信息的通信量大大减小。</p>
+<h2 id="bgp"><a class="markdownIt-Anchor" href="#bgp"></a> BGP</h2>
+<p><code>BGP(Border Gateway Protocol)</code> 是连接不同自治系统的一种协议，它属于外部网关协议（<code>EGP</code>）。</p>
+<p>在 <code>RIP</code> 和 <code>OSPF</code> 中利用 <code>IP</code> 地址的网络地址部分进行路由控制，然而 <code>BGP</code> 需要放眼整个互联网进行路由控制。<code>BGP</code> 的最终路由控制表由<strong>网络地址</strong>和<strong>下一站的路由器组</strong>来表示，它会根据所要经过的 <code>AS</code> 个数进行路由控制。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201021153257.png" srcset="/img/loading.gif" alt="" /></p>
+<p>每个 <code>AS</code> 都有一个 <code>16 bit</code> 的 <code>AS 编号</code>，<code>BGP</code> 就是根据 <code>AS 编号</code>进行路由控制。<br />
+代表整个 AS 与其它 AS 交换路由控制信息的路由器叫做 BGP 发言人，一个 BGP 发言人与其它 AS 的 BGP 发言人要交换路由信息，就要先建立 TCP 连接。</p>
+<p>BGP 中数据包送达目标网络时，会生成一个中途经过所有 AS 的编号列表（AS 路径信息访问列表<code>AS Path List</code>）。在做路由选择时，BGP 选择 AS 数最少的路径。</p>
+<blockquote>
+<p>路径向量（Path Vector）协议：可以检测环路，在 AS 路径信息访问列表中包含转发方向、距离和途径所有 AS 的编号。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201021154457.png" srcset="/img/loading.gif" alt="" /></p>
 
             </article>
             <hr>
