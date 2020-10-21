@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 925. 长按键入</title>
+    <link href="/2020/10/21/LeetCode-925-long-pressed-name/"/>
+    <url>/2020/10/21/LeetCode-925-long-pressed-name/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/long-pressed-name/" target="_blank" rel="noopener">925. 长按键入</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isLongPressedName</span><span class="hljs-params">(String name, String typed)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] names = name.toCharArray();    <span class="hljs-keyword">char</span>[] types = typed.toCharArray();    <span class="hljs-keyword">int</span> len1 = names.length;    <span class="hljs-keyword">int</span> len2 = types.length;    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (i &lt; len1 &amp;&amp; j &lt; len2) &#123;        <span class="hljs-keyword">if</span> (names[i] == types[j]) &#123;            i++;            j++;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// 第一个字符就不相等</span>            <span class="hljs-keyword">if</span> (i == <span class="hljs-number">0</span>) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;            <span class="hljs-comment">// types[j] 不是长按产生的</span>            <span class="hljs-keyword">boolean</span> jumped = <span class="hljs-keyword">false</span>;            <span class="hljs-keyword">while</span> (j &lt; len2 &amp;&amp; names[i - <span class="hljs-number">1</span>] == types[j]) &#123;                j++;                jumped = <span class="hljs-keyword">true</span>;            &#125;            <span class="hljs-keyword">if</span> (!jumped) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;        &#125;    &#125;    <span class="hljs-comment">// types 后面还有重复</span>    <span class="hljs-keyword">while</span> (j &lt; len2) &#123;        <span class="hljs-keyword">if</span> (types[j] != names[i - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        j++;    &#125;    <span class="hljs-keyword">return</span> i == len1 &amp;&amp; j == len2;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 901. 股票价格跨度</title>
     <link href="/2020/10/20/LeetCode-901-online-stock-span/"/>
     <url>/2020/10/20/LeetCode-901-online-stock-span/</url>
@@ -1070,9 +1097,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -1180,9 +1207,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -1321,9 +1348,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -1522,11 +1549,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -1582,11 +1609,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2244,9 +2271,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2273,9 +2300,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -2565,9 +2592,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2594,9 +2621,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2741,11 +2768,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2888,9 +2915,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3114,9 +3141,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -3145,9 +3172,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3205,9 +3232,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3234,9 +3261,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
