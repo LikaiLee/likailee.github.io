@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.8k 字
+      6.9k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      72
+      73
        分钟
     </span>
   
@@ -510,6 +510,7 @@ IP 地址：172. 20.  100. 52<br />
 滑动窗口大小：接收端主机向发送端主机通知自己可以接收数据的大小（首部字段中的<code>窗口大小</code>），于是发送端会发送不超过这个限度的数据。</p>
 <p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201020151743.png" srcset="/img/loading.gif" alt="" /></p>
 <h3 id="拥塞控制"><a class="markdownIt-Anchor" href="#拥塞控制"></a> 拥塞控制</h3>
+<h4 id="慢开始和拥塞避免"><a class="markdownIt-Anchor" href="#慢开始和拥塞避免"></a> 慢开始和拥塞避免</h4>
 <p>在网络出现拥堵时，如果突然发送一个较大量的数据，极有可能会导致整个网络的瘫痪。<br />
 为了防止该问题的出现，在通信一开始时会通过<code>慢开始</code>算法对发送数据量进行控制。</p>
 <p>在慢开始时，将<code>拥塞窗口</code>大小设置为 <code>1 MSS</code>，之后每收到一次确认应答，拥塞窗口的值就加 <code>1</code>。即由小到大逐渐增大发送窗口，也就是由小到大逐渐增大拥塞窗口。</p>
@@ -528,6 +529,13 @@ IP 地址：172. 20.  100. 52<br />
 <ul>
 <li>加法增大：执行拥塞避免算法，使拥塞窗口缓慢增大。</li>
 <li>乘法减小：不论是在慢开始还是在拥塞避免阶段，只要出现超时，就<strong>把窗口阈值 ssthresh 设置为当前的拥塞窗口的一半，与此同时，执行慢开始算法。</strong></li>
+</ul>
+<h4 id="快重传和快恢复"><a class="markdownIt-Anchor" href="#快重传和快恢复"></a> 快重传和快恢复</h4>
+<p>快重传：发送方只要<strong>连续收到三个重复确认</strong>就应当立即重传对方尚未收到的报文，而不必继续等待为丢失报文设置的重传计时器到期（<strong>尽早重传未被确认的报文段</strong>）。</p>
+<p>快恢复：</p>
+<ul>
+<li>当收到三个重复确认时，执行<strong>乘法减小</strong>算法，把慢开始门限 ssthresh 减半。</li>
+<li>现在<strong>不执行慢开始</strong>算法（不把拥塞窗口设置为 1），而是<strong>把拥塞窗口设置为 ssthresh 减半后的数值，然后执行拥塞避免算法。</strong></li>
 </ul>
 <h3 id="tcp-首部"><a class="markdownIt-Anchor" href="#tcp-首部"></a> TCP 首部</h3>
 <p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201020155556.png" srcset="/img/loading.gif" alt="" /></p>
@@ -638,7 +646,7 @@ IP 地址：172. 20.  100. 52<br />
 代表整个 AS 与其它 AS 交换路由控制信息的路由器叫做 BGP 发言人，一个 BGP 发言人与其它 AS 的 BGP 发言人要交换路由信息，就要先建立 TCP 连接。</p>
 <p>BGP 中数据包送达目标网络时，会生成一个中途经过所有 AS 的编号列表（AS 路径信息访问列表<code>AS Path List</code>）。在做路由选择时，BGP 选择 AS 数最少的路径。</p>
 <blockquote>
-<p>路径向量（Path Vector）协议：可以检测环路，在 AS 路径信息访问列表中包含转发方向、距离和途径所有 AS 的编号。</p>
+<p>路径向量（<code>Path Vector</code>）协议：可以检测环路，在 AS 路径信息访问列表中包含转发方向、距离和途径所有 AS 的编号。</p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201021154457.png" srcset="/img/loading.gif" alt="" /></p>
 
