@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 234. 回文链表</title>
+    <link href="/2020/10/23/LeetCode-234-palindrome-linked-list/"/>
+    <url>/2020/10/23/LeetCode-234-palindrome-linked-list/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/palindrome-linked-list/" target="_blank" rel="noopener">234. 回文链表</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(ListNode head)</span> </span>&#123;    <span class="hljs-keyword">if</span> (head == <span class="hljs-keyword">null</span> || head.next == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;    <span class="hljs-comment">// 1 0 1</span>    <span class="hljs-comment">// 翻转后的链表头部</span>    ListNode reversedHead = <span class="hljs-keyword">null</span>;    <span class="hljs-comment">// 保存 需要翻转的 slow</span>    ListNode preSlow = head;    ListNode slow = head, fast = head;    <span class="hljs-keyword">while</span> (fast != <span class="hljs-keyword">null</span> &amp;&amp; fast.next != <span class="hljs-keyword">null</span>) &#123;        preSlow = slow;        <span class="hljs-comment">// 快慢指针移动</span>        slow = slow.next;        fast = fast.next.next;        <span class="hljs-comment">// 快慢指针移动完再翻转当前的 slow</span>        preSlow.next = reversedHead;        reversedHead = preSlow;    &#125;    <span class="hljs-comment">// 奇数个结点，slow 需要跳过中点进行回文判断</span>    <span class="hljs-keyword">if</span> (fast != <span class="hljs-keyword">null</span>) &#123;        slow = slow.next;    &#125;    <span class="hljs-keyword">while</span> (slow != <span class="hljs-keyword">null</span> &amp;&amp; reversedHead != <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">if</span> (slow.val != reversedHead.val) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        slow = slow.next;        reversedHead = reversedHead.next;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>从键入网址到网页显示发生了什么</title>
     <link href="/2020/10/23/network-behind-type-url-and-press-enter/"/>
     <url>/2020/10/23/network-behind-type-url-and-press-enter/</url>
@@ -1151,9 +1180,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -1261,9 +1290,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -1402,9 +1431,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -1603,11 +1632,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -1663,11 +1692,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2325,9 +2354,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2354,9 +2383,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -2646,9 +2675,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2675,9 +2704,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2822,11 +2851,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2969,9 +2998,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3195,9 +3224,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -3226,9 +3255,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3286,9 +3315,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3315,9 +3344,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
