@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 1024. 视频拼接</title>
+    <link href="/2020/10/24/LeetCode-1024-video-stitching/"/>
+    <url>/2020/10/24/LeetCode-1024-video-stitching/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/video-stitching/" target="_blank" rel="noopener">1024. 视频拼接</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">videoStitching</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] clips, <span class="hljs-keyword">int</span> T)</span> </span>&#123;    <span class="hljs-comment">/* dp[i]: 覆盖区间 [0, i] 所需要的最少子区间数量</span><span class="hljs-comment">    e.g.   0..|.....i|</span><span class="hljs-comment">              |a_j...|...b_j</span><span class="hljs-comment">      if i in [a_j, b_j]:</span><span class="hljs-comment">        [a_j, b_j] 可以覆盖 [0, i] 的后半部分</span><span class="hljs-comment">        后半部分：dp[i] = 1 (加上区间 [a_j, b_j])，前半部分：dp[a_j]</span><span class="hljs-comment">        整个区间：dp[i] = min(dp[a_j] + 1, dp[i])</span><span class="hljs-comment">    */</span>    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[T + <span class="hljs-number">1</span>];    Arrays.fill(dp, Integer.MAX_VALUE - <span class="hljs-number">1</span>);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= T; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] clip : clips) &#123;            <span class="hljs-keyword">if</span> (clip[<span class="hljs-number">0</span>] &lt;= i &amp;&amp; i &lt;= clip[<span class="hljs-number">1</span>]) &#123;                dp[i] = Math.min(dp[i], dp[clip[<span class="hljs-number">0</span>]] + <span class="hljs-number">1</span>);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> dp[T] == Integer.MAX_VALUE - <span class="hljs-number">1</span> ? -<span class="hljs-number">1</span> : dp[T];&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1267. 统计参与通信的服务器</title>
     <link href="/2020/10/23/LeetCode-1267-count-servers-that-communicate/"/>
     <url>/2020/10/23/LeetCode-1267-count-servers-that-communicate/</url>
@@ -2404,9 +2431,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2433,9 +2460,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -2609,9 +2636,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2638,9 +2665,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2667,9 +2694,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2696,9 +2723,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2961,9 +2988,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -3019,9 +3046,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3106,9 +3133,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4438,9 +4465,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
