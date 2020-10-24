@@ -8,7 +8,7 @@
     <link href="/2020/10/24/LeetCode-1024-video-stitching/"/>
     <url>/2020/10/24/LeetCode-1024-video-stitching/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/video-stitching/" target="_blank" rel="noopener">1024. 视频拼接</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">videoStitching</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] clips, <span class="hljs-keyword">int</span> T)</span> </span>&#123;    <span class="hljs-comment">/* dp[i]: 覆盖区间 [0, i] 所需要的最少子区间数量</span><span class="hljs-comment">    e.g.   0..|.....i|</span><span class="hljs-comment">              |a_j...|...b_j</span><span class="hljs-comment">      if i in [a_j, b_j]:</span><span class="hljs-comment">        [a_j, b_j] 可以覆盖 [0, i] 的后半部分</span><span class="hljs-comment">        后半部分：dp[i] = 1 (加上区间 [a_j, b_j])，前半部分：dp[a_j]</span><span class="hljs-comment">        整个区间：dp[i] = min(dp[a_j] + 1, dp[i])</span><span class="hljs-comment">    */</span>    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[T + <span class="hljs-number">1</span>];    Arrays.fill(dp, Integer.MAX_VALUE - <span class="hljs-number">1</span>);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= T; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] clip : clips) &#123;            <span class="hljs-keyword">if</span> (clip[<span class="hljs-number">0</span>] &lt;= i &amp;&amp; i &lt;= clip[<span class="hljs-number">1</span>]) &#123;                dp[i] = Math.min(dp[i], dp[clip[<span class="hljs-number">0</span>]] + <span class="hljs-number">1</span>);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> dp[T] == Integer.MAX_VALUE - <span class="hljs-number">1</span> ? -<span class="hljs-number">1</span> : dp[T];&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/video-stitching/" target="_blank" rel="noopener">1024. 视频拼接</a></p><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">videoStitching</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] clips, <span class="hljs-keyword">int</span> T)</span> </span>&#123;    <span class="hljs-comment">/* dp[i]: 覆盖区间 [0, i] 所需要的最少子区间数量</span><span class="hljs-comment">    e.g.   0..|.....i|</span><span class="hljs-comment">              |a_j...|...b_j</span><span class="hljs-comment">      if i in [a_j, b_j]:</span><span class="hljs-comment">        [a_j, b_j] 可以覆盖 [0, i] 的后半部分</span><span class="hljs-comment">        后半部分：dp[i] = 1 (加上区间 [a_j, b_j])，前半部分：dp[a_j]</span><span class="hljs-comment">        整个区间：dp[i] = min(dp[a_j] + 1, dp[i])</span><span class="hljs-comment">    */</span>    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[T + <span class="hljs-number">1</span>];    Arrays.fill(dp, Integer.MAX_VALUE - <span class="hljs-number">1</span>);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= T; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] clip : clips) &#123;            <span class="hljs-keyword">if</span> (clip[<span class="hljs-number">0</span>] &lt;= i &amp;&amp; i &lt;= clip[<span class="hljs-number">1</span>]) &#123;                dp[i] = Math.min(dp[i], dp[clip[<span class="hljs-number">0</span>]] + <span class="hljs-number">1</span>);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> dp[T] == Integer.MAX_VALUE - <span class="hljs-number">1</span> ? -<span class="hljs-number">1</span> : dp[T];&#125;</code></pre><h1 id="贪心"><a class="markdownIt-Anchor" href="#贪心"></a> 贪心</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">videoStitching</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] clips, <span class="hljs-keyword">int</span> T)</span> </span>&#123;    <span class="hljs-comment">// dp[i]: 以 i 为起点能到达的最远位置</span>    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[T + <span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] clip : clips) &#123;        <span class="hljs-comment">// 取 clip[0] 最远的位置，即取能覆盖最远的区间</span>        dp[clip[<span class="hljs-number">0</span>]] = Math.max(dp[clip[<span class="hljs-number">0</span>]], clip[<span class="hljs-number">1</span>]);    &#125;    <span class="hljs-comment">// 所需要的片段数</span>    <span class="hljs-keyword">int</span> clipCount = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 当前的最远位置</span>    <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 上一次起跳的终点</span>    <span class="hljs-keyword">int</span> pre = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; T; i++) &#123;        <span class="hljs-comment">// 更新当前能到达的最远位置</span>        max = Math.max(max, dp[i]);        <span class="hljs-comment">// 当前最远只能到 i 位置，到不了下一个位置</span>        <span class="hljs-keyword">if</span> (max == i) &#123;            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;        &#125;        <span class="hljs-comment">// 到达上一次的终点，取一个新片段</span>        <span class="hljs-keyword">if</span> (i == pre) &#123;            clipCount++;            pre = max;        &#125;    &#125;    <span class="hljs-keyword">return</span> clipCount;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -23,6 +23,8 @@
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -153,9 +155,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -493,9 +495,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>栈</tag>
       
       <tag>单调栈</tag>
       
@@ -524,9 +526,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -1257,9 +1259,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -1367,9 +1369,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -1396,9 +1398,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -1508,9 +1510,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -1709,11 +1711,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -1767,13 +1769,13 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2489,9 +2491,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -2574,9 +2576,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -2605,11 +2607,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2634,11 +2636,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2663,11 +2665,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2692,11 +2694,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2721,11 +2723,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2750,11 +2752,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2779,11 +2781,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2926,13 +2928,13 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2957,11 +2959,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2986,11 +2988,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -3044,11 +3046,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -3073,11 +3075,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -3131,11 +3133,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -3241,11 +3243,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -3299,11 +3301,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -3330,11 +3332,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -3359,9 +3361,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -3390,11 +3392,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -3419,11 +3421,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -3448,9 +3450,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -3475,9 +3477,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -3502,9 +3504,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -3554,9 +3556,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -3581,9 +3583,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -3608,9 +3610,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -4463,11 +4465,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
