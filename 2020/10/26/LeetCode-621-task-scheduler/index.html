@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 205. 同构字符串 - Likai Lee</title>
+  <title>LeetCode 621. 任务调度器 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 205. 同构字符串
+                LeetCode 621. 任务调度器
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-11 19:22">
-      2020年9月11日 晚上
+    <time datetime="2020-10-26 13:46">
+      2020年10月26日 下午
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      199 字
+      152 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      2
        分钟
     </span>
   
@@ -207,56 +207,32 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月11日 晚上
+                  本文最后更新于：2020年10月26日 下午
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/isomorphic-strings/" target="_blank" rel="noopener">205. 同构字符串</a></p>
-<p>需要从两个方向判断！</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isIsomorphic</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">return</span> check(s, t) &amp;&amp; check(t, s);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = s.length();
-    Map&lt;Character, Character&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-keyword">char</span> c = s.charAt(i);
-        <span class="hljs-keyword">char</span> key = t.charAt(i);
-        <span class="hljs-keyword">if</span> (map.containsKey(key)) &#123;
-            <span class="hljs-keyword">char</span> target = map.get(key);
-            <span class="hljs-keyword">if</span> (c != target) &#123;
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-            &#125;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            map.put(key, c);
+              <p><a href="https://leetcode-cn.com/problems/task-scheduler/" target="_blank" rel="noopener">621. 任务调度器</a></p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">leastInterval</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] tasks, <span class="hljs-keyword">int</span> n)</span> </span>&#123;
+    <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];
+    <span class="hljs-comment">// 统计每个任务的数量</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> task : tasks) &#123;
+        counts[task - <span class="hljs-string">'A'</span>]++;
+    &#125;
+    <span class="hljs-comment">// 找到任务数最多的任务</span>
+    Arrays.sort(counts);
+    <span class="hljs-keyword">int</span> maxCount = counts[<span class="hljs-number">25</span>];
+    <span class="hljs-comment">// 需要几个任务队列取决于数量最多的那个任务</span>
+    <span class="hljs-keyword">int</span> time = (maxCount - <span class="hljs-number">1</span>) * (n + <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">25</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
+        <span class="hljs-comment">// 有其他任务和 max 一样，则多花一个时间</span>
+        <span class="hljs-keyword">if</span> (counts[i] == maxCount) &#123;
+            time++;
         &#125;
     &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-&#125;</code></pre>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isIsomorphic</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-comment">// 双向验证</span>
-    <span class="hljs-keyword">return</span> check(s, t) &amp;&amp; check(t, s);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = s.length();
-    <span class="hljs-keyword">int</span>[] map = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">128</span>];
-    <span class="hljs-keyword">char</span>[] chars1 = s.toCharArray();
-    <span class="hljs-keyword">char</span>[] chars2 = t.toCharArray();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-keyword">int</span> target = map[chars1[i]];
-        <span class="hljs-comment">// 判断对应位置是否匹配</span>
-        <span class="hljs-keyword">if</span> (target != <span class="hljs-number">0</span>) &#123;
-            <span class="hljs-keyword">if</span> (target != chars2[i]) &#123;
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-            &#125;
-        &#125;
-        <span class="hljs-comment">// 新增 map</span>
-        map[chars1[i]] = chars2[i];
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    <span class="hljs-comment">// 若有空闲时间，res = time</span>
+    <span class="hljs-comment">// 若没有空闲时间，表示 n 个序列都已用完，需要扩充 n，res = len</span>
+    <span class="hljs-keyword">return</span> Math.max(time, tasks.length);
 &#125;</code></pre>
             </article>
             <hr>
@@ -274,11 +250,13 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-                    
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+                      <a class="hover-with-bg" href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%98%9F%E5%88%97/">队列</a>
                     
                   </div>
                 
@@ -291,18 +269,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/12/LeetCode-224-basic-calculator/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 224. 基本计算器</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/10/LeetCode-583-delete-operation-for-two-strings/">
-                        <span class="hidden-mobile">LeetCode 583. 两个字符串的删除操作</span>
+                      <a href="/2020/10/26/LeetCode-1365-how-many-numbers-are-smaller-than-the-current-number/">
+                        <span class="hidden-mobile">LeetCode 1365. 有多少小于当前数字的数字</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
