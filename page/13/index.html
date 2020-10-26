@@ -170,6 +170,59 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/03/LeetCode-493-reverse-pairs/">LeetCode 493. 翻转对</a>
+
+      <a href="/2020/09/03/LeetCode-493-reverse-pairs/" class="index-excerpt">
+        
+        
+          
+        
+        <div>493. 翻转对
+解法：
+
+使用归并排序，把数组分为左右两部分，且都单调递增；
+则每次都固定左边元素，遍历右边元素；
+因为都是有序的，所以从位置索引就能获取个数，且右边的元素只要遍历一遍。
+
+public int reversePairs(int[] nums) &#123;
+    return mergeSort(nums, 0, nums.length - 1);
+&#125;
+
+priva</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-03
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/09/03/LeetCode-56-merge-intervals/">LeetCode 56. 合并区间</a>
 
       <a href="/2020/09/03/LeetCode-56-merge-intervals/" class="index-excerpt">
@@ -358,9 +411,9 @@ public String reverseOnlyLetters(String S) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
             
               <a href="/tags/%E6%A0%88/">栈</a>
             
@@ -410,9 +463,9 @@ public String reverseWords(String s) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
             
           </div>
         
@@ -514,9 +567,9 @@ public String reverseStr(String s, int k) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
             
           </div>
         
@@ -565,9 +618,9 @@ public void reverseString(char[] s) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
             
           </div>
         
@@ -625,60 +678,11 @@ public void reverseString(char[] s) &#123;
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/01/LeetCode-8-string-to-integer-atoi/">LeetCode 8. 字符串转换整数 (atoi)</a>
-
-      <a href="/2020/09/01/LeetCode-8-string-to-integer-atoi/" class="index-excerpt">
-        
-        
-          
-        
-        <div>8. 字符串转换整数 (atoi)
- 解法一
-public class Solution &#123;
-    public static void main(String[] args) &#123;
-        new Solution().myAtoi("-2147483647");
-    &#125;
-    public int myAtoi(String str) &#123;
-</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-01
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/12/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" href="/page/14/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/12/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/14/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Ping 和 TraceRoute 工作原理</title>
+    <link href="/2020/10/26/network-ping-traceroute/"/>
+    <url>/2020/10/26/network-ping-traceroute/</url>
+    
+    <content type="html"><![CDATA[<h1 id="icmp-协议"><a class="markdownIt-Anchor" href="#icmp-协议"></a> ICMP 协议</h1><h2 id="功能"><a class="markdownIt-Anchor" href="#功能"></a> 功能</h2><p><code>ping</code> 是基于 <code>ICMP</code> 协议工作的。<br /><code>ICMP</code> 全称是 Internet Control Message Protocol，也就是互联网控制报文协议。ICMP 报文封装在 <code>IP</code> 包里面，它工作在<strong>网络层</strong>。</p><p><code>ICMP</code> 主要的功能包括：<strong>确认 IP 包是否成功送达目标地址、报告发送过程中 IP 包被废弃的原因和改善网络设置等。</strong></p><p>在 <code>IP</code> 通信中如果某个 <code>IP</code> 包因为某种原因未能达到目标地址，那么这个具体的原因将由 <code>ICMP</code> 负责通知。</p><h2 id="报文类型"><a class="markdownIt-Anchor" href="#报文类型"></a> 报文类型</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201026190457.png" srcset="/img/loading.gif" alt="" /></p><p><code>ICMP</code> 包头的类型字段，大致可以分为两大类：</p><ol><li>一类是用于诊断的查询消息，也就是「<strong>查询报文类型</strong>」</li><li>另一类是通知出错原因的错误消息，也就是「<strong>差错报文类型</strong>」</li></ol><h3 id="查询报文类型"><a class="markdownIt-Anchor" href="#查询报文类型"></a> 查询报文类型</h3><p>回送消息用于进行通信的<strong>主机</strong>或<strong>路由器</strong>之间，<strong>判断所发送的数据包是否已经成功到达对端</strong>的一种消息，ping 命令就是利用这个消息实现的。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201026190633.png" srcset="/img/loading.gif" alt="" /></p><p>可以向对端主机发送<code>回送请求</code>的消息（ICMP Echo Request Message，类型 8），也可以接收对端主机发回来的<code>回送应答</code>消息（ICMP Echo Reply Message，类型 0）。</p><h3 id="差错报文类型"><a class="markdownIt-Anchor" href="#差错报文类型"></a> 差错报文类型</h3><p><code>IP</code> 路由器无法将 <code>IP</code> 数据包发送给目标地址时，会给发送端主机返回一个<strong>目标不可达</strong>的 <code>ICMP</code> 消息，并在这个消息中显示不可达的具体原因，原因记录在 <code>ICMP</code> 包头的代码字段。</p><table><thead><tr><th>代码号</th><th style="text-align:center">内容</th></tr></thead><tbody><tr><td><code>0</code></td><td style="text-align:center">网络不可达</td></tr><tr><td><code>1</code></td><td style="text-align:center">主机不可达</td></tr><tr><td><code>2</code></td><td style="text-align:center">协议不可达</td></tr><tr><td><code>3</code></td><td style="text-align:center">端口不可达</td></tr><tr><td><code>4</code></td><td style="text-align:center">需要进行分片但设置了不分片位</td></tr></tbody></table><h1 id="ping-查询报文类型的使用"><a class="markdownIt-Anchor" href="#ping-查询报文类型的使用"></a> ping: 查询报文类型的使用</h1><p><code>ping</code> 命令执行的时候，源主机首先会构建一个 <code>ICMP 回送请求消息数据包</code>。</p><p><code>ICMP</code> 数据包内包含多个字段，最重要的是两个：</p><ul><li>类型：对于回送请求消息而言该字段为 <code>8</code>；</li><li>序号：主要用于<strong>区分连续 <code>ping</code> 的时候发出的多个数据包</strong>。每发出一个请求数据包，序号会自动加 <code>1</code>。</li><li>发送时间：为了能够计算往返时间 <code>RTT</code>，它会在报文的数据部分插入发送时间。</li></ul><p>发送流程：</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201026192125.png" srcset="/img/loading.gif" alt="" /></p><ol><li>源主机首先会构建一个 <code>ICMP 回送请求消息数据包</code>。由 <code>ICMP</code> 协议将这个数据包连同 <strong>目标地址</strong> 一起交给 <code>IP</code> 层。</li><li><code>IP</code> 层将以 <strong>上层传来的 IP 地址</strong> 作为<strong>目的地址</strong>，本机 <code>IP</code> 地址作为<strong>源地址</strong>，协议字段设置为 <code>1</code> 表示是 <code>ICMP</code> 协议，再加上一些其他控制信息，构建一个 <code>IP 数据包</code>。</li><li>加入 <code>MAC</code> 首部：如果在本地 <code>ARP</code> 映射表中查找出 目标地址 所对应的 <code>MAC</code> 地址，则可以直接使用；如果没有，则需要发送 <code>ARP</code> 协议查询 <code>MAC</code> 地址，获得 <code>MAC</code> 地址后，由数据链路层构建一个数据帧，目的地址是 <code>IP</code> 层传过来的 <code>MAC</code> 地址，源地址则是本机的 <code>MAC</code> 地址；还要附加上一些控制信息，依据以太网的介质访问规则，将它们传送出去。</li><li>主机 <code>B</code> 收到这个数据帧后，先检查它的目的 <code>MAC</code> 地址，并和本机的 <code>MAC</code> 地址对比，如符合，则接收，否则就丢弃。</li><li>主机 <code>B</code> 会构建一个 <code>ICMP 回送响应消息数据包</code>，回送响应数据包的类型字段为 <code>0</code>，序号为接收到的请求数据包中的序号，然后再发送出去给主机 <code>A</code>。</li><li>在规定的时候间内，源主机如果没有接到 <code>ICMP</code> 的应答包，则说明目标<strong>主机不可达</strong>；如果接收到了 <code>ICMP</code> 回送响应消息，则说明目标主机可达。<br />此时，源主机会检查，用当前时刻减去该数据包最初从源主机上发出的时刻，就是 <code>ICMP</code> 数据包的时间延迟。</li></ol><h1 id="traceroute-差错报文类型的使用"><a class="markdownIt-Anchor" href="#traceroute-差错报文类型的使用"></a> traceroute: 差错报文类型的使用</h1><p>作用：</p><ol><li>故意设置特殊的 <code>TTL</code>，来<strong>追踪去往目的地时沿途经过的路由器</strong>。</li></ol><blockquote><p><strong>利用 IP 包的生存期限 从 1 开始按照顺序递增的同时发送 UDP 包，强制接收 ICMP 超时消息</strong>的一种方法。</p></blockquote><p>比如，将 <code>TTL</code> 设置为 <code>1</code>，则遇到第一个路由器，就牺牲了，接着返回 <code>ICMP</code> 差错报文网络包，类型是<strong>时间超时</strong>。<br />接下来将 <code>TTL</code> 设置为 <code>2</code>，也同时返回了 <code>ICMP</code> 差错报文数据包，如此往复，直到到达目的主机。<br />这样的过程，<code>traceroute</code> 就可以拿到了所有的路由器 <code>IP</code>。</p><ol start="2"><li>故意设置<strong>不分片</strong>，从而确定路径的 <code>MTU</code>。</li></ol><blockquote><p>有的时候我们并不知道路由器的 <code>MTU</code> 大小，以太网的数据链路上的 <code>MTU</code> 通常是 <code>1500</code> 字节，但是非以太网的 <code>MTU</code> 值就不一样了，所以我们要知道 <code>MTU</code> 的大小，从而控制发送的包大小。</p></blockquote><p>首先在发送端主机发送 <code>IP</code> 数据报时，将 <code>IP</code> 包首部的<strong>分片禁止标志位设置为 1</strong>。根据这个标志位，途中的路由器不会对大数据包进行分片，而是将包丢弃。</p><p>随后，通过一个 <code>ICMP</code> 的不可达消息将数据链路上 <code>MTU</code> 的值一起给发送主机，不可达消息的类型为「<strong>需要进行分片但设置了不分片位</strong>」。</p><p>发送主机端每次收到 <code>ICMP</code> 差错报文时就减少包的大小，以此来定位一个合适的 <code>MTU</code> 值，以便能到达目标主机。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>网络</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>网络</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 641. 设计循环双端队列</title>
     <link href="/2020/10/26/LeetCode-641-design-circular-deque/"/>
     <url>/2020/10/26/LeetCode-641-design-circular-deque/</url>
@@ -136,9 +161,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -165,9 +190,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1431,9 +1456,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -1541,9 +1566,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -1682,9 +1707,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -1883,11 +1908,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -1943,11 +1968,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -2810,9 +2835,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2839,9 +2864,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2868,9 +2893,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2897,9 +2922,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2926,9 +2951,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2955,9 +2980,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2984,9 +3009,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -3102,11 +3127,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -3162,9 +3187,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -3220,9 +3245,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3249,9 +3274,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3307,9 +3332,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3475,9 +3500,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -3506,9 +3531,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3566,9 +3591,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3595,9 +3620,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4473,9 +4498,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -4639,9 +4664,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
