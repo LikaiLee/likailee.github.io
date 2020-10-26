@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 622. 设计循环队列</title>
+    <link href="/2020/10/26/LeetCode-622-design-circular-queue/"/>
+    <url>/2020/10/26/LeetCode-622-design-circular-queue/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/design-circular-queue/" target="_blank" rel="noopener">622. 设计循环队列</a></p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyCircularQueue</span> </span>&#123;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> capacity;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 指向队头存储元素的位置</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> front;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 指向队尾存储元素的下一个位置</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> rear;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] queue;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * Initialize your data structure here. Set the size of the queue to be k.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyCircularQueue</span><span class="hljs-params">(<span class="hljs-keyword">int</span> k)</span> </span>&#123;        <span class="hljs-keyword">this</span>.capacity = k + <span class="hljs-number">1</span>;        <span class="hljs-keyword">this</span>.queue = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[capacity];        <span class="hljs-keyword">this</span>.front = <span class="hljs-number">0</span>;        <span class="hljs-keyword">this</span>.rear = <span class="hljs-number">0</span>;    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * Insert an element into the circular queue. Return true if the operation is successful.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">enQueue</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;        <span class="hljs-keyword">if</span> (isFull()) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        queue[rear] = value;        rear = (rear + <span class="hljs-number">1</span>) % capacity;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * Delete an element from the circular queue. Return true if the operation is successful.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">deQueue</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">if</span> (isEmpty()) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        front = (front + <span class="hljs-number">1</span>) % capacity;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * Get the front item from the queue.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">Front</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">if</span> (isEmpty()) &#123;            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;        &#125;        <span class="hljs-keyword">return</span> queue[front];    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * Get the last item from the queue.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">Rear</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">if</span> (isEmpty()) &#123;            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;        &#125;        <span class="hljs-keyword">return</span> queue[(rear - <span class="hljs-number">1</span> + capacity) % capacity];    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * Checks whether the circular queue is empty or not.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> front == rear;    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * Checks whether the circular queue is full or not.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isFull</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> (rear + <span class="hljs-number">1</span>) % capacity == front;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>队列</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 621. 任务调度器</title>
     <link href="/2020/10/26/LeetCode-621-task-scheduler/"/>
     <url>/2020/10/26/LeetCode-621-task-scheduler/</url>
