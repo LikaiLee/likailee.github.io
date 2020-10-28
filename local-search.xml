@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 219. 存在重复元素 II</title>
+    <link href="/2020/10/28/LeetCode-219-contains-duplicate-ii/"/>
+    <url>/2020/10/28/LeetCode-219-contains-duplicate-ii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/contains-duplicate-ii/" target="_blank" rel="noopener">219. 存在重复元素 II</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">containsNearbyDuplicate</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">if</span> (map.containsKey(nums[i])) &#123;            <span class="hljs-keyword">int</span> idx = map.get(nums[i]);            <span class="hljs-keyword">if</span> (Math.abs(idx - i) &lt;= k) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;            &#125;        &#125;        map.put(nums[i], i);    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>哈希表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 23. 合并K个升序链表</title>
     <link href="/2020/10/28/LeetCode-23-merge-k-sorted-lists/"/>
     <url>/2020/10/28/LeetCode-23-merge-k-sorted-lists/</url>
