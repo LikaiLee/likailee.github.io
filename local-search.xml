@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 23. 合并K个升序链表</title>
+    <link href="/2020/10/28/LeetCode-23-merge-k-sorted-lists/"/>
+    <url>/2020/10/28/LeetCode-23-merge-k-sorted-lists/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener">23. 合并K个升序链表</a></p><h1 id="小顶堆"><a class="markdownIt-Anchor" href="#小顶堆"></a> 小顶堆</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">mergeKLists</span><span class="hljs-params">(ListNode[] lists)</span> </span>&#123;    PriorityQueue&lt;ListNode&gt; maxHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; o1.val - o2.val);    ListNode dummy = <span class="hljs-keyword">new</span> ListNode(-<span class="hljs-number">1</span>);    ListNode head = dummy;    <span class="hljs-comment">// 放入小顶堆</span>    <span class="hljs-keyword">for</span> (ListNode node : lists) &#123;        ListNode cur = node;        ListNode next;        <span class="hljs-keyword">while</span> (cur != <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-comment">// 切断 cur 和 next 之间的联系，否则可能出现环</span>            next = cur.next;            cur.next = <span class="hljs-keyword">null</span>;            maxHeap.add(cur);            cur = next;        &#125;    &#125;    <span class="hljs-comment">// 依次出队链接</span>    <span class="hljs-keyword">while</span> (!maxHeap.isEmpty()) &#123;        head.next = maxHeap.poll();        head = head.next;    &#125;    <span class="hljs-keyword">return</span> dummy.next;&#125;</code></pre><h1 id="k-个指针后移"><a class="markdownIt-Anchor" href="#k-个指针后移"></a> K 个指针后移</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">mergeKLists</span><span class="hljs-params">(ListNode[] lists)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = lists.length;    ListNode dummy = <span class="hljs-keyword">new</span> ListNode(-<span class="hljs-number">1</span>);    ListNode tail = dummy;    <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;        <span class="hljs-comment">// 每次找到 lists 中最小的结点</span>        ListNode minNode = <span class="hljs-keyword">null</span>;        <span class="hljs-comment">// 最小结点对应在 lists 中的位置</span>        <span class="hljs-keyword">int</span> minIdx = -<span class="hljs-number">1</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;            <span class="hljs-keyword">if</span> (lists[i] == <span class="hljs-keyword">null</span>) &#123;                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-comment">// 每次都比较头结点</span>            <span class="hljs-keyword">if</span> (minNode == <span class="hljs-keyword">null</span> || lists[i].val &lt; minNode.val) &#123;                minNode = lists[i];                minIdx = i;            &#125;        &#125;        <span class="hljs-keyword">if</span> (minIdx == -<span class="hljs-number">1</span>) &#123;            <span class="hljs-keyword">break</span>;        &#125;        tail.next = minNode;        tail = tail.next;        <span class="hljs-comment">// 移动头结点：把本次最小的那条链表后移</span>        lists[minIdx] = lists[minIdx].next;    &#125;    <span class="hljs-keyword">return</span> dummy.next;&#125;</code></pre><h1 id="两两合并"><a class="markdownIt-Anchor" href="#两两合并"></a> 两两合并</h1><p>大的合并小的。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">mergeKLists</span><span class="hljs-params">(ListNode[] lists)</span> </span>&#123;    ListNode head = <span class="hljs-keyword">null</span>;    <span class="hljs-keyword">for</span> (ListNode node : lists) &#123;        head = merge2Lists(head, node);    &#125;    <span class="hljs-keyword">return</span> head;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> ListNode <span class="hljs-title">merge2Lists</span><span class="hljs-params">(ListNode node1, ListNode node2)</span> </span>&#123;    ListNode dummy = <span class="hljs-keyword">new</span> ListNode(-<span class="hljs-number">1</span>);    ListNode tail = dummy;    <span class="hljs-keyword">while</span> (node1 != <span class="hljs-keyword">null</span> &amp;&amp; node2 != <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">if</span> (node1.val &lt; node2.val) &#123;            tail.next = node1;            node1 = node1.next;        &#125; <span class="hljs-keyword">else</span> &#123;            tail.next = node2;            node2 = node2.next;        &#125;        tail = tail.next;    &#125;    tail.next = node1 == <span class="hljs-keyword">null</span> ? node2 : node1;    <span class="hljs-keyword">return</span> dummy.next;&#125;</code></pre><p>两两合并，小的合成大的。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">mergeKLists</span><span class="hljs-params">(ListNode[] lists)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = lists.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;    &#125;    <span class="hljs-keyword">while</span> (len &gt; <span class="hljs-number">1</span>) &#123;        <span class="hljs-comment">// 合并完成后的链表数</span>        <span class="hljs-keyword">int</span> idx = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i += <span class="hljs-number">2</span>) &#123;            <span class="hljs-keyword">if</span> (i == len - <span class="hljs-number">1</span>) &#123;                lists[idx] = lists[i];            &#125; <span class="hljs-keyword">else</span> &#123;                lists[idx] = merge2Lists(lists[i], lists[i + <span class="hljs-number">1</span>]);            &#125;            idx++;        &#125;        <span class="hljs-comment">// 对合并完成后的 idx 条链表再合并，直到合成一条</span>        len = idx;    &#125;    <span class="hljs-keyword">return</span> lists[<span class="hljs-number">0</span>];&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>队列</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1306. 跳跃游戏 III</title>
     <link href="/2020/10/28/LeetCode-1306-jump-game-iii/"/>
     <url>/2020/10/28/LeetCode-1306-jump-game-iii/</url>
@@ -323,9 +352,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -352,9 +381,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1618,9 +1647,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -1728,9 +1757,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1869,9 +1898,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2070,11 +2099,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2130,11 +2159,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3113,9 +3142,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3142,9 +3171,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3289,11 +3318,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3436,9 +3465,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3662,9 +3691,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -3693,9 +3722,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3753,9 +3782,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3782,9 +3811,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
