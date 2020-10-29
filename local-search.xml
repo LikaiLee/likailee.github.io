@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 1552. 两球之间的磁力</title>
+    <link href="/2020/10/29/LeetCode-1552-magnetic-force-between-two-balls/"/>
+    <url>/2020/10/29/LeetCode-1552-magnetic-force-between-two-balls/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/magnetic-force-between-two-balls/" target="_blank" rel="noopener">1552. 两球之间的磁力</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxDistance</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] position, <span class="hljs-keyword">int</span> m)</span> </span>&#123;    <span class="hljs-comment">// distance in [1, max - min]</span>    <span class="hljs-keyword">int</span> len = position.length;    Arrays.sort(position);    <span class="hljs-keyword">int</span> left = <span class="hljs-number">1</span>, right = (position[len - <span class="hljs-number">1</span>] - position[<span class="hljs-number">0</span>]) / (m - <span class="hljs-number">1</span>);    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-keyword">int</span> mid = left + (right - left + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;        <span class="hljs-keyword">int</span> numOfBalls = calcBallsByDistance(position, mid);        System.out.println(mid + <span class="hljs-string">" "</span> + numOfBalls);        <span class="hljs-keyword">if</span> (numOfBalls &gt;= m) &#123;            left = mid;            <span class="hljs-comment">// 球的个数太少，需要增加球，此时应该减小距离</span>        &#125; <span class="hljs-keyword">else</span> &#123;            right = mid - <span class="hljs-number">1</span>;        &#125;    &#125;    <span class="hljs-keyword">return</span> left;&#125;<span class="hljs-comment">/**</span><span class="hljs-comment"> * 以最小距离 distance 来切分数组</span><span class="hljs-comment"> * 获取球的个数</span><span class="hljs-comment"> *</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> position</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> minDistance</span><span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span><span class="hljs-comment"> */</span><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calcBallsByDistance</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] position, <span class="hljs-keyword">int</span> minDistance)</span> </span>&#123;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">1</span>;    <span class="hljs-keyword">int</span> distance = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; position.length; i++) &#123;        distance += position[i] - position[i - <span class="hljs-number">1</span>];        <span class="hljs-keyword">if</span> (distance &gt;= minDistance) &#123;            count++;            distance = <span class="hljs-number">0</span>;        &#125;    &#125;    <span class="hljs-keyword">return</span> count;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>二分</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>TCP 可靠传输</title>
     <link href="/2020/10/29/network-TCP-reliable-data-transfer/"/>
     <url>/2020/10/29/network-TCP-reliable-data-transfer/</url>
@@ -2873,9 +2900,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2902,9 +2929,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -3049,9 +3076,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3078,9 +3105,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3107,9 +3134,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3136,9 +3163,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3165,9 +3192,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3252,9 +3279,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -3401,9 +3428,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3430,9 +3457,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -3488,9 +3515,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3575,9 +3602,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3685,9 +3712,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -4741,9 +4768,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -4907,9 +4934,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
