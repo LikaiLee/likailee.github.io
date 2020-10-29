@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.9k 字
+      7k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      73
+      74
        分钟
     </span>
   
@@ -456,6 +456,9 @@ UDP 的数据大小如果大于 <code>MTU</code> 大小，则会在 <code>IP 层
 </blockquote>
 <p>2 MSL 是为了<strong>确保发送方最后发送的 <code>ACK</code> 已经被对端接收</strong>。<br />
 如果被动关闭方没有收到断开连接的最后的 <code>ACK</code> 报文，就会触发超时重发 <code>FIN</code> 报文，另一方接收到 <code>FIN</code> 后，会重发 <code>ACK</code> 给被动关闭方， 一来一去正好 <code>2</code> 个 <code>MSL</code>。</p>
+<blockquote>
+<p>当客户端 <code>TIME-WAIT</code> 时间超过了 <code>2MSL</code>，则客户端就直接进入关闭状态。若此时第四次挥手的 <code>ACK</code> 和重发的 <code>FIN</code> 都丢失，此时会看服务端超时重发 <code>FIN</code> 报文的次数如果超过 <code>tcp_orphan_retries</code> 大小后，服务端也会关闭 <code>TCP</code> 连接。</p>
+</blockquote>
 <p>2 MSL 的时间是<strong>从客户端接收到 <code>FIN</code> 后发送 <code>ACK</code> 开始计时的</strong>。如果在 <code>TIME-WAIT</code> 时间内，因为客户端的 <code>ACK</code> 没有传输到服务端，客户端又接收到了服务端重发的 <code>FIN</code> 报文，那么 2 MSL 时间将<strong>重新计时</strong>。</p>
 <h2 id="为什么需要-time_wait-状态"><a class="markdownIt-Anchor" href="#为什么需要-time_wait-状态"></a> 为什么需要 TIME_WAIT 状态</h2>
 <p>主动发起关闭连接的一方，才会有 <code>TIME-WAIT</code> 状态。</p>

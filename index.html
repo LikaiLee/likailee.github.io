@@ -170,6 +170,59 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/10/29/network-TCP-reliable-data-transfer/">TCP 可靠传输</a>
+
+      <a href="/2020/10/29/network-TCP-reliable-data-transfer/" class="index-excerpt">
+        
+        
+          
+        
+        <div>[TOC]
+ 重传机制
+TCP 实现可靠传输的方式之一，是通过序列号与确认应答。
+在 TCP 中，当发送端的数据到达接收主机时，接收端主机会返回一个确认应答消息，表示已收到消息。针对数据包丢失的情况，会用重传机制解决。
+常见的重传机制：
+
+超时重传
+快速重传
+SACK
+D-SACK
+
+ 超时重传
+
+超时重传：在发送数据时，设定一个定时器，当超过指定的时间后，没有收到对方的 ACK 确认应答报文，就</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-10-29
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%BD%91%E7%BB%9C/">网络</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BD%91%E7%BB%9C/">网络</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/10/28/LeetCode-219-contains-duplicate-ii/">LeetCode 219. 存在重复元素 II</a>
 
       <a href="/2020/10/28/LeetCode-219-contains-duplicate-ii/" class="index-excerpt">
@@ -585,60 +638,6 @@ ICMP 主要的功能包括：确认 IP 包是否成功送达目标地址、报�
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E7%BD%91%E7%BB%9C/">网络</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/10/26/LeetCode-641-design-circular-deque/">LeetCode 641. 设计循环双端队列</a>
-
-      <a href="/2020/10/26/LeetCode-641-design-circular-deque/" class="index-excerpt">
-        
-        
-          
-        
-        <div>641. 设计循环双端队列
-class MyCircularDeque &#123;
-
-    private int capacity;
-    /**
-     * 指向队头存储元素的位置
-     */
-    private int front;
-    /**
-     * 指向队尾存储元素的下一个位置
-     */
-    private int rear;
-    private </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-10-26
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E9%98%9F%E5%88%97/">队列</a>
             
           </div>
         
