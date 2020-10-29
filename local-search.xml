@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 129. 求根到叶子节点数字之和</title>
+    <link href="/2020/10/29/LeetCode-129-sum-root-to-leaf-numbers/"/>
+    <url>/2020/10/29/LeetCode-129-sum-root-to-leaf-numbers/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/sum-root-to-leaf-numbers/" target="_blank" rel="noopener">129. 求根到叶子节点数字之和</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">sumNumbers</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">return</span> preOrder(root, <span class="hljs-number">0</span>);&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">preOrder</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> sum)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    sum = sum * <span class="hljs-number">10</span> + root.val;    <span class="hljs-keyword">if</span> (root.left == <span class="hljs-keyword">null</span> &amp;&amp; root.right == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> sum;    &#125;    <span class="hljs-keyword">return</span> preOrder(root.left, sum) + preOrder(root.right, sum);&#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">sumNumbers</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    List&lt;List&lt;TreeNode&gt;&gt; paths = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    List&lt;TreeNode&gt; path = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    path.add(root);    preOrder(root, path, paths);    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (List&lt;TreeNode&gt; p : paths) &#123;        <span class="hljs-keyword">int</span> num = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (TreeNode node : p) &#123;            num = num * <span class="hljs-number">10</span> + node.val;        &#125;        res += num;    &#125;    <span class="hljs-keyword">return</span> res;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">preOrder</span><span class="hljs-params">(TreeNode root, List&lt;TreeNode&gt; path, List&lt;List&lt;TreeNode&gt;&gt; paths)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root.left == <span class="hljs-keyword">null</span> &amp;&amp; root.right == <span class="hljs-keyword">null</span>) &#123;        paths.add(<span class="hljs-keyword">new</span> ArrayList&lt;&gt;(path));        <span class="hljs-keyword">return</span>;    &#125;    <span class="hljs-keyword">if</span> (root.left != <span class="hljs-keyword">null</span>) &#123;        path.add(root.left);        preOrder(root.left, path, paths);        path.remove(root.left);    &#125;    <span class="hljs-keyword">if</span> (root.right != <span class="hljs-keyword">null</span>) &#123;        path.add(root.right);        preOrder(root.right, path, paths);        path.remove(root.right);    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>回溯</tag>
+      
+      <tag>树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 220. 存在重复元素 III</title>
     <link href="/2020/10/29/LeetCode-220-contains-duplicate-iii/"/>
     <url>/2020/10/29/LeetCode-220-contains-duplicate-iii/</url>
