@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 381. O(1) 时间插入、删除和获取随机元素 - 允许重复</title>
+    <link href="/2020/10/31/LeetCode-381-insert-delete-getrandom-o1-duplicates-allowed/"/>
+    <url>/2020/10/31/LeetCode-381-insert-delete-getrandom-o1-duplicates-allowed/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/insert-delete-getrandom-o1-duplicates-allowed/" target="_blank" rel="noopener">381. O(1) 时间插入、删除和获取随机元素 - 允许重复</a></p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RandomizedCollection</span> </span>&#123;    List&lt;Integer&gt; nums;    Map&lt;Integer, Set&lt;Integer&gt;&gt; numsIdx;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * Initialize your data structure here.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">RandomizedCollection</span><span class="hljs-params">()</span> </span>&#123;        nums = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();        numsIdx = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * Inserts a value to the collection. Returns true if the collection did not already contain the specified element.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-keyword">int</span> val)</span> </span>&#123;        nums.add(val);        Set&lt;Integer&gt; idxSet = numsIdx.getOrDefault(val, <span class="hljs-keyword">new</span> HashSet&lt;&gt;());        <span class="hljs-comment">// 新增元素在 list 末尾</span>        idxSet.add(nums.size() - <span class="hljs-number">1</span>);        numsIdx.put(val, idxSet);        <span class="hljs-comment">// size == 1 说明第一次出现 val</span>        <span class="hljs-keyword">return</span> idxSet.size() == <span class="hljs-number">1</span>;    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * Removes a value from the collection. Returns true if the collection contained the specified element.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">remove</span><span class="hljs-params">(<span class="hljs-keyword">int</span> val)</span> </span>&#123;        <span class="hljs-keyword">if</span> (!numsIdx.containsKey(val)) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        Iterator&lt;Integer&gt; iterator = numsIdx.get(val).iterator();        <span class="hljs-comment">// 获取 val 的其中一个位置</span>        <span class="hljs-keyword">int</span> valIdx = iterator.next();        <span class="hljs-comment">// 最后一个元素位置</span>        <span class="hljs-keyword">int</span> lastPos = nums.size() - <span class="hljs-number">1</span>;        <span class="hljs-comment">// 要删除的元素正好在末尾</span>        <span class="hljs-keyword">if</span> (valIdx == lastPos) &#123;            numsIdx.get(val).remove(valIdx);        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">int</span> tail = nums.get(lastPos);            <span class="hljs-comment">// O(1): 把 tail 设置到 val 的位置，然后删除 tail</span>            nums.set(valIdx, tail);            <span class="hljs-comment">// 删除 val 的原始索引</span>            numsIdx.get(val).remove(valIdx);            <span class="hljs-comment">// 更新 tail 的索引信息</span>            numsIdx.get(tail).remove(lastPos);            numsIdx.get(tail).add(valIdx);        &#125;        <span class="hljs-comment">// 删除最后一个元素</span>        nums.remove(lastPos);        <span class="hljs-comment">// 原来的 list 里 val 只出现了一次，删除后则出现 0 次</span>        <span class="hljs-keyword">if</span> (numsIdx.get(val).size() == <span class="hljs-number">0</span>) &#123;            numsIdx.remove(val);        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * Get a random element from the collection.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getRandom</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">int</span> idx = (<span class="hljs-keyword">int</span>)(Math.random() * nums.size());        <span class="hljs-keyword">return</span> nums.get(idx);    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>哈希表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 703. 数据流中的第 K 大元素</title>
     <link href="/2020/10/30/LeetCode-703-kth-largest-element-in-a-stream/"/>
     <url>/2020/10/30/LeetCode-703-kth-largest-element-in-a-stream/</url>
@@ -632,9 +659,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -661,9 +688,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1925,9 +1952,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -2035,9 +2062,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2176,9 +2203,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2377,11 +2404,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2437,11 +2464,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3422,9 +3449,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3451,9 +3478,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3598,11 +3625,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3745,9 +3772,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3971,9 +3998,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -4002,9 +4029,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4062,9 +4089,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4091,9 +4118,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
