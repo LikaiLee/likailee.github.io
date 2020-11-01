@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>LeetCode 140. 单词拆分 II</title>
+    <link href="/2020/11/01/LeetCode-140-word-break-ii/"/>
+    <url>/2020/11/01/LeetCode-140-word-break-ii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/word-break-ii/" target="_blank" rel="noopener">140. 单词拆分 II</a></p><h1 id="动态规划-回溯"><a class="markdownIt-Anchor" href="#动态规划-回溯"></a> 动态规划 + 回溯</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">wordBreak</span><span class="hljs-params">(String s, List&lt;String&gt; wordDict)</span> </span>&#123;    List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    <span class="hljs-keyword">int</span> len = s.length();    Set&lt;String&gt; dict = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(wordDict);    <span class="hljs-comment">// dp[i] : s[0:i-1] 可拆分</span>    <span class="hljs-keyword">boolean</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[len + <span class="hljs-number">1</span>];    dp[<span class="hljs-number">0</span>] = <span class="hljs-keyword">true</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; i; j++) &#123;            String suffix = s.substring(j, i);            <span class="hljs-comment">// 0...j...i</span>            <span class="hljs-comment">// dp[i] = dp[j] &amp;&amp; s[j:i] in dict</span>            <span class="hljs-keyword">if</span> (dp[j] &amp;&amp; dict.contains(suffix)) &#123;                dp[i] = <span class="hljs-keyword">true</span>;                <span class="hljs-keyword">break</span>;            &#125;        &#125;    &#125;    <span class="hljs-keyword">if</span> (dp[len]) &#123;        ArrayDeque&lt;String&gt; path = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();        backtrack(len, dp, path, s, dict, res);    &#125;    <span class="hljs-keyword">return</span> res;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> len, <span class="hljs-keyword">boolean</span>[] dp, ArrayDeque&lt;String&gt; path, String s, Set&lt;String&gt; dict, List&lt;String&gt; res)</span> </span>&#123;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        res.add(String.join(<span class="hljs-string">" "</span>, path));        <span class="hljs-keyword">return</span>;    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;        String suffix = s.substring(i, len);        <span class="hljs-comment">// 0....i...len</span>        <span class="hljs-comment">// s[i:len] in dict &amp;&amp; dp[i] 可拆分</span>        <span class="hljs-keyword">if</span> (dp[i] &amp;&amp; dict.contains(suffix)) &#123;            <span class="hljs-comment">// 后缀往后放</span>            path.addFirst(suffix);            backtrack(i, dp, path, s, dict, res);            path.removeFirst();        &#125;    &#125;&#125;</code></pre><h1 id="回溯-记忆化"><a class="markdownIt-Anchor" href="#回溯-记忆化"></a> 回溯 + 记忆化</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">wordBreak</span><span class="hljs-params">(String s, List&lt;String&gt; wordDict)</span> </span>&#123;        <span class="hljs-keyword">int</span> len = s.length();        Set&lt;String&gt; dict = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(wordDict);        Map&lt;Integer, List&lt;String&gt;&gt; cache = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();        <span class="hljs-keyword">return</span> backtrack(<span class="hljs-number">0</span>, len, s, dict, cache);    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> List&lt;String&gt; <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> start, <span class="hljs-keyword">int</span> len, String s, Set&lt;String&gt; dict, Map&lt;Integer, List&lt;String&gt;&gt; cache)</span> </span>&#123;        <span class="hljs-comment">// 从 start 开始形成的路径</span>        List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();        <span class="hljs-keyword">if</span> (start == len) &#123;            res.add(<span class="hljs-string">""</span>);            <span class="hljs-keyword">return</span> res;        &#125;        <span class="hljs-keyword">if</span> (cache.containsKey(start)) &#123;            <span class="hljs-keyword">return</span> cache.get(start);        &#125;        <span class="hljs-comment">// start....i....len</span>        <span class="hljs-comment">// "catsanddog"</span>        <span class="hljs-comment">// ["cat","cats","and","sand","dog"]</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = start + <span class="hljs-number">1</span>; i &lt;= len; i++) &#123;            String prefix = s.substring(start, i);            <span class="hljs-keyword">if</span> (dict.contains(prefix)) &#123;                <span class="hljs-comment">// 从 i 开始形成的路径</span>                List&lt;String&gt; rest = backtrack(i, len, s, dict, cache);                System.out.println(prefix + <span class="hljs-string">" "</span> + rest);                <span class="hljs-keyword">for</span> (String path : rest) &#123;                    <span class="hljs-keyword">if</span> (<span class="hljs-string">""</span>.equals(path)) &#123;                        res.add(prefix);                    &#125; <span class="hljs-keyword">else</span> &#123;                        res.add(prefix + <span class="hljs-string">" "</span> + path);                    &#125;                &#125;            &#125;        &#125;        cache.put(start, res);        <span class="hljs-keyword">return</span> res;    &#125;</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
+      
+      <tag>回溯</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 139. 单词拆分</title>
     <link href="/2020/11/01/LeetCode-139-word-break/"/>
     <url>/2020/11/01/LeetCode-139-word-break/</url>
@@ -24,11 +49,11 @@
       
       <tag>动态规划</tag>
       
+      <tag>BFS</tag>
+      
       <tag>DFS</tag>
       
       <tag>回溯</tag>
-      
-      <tag>BFS</tag>
       
     </tags>
     
@@ -192,9 +217,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -223,9 +248,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -389,9 +414,9 @@
     
     <tags>
       
-      <tag>DFS</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>DFS</tag>
       
       <tag>队列</tag>
       
@@ -883,9 +908,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -1649,9 +1674,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2124,9 +2149,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -2495,9 +2520,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
@@ -3219,9 +3244,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -3304,9 +3329,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -3335,11 +3360,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -3364,9 +3389,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -3393,9 +3418,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -3422,9 +3447,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -3451,9 +3476,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -3480,9 +3505,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -3509,9 +3534,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -3656,9 +3681,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
@@ -3687,11 +3712,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -3716,9 +3741,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -3774,9 +3799,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -3803,9 +3828,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
@@ -3861,9 +3886,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -3971,11 +3996,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -4029,9 +4054,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -4060,9 +4085,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -4089,9 +4114,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -4120,9 +4145,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -4149,9 +4174,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -4178,9 +4203,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -4205,9 +4230,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -4232,9 +4257,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -4284,9 +4309,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -4311,9 +4336,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -4338,9 +4363,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -5193,9 +5218,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -5787,9 +5812,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -5816,11 +5841,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>BFS</tag>
+      
       <tag>DFS</tag>
       
       <tag>回溯</tag>
-      
-      <tag>BFS</tag>
       
       <tag>并查集</tag>
       
@@ -5849,11 +5874,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>BFS</tag>
+      
       <tag>DFS</tag>
       
       <tag>回溯</tag>
-      
-      <tag>BFS</tag>
       
     </tags>
     
@@ -5907,9 +5932,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -5990,9 +6015,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>回溯</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>回溯</tag>
       
     </tags>
     
@@ -6019,9 +6044,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -6125,9 +6150,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>回溯</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>回溯</tag>
       
     </tags>
     
