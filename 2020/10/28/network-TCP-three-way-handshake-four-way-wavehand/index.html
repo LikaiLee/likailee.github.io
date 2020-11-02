@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月29日 下午
+                  本文最后更新于：2020年11月2日 下午
                 
               </p>
             
@@ -481,7 +481,7 @@ UDP 的数据大小如果大于 <code>MTU</code> 大小，则会在 <code>IP 层
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201029124052.png" srcset="/img/loading.gif" alt="" /></p>
 <ul>
-<li>如上图红色框框客户端四次挥手的最后一个 <code>ACK</code> 报文如果在网络中被丢失了，此时如果客户端 <code>TIME-WAIT</code> 过短或没有，则就直接进入了 <code>CLOSED</code> 状态了，那么<strong>服务端则会一直处在 <code>LASE-ACK</code> 状态。</strong></li>
+<li>如上图红色框框客户端四次挥手的最后一个 <code>ACK</code> 报文如果在网络中被丢失了，此时如果客户端 <code>TIME-WAIT</code> 过短或没有，则就直接进入了 <code>CLOSED</code> 状态了，那么<strong>服务端则会一直处在 <code>LAST-ACK</code> 状态。</strong></li>
 <li>当客户端发起建立连接的 <code>SYN</code> 请求报文后，服务端会发送 <code>RST</code> 报文给客户端，连接建立的过程就会被终止。</li>
 </ul>
 <p>如果 <code>TIME-WAIT</code> 等待足够长的情况就会遇到两种情况：</p>

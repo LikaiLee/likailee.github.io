@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.9k 字
+      8.2k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      73
+      87
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月23日 下午
+                  本文最后更新于：2020年11月2日 下午
                 
               </p>
             
@@ -259,6 +259,8 @@
 路由器将局域网连接起来，或者接入互联网。</li>
 <li>路由器实现了<strong>不同网络</strong>之间的数据<strong>转发</strong>；<br />
 交换机实现了<strong>特定网络</strong>内的数据<strong>交换</strong>。</li>
+<li>路由器是基于 <code>IP</code> 设计的，俗称三层网络设备，路由器的各个端口都<strong>具有 MAC 地址和 IP 地址</strong>；</li>
+<li>而交换机是基于<code>以太网</code>设计的，俗称二层网络设备，<strong>交换机的端口不具有 MAC 地址</strong>。</li>
 </ul>
 <h1 id="tcpip-基础知识"><a class="markdownIt-Anchor" href="#tcpip-基础知识"></a> TCP/IP 基础知识</h1>
 <h2 id="tcpip-具体含义"><a class="markdownIt-Anchor" href="#tcpip-具体含义"></a> TCP/IP 具体含义</h2>
@@ -333,6 +335,10 @@
 <h3 id="分类"><a class="markdownIt-Anchor" href="#分类"></a> 分类</h3>
 <p>根据 IP 地址中从第 <code>1</code> 位到第 <code>4</code> 位划分为 <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>, <code>E</code> 类。</p>
 <p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201016134533" srcset="/img/loading.gif" alt="" /></p>
+<blockquote>
+<p>当主机号全为 1 时，就表示该网络的广播地址。<br />
+广播地址用于在同一个链路中相互连接的主机之间发送数据包。</p>
+</blockquote>
 <ul>
 <li>A 类地址：第 1 字节为网络地址，其它 3 个字节为主机地址。它的第 1 个字节的<code>第一位</code>固定为 <code>0</code>。
 <ul>
@@ -377,6 +383,70 @@
 IP 地址：172. 20.  100. 52<br />
 子网掩码：255. 255. 255. 192</p>
 <p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201019122155" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="无分类地址-cidr"><a class="markdownIt-Anchor" href="#无分类地址-cidr"></a> 无分类地址 CIDR</h2>
+<h3 id="ip-分类的缺点"><a class="markdownIt-Anchor" href="#ip-分类的缺点"></a> IP 分类的缺点</h3>
+<ol>
+<li><strong>同一网络下没有地址层次</strong>。比如一个公司里用了 B 类地址，但是可能需要根据生产环境、测试环境、开发环境来划分地址层次，而这种 IP 分类是没有地址层次划分的功能，所以这就缺少地址的灵活性。</li>
+<li><strong>不能很好的与现实网络匹配</strong>。C 类地址最大主机数量太少，而 B 类地址最大主机数量太多。</li>
+</ol>
+<h3 id="划分网络号和主机号"><a class="markdownIt-Anchor" href="#划分网络号和主机号"></a> 划分网络号和主机号</h3>
+<p><code>CIDR</code> 不再有分类地址的概念，32 比特的 IP 地址被划分为两部分，前面是网络号，后面是主机号。<br />
+表示形式 <code>a.b.c.d/x</code>，其中 <code>/x</code> 表示前 <code>x</code> 位属于<code>网络号</code>， <code>x</code> 的范围是 <code>0 ~ 32</code>，这就使得 <code>IP</code> 地址更加具有灵活性。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201102141842.png" srcset="/img/loading.gif" alt="" /></p>
+<p>还有另一种划分网络号与主机号形式，那就是子网掩码，掩码的意思就是掩盖掉主机号，剩余的就是网络号。<br />
+<strong>将子网掩码和 IP 地址按位计算 AND，就可得到网络号。</strong></p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201102141924.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="子网划分"><a class="markdownIt-Anchor" href="#子网划分"></a> 子网划分</h3>
+<p>可以通过子网掩码划分出网络号和主机号，实际上子网掩码还有一个作用，那就是<strong>划分子网</strong>。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201102143204.png" srcset="/img/loading.gif" alt="" /></p>
+<ul>
+<li>未做子网划分的 IP 地址：网络地址＋主机地址</li>
+<li>做子网划分后的 IP 地址：网络地址＋（子网网络地址＋子网主机地址）</li>
+</ul>
+<p>假设对 C 类地址进行子网划分，网络地址 <code>192.168.1.0</code>，使用子网掩码 <code>255.255.255.192</code> 对其进行子网划分。</p>
+<p>C 类地址中前 <code>24</code> 位是网络号，最后 <code>8</code> 位是主机号，根据子网掩码可知<strong>从 8 位主机号中借用 2 位作为子网号。</strong></p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201102143435.png" srcset="/img/loading.gif" alt="" /></p>
+<p>由于子网网络地址被划分成 <code>2</code> 位，那么子网地址就有 <code>4</code> 个，分别是 <code>00</code>、<code>01</code>、<code>10</code>、<code>11</code>，具体划分如下图：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201102143554.png" srcset="/img/loading.gif" alt="" /></p>
+<p>划分后的 4 个子网如下表格：</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201102143721.png" srcset="/img/loading.gif" alt="" /></p>
+<h2 id="ipv6"><a class="markdownIt-Anchor" href="#ipv6"></a> IPv6</h2>
+<p><code>IPv4</code> 的地址是 <code>32</code> 位的，大约可以提供 42 亿个地址。<code>IPv6</code> 的地址是 <code>128</code> 位的，还有更好的安全性和扩展性。</p>
+<h3 id="ipv6-的亮点"><a class="markdownIt-Anchor" href="#ipv6-的亮点"></a> IPv6 的亮点</h3>
+<ul>
+<li>IPv6 可<strong>自动配置</strong>，即使没有 DHCP 服务器也可以实现自动分配IP地址，真是便捷到即插即用啊。</li>
+<li>IPv6 包头包首部长度采用固定的值 <code>40</code> 字节，去掉了包头校验和，<strong>简化了首部结构</strong>，减轻了路由器负荷，大大提高了传输的性能。</li>
+<li>IPv6 有应对伪造 <code>IP</code> 地址的网络安全功能以及防止线路窃听的功能，大大提升了<strong>安全性</strong>。</li>
+</ul>
+<h3 id="ipv6-地址的标识方法"><a class="markdownIt-Anchor" href="#ipv6-地址的标识方法"></a> IPv6 地址的标识方法</h3>
+<p><code>IPv4</code> 地址长度共 <code>32</code> 位，是以每 <code>8</code> 位作为一组，并用<strong>点分十进制</strong>的表示方式。</p>
+<p><code>IPv6</code> 地址长度是 <code>128</code> 位，是以每 <code>16</code> 位作为一组，每组用冒号 「<code>:</code>」 隔开。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201102150041.png" srcset="/img/loading.gif" alt="" /></p>
+<p>如果出现连续的 0 时还可以将这些 0 省略，并用两个冒号 「<code>::</code>」隔开。但是，<strong>一个 IP 地址中只允许出现一次两个连续的冒号。</strong></p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201102150108.png" srcset="/img/loading.gif" alt="" /></p>
+<h3 id="ipv6-地址的结构"><a class="markdownIt-Anchor" href="#ipv6-地址的结构"></a> IPv6 地址的结构</h3>
+<p>IPv6 的地址主要有以下类型地址：</p>
+<ul>
+<li>单播地址，用于一对一的通信；</li>
+<li>组播地址，用于一对多的通信；</li>
+<li>任播地址，用于通信最近的节点，最近的节点是由路由协议决定；</li>
+<li><strong>没有广播地址</strong>。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201102150205.png" srcset="/img/loading.gif" alt="" /></p>
+<p>对于一对一通信的 IPv6 地址，主要划分了三类单播地址，每类地址的有效范围都不同。</p>
+<ol>
+<li>在同一链路单播通信，不经过路由器，可以使用<strong>链路本地单播地址</strong>，IPv4 没有此类型；</li>
+<li>在内网里单播通信，可以使用<strong>唯一本地地址</strong>，相当于 IPv4 的私有 IP；</li>
+<li>在互联网通信，可以使用<strong>全局单播地址</strong>，相当于 IPv4 的公有 IP；</li>
+</ol>
+<h3 id="ipv4-首部与-ipv6-首部"><a class="markdownIt-Anchor" href="#ipv4-首部与-ipv6-首部"></a> IPv4 首部与 IPv6 首部</h3>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201102150356.png" srcset="/img/loading.gif" alt="" /></p>
+<p>IPv6 相比 IPv4 的首部改进：</p>
+<ul>
+<li><strong>取消了首部校验和字段</strong>。 因为在数据链路层和传输层都会校验，因此 IPv6 直接取消了 IP 的校验。</li>
+<li><strong>取消了分片/重新组装相关字段</strong>。 分片与重组是耗时的过程，IPv6 不允许在中间路由器进行分片与重组，这种操作只能在源与目标主机，这将大大提高了路由器转发的速度。</li>
+<li><strong>取消选项字段</strong>。 选项字段不再是标准 IP 首部的一部分了，但它并没有消失，而是可能出现在 IPv6 首部中的「下一个首部」指出的位置上。删除该选项字段使的 IPv6 的首部成为固定长度的 40 字节。</li>
+</ul>
 <h2 id="路由控制-2"><a class="markdownIt-Anchor" href="#路由控制-2"></a> 路由控制</h2>
 <p>IP 地址的网络部分用于进行路由控制。路由表中记录着<strong>网络地址</strong>与下一步应该发送至<strong>路由器的地址</strong>。如果路由表中存在多条相同网络地址的记录，就选择一个相同位数最多（<code>最长匹配</code>）的网络地址。</p>
 <ul>
