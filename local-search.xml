@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 973. 最接近原点的 K 个点</title>
+    <link href="/2020/11/02/LeetCode-973-k-closest-points-to-origin/"/>
+    <url>/2020/11/02/LeetCode-973-k-closest-points-to-origin/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/k-closest-points-to-origin/" target="_blank" rel="noopener">973. 最接近原点的 K 个点</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[][] kClosest(<span class="hljs-keyword">int</span>[][] points, <span class="hljs-keyword">int</span> K) &#123;    PriorityQueue&lt;<span class="hljs-keyword">int</span>[]&gt; minHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; o2[<span class="hljs-number">0</span>] * o2[<span class="hljs-number">0</span>] + o2[<span class="hljs-number">1</span>] * o2[<span class="hljs-number">1</span>] - o1[<span class="hljs-number">0</span>] * o1[<span class="hljs-number">0</span>] - o1[<span class="hljs-number">1</span>] * o1[<span class="hljs-number">1</span>]);    <span class="hljs-keyword">int</span>[][] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[K][<span class="hljs-number">2</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] point : points) &#123;        minHeap.add(point);        <span class="hljs-keyword">if</span> (minHeap.size() &gt; K) &#123;            minHeap.poll();        &#125;    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; K; i++) &#123;        res[i] = minHeap.poll();    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>优先队列</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 140. 单词拆分 II</title>
     <link href="/2020/11/01/LeetCode-140-word-break-ii/"/>
     <url>/2020/11/01/LeetCode-140-word-break-ii/</url>
@@ -3192,9 +3219,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3221,9 +3248,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
