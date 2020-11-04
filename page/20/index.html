@@ -170,6 +170,57 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/21/LeetCode-198-house-robber/">LeetCode 198. 打家劫舍</a>
+
+      <a href="/2020/08/21/LeetCode-198-house-robber/" class="index-excerpt">
+        
+        
+          
+        
+        <div>198. 打家劫舍
+状态：dp[i] 第 i 个数结尾的最大子序列和
+转移：
+
+不偷 nums[i], dp[i] = dp[i - 1]
+偷 nums[i - 2], dp[i] = dp[i - 2] + nums[i - 1]
+
+public int rob(int[] nums) &#123;
+    int len = nums.length;
+    if (len == 0) &#1</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-21
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/21/LeetCode-152-maximum-product-subarray/">LeetCode 152. 乘积最大子数组</a>
 
       <a href="/2020/08/21/LeetCode-152-maximum-product-subarray/" class="index-excerpt">
@@ -367,9 +418,9 @@ base: 两个字符串中有一个为空，则 dp[0][j] = 0 或 dp[i][0] = 0
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
             
           </div>
         
@@ -634,55 +685,6 @@ public int uniquePaths(int m, int n) &#123;
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>&nbsp;2020-08-18
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/MySQL/">MySQL</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MySQL/">MySQL</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/17/MySQL-transaction/">MySQL 事务</a>
-
-      <a href="/2020/08/17/MySQL-transaction/" class="index-excerpt">
-        
-        
-          
-        
-        <div> 介绍
- 定义
-
-事务是访问并更新数据库中各种数据项的一个程序执行单元。
-在事务中的操作，要么都不做，要么都做修改，这就是事务的目的，也是事务模型区别于文件系统的重要特征之一。
-
-
-事务就是一组原子性的 SQL 语句。具体来说，事务指的是满足 ACID 特性的一组操作。
-通过 COMMIT 提交一个事务，也可以使用 ROLLBACK 进行回滚。
-事务内的 SQL 语句，要么全执行成功，要么全执行失</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-17
           </div>
         
         
