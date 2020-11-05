@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 109. 有序链表转换二叉搜索树</title>
+    <link href="/2020/11/05/LeetCode-109-convert-sorted-list-to-binary-search-tree/"/>
+    <url>/2020/11/05/LeetCode-109-convert-sorted-list-to-binary-search-tree/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/convert-sorted-list-to-binary-search-tree/" target="_blank" rel="noopener">109. 有序链表转换二叉搜索树</a></p><h1 id="数组分割"><a class="markdownIt-Anchor" href="#数组分割"></a> 数组分割</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">sortedListToBST</span><span class="hljs-params">(ListNode head)</span> </span>&#123;    <span class="hljs-keyword">if</span> (head == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;    &#125;    List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    <span class="hljs-keyword">while</span> (head != <span class="hljs-keyword">null</span>) &#123;        list.add(head.val);        head = head.next;    &#125;    <span class="hljs-keyword">return</span> buildTree(list, <span class="hljs-number">0</span>, list.size() - <span class="hljs-number">1</span>);&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> TreeNode <span class="hljs-title">buildTree</span><span class="hljs-params">(List&lt;Integer&gt; list, <span class="hljs-keyword">int</span> begin, <span class="hljs-keyword">int</span> end)</span> </span>&#123;    <span class="hljs-keyword">if</span> (begin &gt; end) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;    &#125;    <span class="hljs-comment">// 找到中点</span>    <span class="hljs-keyword">int</span> rootIdx = begin + (end - begin + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;    <span class="hljs-keyword">int</span> rootVal = list.get(rootIdx);    System.out.println(rootVal + <span class="hljs-string">" begin: "</span> + begin + <span class="hljs-string">" end: "</span> + end);    TreeNode root = <span class="hljs-keyword">new</span> TreeNode(rootVal);    <span class="hljs-comment">// 划分左右子树</span>    root.left = buildTree(list, begin, rootIdx - <span class="hljs-number">1</span>);    root.right = buildTree(list, rootIdx + <span class="hljs-number">1</span>, end);    <span class="hljs-keyword">return</span> root;&#125;</code></pre><h1 id="快慢指针"><a class="markdownIt-Anchor" href="#快慢指针"></a> 快慢指针</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">sortedListToBST</span><span class="hljs-params">(ListNode head)</span> </span>&#123;    <span class="hljs-keyword">if</span> (head == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;    &#125;    ListNode pre = <span class="hljs-keyword">null</span>;    ListNode slow = head;    ListNode fast = head;    <span class="hljs-comment">// 快慢指针结束时，slow 即为 root 对应的值</span>    <span class="hljs-keyword">while</span> (fast != <span class="hljs-keyword">null</span> &amp;&amp; fast.next != <span class="hljs-keyword">null</span>) &#123;        pre = slow;        slow = slow.next;        fast = fast.next.next;    &#125;    <span class="hljs-comment">// head -&gt; ... -&gt; pre    slow -&gt; slow.next</span>    TreeNode root = <span class="hljs-keyword">new</span> TreeNode(slow.val);    <span class="hljs-comment">// pre 有值才存在左子树</span>    <span class="hljs-keyword">if</span> (pre != <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-comment">// 切断 pre 和 slow 之前的联系</span>        pre.next = <span class="hljs-keyword">null</span>;        root.left = sortedListToBST(head);    &#125;    root.right = sortedListToBST(slow.next);    <span class="hljs-keyword">return</span> root;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 106. 从中序与后序遍历序列构造二叉树</title>
     <link href="/2020/11/04/LeetCode-106-construct-binary-tree-from-inorder-and-postorder-traversal/"/>
     <url>/2020/11/04/LeetCode-106-construct-binary-tree-from-inorder-and-postorder-traversal/</url>
@@ -2356,9 +2383,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2758,11 +2785,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3627,9 +3654,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3656,9 +3683,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3685,9 +3712,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3714,9 +3741,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3743,9 +3770,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3772,9 +3799,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3919,11 +3946,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3979,9 +4006,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -4037,9 +4064,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4066,9 +4093,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4124,9 +4151,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4292,9 +4319,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -4323,9 +4350,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4383,9 +4410,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4412,9 +4439,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5456,9 +5483,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
