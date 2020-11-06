@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>设计模式-创建型</title>
+    <link href="/2020/11/06/design-patterns-creational/"/>
+    <url>/2020/11/06/design-patterns-creational/</url>
+    
+    <content type="html"><![CDATA[<h1 id="单例singleton"><a class="markdownIt-Anchor" href="#单例singleton"></a> 单例（Singleton）</h1><blockquote><p>确保一个类只有一个实例，并提供该实例的全局访问点。</p></blockquote><p>使用一个私有构造函数、一个私有静态变量以及一个公有静态函数来实现。</p><p>私有构造函数保证了不能通过构造函数来创建对象实例，只能通过公有静态函数返回唯一的私有静态变量。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201106130230.png" srcset="/img/loading.gif" alt="" /></p><h2 id="懒汉式-线程不安全"><a class="markdownIt-Anchor" href="#懒汉式-线程不安全"></a> 懒汉式-线程不安全</h2><p>以下实现中，私有静态变量 <code>uniqueInstance</code> 被延迟实例化，这样做的好处是，如果没有用到该类，那么就不会实例化 <code>uniqueInstance</code>，从而节约资源。</p><p>这个实现在多线程环境下是不安全的，如果多个线程能够同时进入 <code>if (uniqueInstance == null)</code> ，并且此时 <code>uniqueInstance</code> 为 <code>null</code>，那么会有多个线程执行 <code>uniqueInstance = new Singleton();</code> 语句，这将导致实例化多次 <code>uniqueInstance</code>。</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Singleton uniqueInstance;        <span class="hljs-comment">/**</span><span class="hljs-comment">     * 私有化构造方法</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span> </span>&#123;    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">if</span> (uniqueInstance == <span class="hljs-keyword">null</span>) &#123;            uniqueInstance = <span class="hljs-keyword">new</span> Singleton();        &#125;        <span class="hljs-keyword">return</span> uniqueInstance;    &#125;&#125;</code></pre><h2 id="懒汉式-线程安全"><a class="markdownIt-Anchor" href="#懒汉式-线程安全"></a> 懒汉式-线程安全</h2><p>只需要对 <code>getUniqueInstance()</code> 方法加锁，那么在一个时间点只能有一个线程能够进入该方法，从而避免了实例化多次 <code>uniqueInstance</code>。</p><p>但是当一个线程进入该方法之后，其它试图进入该方法的线程都必须等待，即使 <code>uniqueInstance</code> 已经被实例化了。<strong>这会让线程阻塞时间过长，因此该方法有性能问题，不推荐使用。</strong></p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Singleton uniqueInstance;        <span class="hljs-comment">/**</span><span class="hljs-comment">     * 私有化构造方法</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span> </span>&#123;    &#125;-   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">if</span> (uniqueInstance == <span class="hljs-keyword">null</span>) &#123;            uniqueInstance = <span class="hljs-keyword">new</span> Singleton();        &#125;        <span class="hljs-keyword">return</span> uniqueInstance;    &#125;&#125;</code></pre><h2 id="饿汉式-线程安全"><a class="markdownIt-Anchor" href="#饿汉式-线程安全"></a> 饿汉式-线程安全</h2><p>线程不安全问题主要是由于 <code>uniqueInstance</code> 被实例化多次，采取直接实例化 <code>uniqueInstance</code> 的方式就不会产生线程不安全问题。</p><p>但是直接实例化的方式也<strong>丢失了延迟实例化带来的节约资源的好处</strong>。</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Singleton uniqueInstance = <span class="hljs-keyword">new</span> Singleton();    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 私有化构造方法</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span> </span>&#123;    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> uniqueInstance;    &#125;&#125;</code></pre><h2 id="双重校验锁-线程安全"><a class="markdownIt-Anchor" href="#双重校验锁-线程安全"></a> 双重校验锁-线程安全</h2><p><code>uniqueInstance</code> 只需要被实例化一次，之后就可以直接使用了。加锁操作只需要对实例化那部分的代码进行，只有当 <code>uniqueInstance</code> 没有被实例化时，才需要进行加锁。</p><p>双重校验锁先判断 <code>uniqueInstance</code> 是否已经被实例化，如果没有被实例化，那么才对实例化语句进行加锁。</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * volatile 禁止指令重排</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">volatile</span> <span class="hljs-keyword">static</span> Singleton uniqueInstance;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 私有化构造方法</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span> </span>&#123;    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">if</span> (uniqueInstance == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">synchronized</span> (Singleton<span class="hljs-class">.<span class="hljs-keyword">class</span>) </span>&#123;                <span class="hljs-comment">// 避免两个线程同时进入临界区，同时实例化</span>                <span class="hljs-keyword">if</span> (uniqueInstance == <span class="hljs-keyword">null</span>) &#123;                    uniqueInstance = <span class="hljs-keyword">new</span> Singleton();                &#125;            &#125;        &#125;        <span class="hljs-keyword">return</span> uniqueInstance;    &#125;&#125;</code></pre><p>考虑下面的实现，也就是只使用了一个 <code>if</code> 语句。在 <code>uniqueInstance == null</code> 的情况下，如果两个线程都执行了 <code>if</code> 语句，那么两个线程都会进入 <code>if</code> 语句块内。虽然在 if 语句块内有加锁操作，但是两个线程都会执行 <code>uniqueInstance = new Singleton();</code> 这条语句，只是先后的问题，那么就会进行<strong>两次实例化</strong>。因此必须使用<strong>双重校验锁</strong>，也就是需要使用两个 <code>if</code> 语句：</p><ul><li>第一个 <code>if</code> 语句用来避免 <code>uniqueInstance</code> 已经被实例化之后的加锁操作；</li><li>第二个 <code>if</code> 语句进行了加锁，所以只能有一个线程进入，就不会出现 <code>uniqueInstance == null</code> 时两个线程同时进行实例化操作。</li></ul><pre><code class="hljs java"><span class="hljs-keyword">if</span> (uniqueInstance == <span class="hljs-keyword">null</span>) &#123;    <span class="hljs-keyword">synchronized</span> (Singleton<span class="hljs-class">.<span class="hljs-keyword">class</span>) </span>&#123;        uniqueInstance = <span class="hljs-keyword">new</span> Singleton();    &#125;&#125;</code></pre><p><code>uniqueInstance</code> 采用 <code>volatile</code> 关键字修饰也是很有必要的， <code>uniqueInstance = new Singleton();</code> 这段代码其实是分为三步执行：</p><ol><li>为 <code>uniqueInstance</code> 分配内存空间</li><li>初始化 <code>uniqueInstance</code></li><li>将 <code>uniqueInstance</code> 指向分配的内存地址</li></ol><p>但是由于 <code>JVM</code> 具有<strong>指令重排</strong>的特性，执行顺序有可能变成 <code>1&gt;3&gt;2</code>。指令重排在单线程环境下不会出现问题，但是在多线程环境下会导致一个线程获得还没有初始化的实例。例如，线程 T1 执行了 1 和 3，此时 T2 调用 <code>getUniqueInstance()</code> 后发现 <code>uniqueInstance</code> 不为空，因此返回 <code>uniqueInstance</code>，但此时 <code>uniqueInstance</code> 还未被初始化。</p><p>使用 <code>volatile</code> 可以禁止 <code>JVM</code> 的指令重排，保证在多线程环境下也能正常运行。</p><h2 id="静态内部类实现-线程安全"><a class="markdownIt-Anchor" href="#静态内部类实现-线程安全"></a> 静态内部类实现 - 线程安全</h2><p>当 <code>Singleton</code> 类被加载时，静态内部类 <code>SingletonHolder</code> 没有被加载进内存。只有当调用 <code>getUniqueInstance()</code> 方法从而触发 <code>SingletonHolder.INSTANCE</code> 时 <code>SingletonHolder</code> 才会被加载，此时初始化 <code>INSTANCE</code> 实例，并且 <code>JVM</code> 能确保 <code>INSTANCE</code> 只被实例化一次。</p><p>这种方式不仅具有延迟初始化的好处，而且由 <code>JVM</code> 提供了对线程安全的支持。</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 私有化构造方法</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span> </span>&#123;    &#125;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingletonHolder</span> </span>&#123;        <span class="hljs-comment">// 静态类加载时实例化</span>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Singleton INSTANCE = <span class="hljs-keyword">new</span> Singleton();    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> SingletonHolder.INSTANCE;    &#125;&#125;</code></pre><h2 id="枚举实现"><a class="markdownIt-Anchor" href="#枚举实现"></a> 枚举实现</h2><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Singleton &#123;    INSTANCE;    <span class="hljs-keyword">private</span> String objName;    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getObjName</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> objName;    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setObjName</span><span class="hljs-params">(String objName)</span> </span>&#123;        <span class="hljs-keyword">this</span>.objName = objName;    &#125;&#125;</code></pre><p>该实现可以<strong>防止反射攻击</strong>。在其它实现中，通过 <code>setAccessible()</code> 方法可以将私有构造函数的访问级别设置为 <code>public</code>，然后调用构造函数从而实例化对象，如果要防止这种攻击，需要在构造函数中添加防止多次实例化的代码。该实现是由 <code>JVM</code> 保证只会实例化一次，因此不会出现上述的反射攻击。</p><p>该实现在多次序列化和序列化之后，不会得到多个实例。而其它实现需要使用 transient 修饰所有字段，并且实现序列化和反序列化的方法。</p><h1 id="工厂模式"><a class="markdownIt-Anchor" href="#工厂模式"></a> 工厂模式</h1><h2 id="简单工厂simple-factory"><a class="markdownIt-Anchor" href="#简单工厂simple-factory"></a> 简单工厂（Simple Factory）</h2><blockquote><p>在创建一个对象时不向客户暴露内部细节，并提供一个创建对象的通用接口。</p></blockquote><p>简单工厂把实例化的操作单独放到一个类中，这个类就成为简单工厂类，让简单工厂类来决定应该用哪个具体子类来实例化。</p><p>这样做能把客户类和具体子类的实现解耦，客户类不再需要知道有哪些子类以及应当实例化哪个子类。客户类往往有多个，如果不使用简单工厂，那么所有的客户类都要知道所有子类的细节。而且一旦子类发生改变，例如增加子类，那么所有的客户类都要进行修改。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201106135749.png" srcset="/img/loading.gif" alt="" /></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Product</span> </span>&#123;&#125;<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteProduct</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Product</span> </span>&#123;&#125;<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteProduct1</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Product</span> </span>&#123;&#125;<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteProduct2</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Product</span> </span>&#123;&#125;</code></pre><p>以下的 Client 类包含了实例化的代码，这是一种错误的实现。如果在客户类中存在这种实例化代码，就需要考虑将代码放到简单工厂中。</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;        <span class="hljs-keyword">int</span> type = <span class="hljs-number">1</span>;        Product product;        <span class="hljs-keyword">if</span> (type == <span class="hljs-number">1</span>) &#123;            product = <span class="hljs-keyword">new</span> ConcreteProduct1();        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (type == <span class="hljs-number">2</span>) &#123;            product = <span class="hljs-keyword">new</span> ConcreteProduct2();        &#125; <span class="hljs-keyword">else</span> &#123;            product = <span class="hljs-keyword">new</span> ConcreteProduct();        &#125;        <span class="hljs-comment">// do something with the product</span>    &#125;&#125;</code></pre><p>以下的 <code>SimpleFactory</code> 是简单工厂实现，它被所有需要进行实例化的客户类调用。</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleFactory</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> Product <span class="hljs-title">createProduct</span><span class="hljs-params">(<span class="hljs-keyword">int</span> type)</span> </span>&#123;        <span class="hljs-keyword">if</span> (type == <span class="hljs-number">1</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ConcreteProduct1();        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (type == <span class="hljs-number">2</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ConcreteProduct2();        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ConcreteProduct();    &#125;&#125;</code></pre><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;        SimpleFactory simpleFactory = <span class="hljs-keyword">new</span> SimpleFactory();        Product product = simpleFactory.createProduct(<span class="hljs-number">1</span>);        <span class="hljs-comment">// do something with the product</span>    &#125;&#125;</code></pre><h2 id="工厂方法factory-method"><a class="markdownIt-Anchor" href="#工厂方法factory-method"></a> 工厂方法（Factory Method）</h2><blockquote><p>定义了一个创建对象的接口，但由子类决定要实例化哪个类。工厂方法把实例化操作推迟到子类。</p></blockquote><p>在简单工厂中，创建对象的是另一个类，而在工厂方法中，是由<strong>子类</strong>来创建对象。</p><p>下图中，<code>Factory</code> 有一个 <code>doSomething()</code> 方法，这个方法需要用到一个产品对象，这个产品对象由 <code>factoryMethod()</code> 方法创建。该方法是抽象的，需要由子类去实现。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201106141233.png" srcset="/img/loading.gif" alt="" /></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Factory</span> </span>&#123;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 由具体的子类决定要实例化哪个类</span><span class="hljs-comment">     *</span><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> Product <span class="hljs-title">factoryMethod</span><span class="hljs-params">()</span></span>;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doSomething</span><span class="hljs-params">()</span> </span>&#123;        Product product = factoryMethod();        <span class="hljs-comment">// do something with the product</span>    &#125;&#125;</code></pre><p>子类：</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Factory</span> </span>&#123;    <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> Product <span class="hljs-title">factoryMethod</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ConcreteProduct();    &#125;&#125;<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteFactory1</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Factory</span> </span>&#123;    <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> Product <span class="hljs-title">factoryMethod</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ConcreteProduct1();    &#125;&#125;<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteFactory2</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Factory</span> </span>&#123;    <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> Product <span class="hljs-title">factoryMethod</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ConcreteProduct2();    &#125;&#125;</code></pre><h2 id="抽象工厂abstract-factory"><a class="markdownIt-Anchor" href="#抽象工厂abstract-factory"></a> 抽象工厂（Abstract Factory）</h2><blockquote><p>提供一个接口，用于创建 相关的<strong>对象家族</strong>。</p></blockquote><p>抽象工厂模式创建的是对象家族，也就是很多对象而不是一个对象，并且这些对象是相关的，也就是说必须一起创建出来。而工厂方法模式只是用于创建一个对象，这和抽象工厂模式有很大不同。</p><p><strong>抽象工厂模式用到了工厂方法模式来创建单一对象</strong>，<code>AbstractFactory</code> 中的 <code>createProductA()</code> 和 <code>createProductB()</code> 方法都是让子类来实现，这两个方法单独来看就是在创建一个对象，这符合工厂方法模式的定义。</p><p>至于创建对象的家族这一概念是在 <code>Client</code> 体现，<code>Client</code> 要通过 <code>AbstractFactory</code> 同时调用两个方法来创建出两个对象，在这里这两个对象就有很大的相关性，<code>Client</code> 需要同时创建出这两个对象。</p><p>从高层次来看，抽象工厂使用了组合，即 <code>Cilent</code> 组合了 <code>AbstractFactory</code>，而工厂方法模式使用了继承。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201106142709.png" srcset="/img/loading.gif" alt="" /></p><p>Product:</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractProductA</span> </span>&#123;&#125;<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractProductB</span> </span>&#123;&#125;<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProductA1</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractProductA</span> </span>&#123;&#125;<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProductA2</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractProductA</span> </span>&#123;&#125;<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProductB1</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractProductB</span> </span>&#123;&#125;<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProductB2</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractProductB</span> </span>&#123;&#125;</code></pre><p>抽象工厂：</p><pre><code class="hljs java"><span class="hljs-comment">/**</span><span class="hljs-comment"> * 抽象工厂，使用工厂方法建立对象</span><span class="hljs-comment"> */</span><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractFactory</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">abstract</span> AbstractProductA <span class="hljs-title">createProductA</span><span class="hljs-params">()</span></span>;    <span class="hljs-function"><span class="hljs-keyword">abstract</span> AbstractProductB <span class="hljs-title">createProductB</span><span class="hljs-params">()</span></span>;&#125;<span class="hljs-comment">/**</span><span class="hljs-comment"> * 子类</span><span class="hljs-comment"> */</span><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteFactory1</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractFactory</span> </span>&#123;    <span class="hljs-meta">@Override</span>    <span class="hljs-function">AbstractProductA <span class="hljs-title">createProductA</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ProductA1();    &#125;    <span class="hljs-meta">@Override</span>    <span class="hljs-function">AbstractProductB <span class="hljs-title">createProductB</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ProductB1();    &#125;&#125;<span class="hljs-comment">/**</span><span class="hljs-comment"> * 子类</span><span class="hljs-comment"> */</span><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteFactory2</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractFactory</span> </span>&#123;    <span class="hljs-meta">@Override</span>    <span class="hljs-function">AbstractProductA <span class="hljs-title">createProductA</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ProductA2();    &#125;    <span class="hljs-meta">@Override</span>    <span class="hljs-function">AbstractProductB <span class="hljs-title">createProductB</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ProductB2();    &#125;&#125;</code></pre><p>Client:</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;        AbstractFactory abstractFactory = <span class="hljs-keyword">new</span> ConcreteFactory1();        AbstractProductA productA = abstractFactory.createProductA();        AbstractProductB productB = abstractFactory.createProductB();        <span class="hljs-comment">// do something with productA and productB</span>    &#125;&#125;</code></pre><h1 id="建造者builder"><a class="markdownIt-Anchor" href="#建造者builder"></a> 建造者（Builder）</h1><blockquote><p>封装一个对象的构造过程，并允许按步骤构造。</p></blockquote><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201106144846.png" srcset="/img/loading.gif" alt="" /></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractStringBuilder</span> </span>&#123;    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">char</span>[] value;    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">int</span> count;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AbstractStringBuilder</span><span class="hljs-params">(<span class="hljs-keyword">int</span> capacity)</span> </span>&#123;        count = <span class="hljs-number">0</span>;        value = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[capacity];    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> AbstractStringBuilder <span class="hljs-title">append</span><span class="hljs-params">(<span class="hljs-keyword">char</span> c)</span> </span>&#123;        ensureCapacityInternal(count + <span class="hljs-number">1</span>);        value[count++] = c;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ensureCapacityInternal</span><span class="hljs-params">(<span class="hljs-keyword">int</span> minimumCapacity)</span> </span>&#123;        <span class="hljs-comment">// overflow-conscious code</span>        <span class="hljs-keyword">if</span> (minimumCapacity - value.length &gt; <span class="hljs-number">0</span>)            expandCapacity(minimumCapacity);    &#125;    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">expandCapacity</span><span class="hljs-params">(<span class="hljs-keyword">int</span> minimumCapacity)</span> </span>&#123;        <span class="hljs-keyword">int</span> newCapacity = value.length * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>;        <span class="hljs-keyword">if</span> (newCapacity - minimumCapacity &lt; <span class="hljs-number">0</span>)            newCapacity = minimumCapacity;        <span class="hljs-keyword">if</span> (newCapacity &lt; <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">if</span> (minimumCapacity &lt; <span class="hljs-number">0</span>) <span class="hljs-comment">// overflow</span>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> OutOfMemoryError();            newCapacity = Integer.MAX_VALUE;        &#125;        value = Arrays.copyOf(value, newCapacity);    &#125;&#125;</code></pre><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StringBuilder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractStringBuilder</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">StringBuilder</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">super</span>(<span class="hljs-number">16</span>);    &#125;    <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-comment">// Create a copy, don't share the array</span>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> String(value, <span class="hljs-number">0</span>, count);    &#125;&#125;</code></pre><h1 id="原型模式prototype"><a class="markdownIt-Anchor" href="#原型模式prototype"></a> 原型模式（Prototype）</h1><blockquote><p>使用原型实例指定要创建对象的类型，通过<strong>复制</strong>这个原型来创建新对象。</p></blockquote><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201106150128.png" srcset="/img/loading.gif" alt="" /></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Prototype</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> Prototype <span class="hljs-title">Myclone</span><span class="hljs-params">()</span></span>;&#125;<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcretePrototype</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Prototype</span> </span>&#123;    <span class="hljs-keyword">private</span> String field;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ConcretePrototype</span><span class="hljs-params">(String field)</span> </span>&#123;        <span class="hljs-keyword">this</span>.field = field;    &#125;    <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> Prototype <span class="hljs-title">Myclone</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ConcretePrototype(field);    &#125;    <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> <span class="hljs-string">"ConcretePrototype&#123;"</span> +                <span class="hljs-string">"field='"</span> + field + <span class="hljs-string">'\''</span> +                <span class="hljs-string">'&#125;'</span>;    &#125;&#125;</code></pre><p>Clint:</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;        Prototype prototype = <span class="hljs-keyword">new</span> ConcretePrototype(<span class="hljs-string">"abc"</span>);        Prototype cloned = prototype.Myclone();        System.out.println(cloned.toString());    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 92. 反转链表 II</title>
     <link href="/2020/11/05/LeetCode-92-reverse-linked-list-ii/"/>
     <url>/2020/11/05/LeetCode-92-reverse-linked-list-ii/</url>
@@ -1104,9 +1129,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1133,9 +1158,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2397,9 +2422,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -2507,9 +2532,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2648,9 +2673,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2849,11 +2874,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2909,11 +2934,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3778,9 +3803,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3807,9 +3832,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3836,9 +3861,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3865,9 +3890,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3894,9 +3919,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3923,9 +3948,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4070,11 +4095,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4130,9 +4155,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -4188,9 +4213,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4217,9 +4242,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4275,9 +4300,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4443,9 +4468,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -4474,9 +4499,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4534,9 +4559,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4563,9 +4588,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5607,9 +5632,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
