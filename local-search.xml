@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 1356. 根据数字二进制下 1 的数目排序</title>
+    <link href="/2020/11/06/LeetCode-1356-sort-integers-by-the-number-of-1-bits/"/>
+    <url>/2020/11/06/LeetCode-1356-sort-integers-by-the-number-of-1-bits/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/sort-integers-by-the-number-of-1-bits/" target="_blank" rel="noopener">1356. 根据数字二进制下 1 的数目排序</a></p><h1 id="排序"><a class="markdownIt-Anchor" href="#排序"></a> 排序</h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] sortByBits(<span class="hljs-keyword">int</span>[] arr) &#123;    <span class="hljs-keyword">int</span> len = arr.length;    Integer[] nums = <span class="hljs-keyword">new</span> Integer[len];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        nums[i] = arr[i];    &#125;    Arrays.sort(nums, (o1, o2) -&gt; &#123;        <span class="hljs-keyword">int</span> count1 = Integer.bitCount(o1);        <span class="hljs-keyword">int</span> count2 = Integer.bitCount(o2);        <span class="hljs-keyword">return</span> count1 == count2 ? o1 - o2 : count1 - count2;    &#125;);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        arr[i] = nums[i];    &#125;    <span class="hljs-keyword">return</span> arr;&#125;</code></pre><h1 id="优先队列"><a class="markdownIt-Anchor" href="#优先队列"></a> 优先队列</h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] sortByBits(<span class="hljs-keyword">int</span>[] arr) &#123;    <span class="hljs-keyword">int</span> len = arr.length;    <span class="hljs-comment">// int[2]: 0 -&gt; 1 的个数，1 -&gt; arr[i]</span>    PriorityQueue&lt;<span class="hljs-keyword">int</span>[]&gt; minHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; o1[<span class="hljs-number">0</span>] == o2[<span class="hljs-number">0</span>] ? o1[<span class="hljs-number">1</span>] - o2[<span class="hljs-number">1</span>] : o1[<span class="hljs-number">0</span>] - o2[<span class="hljs-number">0</span>]);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : arr) &#123;        <span class="hljs-keyword">int</span>[] map = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;countOnes(num), num&#125;;        minHeap.add(map);    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        arr[i] = minHeap.poll()[<span class="hljs-number">1</span>];    &#125;    <span class="hljs-keyword">return</span> arr;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">countOnes</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (num != <span class="hljs-number">0</span>) &#123;        num = num &amp; (num - <span class="hljs-number">1</span>);        count++;    &#125;    <span class="hljs-keyword">return</span> count;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
+      
+      <tag>优先队列</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 230. 二叉搜索树中第K小的元素</title>
     <link href="/2020/11/06/LeetCode-230-kth-smallest-element-in-a-bst/"/>
     <url>/2020/11/06/LeetCode-230-kth-smallest-element-in-a-bst/</url>
@@ -745,9 +774,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -853,9 +882,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>链表</tag>
-      
       <tag>优先队列</tag>
+      
+      <tag>链表</tag>
       
     </tags>
     
