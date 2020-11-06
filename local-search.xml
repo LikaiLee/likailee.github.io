@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 230. 二叉搜索树中第K小的元素</title>
+    <link href="/2020/11/06/LeetCode-230-kth-smallest-element-in-a-bst/"/>
+    <url>/2020/11/06/LeetCode-230-kth-smallest-element-in-a-bst/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/" target="_blank" rel="noopener">230. 二叉搜索树中第K小的元素</a></p><h1 id="中序遍历"><a class="markdownIt-Anchor" href="#中序遍历"></a> 中序遍历</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">kthSmallest</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    Deque&lt;TreeNode&gt; stack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (root != <span class="hljs-keyword">null</span> || !stack.isEmpty()) &#123;        <span class="hljs-keyword">while</span> (root != <span class="hljs-keyword">null</span>) &#123;            stack.push(root);            root = root.left;        &#125;        TreeNode top = stack.pop();        <span class="hljs-keyword">if</span> (++count == k) &#123;            <span class="hljs-keyword">return</span> top.val;        &#125;        root = top.right;    &#125;    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 226. 翻转二叉树</title>
     <link href="/2020/11/06/LeetCode-226-invert-binary-tree/"/>
     <url>/2020/11/06/LeetCode-226-invert-binary-tree/</url>
@@ -718,9 +745,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>树</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -1347,9 +1374,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2588,9 +2615,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
