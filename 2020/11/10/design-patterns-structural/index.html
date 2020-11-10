@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Likai Lee">
+  <meta name="keywords" content="">
+  <title>设计模式-结构型 - Likai Lee</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Likai Lee</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/bg/1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                设计模式-结构型
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-11-10 13:47">
+      2020年11月10日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年11月10日 下午
+                
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="适配器adapter"><a class="markdownIt-Anchor" href="#适配器adapter"></a> 适配器（Adapter）</h1>
+<blockquote>
+<p>把一个类接口转换成另一个用户需要的接口。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201110140916.png" srcset="/img/loading.gif" alt="" /></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Turkey</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">gobble</span><span class="hljs-params">()</span></span>;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Duck</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">quack</span><span class="hljs-params">()</span></span>;
+&#125;</code></pre>
+<p>Adapter:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TurkeyAdapter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Duck</span> </span>&#123;
+    Turkey turkey;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TurkeyAdapter</span><span class="hljs-params">(Turkey turkey)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.turkey = turkey;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 将 Turkey#gobble() 适配成 Duck#quack()</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">quack</span><span class="hljs-params">()</span> </span>&#123;
+        turkey.gobble();
+    &#125;
+&#125;</code></pre>
+<p>Client:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        Turkey turkey = <span class="hljs-keyword">new</span> WildTurkey();
+        Duck duck = <span class="hljs-keyword">new</span> TurkeyAdapter(turkey);
+        duck.quack();
+    &#125;
+&#125;</code></pre>
+<h1 id="桥接bridge"><a class="markdownIt-Anchor" href="#桥接bridge"></a> 桥接（Bridge）</h1>
+<blockquote>
+<p>将抽象与实现分离开来，使它们可以独立变化。</p>
+</blockquote>
+<ul>
+<li><code>Abstraction</code>：定义抽象类的接口</li>
+<li><code>Implementor</code>：定义实现类接口</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201110141335.png" srcset="/img/loading.gif" alt="" /></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TV</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">on</span><span class="hljs-params">()</span></span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">off</span><span class="hljs-params">()</span></span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">tuneChannel</span><span class="hljs-params">()</span></span>;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sony</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TV</span> </span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">on</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"Sony.on()"</span>);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">off</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"Sony.off()"</span>);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">tuneChannel</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"Sony.tuneChannel()"</span>);
+    &#125;
+&#125;
+
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RCA</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TV</span> </span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">on</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"RCA.on()"</span>);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">off</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"RCA.off()"</span>);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">tuneChannel</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"RCA.tuneChannel()"</span>);
+    &#125;
+&#125;</code></pre>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RemoteControl</span> </span>&#123;
+    <span class="hljs-keyword">protected</span> TV tv;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">RemoteControl</span><span class="hljs-params">(TV tv)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.tv = tv;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">on</span><span class="hljs-params">()</span></span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">off</span><span class="hljs-params">()</span></span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">tuneChannel</span><span class="hljs-params">()</span></span>;
+&#125;
+
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteRemoteControl1</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RemoteControl</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ConcreteRemoteControl1</span><span class="hljs-params">(TV tv)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>(tv);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">on</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"ConcreteRemoteControl1.on()"</span>);
+        tv.on();
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">off</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"ConcreteRemoteControl1.off()"</span>);
+        tv.off();
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">tuneChannel</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"ConcreteRemoteControl1.tuneChannel()"</span>);
+        tv.tuneChannel();
+    &#125;
+&#125;
+
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteRemoteControl2</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RemoteControl</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ConcreteRemoteControl2</span><span class="hljs-params">(TV tv)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>(tv);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">on</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"ConcreteRemoteControl2.on()"</span>);
+        tv.on();
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">off</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"ConcreteRemoteControl2.off()"</span>);
+        tv.off();
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">tuneChannel</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"ConcreteRemoteControl2.tuneChannel()"</span>);
+        tv.tuneChannel();
+    &#125;
+&#125;</code></pre>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        RemoteControl remoteControl1 = <span class="hljs-keyword">new</span> ConcreteRemoteControl1(<span class="hljs-keyword">new</span> RCA());
+        remoteControl1.on();
+        remoteControl1.off();
+        remoteControl1.tuneChannel();
+        RemoteControl remoteControl2 = <span class="hljs-keyword">new</span> ConcreteRemoteControl2(<span class="hljs-keyword">new</span> Sony());
+        remoteControl2.on();
+        remoteControl2.off();
+        remoteControl2.tuneChannel();
+    &#125;
+&#125;</code></pre>
+<h1 id="组合composite"><a class="markdownIt-Anchor" href="#组合composite"></a> 组合（Composite）</h1>
+<blockquote>
+<p>将对象组合成树形结构来表示“整体/部分”层次关系，允许用户以相同的方式处理单独对象和组合对象。</p>
+</blockquote>
+<p>组件（Component）类是组合类（Composite）和叶子类（Leaf）的父类，可以把组合类看成是树的中间节点。</p>
+<p>组合对象拥有一个或者多个组件对象，因此组合对象的操作可以委托给组件对象去处理，而组件对象可以是另一个组合对象或者叶子对象。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201110142019.png" srcset="/img/loading.gif" alt="" /></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Component</span> </span>&#123;
+    <span class="hljs-keyword">protected</span> String name;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Component</span><span class="hljs-params">(String name)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.name = name;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span> </span>&#123;
+        print(<span class="hljs-number">0</span>);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">int</span> level)</span></span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(Component component)</span></span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Component component)</span></span>;
+&#125;</code></pre>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Composite</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;
+    <span class="hljs-keyword">private</span> List&lt;Component&gt; child;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Composite</span><span class="hljs-params">(String name)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>(name);
+        child = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">int</span> level)</span> </span>&#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; level; i++) &#123;
+            System.out.print(<span class="hljs-string">"--"</span>);
+        &#125;
+        System.out.println(<span class="hljs-string">"Composite: "</span> + name);
+        <span class="hljs-keyword">for</span> (Component component : child) &#123;
+            component.print(level + <span class="hljs-number">1</span>);
+        &#125;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(Component component)</span> </span>&#123;
+        child.add(component);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Component component)</span> </span>&#123;
+        child.remove(component);
+    &#125;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Leaf</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Leaf</span><span class="hljs-params">(String name)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>(name);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">int</span> level)</span> </span>&#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; level; i++) &#123;
+            System.out.print(<span class="hljs-string">"--"</span>);
+        &#125;
+        System.out.println(<span class="hljs-string">"leaf: "</span> + name);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(Component component)</span> </span>&#123;
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> UnsupportedOperationException();
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Component component)</span> </span>&#123;
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> UnsupportedOperationException();
+    &#125;
+&#125;</code></pre>
+<p>Client:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        Composite root = <span class="hljs-keyword">new</span> Composite(<span class="hljs-string">"root"</span>);
+        Component node1 = <span class="hljs-keyword">new</span> Leaf(<span class="hljs-string">"1"</span>);
+        Component node2 = <span class="hljs-keyword">new</span> Composite(<span class="hljs-string">"2"</span>);
+        Component node3 = <span class="hljs-keyword">new</span> Leaf(<span class="hljs-string">"3"</span>);
+        root.add(node1);
+        root.add(node2);
+        root.add(node3);
+        Component node21 = <span class="hljs-keyword">new</span> Leaf(<span class="hljs-string">"21"</span>);
+        Component node22 = <span class="hljs-keyword">new</span> Composite(<span class="hljs-string">"22"</span>);
+        node2.add(node21);
+        node2.add(node22);
+        Component node221 = <span class="hljs-keyword">new</span> Leaf(<span class="hljs-string">"221"</span>);
+        node22.add(node221);
+
+        root.print();
+    &#125;
+&#125;</code></pre>
+<h1 id="装饰decorator"><a class="markdownIt-Anchor" href="#装饰decorator"></a> 装饰（Decorator）</h1>
+<blockquote>
+<p>为对象动态添加功能。</p>
+</blockquote>
+<p>装饰者（Decorator）和具体组件（ConcreteComponent）都继承自组件（Component），具体组件的方法实现不需要依赖于其它对象，而装饰者组合了一个组件，这样它可以装饰其它装饰者或者具体组件。所谓装饰，就是把这个装饰者套在被装饰者之上，从而动态扩展被装饰者的功能。装饰者的方法有一部分是自己的，这属于它的功能，然后调用被装饰者的方法实现，从而也保留了被装饰者的功能。可以看到，具体组件应当是装饰层次的最低层，因为只有具体组件的方法实现不需要依赖于其它对象。</p>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201110144202.png" srcset="/img/loading.gif" alt="" /></p>
+<p>被装饰者：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Beverage</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">cost</span><span class="hljs-params">()</span></span>;
+&#125;
+
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DarkRoast</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Beverage</span></span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">cost</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    &#125;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HouseBlend</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Beverage</span></span>&#123;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">cost</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    &#125;
+&#125;</code></pre>
+<p>装饰者：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CondimentDecorator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Beverage</span> </span>&#123;
+    <span class="hljs-keyword">protected</span> Beverage beverage;
+&#125;
+
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Milk</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CondimentDecorator</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Milk</span><span class="hljs-params">(Beverage beverage)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.beverage = beverage;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">cost</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> + beverage.cost();
+    &#125;
+&#125;
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Mocha</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CondimentDecorator</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Mocha</span><span class="hljs-params">(Beverage beverage)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.beverage = beverage;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">cost</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> + beverage.cost();
+    &#125;
+&#125;</code></pre>
+<p>Client:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        Beverage beverage = <span class="hljs-keyword">new</span> HouseBlend();
+        beverage = <span class="hljs-keyword">new</span> Mocha(beverage);
+        beverage = <span class="hljs-keyword">new</span> Milk(beverage);
+        System.out.println(beverage.cost());
+    &#125;
+&#125;</code></pre>
+<h1 id="外观facade"><a class="markdownIt-Anchor" href="#外观facade"></a> 外观（Facade）</h1>
+<blockquote>
+<p>提供了一个统一的接口，用来访问子系统中的一群接口，从而让子系统更容易使用。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201110145701.png" srcset="/img/loading.gif" alt="" /></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubSystem</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">turnOnTV</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"turnOnTV()"</span>);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCD</span><span class="hljs-params">(String cd)</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"setCD( "</span> + cd + <span class="hljs-string">" )"</span>);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startWatching</span><span class="hljs-params">()</span></span>&#123;
+        System.out.println(<span class="hljs-string">"startWatching()"</span>);
+    &#125;
+&#125;
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Facade</span> </span>&#123;
+    <span class="hljs-keyword">private</span> SubSystem subSystem = <span class="hljs-keyword">new</span> SubSystem();
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">watchMovie</span><span class="hljs-params">()</span> </span>&#123;
+        subSystem.turnOnTV();
+        subSystem.setCD(<span class="hljs-string">"a movie"</span>);
+        subSystem.startWatching();
+    &#125;
+&#125;</code></pre>
+<p>Client:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        Facade facade = <span class="hljs-keyword">new</span> Facade();
+        facade.watchMovie();
+    &#125;
+&#125;</code></pre>
+<h1 id="享元flyweight"><a class="markdownIt-Anchor" href="#享元flyweight"></a> 享元（Flyweight）</h1>
+<blockquote>
+<p>利用共享的方式来支持大量细粒度的对象，这些对象一部分内部状态是相同的。</p>
+</blockquote>
+<ul>
+<li><code>Flyweight</code>：享元对象</li>
+<li><code>IntrinsicState</code>：内部状态，享元对象共享内部状态</li>
+<li><code>ExtrinsicState</code>：外部状态，每个享元对象的外部状态不同</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201110145918.png" srcset="/img/loading.gif" alt="" /></p>
+<p>享元对象：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Flyweight</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">doOperation</span><span class="hljs-params">(String extrinsicState)</span></span>;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteFlyweight</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Flyweight</span> </span>&#123;
+    <span class="hljs-keyword">private</span> String intrinsicState;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ConcreteFlyweight</span><span class="hljs-params">(String intrinsicState)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.intrinsicState = intrinsicState;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doOperation</span><span class="hljs-params">(String extrinsicState)</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"Object address:"</span> + System.identityHashCode(<span class="hljs-keyword">this</span>));
+        System.out.println(<span class="hljs-string">"IntrinsicState: "</span> + intrinsicState);
+        System.out.println(<span class="hljs-string">"ExtrinsicState: "</span> + extrinsicState);
+    &#125;
+&#125;</code></pre>
+<p>享元工厂：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FlyweightFactory</span> </span>&#123;
+    <span class="hljs-keyword">private</span> Map&lt;String, Flyweight&gt; flyweightMap = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+
+    <span class="hljs-function">Flyweight <span class="hljs-title">getFlyweight</span><span class="hljs-params">(String intrinsicState)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (!flyweightMap.containsKey(intrinsicState)) &#123;
+            Flyweight flyweight = <span class="hljs-keyword">new</span> ConcreteFlyweight(intrinsicState);
+            flyweightMap.put(intrinsicState, flyweight);
+        &#125;
+        <span class="hljs-keyword">return</span> flyweightMap.get(intrinsicState);
+    &#125;
+&#125;</code></pre>
+<p>Client:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        FlyweightFactory factory = <span class="hljs-keyword">new</span> FlyweightFactory();
+        Flyweight flyweight1 = factory.getFlyweight(<span class="hljs-string">"aa"</span>);
+        Flyweight flyweight2 = factory.getFlyweight(<span class="hljs-string">"aa"</span>);
+        flyweight1.doOperation(<span class="hljs-string">"x"</span>);
+        flyweight2.doOperation(<span class="hljs-string">"y"</span>);
+    &#125;
+&#125;</code></pre>
+<h1 id="代理proxy"><a class="markdownIt-Anchor" href="#代理proxy"></a> 代理（Proxy）</h1>
+<blockquote>
+<p>控制对其它对象的访问。</p>
+</blockquote>
+<p>代理有以下四类：</p>
+<ul>
+<li><strong>远程代理（Remote Proxy）</strong>：控制对远程对象（不同地址空间）的访问，它负责将请求及其参数进行编码，并向不同地址空间中的对象发送已经编码的请求。</li>
+<li><strong>虚拟代理（Virtual Proxy）</strong>：根据需要创建开销很大的对象，它可以缓存实体的附加信息，以便延迟对它的访问，例如在网站加载一个很大图片时，不能马上完成，可以用虚拟代理缓存图片的大小信息，然后生成一张临时图片代替原始图片。</li>
+<li><strong>保护代理（Protection Proxy）</strong>：按权限控制对象的访问，它负责检查调用者是否具有实现一个请求所必须的访问权限。</li>
+<li><strong>智能代理（Smart Reference）</strong>：取代了简单的指针，它在访问对象时执行一些附加操作：记录对象的引用次数；当第一次引用一个对象时，将它装入内存；在访问一个实际对象前，检查是否已经锁定了它，以确保其它对象不能改变它。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201110151002.png" srcset="/img/loading.gif" alt="" /></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Image</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showImage</span><span class="hljs-params">()</span></span>;
+&#125;</code></pre>
+<p>RealObject:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HighResolutionImage</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Image</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> URL imageURL;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">long</span> startTime;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> height;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> width;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getHeight</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> height;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getWidth</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> width;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">HighResolutionImage</span><span class="hljs-params">(URL imageURL)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.imageURL = imageURL;
+        <span class="hljs-keyword">this</span>.startTime = System.currentTimeMillis();
+        <span class="hljs-keyword">this</span>.width = <span class="hljs-number">600</span>;
+        <span class="hljs-keyword">this</span>.height = <span class="hljs-number">600</span>;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isLoad</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-comment">// 模拟图片加载，延迟 3s 加载完成</span>
+        <span class="hljs-keyword">long</span> endTime = System.currentTimeMillis();
+        <span class="hljs-keyword">return</span> endTime - startTime &gt; <span class="hljs-number">3000</span>;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showImage</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"Real Image: "</span> + imageURL);
+    &#125;
+&#125;</code></pre>
+<p>ProxyObject:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ImageProxy</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Image</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> HighResolutionImage highResolutionImage;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ImageProxy</span><span class="hljs-params">(HighResolutionImage highResolutionImage)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.highResolutionImage = highResolutionImage;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showImage</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">while</span> (!highResolutionImage.isLoad()) &#123;
+            <span class="hljs-keyword">try</span> &#123;
+                System.out.println(<span class="hljs-string">"Temp Image: "</span> + highResolutionImage.getWidth() + <span class="hljs-string">" "</span> + highResolutionImage.getHeight());
+                Thread.sleep(<span class="hljs-number">100</span>);
+            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
+                e.printStackTrace();
+            &#125;
+        &#125;
+        highResolutionImage.showImage();
+    &#125;
+&#125;</code></pre>
+<p>Client:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ImageViewer</span> </span>&#123;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        String image = <span class="hljs-string">"http://image.jpg"</span>;
+        URL url = <span class="hljs-keyword">new</span> URL(image);
+        HighResolutionImage highResolutionImage = <span class="hljs-keyword">new</span> HighResolutionImage(url);
+        ImageProxy imageProxy = <span class="hljs-keyword">new</span> ImageProxy(highResolutionImage);
+        imageProxy.showImage();
+    &#125;
+&#125;</code></pre>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/09/LeetCode-77-combinations/">
+                        <span class="hidden-mobile">LeetCode 77. 组合</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <!-- <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> -->
+      Crafted with
+      <i class="iconfont icon-love" style="color: #f30;"></i>
+      by <a href="https://github.com/likailee" target="_blank" rel="noopener">Likai Lee</a>
+      | &copy; 2017 - 2020
+      <!-- <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a> -->
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?66c61a5fd59052d1b39d89c246846ae5";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

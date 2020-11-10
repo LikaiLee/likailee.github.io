@@ -170,6 +170,59 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/11/10/design-patterns-structural/">设计模式-结构型</a>
+
+      <a href="/2020/11/10/design-patterns-structural/" class="index-excerpt">
+        
+        
+          
+        
+        <div> 适配器（Adapter）
+
+把一个类接口转换成另一个用户需要的接口。
+
+
+public interface Turkey &#123;
+    void gobble();
+&#125;
+
+public interface Duck &#123;
+    void quack();
+&#125;
+Adapter:
+public class TurkeyAdapter implements Duc</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-11-10
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/11/09/LeetCode-77-combinations/">LeetCode 77. 组合</a>
 
       <a href="/2020/11/09/LeetCode-77-combinations/" class="index-excerpt">
@@ -584,54 +637,6 @@ public TreeNode invertTree(TreeNode root) &#123;
               <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E6%A0%91/">树</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/11/06/design-patterns-creational/">设计模式-创建型</a>
-
-      <a href="/2020/11/06/design-patterns-creational/" class="index-excerpt">
-        
-        
-          
-        
-        <div> 单例（Singleton）
-
-确保一个类只有一个实例，并提供该实例的全局访问点。
-
-使用一个私有构造函数、一个私有静态变量以及一个公有静态函数来实现。
-私有构造函数保证了不能通过构造函数来创建对象实例，只能通过公有静态函数返回唯一的私有静态变量。
-
- 懒汉式-线程不安全
-以下实现中，私有静态变量 uniqueInstance 被延迟实例化，这样做的好处是，如果没有用到该类，那么就不会实例化 un</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-11-06
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
             
           </div>
         
