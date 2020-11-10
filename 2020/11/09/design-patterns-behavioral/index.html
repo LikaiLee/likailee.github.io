@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      3.3k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      36
+      51
        分钟
     </span>
   
@@ -207,13 +207,12 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年11月9日 下午
+                  本文最后更新于：2020年11月10日 下午
                 
               </p>
             
             <article class="markdown-body">
-              <p>[TOC]</p>
-<h1 id="责任链chain-of-responsibility"><a class="markdownIt-Anchor" href="#责任链chain-of-responsibility"></a> 责任链（Chain Of Responsibility）</h1>
+              <h1 id="责任链chain-of-responsibility"><a class="markdownIt-Anchor" href="#责任链chain-of-responsibility"></a> 责任链（Chain Of Responsibility）</h1>
 <blockquote>
 <p>使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这些对象连成一条链，并沿着这条链发送该请求，直到有一个对象处理它为止。</p>
 </blockquote>
@@ -815,6 +814,293 @@
         <span class="hljs-comment">// 设置策略 2</span>
         duck.setBehavior(<span class="hljs-keyword">new</span> SqueakBehavior());
         duck.performQuack();
+    &#125;
+&#125;</code></pre>
+<h1 id="模板方法template-method"><a class="markdownIt-Anchor" href="#模板方法template-method"></a> 模板方法（Template Method）</h1>
+<blockquote>
+<p>定义算法框架，并将一些步骤的实现延迟到子类。</p>
+<p>通过模板方法，子类可以重新定义算法的某些步骤，而不用改变算法的结构。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201110123611.png" srcset="/img/loading.gif" alt="" /></p>
+<p>模板类：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CaffeineBeverage</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">prepareRecipe</span><span class="hljs-params">()</span> </span>&#123;
+        boilWater();
+        brew();
+        pourInCup();
+        addCondiments();
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">brew</span><span class="hljs-params">()</span></span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addCondiments</span><span class="hljs-params">()</span></span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">boilWater</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"boilWater"</span>);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pourInCup</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"pourInCup"</span>);
+    &#125;
+&#125;</code></pre>
+<p>子类：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Coffee</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CaffeineBeverage</span></span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">brew</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"Coffee#brew"</span>);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addCondiments</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"Coffee#addCondiments"</span>);
+    &#125;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Tea</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CaffeineBeverage</span></span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">brew</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"Tea#brew"</span>);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addCondiments</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"Tea#addCondiments"</span>);
+    &#125;
+&#125;</code></pre>
+<p>Client:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        CaffeineBeverage caffeineBeverage = <span class="hljs-keyword">new</span> Coffee();
+        caffeineBeverage.prepareRecipe();
+        System.out.println(<span class="hljs-string">"-------------------"</span>);
+        caffeineBeverage = <span class="hljs-keyword">new</span> Tea();
+        caffeineBeverage.prepareRecipe();
+    &#125;
+&#125;</code></pre>
+<h1 id="访问者visitor"><a class="markdownIt-Anchor" href="#访问者visitor"></a> 访问者（Visitor）</h1>
+<blockquote>
+<p>为一个对象结构（比如组合结构）增加新能力。</p>
+</blockquote>
+<ul>
+<li><code>Visitor</code>：访问者，为每一个 ConcreteElement 声明一个 visit 操作</li>
+<li><code>ConcreteVisitor</code>：具体访问者，存储遍历过程中的累计结果</li>
+<li><code>ObjectStructure</code>：对象结构，可以是组合结构，或者是一个集合。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201110124620.png" srcset="/img/loading.gif" alt="" /></p>
+<p>元素：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Element</span> </span>&#123;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 访问者可访问元素</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> visitor</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Visitor visitor)</span></span>;
+&#125;
+
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Customer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Element</span> </span>&#123;
+    <span class="hljs-keyword">private</span> String name;
+    <span class="hljs-keyword">private</span> List&lt;Order&gt; orders = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Customer</span><span class="hljs-params">(String name)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.name = name;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> name;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addOrder</span><span class="hljs-params">(Order order)</span> </span>&#123;
+        orders.add(order);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Visitor visitor)</span> </span>&#123;
+        visitor.visit(<span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">for</span> (Order order : orders) &#123;
+            order.accept(visitor);
+        &#125;
+    &#125;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Order</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Element</span> </span>&#123;
+    <span class="hljs-keyword">private</span> String name;
+    <span class="hljs-keyword">private</span> List&lt;Item&gt; items = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Order</span><span class="hljs-params">(String name)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.name = name;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Order</span><span class="hljs-params">(String name, String itemName)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.name = name;
+        <span class="hljs-keyword">this</span>.addItem(<span class="hljs-keyword">new</span> Item(itemName));
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> name;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addItem</span><span class="hljs-params">(Item item)</span> </span>&#123;
+        items.add(item);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Visitor visitor)</span> </span>&#123;
+        visitor.visit(<span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">for</span> (Item item : items) &#123;
+            item.accept(visitor);
+        &#125;
+    &#125;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Item</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Element</span> </span>&#123;
+    <span class="hljs-keyword">private</span> String name;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Item</span><span class="hljs-params">(String name)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.name = name;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> name;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Visitor visitor)</span> </span>&#123;
+        visitor.visit(<span class="hljs-keyword">this</span>);
+    &#125;
+&#125;</code></pre>
+<p>访问者：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Visitor</span> </span>&#123;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 访问 customer</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">visit</span><span class="hljs-params">(Customer customer)</span></span>;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 访问 order</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> order</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">visit</span><span class="hljs-params">(Order order)</span></span>;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 访问 item</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> item</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">visit</span><span class="hljs-params">(Item item)</span></span>;
+&#125;
+
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GeneralReport</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Visitor</span> </span>&#123;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> customersNo;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> ordersNo;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> itemsNo;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">visit</span><span class="hljs-params">(Customer customer)</span> </span>&#123;
+        System.out.println(customer.getName());
+        customersNo++;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">visit</span><span class="hljs-params">(Order order)</span> </span>&#123;
+        System.out.println(order.getName());
+        ordersNo++;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">visit</span><span class="hljs-params">(Item item)</span> </span>&#123;
+        System.out.println(item.getName());
+        itemsNo++;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">displayResults</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"Number of customers: "</span> + customersNo);
+        System.out.println(<span class="hljs-string">"Number of orders: "</span> + ordersNo);
+        System.out.println(<span class="hljs-string">"Number of items: "</span> + itemsNo);
+    &#125;
+&#125;</code></pre>
+<p>Client:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomerGroup</span> </span>&#123;
+    <span class="hljs-keyword">private</span> List&lt;Customer&gt; customers = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Visitor visitor)</span> </span>&#123;
+        <span class="hljs-keyword">for</span> (Customer customer : customers) &#123;
+            customer.accept(visitor);
+        &#125;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addCustomer</span><span class="hljs-params">(Customer customer)</span> </span>&#123;
+        customers.add(customer);
+    &#125;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        <span class="hljs-comment">// Element: Customer has Order has Item</span>
+        <span class="hljs-comment">// customer1</span>
+        Customer customer1 = <span class="hljs-keyword">new</span> Customer(<span class="hljs-string">"customer1"</span>);
+        customer1.addOrder(<span class="hljs-keyword">new</span> Order(<span class="hljs-string">"order1"</span>, <span class="hljs-string">"item11"</span>));
+        customer1.addOrder(<span class="hljs-keyword">new</span> Order(<span class="hljs-string">"order2"</span>, <span class="hljs-string">"item21"</span>));
+        customer1.addOrder(<span class="hljs-keyword">new</span> Order(<span class="hljs-string">"order3"</span>, <span class="hljs-string">"item31"</span>));
+        <span class="hljs-comment">// customer2</span>
+        Order order = <span class="hljs-keyword">new</span> Order(<span class="hljs-string">"order2"</span>);
+        order.addItem(<span class="hljs-keyword">new</span> Item(<span class="hljs-string">"item21"</span>));
+        order.addItem(<span class="hljs-keyword">new</span> Item(<span class="hljs-string">"item22"</span>));
+        order.addItem(<span class="hljs-keyword">new</span> Item(<span class="hljs-string">"item23"</span>));
+        Customer customer2 = <span class="hljs-keyword">new</span> Customer(<span class="hljs-string">"customer2"</span>);
+        customer2.addOrder(order);
+        <span class="hljs-comment">// CustomerGroup has Customer</span>
+        CustomerGroup customers = <span class="hljs-keyword">new</span> CustomerGroup();
+        customers.addCustomer(customer1);
+        customers.addCustomer(customer2);
+
+        GeneralReport visitor = <span class="hljs-keyword">new</span> GeneralReport();
+        customers.accept(visitor);
+        visitor.displayResults();
+    &#125;
+&#125;</code></pre>
+<h1 id="空对象null"><a class="markdownIt-Anchor" href="#空对象null"></a> 空对象（Null）</h1>
+<blockquote>
+<p>使用什么都不做的空对象来代替 NULL。</p>
+<p>一个方法返回 <code>NULL</code>，意味着方法的调用端需要去检查返回值是否是 <code>NULL</code>，这么做会导致非常多的冗余的检查代码。并且如果某一个调用端忘记了做这个检查返回值，而直接使用返回的对象，那么就有可能抛出空指针异常。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201110133531.png" srcset="/img/loading.gif" alt="" /></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">AbstractOperation</span> </span>&#123;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 操作方法</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">request</span><span class="hljs-params">()</span></span>;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NullOperation</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AbstractOperation</span> </span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">request</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-comment">// do nothing</span>
+    &#125;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RealOperation</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AbstractOperation</span> </span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">request</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">"do something"</span>);
+    &#125;
+&#125;</code></pre>
+<p>Client:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        AbstractOperation abstractOperation = func(-<span class="hljs-number">1</span>);
+        abstractOperation.request();
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> AbstractOperation <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NullOperation();
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> RealOperation();
     &#125;
 &#125;</code></pre>
             </article>
