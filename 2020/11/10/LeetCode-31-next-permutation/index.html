@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 140. 单词拆分 II - Likai Lee</title>
+  <title>LeetCode 31. 下一个排列 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 140. 单词拆分 II
+                LeetCode 31. 下一个排列
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-11-01 18:13">
-      2020年11月1日 晚上
+    <time datetime="2020-11-10 18:20">
+      2020年11月10日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      452 字
+      229 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      4
        分钟
     </span>
   
@@ -207,94 +207,64 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年11月1日 晚上
+                  本文最后更新于：2020年11月10日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/word-break-ii/" target="_blank" rel="noopener">140. 单词拆分 II</a></p>
-<h1 id="动态规划-回溯"><a class="markdownIt-Anchor" href="#动态规划-回溯"></a> 动态规划 + 回溯</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">wordBreak</span><span class="hljs-params">(String s, List&lt;String&gt; wordDict)</span> </span>&#123;
-    List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
-    <span class="hljs-keyword">int</span> len = s.length();
-    Set&lt;String&gt; dict = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(wordDict);
-    <span class="hljs-comment">// dp[i] : s[0:i-1] 可拆分</span>
-    <span class="hljs-keyword">boolean</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[len + <span class="hljs-number">1</span>];
-    dp[<span class="hljs-number">0</span>] = <span class="hljs-keyword">true</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len; i++) &#123;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; i; j++) &#123;
-            String suffix = s.substring(j, i);
-            <span class="hljs-comment">// 0...j...i</span>
-            <span class="hljs-comment">// dp[i] = dp[j] &amp;&amp; s[j:i] in dict</span>
-            <span class="hljs-keyword">if</span> (dp[j] &amp;&amp; dict.contains(suffix)) &#123;
-                dp[i] = <span class="hljs-keyword">true</span>;
+              <p><a href="https://leetcode-cn.com/problems/next-permutation/" target="_blank" rel="noopener">31. 下一个排列</a></p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">nextPermutation</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> len = nums.length;
+        <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-comment">// 从后往前找第一个升序的位置</span>
+        <span class="hljs-keyword">int</span> ascPos = -<span class="hljs-number">1</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
+            <span class="hljs-keyword">if</span> (nums[i] &lt; nums[i + <span class="hljs-number">1</span>]) &#123;
+                ascPos = i;
                 <span class="hljs-keyword">break</span>;
             &#125;
         &#125;
-    &#125;
-    <span class="hljs-keyword">if</span> (dp[len]) &#123;
-        ArrayDeque&lt;String&gt; path = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
-        backtrack(len, dp, path, s, dict, res);
-    &#125;
-    <span class="hljs-keyword">return</span> res;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> len, <span class="hljs-keyword">boolean</span>[] dp, ArrayDeque&lt;String&gt; path, String s, Set&lt;String&gt; dict, List&lt;String&gt; res)</span> </span>&#123;
-    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;
-        res.add(String.join(<span class="hljs-string">" "</span>, path));
-        <span class="hljs-keyword">return</span>;
-    &#125;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
-        String suffix = s.substring(i, len);
-        <span class="hljs-comment">// 0....i...len</span>
-        <span class="hljs-comment">// s[i:len] in dict &amp;&amp; dp[i] 可拆分</span>
-        <span class="hljs-keyword">if</span> (dp[i] &amp;&amp; dict.contains(suffix)) &#123;
-            <span class="hljs-comment">// 后缀往后放</span>
-            path.addFirst(suffix);
-            backtrack(i, dp, path, s, dict, res);
-            path.removeFirst();
+        <span class="hljs-comment">// ascPos....len - 1 降序</span>
+        <span class="hljs-comment">// 找到第一个 &gt; nums[ascPos] 的位置，并交换</span>
+        <span class="hljs-keyword">if</span> (ascPos &gt;= <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">int</span> largePos = binarySearch(nums, ascPos + <span class="hljs-number">1</span>, len - <span class="hljs-number">1</span>, nums[ascPos]);
+            swap(nums, ascPos, largePos);
+            <span class="hljs-comment">/*for (int i = len - 1; i &gt; ascPos; i--) &#123;</span>
+<span class="hljs-comment">                if (nums[i] &gt; nums[ascPos]) &#123;</span>
+<span class="hljs-comment">                    swap(nums, i, ascPos);</span>
+<span class="hljs-comment">                    break;</span>
+<span class="hljs-comment">                &#125;</span>
+<span class="hljs-comment">            &#125;*/</span>
         &#125;
-    &#125;
-&#125;</code></pre>
-<h1 id="回溯-记忆化"><a class="markdownIt-Anchor" href="#回溯-记忆化"></a> 回溯 + 记忆化</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">wordBreak</span><span class="hljs-params">(String s, List&lt;String&gt; wordDict)</span> </span>&#123;
-        <span class="hljs-keyword">int</span> len = s.length();
-        Set&lt;String&gt; dict = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(wordDict);
-        Map&lt;Integer, List&lt;String&gt;&gt; cache = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
-        <span class="hljs-keyword">return</span> backtrack(<span class="hljs-number">0</span>, len, s, dict, cache);
+        <span class="hljs-comment">// 翻转 [ascPos + 1:len - 1]，使其变为升序</span>
+        reverse(nums, ascPos + <span class="hljs-number">1</span>, len - <span class="hljs-number">1</span>);
+
     &#125;
 
-    <span class="hljs-function"><span class="hljs-keyword">private</span> List&lt;String&gt; <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> start, <span class="hljs-keyword">int</span> len, String s, Set&lt;String&gt; dict, Map&lt;Integer, List&lt;String&gt;&gt; cache)</span> </span>&#123;
-        <span class="hljs-comment">// 从 start 开始形成的路径</span>
-        List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
-        <span class="hljs-keyword">if</span> (start == len) &#123;
-            <span class="hljs-comment">// "" 标记可以到达终点</span>
-            res.add(<span class="hljs-string">""</span>);
-            <span class="hljs-keyword">return</span> res;
-        &#125;
-        <span class="hljs-keyword">if</span> (cache.containsKey(start)) &#123;
-            <span class="hljs-keyword">return</span> cache.get(start);
-        &#125;
-        <span class="hljs-comment">// start....i....len</span>
-        <span class="hljs-comment">// "catsanddog"</span>
-        <span class="hljs-comment">// ["cat","cats","and","sand","dog"]</span>
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = start + <span class="hljs-number">1</span>; i &lt;= len; i++) &#123;
-            String prefix = s.substring(start, i);
-            <span class="hljs-keyword">if</span> (dict.contains(prefix)) &#123;
-                <span class="hljs-comment">// 从 i 开始形成的路径</span>
-                List&lt;String&gt; rest = backtrack(i, len, s, dict, cache);
-                System.out.println(prefix + <span class="hljs-string">" "</span> + rest);
-                <span class="hljs-keyword">for</span> (String path : rest) &#123;
-                    <span class="hljs-keyword">if</span> (<span class="hljs-string">""</span>.equals(path)) &#123;
-                        res.add(prefix);
-                    &#125; <span class="hljs-keyword">else</span> &#123;
-                        res.add(prefix + <span class="hljs-string">" "</span> + path);
-                    &#125;
-                &#125;
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> target)</span> </span>&#123;
+        <span class="hljs-keyword">while</span> (left &lt; right) &#123;
+            <span class="hljs-keyword">int</span> mid = left + (right - left + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;
+            <span class="hljs-keyword">if</span> (nums[mid] &gt; target) &#123;
+                left = mid;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                right = mid - <span class="hljs-number">1</span>;
             &#125;
         &#125;
-        cache.put(start, res);
-        <span class="hljs-keyword">return</span> res;
+        <span class="hljs-keyword">return</span> left;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j)</span> </span>&#123;
+        <span class="hljs-keyword">while</span> (i &lt; j) &#123;
+            swap(nums, i++, j--);
+        &#125;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
     &#125;</code></pre>
             </article>
             <hr>
@@ -314,11 +284,7 @@
                     
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/DFS/">DFS</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+                      <a class="hover-with-bg" href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
                     
                   </div>
                 
@@ -331,18 +297,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/11/02/LeetCode-973-k-closest-points-to-origin/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 973. 最接近原点的 K 个点</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/11/01/LeetCode-139-word-break/">
-                        <span class="hidden-mobile">LeetCode 139. 单词拆分</span>
+                      <a href="/2020/11/10/design-patterns-structural/">
+                        <span class="hidden-mobile">设计模式-结构型</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
