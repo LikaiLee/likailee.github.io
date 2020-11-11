@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 139. 单词拆分 - Likai Lee</title>
+  <title>JDK 中的设计模式 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 139. 单词拆分
+                JDK 中的设计模式
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-11-01 16:42">
-      2020年11月1日 下午
+    <time datetime="2020-11-11 13:50">
+      2020年11月11日 下午
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      440 字
+      1.4k 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      17
        分钟
     </span>
   
@@ -207,91 +207,189 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年11月1日 下午
+                  本文最后更新于：2020年11月11日 下午
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/word-break/" target="_blank" rel="noopener">139. 单词拆分</a></p>
-<h1 id="记忆化搜索"><a class="markdownIt-Anchor" href="#记忆化搜索"></a> 记忆化搜索</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">wordBreak</span><span class="hljs-params">(String s, List&lt;String&gt; wordDict)</span> </span>&#123;
-    <span class="hljs-comment">// s = "leetcode", wordDict = ["leet", "code"]</span>
-    Set&lt;String&gt; wordSet = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(wordDict);
-    <span class="hljs-keyword">int</span> len = s.length();
-    <span class="hljs-comment">// 记忆化搜索，保存 start 对应的结果</span>
-    Map&lt;Integer, Boolean&gt; cache = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
-    <span class="hljs-keyword">return</span> backtrack(<span class="hljs-number">0</span>, len, s, wordSet, cache);
-&#125;
+              <h1 id="创建型"><a class="markdownIt-Anchor" href="#创建型"></a> 创建型</h1>
+<h2 id="单例模式"><a class="markdownIt-Anchor" href="#单例模式"></a> 单例模式</h2>
+<p>用来确保类只有一个实例。</p>
+<ul>
+<li>java.lang.Runtime#getRuntime()</li>
+<li>java.awt.Toolkit#getDefaultToolkit()</li>
+<li>java.awt.GraphicsEnvironment#getLocalGraphicsEnvironment()</li>
+<li>java.awt.Desktop#getDesktop()</li>
+</ul>
+<h2 id="工厂方法"><a class="markdownIt-Anchor" href="#工厂方法"></a> 工厂方法</h2>
+<p>一个返回具体对象的方法。</p>
+<ul>
+<li>java.lang.Proxy#newProxyInstance()</li>
+<li>java.lang.Object#toString()</li>
+<li>java.lang.Class#newInstance()</li>
+<li>java.lang.reflect.Array#newInstance()</li>
+<li>java.lang.reflect.Constructor#newInstance()</li>
+<li>java.lang.Boolean#valueOf(String)</li>
+<li>java.lang.Class#forName()</li>
+</ul>
+<h2 id="抽象工厂模式"><a class="markdownIt-Anchor" href="#抽象工厂模式"></a> 抽象工厂模式</h2>
+<p>抽象工厂模式提供了一个协议来生成一系列的相关或者独立的对象，而不用指定具体对象的类型。它使得应用程序能够和使用的框架的具体实现进行解耦。这在JDK或者许多框架比如Spring中都随处可见。它们也很容易识别，一个创建新对象的方法，返回的却是接口或者抽象类的，就是抽象工厂模式了。</p>
+<ul>
+<li>java.util.Calendar#getInstance()</li>
+<li>java.util.Arrays#asList()</li>
+<li>java.util.ResourceBundle#getBundle()</li>
+<li>java.sql.DriverManager#getConnection()</li>
+<li>java.sql.Connection#createStatement()</li>
+<li>java.sql.Statement#executeQuery()</li>
+<li>java.text.NumberFormat#getInstance()</li>
+<li>javax.xml.transform.TransformerFactory#newInstance()</li>
+</ul>
+<h2 id="建造模式"><a class="markdownIt-Anchor" href="#建造模式"></a> 建造模式</h2>
+<p>定义了一个新的类来构建另一个类的实例，以简化复杂对象的创建。建造模式通常也使用方法链接来实现。</p>
+<ul>
+<li>java.lang.StringBuilder#append()</li>
+<li>java.lang.StringBuffer#append()</li>
+<li>java.sql.PreparedStatement</li>
+<li>javax.swing.GroupLayout.Group#addComponent()</li>
+</ul>
+<h2 id="原型模式"><a class="markdownIt-Anchor" href="#原型模式"></a> 原型模式</h2>
+<p>使得类的实例能够生成自身的拷贝。如果创建一个对象的实例非常复杂且耗时时，就可以使用这种模式，而不重新创建一个新的实例，你可以拷贝一个对象并直接修改它。</p>
+<ul>
+<li>java.lang.Object#clone()</li>
+<li>java.lang.Cloneable</li>
+</ul>
+<h1 id="行为型"><a class="markdownIt-Anchor" href="#行为型"></a> 行为型</h1>
+<h2 id="责任链模式"><a class="markdownIt-Anchor" href="#责任链模式"></a> 责任链模式</h2>
+<p>通过把请求从一个对象传递到链条中下一个对象的方式，直到请求被处理完毕，以实现对象间的解耦。</p>
+<ul>
+<li>java.util.logging.Logger#log()</li>
+<li>javax.servlet.Filter#doFilter()</li>
+</ul>
+<h2 id="命令模式"><a class="markdownIt-Anchor" href="#命令模式"></a> 命令模式</h2>
+<p>将操作封装到对象内，以便存储，传递和返回。</p>
+<ul>
+<li>java.lang.Runnable</li>
+<li>javax.swing.Action</li>
+</ul>
+<h2 id="解释器模式"><a class="markdownIt-Anchor" href="#解释器模式"></a> 解释器模式</h2>
+<p>这个模式通常定义了一个语言的语法，然后解析相应语法的语句。</p>
+<ul>
+<li>java.util.Pattern</li>
+<li>java.text.Normalizer</li>
+<li>java.text.Format</li>
+</ul>
+<h2 id="迭代器模式"><a class="markdownIt-Anchor" href="#迭代器模式"></a> 迭代器模式</h2>
+<p>提供一个一致的方法来顺序访问集合中的对象，这个方法与底层的集合的具体实现无关。</p>
+<ul>
+<li>java.util.Iterator</li>
+<li>java.util.Enumeration</li>
+</ul>
+<h2 id="中介者模式"><a class="markdownIt-Anchor" href="#中介者模式"></a> 中介者模式</h2>
+<p>通过使用一个中间对象来进行消息分发以及减少类之间的直接依赖。</p>
+<ul>
+<li>java.util.Timer</li>
+<li>java.util.concurrent.Executor#execute()</li>
+<li>java.util.concurrent.ExecutorService#submit()</li>
+<li>java.lang.reflect.Method#invoke()</li>
+</ul>
+<h2 id="备忘录模式"><a class="markdownIt-Anchor" href="#备忘录模式"></a> 备忘录模式</h2>
+<p>生成对象状态的一个快照，以便对象可以恢复原始状态而不用暴露自身的内容。Date对象通过自身内部的一个long值来实现备忘录模式。</p>
+<ul>
+<li>java.util.Date</li>
+<li>java.io.Serializable</li>
+</ul>
+<h2 id="空对象模式"><a class="markdownIt-Anchor" href="#空对象模式"></a> 空对象模式</h2>
+<p>这个模式通过一个无意义的对象来代替没有对象这个状态。它使得你不用额外对空对象进行处理。</p>
+<ul>
+<li>java.util.Collections#emptyList()</li>
+<li>java.util.Collections#emptyMap()</li>
+<li>java.util.Collections#emptySet()</li>
+</ul>
+<h2 id="观察者模式"><a class="markdownIt-Anchor" href="#观察者模式"></a> 观察者模式</h2>
+<p>它使得一个对象可以灵活的将消息发送给感兴趣的对象。</p>
+<ul>
+<li>java.util.EventListener</li>
+<li>javax.servlet.http.HttpSessionBindingListener</li>
+<li>javax.servlet.http.HttpSessionAttributeListener</li>
+<li>javax.faces.event.PhaseListener</li>
+</ul>
+<h2 id="状态模式"><a class="markdownIt-Anchor" href="#状态模式"></a> 状态模式</h2>
+<p>通过改变对象内部的状态，使得你可以在运行时动态改变一个对象的行为。</p>
+<ul>
+<li>java.util.Iterator</li>
+<li>javax.faces.lifecycle.LifeCycle#execute()</li>
+</ul>
+<h2 id="策略模式"><a class="markdownIt-Anchor" href="#策略模式"></a> 策略模式</h2>
+<p>使用这个模式来将一组算法封装成一系列对象。通过传递这些对象可以灵活的改变程序的功能。</p>
+<ul>
+<li>java.util.Comparator#compare()</li>
+<li>javax.servlet.http.HttpServlet</li>
+<li>javax.servlet.Filter#doFilter()</li>
+</ul>
+<h2 id="模板方法模式"><a class="markdownIt-Anchor" href="#模板方法模式"></a> 模板方法模式</h2>
+<p>让子类可以重写方法的一部分，而不是整个重写，你可以控制子类需要重写那些操作。</p>
+<ul>
+<li>java.util.Collections#sort()</li>
+<li>java.io.InputStream#skip()</li>
+<li>java.io.InputStream#read()</li>
+<li>java.util.AbstractList#indexOf()</li>
+</ul>
+<h2 id="访问者模式"><a class="markdownIt-Anchor" href="#访问者模式"></a> 访问者模式</h2>
+<p>提供一个方便的可维护的方式来操作一组对象。它使得你在不改变操作的对象前提下，可以修改或者扩展对象的行为。</p>
+<ul>
+<li>javax.lang.model.element.Element and javax.lang.model.element.ElementVisitor</li>
+<li>javax.lang.model.type.TypeMirror and javax.lang.model.type.TypeVisitor</li>
+</ul>
+<h1 id="结构型"><a class="markdownIt-Anchor" href="#结构型"></a> 结构型</h1>
+<h2 id="适配器模式"><a class="markdownIt-Anchor" href="#适配器模式"></a> 适配器模式</h2>
+<p>用来把一个接口转化成另一个接口。</p>
+<ul>
+<li>java.util.Arrays#asList()</li>
+<li>javax.swing.JTable(TableModel)</li>
+<li>java.io.InputStreamReader(InputStream)</li>
+<li>java.io.OutputStreamWriter(OutputStream)</li>
+<li>javax.xml.bind.annotation.adapters.XmlAdapter#marshal()</li>
+<li>javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal()</li>
+</ul>
+<h2 id="桥接模式"><a class="markdownIt-Anchor" href="#桥接模式"></a> 桥接模式</h2>
+<p>这个模式将抽象和抽象操作的实现进行了解耦，这样使得抽象和实现可以独立地变化。</p>
+<ul>
+<li>AWT (It provides an abstraction layer which maps onto the native OS the windowing support.)</li>
+<li>JDBC</li>
+</ul>
+<h2 id="组合模式"><a class="markdownIt-Anchor" href="#组合模式"></a> 组合模式</h2>
+<p>使得客户端看来单个对象和对象的组合是同等的。换句话说，某个类型的方法同时也接受自身类型作为参数。</p>
+<ul>
+<li>javax.swing.JComponent#add(Component)</li>
+<li>java.awt.Container#add(Component)</li>
+<li>java.util.Map#putAll(Map)</li>
+<li>java.util.List#addAll(Collection)</li>
+<li>java.util.Set#addAll(Collection)</li>
+</ul>
+<h2 id="装饰者模式"><a class="markdownIt-Anchor" href="#装饰者模式"></a> 装饰者模式</h2>
+<p>动态的给一个对象附加额外的功能，这也是子类的一种替代方式。可以看到，在创建一个类型的时候，同时也传入同一类型的对象。这在JDK里随处可见，你会发现它无处不在，所以下面这个列表只是一小部分。</p>
+<ul>
+<li>java.io.BufferedInputStream(InputStream)</li>
+<li>java.io.DataInputStream(InputStream)</li>
+<li>java.io.BufferedOutputStream(OutputStream)</li>
+<li>java.util.zip.ZipOutputStream(OutputStream)</li>
+<li>java.util.Collections#checkedList|Map|Set|SortedSet|SortedMap</li>
+</ul>
+<h2 id="享元模式"><a class="markdownIt-Anchor" href="#享元模式"></a> 享元模式</h2>
+<p>使用缓存来加速大量小对象的访问时间。</p>
+<ul>
+<li>java.lang.Integer#valueOf(int)</li>
+<li>java.lang.Boolean#valueOf(boolean)</li>
+<li>java.lang.Byte#valueOf(byte)</li>
+<li>java.lang.Character#valueOf(char)</li>
+</ul>
+<h2 id="代理模式"><a class="markdownIt-Anchor" href="#代理模式"></a> 代理模式</h2>
+<p>代理模式是用一个简单的对象来代替一个复杂的或者创建耗时的对象。</p>
+<ul>
+<li>java.lang.reflect.Proxy</li>
+<li>RMI</li>
+</ul>
 
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> start, <span class="hljs-keyword">int</span> len, String s, Set&lt;String&gt; wordSet, Map&lt;Integer, Boolean&gt; cache)</span> </span>&#123;
-    <span class="hljs-comment">// 字符串全部找到</span>
-    <span class="hljs-keyword">if</span> (start == len) &#123;
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-    &#125;
-    <span class="hljs-keyword">if</span> (cache.containsKey(start)) &#123;
-        <span class="hljs-keyword">return</span> cache.get(start);
-    &#125;
-    <span class="hljs-comment">// 从 start 开始尝试获取前缀</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = start + <span class="hljs-number">1</span>; i &lt;= len; i++) &#123;
-        String prefix = s.substring(start, i);
-        <span class="hljs-comment">// s[start:i] 若在 wordSet 中出现，则找下一个位置</span>
-        <span class="hljs-keyword">if</span> (wordSet.contains(prefix)) &#123;
-            <span class="hljs-keyword">if</span> (backtrack(i, len, s, wordSet, cache)) &#123;
-                cache.put(i, <span class="hljs-keyword">true</span>);
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-            &#125; <span class="hljs-keyword">else</span> &#123;
-                cache.put(i, <span class="hljs-keyword">false</span>);
-            &#125;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-&#125;</code></pre>
-<h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">wordBreak</span><span class="hljs-params">(String s, List&lt;String&gt; wordDict)</span> </span>&#123;
-    <span class="hljs-comment">// s = "leetcode", wordDict = ["leet", "code"]</span>
-    Set&lt;String&gt; wordSet = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(wordDict);
-    <span class="hljs-keyword">int</span> len = s.length();
-    <span class="hljs-keyword">boolean</span>[] visited = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[len + <span class="hljs-number">1</span>];
-    LinkedList&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
-    queue.add(<span class="hljs-number">0</span>);
-    visited[<span class="hljs-number">0</span>] = <span class="hljs-keyword">true</span>;
-    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;
-        <span class="hljs-keyword">int</span> start = queue.poll();
-        <span class="hljs-keyword">if</span> (start == len) &#123;
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-        &#125;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> end = start + <span class="hljs-number">1</span>; end &lt;= len; end++) &#123;
-            String prefix = s.substring(start, end);
-            <span class="hljs-comment">// s[start:end] 是有效前缀，则下次可以从 end 开始搜索</span>
-            <span class="hljs-keyword">if</span> (wordSet.contains(prefix) &amp;&amp; !visited[end]) &#123;
-                visited[end] = <span class="hljs-keyword">true</span>;
-                queue.add(end);
-            &#125;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-&#125;</code></pre>
-<h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">wordBreak</span><span class="hljs-params">(String s, List&lt;String&gt; wordDict)</span> </span>&#123;
-    <span class="hljs-comment">// s = "leetcode", wordDict = ["leet", "code"]</span>
-    Set&lt;String&gt; wordSet = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(wordDict);
-    <span class="hljs-keyword">int</span> len = s.length();
-    <span class="hljs-comment">// dp[i]: s[0:i-1] 是否能拆分</span>
-    <span class="hljs-comment">// dp[i] = dp[i - 1] == true &amp;&amp; s[i:len] 在 wordDict 中</span>
-    <span class="hljs-keyword">boolean</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[len + <span class="hljs-number">1</span>];
-    dp[<span class="hljs-number">0</span>] = <span class="hljs-keyword">true</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len; i++) &#123;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; i; j++) &#123;
-            String suffix = s.substring(j, i);
-            <span class="hljs-comment">// s[0:j - 1] 可拆分 &amp;&amp; s[j:i] 在 dict 中</span>
-            <span class="hljs-keyword">if</span> (dp[j] &amp;&amp; wordSet.contains(suffix)) &#123;
-                dp[i] = <span class="hljs-keyword">true</span>;
-                <span class="hljs-keyword">break</span>;
-            &#125;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> dp[len];
-&#125;</code></pre>
             </article>
             <hr>
             <div>
@@ -300,7 +398,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                      <a class="hover-with-bg" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
                     
                   </div>
                 
@@ -308,15 +406,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-                    
-                      <a class="hover-with-bg" href="/tags/BFS/">BFS</a>
-                    
-                      <a class="hover-with-bg" href="/tags/DFS/">DFS</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+                      <a class="hover-with-bg" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
                     
                   </div>
                 
@@ -329,18 +419,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/11/01/LeetCode-140-word-break-ii/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 140. 单词拆分 II</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/10/31/LeetCode-381-insert-delete-getrandom-o1-duplicates-allowed/">
-                        <span class="hidden-mobile">LeetCode 381. O(1) 时间插入、删除和获取随机元素 - 允许重复</span>
+                      <a href="/2020/11/10/LeetCode-31-next-permutation/">
+                        <span class="hidden-mobile">LeetCode 31. 下一个排列</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

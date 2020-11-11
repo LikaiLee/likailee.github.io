@@ -170,6 +170,56 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/20/LeetCode-53-maximum-subarray/">LeetCode 53. 最大子序和</a>
+
+      <a href="/2020/08/20/LeetCode-53-maximum-subarray/" class="index-excerpt">
+        
+        
+          
+        
+        <div>53. 最大子序和
+状态转移：如果前一个子序列和 nums[i - 1] 无法为 nums[i] 带来正增益，则 nums[i] 为 dp[i] 的最大值。
+/**
+ * 状态：dp[i] 以 nums[i] 结尾的子数组最大和
+ * 转移方程：
+ * dp[i] = 前一个子序列 + nums[i] if 前一个子序列 + nums[i] &gt; nums[i] else nums[i]
+ *</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-20
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/20/LeetCode-120-triangle/">LeetCode 120. 三角形最小路径和</a>
 
       <a href="/2020/08/20/LeetCode-120-triangle/" class="index-excerpt">
@@ -257,9 +307,9 @@ base: 两个字符串中有一个为空，则 dp[0][j] = 0 或 dp[i][0] = 0
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-            
               <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
             
           </div>
         
@@ -612,55 +662,6 @@ public int searchInsert(int[] nums, int target) &#123;
     int right = nums.length - 1;
     while (left &lt; right) &#123;
         int mid = left + (right - left + 1) / 2;</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-17
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/17/LeetCode-154-find-minimum-in-rotated-sorted-array-ii/">LeetCode 154. 寻找旋转排序数组中的最小值 II</a>
-
-      <a href="/2020/08/17/LeetCode-154-find-minimum-in-rotated-sorted-array-ii/" class="index-excerpt">
-        
-        
-          
-        
-        <div>154. 寻找旋转排序数组中的最小值 II
-public int findMin(int[] nums) &#123;
-        if (nums.length == 0) &#123;
-            return -1;
-        &#125;
-        int left = 0;
-        int right = nums.length - 1;
-      </div>
       </a>
 
       <div class="index-btm post-metas">
