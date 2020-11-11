@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 60. 排列序列</title>
+    <link href="/2020/11/11/LeetCode-60-permutation-sequence/"/>
+    <url>/2020/11/11/LeetCode-60-permutation-sequence/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/permutation-sequence/" target="_blank" rel="noopener">60. 排列序列</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getPermutation</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-keyword">boolean</span>[] used = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[n + <span class="hljs-number">1</span>];    <span class="hljs-keyword">int</span>[] factorial = calcFact(n);    StringBuilder path = <span class="hljs-keyword">new</span> StringBuilder();    dfs(<span class="hljs-number">0</span>, k, n, used, path, factorial);    <span class="hljs-keyword">return</span> path.toString();&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> selectedCount, <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">boolean</span>[] used, StringBuilder path, <span class="hljs-keyword">int</span>[] factorial)</span> </span>&#123;    <span class="hljs-keyword">if</span> (path.length() == n) &#123;        <span class="hljs-keyword">return</span>;    &#125;    <span class="hljs-comment">// 当前分支的排列数：(总数 - 已选择的个数 - 1)!</span>    <span class="hljs-keyword">int</span> count = factorial[n - selectedCount - <span class="hljs-number">1</span>];    <span class="hljs-comment">// 1, 2, 3, 4, ... , n</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;        <span class="hljs-keyword">if</span> (used[i]) &#123;            <span class="hljs-keyword">continue</span>;        &#125;        <span class="hljs-comment">// 当前分支的排列数 达不到 k 个</span>        <span class="hljs-comment">// 则第 k 个排列一定在后面，跳过当前 i</span>        <span class="hljs-keyword">if</span> (count &lt; k) &#123;            k -= count;            <span class="hljs-keyword">continue</span>;        &#125;        <span class="hljs-comment">// 第 k 个排列 在 i 的分支上</span>        <span class="hljs-comment">// 选择 i 进入递归</span>        used[i] = <span class="hljs-keyword">true</span>;        path.append(i);        dfs(selectedCount + <span class="hljs-number">1</span>, k, n, used, path, factorial);        <span class="hljs-comment">// 后面的数若进行排列已经超出 k，无须遍历</span>        <span class="hljs-keyword">return</span>;    &#125;&#125;<span class="hljs-comment">/**</span><span class="hljs-comment"> * 计算 1...n 的全排列数</span><span class="hljs-comment"> *</span><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> n</span><span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span><span class="hljs-comment"> */</span><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] calcFact(<span class="hljs-keyword">int</span> n) &#123;    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n + <span class="hljs-number">1</span>];    res[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;        res[i] = i * res[i - <span class="hljs-number">1</span>];    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>回溯</tag>
+      
+      <tag>数学</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 90. 子集 II</title>
     <link href="/2020/11/11/LeetCode-90-subsets-ii/"/>
     <url>/2020/11/11/LeetCode-90-subsets-ii/</url>
@@ -508,11 +537,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -539,11 +568,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
       
       <tag>分治</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -570,11 +599,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
       
       <tag>分治</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -690,9 +719,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1032,9 +1061,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1063,9 +1092,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1532,9 +1561,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1561,9 +1590,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2489,9 +2518,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -2825,9 +2854,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -2935,9 +2964,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3076,9 +3105,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3277,11 +3306,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3337,11 +3366,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4001,9 +4030,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -4030,9 +4059,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -4177,9 +4206,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -4322,9 +4351,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4351,9 +4380,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4498,11 +4527,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4529,9 +4558,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -4645,9 +4674,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4813,9 +4842,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>排序</tag>
       
@@ -4871,9 +4900,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -4902,9 +4931,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4962,9 +4991,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4991,9 +5020,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
