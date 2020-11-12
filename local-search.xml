@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 437. 路径总和 III</title>
+    <link href="/2020/11/12/LeetCode-437-path-sum-iii/"/>
+    <url>/2020/11/12/LeetCode-437-path-sum-iii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/path-sum-iii/" target="_blank" rel="noopener">437. 路径总和 III</a></p><p>前缀和。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">pathSum</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> sum)</span> </span>&#123;    <span class="hljs-comment">// key: 前缀和，value：该前缀和的出现次数</span>    Map&lt;Integer, Integer&gt; preSums = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-comment">// 前缀和为 0 的路径有一条</span>    preSums.put(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>);    <span class="hljs-keyword">return</span> backtrack(root, <span class="hljs-number">0</span>, preSums, sum);&#125;<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> curSum, Map&lt;Integer, Integer&gt; preSums, <span class="hljs-keyword">int</span> sum)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 更新当前路径和</span>    curSum += root.val;    <span class="hljs-comment">// curSum - x = sum，计算 x 的出现次数</span>    count += preSums.getOrDefault(curSum - sum, <span class="hljs-number">0</span>);    <span class="hljs-comment">// 将 curSum 放入前缀和</span>    preSums.put(curSum, preSums.getOrDefault(curSum, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);    <span class="hljs-comment">// 进入下一层</span>    count += backtrack(root.left, curSum, preSums, sum) + backtrack(root.right, curSum, preSums, sum);    <span class="hljs-comment">// 回溯</span>    preSums.put(curSum, preSums.get(curSum) - <span class="hljs-number">1</span>);    <span class="hljs-keyword">return</span> count;&#125;</code></pre><p>以每个节点为根节点依次计算。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">pathSum</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> sum)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">return</span> pathSumFrom(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);&#125;<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">pathSumFrom</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> sum)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    sum -= root.val;    <span class="hljs-keyword">if</span> (sum == <span class="hljs-number">0</span>) &#123;        count++;    &#125;    <span class="hljs-keyword">return</span> count + pathSumFrom(root.left, sum) + pathSumFrom(root.right, sum);&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>树</tag>
+      
+      <tag>回溯</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 113. 路径总和 II</title>
     <link href="/2020/11/12/LeetCode-113-path-sum-ii/"/>
     <url>/2020/11/12/LeetCode-113-path-sum-ii/</url>
@@ -620,11 +649,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -651,11 +680,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
       
       <tag>分治</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -682,11 +711,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
       
       <tag>分治</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -802,9 +831,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1144,9 +1173,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1175,9 +1204,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1206,9 +1235,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>树</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -1644,9 +1673,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -1673,9 +1702,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1835,9 +1864,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2601,9 +2630,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -2937,9 +2966,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -3047,9 +3076,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3076,9 +3105,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3188,9 +3217,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3389,11 +3418,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -3449,11 +3478,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -4318,9 +4347,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4347,9 +4376,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4376,9 +4405,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4405,9 +4434,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4434,9 +4463,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4463,9 +4492,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4610,11 +4639,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -4670,9 +4699,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -4728,9 +4757,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4757,9 +4786,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -4815,9 +4844,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4983,9 +5012,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -5014,9 +5043,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5074,9 +5103,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5103,9 +5132,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6147,9 +6176,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
