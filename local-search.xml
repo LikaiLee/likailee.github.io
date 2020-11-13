@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 328. 奇偶链表</title>
+    <link href="/2020/11/13/LeetCode-328-odd-even-linked-list/"/>
+    <url>/2020/11/13/LeetCode-328-odd-even-linked-list/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/odd-even-linked-list/" target="_blank" rel="noopener">328. 奇偶链表</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">oddEvenList</span><span class="hljs-params">(ListNode head)</span> </span>&#123;    <span class="hljs-keyword">if</span> (head == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;    &#125;    <span class="hljs-comment">// 1 2 3 4 5 6</span>    <span class="hljs-comment">// o e</span>    ListNode odd = head;    ListNode even = head.next;    ListNode evenHead = even;    <span class="hljs-comment">// even 总是连接剩余的节点</span>    <span class="hljs-keyword">while</span> (even != <span class="hljs-keyword">null</span> &amp;&amp; even.next != <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-comment">// 1 -&gt; 3 -&gt; 4...</span>        odd.next = even.next;        <span class="hljs-comment">// odd = 3</span>        odd = odd.next;        <span class="hljs-comment">// 2 -&gt; 4...</span>        even.next = odd.next;        <span class="hljs-comment">// even = 4</span>        even = even.next;    &#125;    odd.next = evenHead;    <span class="hljs-keyword">return</span> head;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 437. 路径总和 III</title>
     <link href="/2020/11/12/LeetCode-437-path-sum-iii/"/>
     <url>/2020/11/12/LeetCode-437-path-sum-iii/</url>
@@ -649,11 +678,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -680,11 +709,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>DFS</tag>
+      
       <tag>树</tag>
       
       <tag>分治</tag>
-      
-      <tag>DFS</tag>
       
     </tags>
     
@@ -711,11 +740,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>DFS</tag>
+      
       <tag>树</tag>
       
       <tag>分治</tag>
-      
-      <tag>DFS</tag>
       
     </tags>
     
@@ -831,9 +860,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -1173,9 +1202,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -1204,9 +1233,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -1235,9 +1264,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -1864,9 +1893,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -2630,9 +2659,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -3105,9 +3134,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
