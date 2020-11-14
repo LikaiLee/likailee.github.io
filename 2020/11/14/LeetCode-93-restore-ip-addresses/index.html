@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 205. 同构字符串 - Likai Lee</title>
+  <title>LeetCode 93. 复原IP地址 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 205. 同构字符串
+                LeetCode 93. 复原IP地址
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-11 19:22">
-      2020年9月11日 晚上
+    <time datetime="2020-11-14 15:09">
+      2020年11月14日 下午
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      199 字
+      218 字
     </span>
   
 
@@ -207,56 +207,55 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月11日 晚上
+                  本文最后更新于：2020年11月14日 下午
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/isomorphic-strings/" target="_blank" rel="noopener">205. 同构字符串</a></p>
-<p>需要从两个方向判断！</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isIsomorphic</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">return</span> check(s, t) &amp;&amp; check(t, s);
+              <p><a href="https://leetcode-cn.com/problems/restore-ip-addresses/" target="_blank" rel="noopener">93. 复原IP地址</a></p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">restoreIpAddresses</span><span class="hljs-params">(String s)</span> </span>&#123;
+    List&lt;String&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-keyword">int</span> len = s.length();
+    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">4</span>) &#123;
+        <span class="hljs-keyword">return</span> res;
+    &#125;
+    backtrack(s, len, <span class="hljs-number">0</span>, <span class="hljs-keyword">new</span> LinkedList&lt;&gt;(), res);
+    <span class="hljs-keyword">return</span> res;
 &#125;
 
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = s.length();
-    Map&lt;Character, Character&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-keyword">char</span> c = s.charAt(i);
-        <span class="hljs-keyword">char</span> key = t.charAt(i);
-        <span class="hljs-keyword">if</span> (map.containsKey(key)) &#123;
-            <span class="hljs-keyword">char</span> target = map.get(key);
-            <span class="hljs-keyword">if</span> (c != target) &#123;
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(String s, <span class="hljs-keyword">int</span> len, <span class="hljs-keyword">int</span> start, LinkedList&lt;String&gt; path, List&lt;String&gt; res)</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (start == len) &#123;
+        <span class="hljs-comment">// 四个整数才是有效 IP</span>
+        <span class="hljs-keyword">if</span> (path.size() == <span class="hljs-number">4</span>) &#123;
+            res.add(String.join(<span class="hljs-string">"."</span>, path));
+        &#125;
+        <span class="hljs-keyword">return</span>;
+    &#125;
+    <span class="hljs-comment">// 还没切分完，但是已经切分的数字数目 &gt;= 4，剩下的数字不可切分</span>
+    <span class="hljs-keyword">if</span> (path.size() &gt;= <span class="hljs-number">4</span>) &#123;
+        <span class="hljs-keyword">return</span>;
+    &#125;
+    <span class="hljs-keyword">if</span> (s.charAt(start) == <span class="hljs-string">'0'</span>) &#123;
+        path.addLast(String.valueOf(s.charAt(start)));
+        backtrack(s, len, start + <span class="hljs-number">1</span>, path, res);
+        path.removeLast();
+    &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-comment">// [0:255] =&gt; 位数：[1:3]</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">3</span>; i++) &#123;
+            <span class="hljs-keyword">int</span> end = start + i;
+            <span class="hljs-keyword">if</span> (end &gt; len) &#123;
+                <span class="hljs-keyword">continue</span>;
             &#125;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            map.put(key, c);
+            String num = s.substring(start, end);
+            <span class="hljs-comment">// 超出 255，不是有效 IP</span>
+            <span class="hljs-keyword">if</span> (Integer.parseInt(num) &gt; <span class="hljs-number">255</span>) &#123;
+                <span class="hljs-keyword">continue</span>;
+            &#125;
+            path.addLast(num);
+            backtrack(s, len, end, path, res);
+            path.removeLast();
         &#125;
     &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-&#125;</code></pre>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isIsomorphic</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-comment">// 双向验证</span>
-    <span class="hljs-keyword">return</span> check(s, t) &amp;&amp; check(t, s);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = s.length();
-    <span class="hljs-keyword">int</span>[] map = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">128</span>];
-    <span class="hljs-keyword">char</span>[] chars1 = s.toCharArray();
-    <span class="hljs-keyword">char</span>[] chars2 = t.toCharArray();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-keyword">int</span> target = map[chars1[i]];
-        <span class="hljs-comment">// 判断对应位置是否匹配</span>
-        <span class="hljs-keyword">if</span> (target != <span class="hljs-number">0</span>) &#123;
-            <span class="hljs-keyword">if</span> (target != chars2[i]) &#123;
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-            &#125;
-        &#125;
-        <span class="hljs-comment">// 新增 map</span>
-        map[chars1[i]] = chars2[i];
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
 &#125;</code></pre>
             </article>
             <hr>
@@ -274,11 +273,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-                    
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+                      <a class="hover-with-bg" href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
                     
                   </div>
                 
@@ -291,18 +288,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/12/LeetCode-224-basic-calculator/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 224. 基本计算器</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/10/LeetCode-583-delete-operation-for-two-strings/">
-                        <span class="hidden-mobile">LeetCode 583. 两个字符串的删除操作</span>
+                      <a href="/2020/11/13/LeetCode-328-odd-even-linked-list/">
+                        <span class="hidden-mobile">LeetCode 328. 奇偶链表</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
