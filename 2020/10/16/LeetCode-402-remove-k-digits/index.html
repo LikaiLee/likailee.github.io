@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      152 字
+      168 字
     </span>
   
 
@@ -207,42 +207,48 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月16日 晚上
+                  本文最后更新于：2020年11月15日 晚上
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/remove-k-digits/" target="_blank" rel="noopener">402. 移掉K位数字</a></p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">removeKdigits</span><span class="hljs-params">(String num, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
-    ArrayDeque&lt;Character&gt; deque = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
+    <span class="hljs-comment">// "1432219" "10200" "10"</span>
     <span class="hljs-keyword">char</span>[] nums = num.toCharArray();
-    <span class="hljs-keyword">int</span> dropCount = k;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> digit : nums) &#123;
-        <span class="hljs-comment">// 丢弃栈中比当前数字大的，可以使整个序列变小</span>
-        <span class="hljs-keyword">while</span> (dropCount &gt; <span class="hljs-number">0</span> &amp;&amp; !deque.isEmpty() &amp;&amp; deque.peekLast() &gt; digit) &#123;
-            deque.pollLast();
-            dropCount--;
+    ArrayDeque&lt;Character&gt; deque = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
+    <span class="hljs-keyword">int</span> dropped = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : nums) &#123;
+        <span class="hljs-comment">// 可以丢弃 &amp;&amp; 栈顶 &gt; current</span>
+        <span class="hljs-comment">// 丢弃栈顶，使得整个序列变小 =&gt; 递增栈</span>
+        <span class="hljs-keyword">while</span> (dropped &lt; k &amp;&amp; !deque.isEmpty() &amp;&amp; deque.peekLast() &gt; c) &#123;
+            dropped++;
+            deque.removeLast();
         &#125;
-        deque.addLast(digit);
+        deque.addLast(c);
     &#125;
-    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();
-    <span class="hljs-comment">// 需要保留的数字个数</span>
-    <span class="hljs-keyword">int</span> len = nums.length - k;
-    <span class="hljs-keyword">int</span> zeroCount = <span class="hljs-number">0</span>;
-    <span class="hljs-comment">// 去除起始的 0</span>
+    <span class="hljs-comment">// 去除前导 0</span>
     <span class="hljs-keyword">while</span> (!deque.isEmpty() &amp;&amp; deque.peekFirst() == <span class="hljs-string">'0'</span>) &#123;
-        deque.pollFirst();
-        zeroCount++;
+        deque.removeFirst();
     &#125;
-    <span class="hljs-comment">// 有效长度</span>
-    len -= zeroCount;
-    <span class="hljs-keyword">if</span> (deque.isEmpty() || len == <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-comment">// 已丢弃的数字不足 k 个</span>
+    <span class="hljs-comment">// 则丢弃队列后面的数字</span>
+    <span class="hljs-keyword">while</span> (dropped &lt; k) &#123;
+        dropped++;
+        <span class="hljs-keyword">if</span> (deque.isEmpty()) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-string">"0"</span>;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            deque.removeLast();
+        &#125;
+    &#125;
+    <span class="hljs-keyword">if</span> (deque.isEmpty()) &#123;
         <span class="hljs-keyword">return</span> <span class="hljs-string">"0"</span>;
     &#125;
-    <span class="hljs-keyword">while</span> (!deque.isEmpty() &amp;&amp; len-- &gt; <span class="hljs-number">0</span>) &#123;
-        sb.append(deque.pollFirst());
+    StringBuilder stringBuilder = <span class="hljs-keyword">new</span> StringBuilder();
+    <span class="hljs-keyword">while</span> (!deque.isEmpty()) &#123;
+        stringBuilder.append(deque.removeFirst());
     &#125;
-    <span class="hljs-keyword">return</span> sb.toString();
+    <span class="hljs-keyword">return</span> stringBuilder.toString();
 &#125;</code></pre>
             </article>
             <hr>
