@@ -1426,9 +1426,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>链表</tag>
-      
       <tag>优先队列</tag>
+      
+      <tag>链表</tag>
       
     </tags>
     
@@ -1756,9 +1756,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1785,9 +1785,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1947,9 +1947,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -2304,7 +2304,7 @@
     <link href="/2020/10/16/LeetCode-402-remove-k-digits/"/>
     <url>/2020/10/16/LeetCode-402-remove-k-digits/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/remove-k-digits/" target="_blank" rel="noopener">402. 移掉K位数字</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">removeKdigits</span><span class="hljs-params">(String num, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-comment">// "1432219" "10200" "10"</span>    <span class="hljs-keyword">char</span>[] nums = num.toCharArray();    ArrayDeque&lt;Character&gt; deque = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    <span class="hljs-keyword">int</span> dropped = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : nums) &#123;        <span class="hljs-comment">// 可以丢弃 &amp;&amp; 栈顶 &gt; current</span>        <span class="hljs-comment">// 丢弃栈顶，使得整个序列变小 =&gt; 递增栈</span>        <span class="hljs-keyword">while</span> (dropped &lt; k &amp;&amp; !deque.isEmpty() &amp;&amp; deque.peekLast() &gt; c) &#123;            dropped++;            deque.removeLast();        &#125;        deque.addLast(c);    &#125;    <span class="hljs-comment">// 去除前导 0</span>    <span class="hljs-keyword">while</span> (!deque.isEmpty() &amp;&amp; deque.peekFirst() == <span class="hljs-string">'0'</span>) &#123;        deque.removeFirst();    &#125;    <span class="hljs-comment">// 已丢弃的数字不足 k 个</span>    <span class="hljs-comment">// 则丢弃队列后面的数字</span>    <span class="hljs-keyword">while</span> (dropped &lt; k) &#123;        dropped++;        <span class="hljs-keyword">if</span> (deque.isEmpty()) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-string">"0"</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            deque.removeLast();        &#125;    &#125;    <span class="hljs-keyword">if</span> (deque.isEmpty()) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-string">"0"</span>;    &#125;    StringBuilder stringBuilder = <span class="hljs-keyword">new</span> StringBuilder();    <span class="hljs-keyword">while</span> (!deque.isEmpty()) &#123;        stringBuilder.append(deque.removeFirst());    &#125;    <span class="hljs-keyword">return</span> stringBuilder.toString();&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/remove-k-digits/" target="_blank" rel="noopener">402. 移掉K位数字</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">removeKdigits</span><span class="hljs-params">(String num, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-comment">// "1432219" "10200" "10"</span>    <span class="hljs-keyword">char</span>[] nums = num.toCharArray();    ArrayDeque&lt;Character&gt; deque = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    <span class="hljs-keyword">int</span> dropped = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : nums) &#123;        <span class="hljs-comment">// 可以丢弃 &amp;&amp; 栈顶 &gt; current</span>        <span class="hljs-comment">// 丢弃栈顶，使得整个序列变小 =&gt; 递增栈</span>        <span class="hljs-keyword">while</span> (dropped &lt; k &amp;&amp; !deque.isEmpty() &amp;&amp; deque.peekLast() &gt; c) &#123;            dropped++;            deque.removeLast();        &#125;        deque.addLast(c);    &#125;    <span class="hljs-comment">// 去除前导 0</span>    <span class="hljs-keyword">while</span> (!deque.isEmpty() &amp;&amp; deque.peekFirst() == <span class="hljs-string">'0'</span>) &#123;        deque.removeFirst();    &#125;    <span class="hljs-comment">// 已丢弃的数字不足 k 个</span>    <span class="hljs-comment">// 则丢弃队列后面的数字</span>    <span class="hljs-keyword">while</span> (dropped &lt; k) &#123;        dropped++;        <span class="hljs-keyword">if</span> (deque.isEmpty()) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-string">"0"</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            deque.removeLast();        &#125;    &#125;    <span class="hljs-keyword">if</span> (deque.isEmpty()) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-string">"0"</span>;    &#125;    StringBuilder stringBuilder = <span class="hljs-keyword">new</span> StringBuilder();    <span class="hljs-keyword">while</span> (!deque.isEmpty()) &#123;        stringBuilder.append(deque.removeFirst());    &#125;    <span class="hljs-keyword">return</span> stringBuilder.toString();&#125;</code></pre><p>数组模拟：</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">removeKdigits</span><span class="hljs-params">(String num, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = num.length();    <span class="hljs-keyword">char</span>[] str = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[len];    <span class="hljs-keyword">char</span>[] nums = num.toCharArray();    <span class="hljs-comment">// right 指向 str 的有效位置</span>    <span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : nums) &#123;        <span class="hljs-comment">// 模拟单调递增栈</span>        <span class="hljs-keyword">while</span> (k &gt; <span class="hljs-number">0</span> &amp;&amp; right &gt; <span class="hljs-number">0</span> &amp;&amp; str[right - <span class="hljs-number">1</span>] &gt; c) &#123;            k--;            right--;        &#125;        str[right++] = c;    &#125;    <span class="hljs-comment">// 删除位数不足 k 位</span>    <span class="hljs-keyword">while</span> (k-- &gt; <span class="hljs-number">0</span> &amp;&amp; right &gt; <span class="hljs-number">0</span>) &#123;        right--;    &#125;    <span class="hljs-comment">// 删除前导 0</span>    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; str[left] == <span class="hljs-string">'0'</span>) &#123;        left++;    &#125;    <span class="hljs-keyword">if</span> (right == left) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-string">"0"</span>;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> String(str, left, right - left);&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -3049,9 +3049,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -3159,9 +3159,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3188,9 +3188,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -3300,9 +3300,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3501,11 +3501,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3559,13 +3559,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4225,9 +4225,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -4254,9 +4254,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -4283,9 +4283,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -4368,9 +4368,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -4399,9 +4399,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>哈希表</tag>
       
@@ -4428,9 +4428,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -4457,9 +4457,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -4486,9 +4486,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -4515,9 +4515,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -4544,11 +4544,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4573,11 +4573,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4720,13 +4720,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4751,9 +4751,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>哈希表</tag>
       
@@ -4780,9 +4780,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -4838,9 +4838,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -4867,11 +4867,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4925,9 +4925,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -5035,9 +5035,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>哈希表</tag>
       
@@ -5093,11 +5093,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -5124,11 +5124,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5153,9 +5153,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -5184,11 +5184,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5213,11 +5213,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5242,9 +5242,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5269,9 +5269,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5296,9 +5296,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5348,9 +5348,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5375,9 +5375,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5402,9 +5402,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6257,9 +6257,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
