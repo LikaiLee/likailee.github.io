@@ -179,10 +179,13 @@
         
         <div>617. 合并二叉树
 public TreeNode mergeTrees(TreeNode t1, TreeNode t2) &#123;
-    if (t1 != null &amp;&amp; t2 != null) &#123;
-        t1.val += t2.val;
-        t1.left = mergeTrees(t1.left, t2.left);
-      </div>
+    if (t1 == null) &#123;
+        return t2;
+    &#125;
+    if (t2 == null) &#123;
+        return t1;
+    &#125;
+    // t1, t2 都</div>
       </a>
 
       <div class="index-btm post-metas">

@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      57 字
+      64 字
     </span>
   
 
@@ -214,16 +214,18 @@
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/merge-two-binary-trees/" target="_blank" rel="noopener">617. 合并二叉树</a></p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">mergeTrees</span><span class="hljs-params">(TreeNode t1, TreeNode t2)</span> </span>&#123;
-    <span class="hljs-keyword">if</span> (t1 != <span class="hljs-keyword">null</span> &amp;&amp; t2 != <span class="hljs-keyword">null</span>) &#123;
-        t1.val += t2.val;
-        t1.left = mergeTrees(t1.left, t2.left);
-        t1.right = mergeTrees(t1.right, t2.right);
-        <span class="hljs-keyword">return</span> t1;
-    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (t1 != <span class="hljs-keyword">null</span>) &#123;
-        <span class="hljs-keyword">return</span> t1;
-    &#125; <span class="hljs-keyword">else</span> &#123;
+    <span class="hljs-keyword">if</span> (t1 == <span class="hljs-keyword">null</span>) &#123;
         <span class="hljs-keyword">return</span> t2;
     &#125;
+    <span class="hljs-keyword">if</span> (t2 == <span class="hljs-keyword">null</span>) &#123;
+        <span class="hljs-keyword">return</span> t1;
+    &#125;
+    <span class="hljs-comment">// t1, t2 都不为 null</span>
+    <span class="hljs-comment">// 合并根节点，左右子树</span>
+    t1.val += t2.val;
+    t1.left = mergeTrees(t1.left, t2.left);
+    t1.right = mergeTrees(t1.right, t2.right);
+    <span class="hljs-keyword">return</span> t1;
 &#125;</code></pre>
             </article>
             <hr>
