@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 1030. 距离顺序排列矩阵单元格</title>
+    <link href="/2020/11/17/LeetCode-1030-matrix-cells-in-distance-order/"/>
+    <url>/2020/11/17/LeetCode-1030-matrix-cells-in-distance-order/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/matrix-cells-in-distance-order/" target="_blank" rel="noopener">1030. 距离顺序排列矩阵单元格</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[][] allCellsDistOrder(<span class="hljs-keyword">int</span> R, <span class="hljs-keyword">int</span> C, <span class="hljs-keyword">int</span> r0, <span class="hljs-keyword">int</span> c0) &#123;    <span class="hljs-keyword">int</span>[][] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[R * C][<span class="hljs-number">2</span>];    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span>[][] dirs = &#123;&#123;-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>&#125;, &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;&#125;;    <span class="hljs-keyword">boolean</span>[][] visited = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[R][C];    LinkedList&lt;<span class="hljs-keyword">int</span>[]&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();    <span class="hljs-comment">// 加入队列</span>    queue.add(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;r0, c0&#125;);    <span class="hljs-comment">// 标记访问</span>    visited[r0][c0] = <span class="hljs-keyword">true</span>;    <span class="hljs-comment">// 加入结果集</span>    res[i++] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;r0, c0&#125;;    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;        <span class="hljs-keyword">int</span> size = queue.size();        <span class="hljs-keyword">while</span> (size-- &gt; <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">int</span>[] cur = queue.poll();            <span class="hljs-comment">// 四个方向游走</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] dir : dirs) &#123;                <span class="hljs-keyword">int</span> newX = cur[<span class="hljs-number">0</span>] + dir[<span class="hljs-number">0</span>];                <span class="hljs-keyword">int</span> newY = cur[<span class="hljs-number">1</span>] + dir[<span class="hljs-number">1</span>];                <span class="hljs-keyword">if</span> (!inArea(newX, newY, R, C) || visited[newX][newY]) &#123;                    <span class="hljs-keyword">continue</span>;                &#125;                visited[newX][newY] = <span class="hljs-keyword">true</span>;                <span class="hljs-keyword">int</span>[] newPos = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;newX, newY&#125;;                queue.add(newPos);                res[i++] = newPos;            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">inArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> c)</span> </span>&#123;    <span class="hljs-keyword">return</span> x &gt;= <span class="hljs-number">0</span> &amp;&amp; x &lt; r &amp;&amp; y &gt;= <span class="hljs-number">0</span> &amp;&amp; y &lt; c;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
+      
+      <tag>BFS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 406. 根据身高重建队列</title>
     <link href="/2020/11/16/LeetCode-406-queue-reconstruction-by-height/"/>
     <url>/2020/11/16/LeetCode-406-queue-reconstruction-by-height/</url>
@@ -761,9 +790,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
       <tag>DFS</tag>
       
@@ -1347,9 +1376,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>树</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3188,9 +3217,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3590,11 +3619,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -3793,9 +3822,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4575,9 +4604,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4604,9 +4633,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4751,11 +4780,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -4898,9 +4927,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5068,9 +5097,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>字符串</tag>
-      
       <tag>排序</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5124,9 +5153,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -5155,9 +5184,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5215,9 +5244,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5244,9 +5273,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
