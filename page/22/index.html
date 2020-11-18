@@ -178,9 +178,11 @@
           
         
         <div>37. 解数独
-如果采用与 36. 有效的数独 类似的解法，使用下面这种方式来判断重复也很有效。
-private boolean isValid(int num, int row, int col, char[][] board) &#123;
-    return rows[row][num] + cols[col][num] + boxes[(row / 3) * 3 + col / 3][n</div>
+public void solveSudoku(char[][] board) &#123;
+    int n = 9;
+    boolean[][] rows = new boolean[n][n + 1];
+    boolean[][] cols = new boolean[n][n + 1];
+    boolean[][] boxes = new boolean[n]</div>
       </a>
 
       <div class="index-btm post-metas">
