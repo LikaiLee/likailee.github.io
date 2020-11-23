@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 452. 用最少数量的箭引爆气球</title>
+    <link href="/2020/11/23/LeetCode-452-minimum-number-of-arrows-to-burst-balloons/"/>
+    <url>/2020/11/23/LeetCode-452-minimum-number-of-arrows-to-burst-balloons/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/" target="_blank" rel="noopener">452. 用最少数量的箭引爆气球</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findMinArrowShots</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] points)</span> </span>&#123;    <span class="hljs-comment">// [[10,16],[2,8],[1,6],[7,12]]</span>    <span class="hljs-comment">// [[3,9],[7,12],[3,8],[6,8],[9,10],[2,9],[0,9],[3,9],[0,6],[2,8]]</span>    <span class="hljs-comment">// [[-2147483646,-2147483645],[2147483646,2147483647]]</span>    <span class="hljs-comment">// 不能用减法来比较 &amp;&amp; 子区间内也要重合</span>    Arrays.sort(points, (o1, o2) -&gt; Integer.compare(o1[<span class="hljs-number">1</span>], o2[<span class="hljs-number">1</span>]));    <span class="hljs-comment">// System.out.println(Arrays.deepToString(points));</span>    <span class="hljs-keyword">int</span> len = points.length;    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (i &lt; len) &#123;        count++;        <span class="hljs-keyword">int</span> end = points[i][<span class="hljs-number">1</span>];        <span class="hljs-comment">// 比较的是下一个区间</span>        <span class="hljs-keyword">while</span> (i &lt; len - <span class="hljs-number">1</span> &amp;&amp; end &gt;= points[i + <span class="hljs-number">1</span>][<span class="hljs-number">0</span>]) &#123;            i++;        &#125;        <span class="hljs-comment">// 确保更新 新的边界</span>        i++;    &#125;    <span class="hljs-keyword">return</span> count;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>贪心</tag>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 148. 排序链表</title>
     <link href="/2020/11/21/LeetCode-148-sort-list/"/>
     <url>/2020/11/21/LeetCode-148-sort-list/</url>
@@ -22,9 +51,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
       <tag>链表</tag>
       
@@ -82,9 +111,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
       <tag>链表</tag>
       
@@ -192,9 +221,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -304,9 +333,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>排序</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -1072,11 +1101,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -1103,11 +1132,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
       
       <tag>分治</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -1134,11 +1163,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
       
       <tag>分治</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -1254,9 +1283,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1596,9 +1625,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1627,9 +1656,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1658,9 +1687,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>树</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3053,9 +3082,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -4104,9 +4133,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
