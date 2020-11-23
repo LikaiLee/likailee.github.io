@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 581. 最短无序连续子数组 - Likai Lee</title>
+  <title>LeetCode 343. 整数拆分 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 581. 最短无序连续子数组
+                LeetCode 343. 整数拆分
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-11-18 20:44">
-      2020年11月18日 晚上
+    <time datetime="2020-11-23 21:04">
+      2020年11月23日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      324 字
+      65 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      1
        分钟
     </span>
   
@@ -207,75 +207,23 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年11月18日 晚上
+                  本文最后更新于：2020年11月23日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/shortest-unsorted-continuous-subarray/" target="_blank" rel="noopener">581. 最短无序连续子数组</a></p>
-<h1 id="排序"><a class="markdownIt-Anchor" href="#排序"></a> 排序</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findUnsortedSubarray</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = nums.length;
-    <span class="hljs-keyword">int</span>[] origin = Arrays.copyOf(nums, len);
-    Arrays.sort(nums);
-    <span class="hljs-keyword">int</span> left = len, right = <span class="hljs-number">0</span>;
-    <span class="hljs-comment">// 排序后比较每个位置</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-keyword">if</span> (nums[i] != origin[i]) &#123;
-            left = Math.min(left, i);
-            right = Math.max(right, i);
+              <p><a href="https://leetcode-cn.com/problems/integer-break/" target="_blank" rel="noopener">343. 整数拆分</a></p>
+<p>差一点😭😭😭</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">integerBreak</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;
+    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n + <span class="hljs-number">1</span>];
+    dp[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;
+    dp[<span class="hljs-number">2</span>] = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">3</span>; i &lt;= n; i++) &#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; i; j++) &#123;
+            dp[i] = Math.max(Math.max(j * (i - j), j * dp[i - j]), dp[i]);
         &#125;
     &#125;
-    <span class="hljs-keyword">return</span> right &lt; left ? <span class="hljs-number">0</span> : right - left + <span class="hljs-number">1</span>;
-&#125;</code></pre>
-<h1 id="栈"><a class="markdownIt-Anchor" href="#栈"></a> 栈</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findUnsortedSubarray</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = nums.length;
-    <span class="hljs-keyword">int</span> left = len, right = <span class="hljs-number">0</span>;
-    LinkedList&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
-    <span class="hljs-comment">// [2, 6, 4, 8, 10, 9, 15]</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-comment">// 找降序，则为左起点</span>
-        <span class="hljs-keyword">while</span> (!stack.isEmpty() &amp;&amp; nums[stack.peek()] &gt; nums[i]) &#123;
-            left = Math.min(left, stack.pop());
-        &#125;
-        stack.push(i);
-    &#125;
-    stack.clear();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
-        <span class="hljs-comment">// 从右往左找升序，则为右起点</span>
-        <span class="hljs-keyword">while</span> (!stack.isEmpty() &amp;&amp; nums[stack.peek()] &lt; nums[i]) &#123;
-            right = Math.max(right, stack.pop());
-        &#125;
-        stack.push(i);
-    &#125;
-
-    <span class="hljs-keyword">return</span> right &lt; left ? <span class="hljs-number">0</span> : right - left + <span class="hljs-number">1</span>;
-&#125;</code></pre>
-<h1 id="双指针"><a class="markdownIt-Anchor" href="#双指针"></a> 双指针</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findUnsortedSubarray</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = nums.length;
-    <span class="hljs-keyword">int</span> left = len, right = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">int</span> leftMax = nums[<span class="hljs-number">0</span>];
-    <span class="hljs-keyword">int</span> rightMin = nums[len - <span class="hljs-number">1</span>];
-    <span class="hljs-comment">// [2, 6, 4, 8, 10, 9, 15]</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-comment">// 从左往右升序，则更新最大值</span>
-        <span class="hljs-keyword">if</span> (nums[i] &gt;= leftMax) &#123;
-            leftMax = nums[i];
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            <span class="hljs-comment">// 降序</span>
-            right = i;
-        &#125;
-        <span class="hljs-comment">// 从右往左降序，则更新最小值</span>
-        <span class="hljs-keyword">if</span> (nums[len - i - <span class="hljs-number">1</span>] &lt;= rightMin) &#123;
-            rightMin = nums[len - i - <span class="hljs-number">1</span>];
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            left = len - i - <span class="hljs-number">1</span>;
-        &#125;
-    &#125;
-
-    <span class="hljs-keyword">return</span> right &lt; left ? <span class="hljs-number">0</span> : right - left + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> dp[n];
 &#125;</code></pre>
             </article>
             <hr>
@@ -295,11 +243,7 @@
                     
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%A0%88/">栈</a>
+                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
                     
                   </div>
                 
@@ -312,18 +256,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/11/19/LeetCode-543-diameter-of-binary-tree/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 543. 二叉树的直径</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/11/18/LeetCode-134-gas-station/">
-                        <span class="hidden-mobile">LeetCode 134. 加油站</span>
+                      <a href="/2020/11/23/LeetCode-452-minimum-number-of-arrows-to-burst-balloons/">
+                        <span class="hidden-mobile">LeetCode 452. 用最少数量的箭引爆气球</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

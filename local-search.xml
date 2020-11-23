@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 343. 整数拆分</title>
+    <link href="/2020/11/23/LeetCode-343-integer-break/"/>
+    <url>/2020/11/23/LeetCode-343-integer-break/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/integer-break/" target="_blank" rel="noopener">343. 整数拆分</a></p><p>差一点😭😭😭</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">integerBreak</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n + <span class="hljs-number">1</span>];    dp[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;    dp[<span class="hljs-number">2</span>] = <span class="hljs-number">1</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">3</span>; i &lt;= n; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; i; j++) &#123;            dp[i] = Math.max(Math.max(j * (i - j), j * dp[i - j]), dp[i]);        &#125;    &#125;    <span class="hljs-keyword">return</span> dp[n];&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 452. 用最少数量的箭引爆气球</title>
     <link href="/2020/11/23/LeetCode-452-minimum-number-of-arrows-to-burst-balloons/"/>
     <url>/2020/11/23/LeetCode-452-minimum-number-of-arrows-to-burst-balloons/</url>
@@ -51,9 +78,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>链表</tag>
       
@@ -111,9 +138,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>链表</tag>
       
@@ -221,9 +248,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>栈</tag>
       
@@ -333,9 +360,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -1101,11 +1128,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -1132,11 +1159,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>DFS</tag>
+      
       <tag>树</tag>
       
       <tag>分治</tag>
-      
-      <tag>DFS</tag>
       
     </tags>
     
@@ -1163,11 +1190,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>DFS</tag>
+      
       <tag>树</tag>
       
       <tag>分治</tag>
-      
-      <tag>DFS</tag>
       
     </tags>
     
@@ -1283,9 +1310,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -1625,9 +1652,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -1656,9 +1683,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -1687,9 +1714,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -3082,9 +3109,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -4133,9 +4160,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
