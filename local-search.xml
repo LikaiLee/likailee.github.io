@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 222. 完全二叉树的节点个数</title>
+    <link href="/2020/11/24/LeetCode-222-count-complete-tree-nodes/"/>
+    <url>/2020/11/24/LeetCode-222-count-complete-tree-nodes/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/count-complete-tree-nodes/" target="_blank" rel="noopener">222. 完全二叉树的节点个数</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">countNodes</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span> leftDepth = countDepth(root.left);    <span class="hljs-keyword">int</span> rightDepth = countDepth(root.right);    <span class="hljs-keyword">if</span> (leftDepth == rightDepth) &#123;        <span class="hljs-comment">// 完全二叉树，左右子树高度相同，则左边一定是满二叉树</span>        <span class="hljs-comment">// 2 ^ leftDepth - 1 + 1 (root) = 2 ^ leftDepth</span>        <span class="hljs-keyword">return</span> (<span class="hljs-number">1</span> &lt;&lt; leftDepth) + countNodes(root.right);    &#125; <span class="hljs-keyword">else</span> &#123;        <span class="hljs-comment">// 右子树比左子树少一层，右边一定是满二叉树</span>        <span class="hljs-keyword">return</span> (<span class="hljs-number">1</span> &lt;&lt; rightDepth) + countNodes(root.left);    &#125;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">countDepth</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">int</span> depth = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (root != <span class="hljs-keyword">null</span>) &#123;        depth++;        <span class="hljs-comment">// 完全二叉树叶子节点都在左边</span>        <span class="hljs-comment">// 深度取决于左子树的深度</span>        root = root.left;    &#125;    <span class="hljs-keyword">return</span> depth;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 538. 把二叉搜索树转换为累加树</title>
     <link href="/2020/11/23/LeetCode-538-convert-bst-to-greater-tree/"/>
     <url>/2020/11/23/LeetCode-538-convert-bst-to-greater-tree/</url>
@@ -76,9 +103,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -105,9 +132,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>链表</tag>
       
@@ -165,9 +192,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>链表</tag>
       
@@ -275,9 +302,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>栈</tag>
       
@@ -416,9 +443,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -2119,9 +2146,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -2370,9 +2397,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -3611,9 +3638,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -4187,9 +4214,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
