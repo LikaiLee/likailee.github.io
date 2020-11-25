@@ -170,6 +170,52 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/11/25/spring-aop-implementation/">Spring AOP 实现</a>
+
+      <a href="/2020/11/25/spring-aop-implementation/" class="index-excerpt">
+        
+        
+          
+        
+        <div>
+ApplicationContext 加载完 Bean 后，先实例化 BeanPostProcessor，然后由 BeanFactory#getBean() 实例化普通 Bean，通过 bean = postProcessAfterInitialization(bean, beanName) 实现 AOP 植入。
+
+ 总体流程
+
+
+ApplicationContext 完成了类定义的读取和加载，</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-11-25
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Spring/">Spring</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Spring/">Spring</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/11/24/LeetCode-394-decode-string/">LeetCode 394. 字符串解码</a>
 
       <a href="/2020/11/24/LeetCode-394-decode-string/" class="index-excerpt">
@@ -202,9 +248,9 @@ public String decodeString(String s) &#123;
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-            
               <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
             
               <a href="/tags/%E6%A0%88/">栈</a>
             
@@ -609,55 +655,6 @@ BeanFactory 对 BeanDefinition 注册，并实例化 bean。
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Spring/">Spring</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/11/19/LeetCode-104-maximum-depth-of-binary-tree/">LeetCode 104. 二叉树的最大深度</a>
-
-      <a href="/2020/11/19/LeetCode-104-maximum-depth-of-binary-tree/" class="index-excerpt">
-        
-        
-          
-        
-        <div>104. 二叉树的最大深度
-public int maxDepth(TreeNode root) &#123;
-    if (root == null) &#123;
-        return 0;
-    &#125;
-    int leftDepth = maxDepth(root.left);
-    int rightDepth = maxDepth(root.right);
-  </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-11-19
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E6%A0%91/">树</a>
             
           </div>
         
