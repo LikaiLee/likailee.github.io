@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 164. 最大间距</title>
+    <link href="/2020/11/26/LeetCode-164-maximum-gap/"/>
+    <url>/2020/11/26/LeetCode-164-maximum-gap/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/maximum-gap/" target="_blank" rel="noopener">164. 最大间距</a></p><h1 id="基数排序"><a class="markdownIt-Anchor" href="#基数排序"></a> 基数排序</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maximumGap</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;        <span class="hljs-keyword">int</span> len = nums.length;        <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-keyword">int</span> max = -<span class="hljs-number">1</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;            max = Math.max(max, num);        &#125;        List&lt;List&lt;Integer&gt;&gt; buckets = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;            buckets.add(<span class="hljs-keyword">new</span> ArrayList&lt;&gt;());        &#125;        <span class="hljs-keyword">int</span> exp = <span class="hljs-number">1</span>;        <span class="hljs-keyword">while</span> (max &gt; <span class="hljs-number">0</span>) &#123;            <span class="hljs-comment">// 把数据放入桶</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;                buckets.get(num / exp % <span class="hljs-number">10</span>).add(num);            &#125;            <span class="hljs-comment">// 从桶里取出数据</span>            <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;            <span class="hljs-keyword">for</span> (List&lt;Integer&gt; bucket : buckets) &#123;                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : bucket) &#123;                    nums[i++] = num;                &#125;                <span class="hljs-comment">// 清空桶，用于下一次排序</span>                bucket.clear();            &#125;            max /= <span class="hljs-number">10</span>;            exp *= <span class="hljs-number">10</span>;        &#125;        <span class="hljs-keyword">int</span> res = -<span class="hljs-number">1</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;            res = Math.max(nums[i] - nums[i - <span class="hljs-number">1</span>], res);        &#125;        <span class="hljs-keyword">return</span> res;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Spring 循环依赖</title>
     <link href="/2020/11/26/spring-circular-reference/"/>
     <url>/2020/11/26/spring-circular-reference/</url>
@@ -269,9 +296,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>链表</tag>
       
@@ -329,9 +356,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>链表</tag>
       
@@ -439,9 +466,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>栈</tag>
       
@@ -1905,9 +1932,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2343,9 +2370,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2372,9 +2399,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2534,9 +2561,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -3636,9 +3663,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -3746,9 +3773,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3775,9 +3802,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -3887,9 +3914,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4088,11 +4115,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4148,11 +4175,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4351,9 +4378,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4812,9 +4839,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -4841,9 +4868,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -5133,9 +5160,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5162,9 +5189,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5309,11 +5336,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5456,9 +5483,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5682,9 +5709,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -5713,9 +5740,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5773,9 +5800,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5802,9 +5829,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
