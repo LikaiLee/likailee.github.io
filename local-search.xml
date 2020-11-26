@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Spring 循环依赖</title>
+    <link href="/2020/11/26/spring-circular-reference/"/>
+    <url>/2020/11/26/spring-circular-reference/</url>
+    
+    <content type="html"><![CDATA[<h1 id="bean-获取和创建过程"><a class="markdownIt-Anchor" href="#bean-获取和创建过程"></a> Bean 获取和创建过程</h1><h2 id="bean-获取流程"><a class="markdownIt-Anchor" href="#bean-获取流程"></a> Bean 获取流程</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201126122032.png" srcset="/img/loading.gif" alt="" /></p><ol><li><code>getBean</code> 是个空壳方法，所有逻辑直接到 <code>doGetBean</code> 方法中；</li><li><code>transformedBeanName</code> 将 <code>name</code> 转换为真正的 <code>beanName</code>（<code>name</code> 可能是 <code>FactoryBean</code> 以 <code>&amp;</code> 字符开头或者有别名的情况，所以需要转化下）；</li><li>然后通过 <code>getSingleton(beanName)</code> 方法尝试从缓存中查找是不是有该实例 <code>sharedInstance</code>（单例在 <code>Spring</code> 的同一容器只会被创建一次，后续再获取 <code>bean</code>，就直接从缓存获取即可）；<ol><li>如果存在，<code>sharedInstance</code> 可能是完全实例化好的 <code>bean</code>，也可能是一个原始的 <code>bean</code>，所以再经 <code>getObjectForBeanInstance</code> 处理即可返回；</li><li>如果不存在，这时候就会执行创建 <code>bean</code> 的逻辑，将结果返回。</li></ol></li></ol><h2 id="三级缓存获取-bean"><a class="markdownIt-Anchor" href="#三级缓存获取-bean"></a> 三级缓存获取 Bean</h2><p><code>DefaultSingletonBeanRegistry.java Line#80</code></p><pre><code class="hljs java"><span class="hljs-comment">/** Cache of singleton objects: bean name --&gt; bean instance */</span><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map singletonObjects = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;(<span class="hljs-number">256</span>);<span class="hljs-comment">/** Cache of singleton factories: bean name --&gt; ObjectFactory */</span><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&gt; singletonFactories = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(<span class="hljs-number">16</span>);<span class="hljs-comment">/** Cache of early singleton objects: bean name --&gt; bean instance */</span><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map earlySingletonObjects = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(<span class="hljs-number">16</span>);</code></pre><ul><li>一级缓存 - <code>singletonObjects</code>：完成初始化的单例对象的 <code>cache</code>，这里的 <code>bean</code> 经历过 <strong>实例化-&gt;属性填充-&gt;初始化</strong> 以及各种后置处理。</li><li>二级缓存 - <code>earlySingletonObjects</code>：存放原始的 <code>bean</code> 对象，<strong>完成实例化但是尚未填充属性和初始化</strong>，仅仅能作为指针提前曝光，被其他 <code>bean</code> 所引用，用于解决循环依赖的。</li><li>三级缓存 - <code>singletonFactories</code>：在 <code>bean</code> <strong>实例化完成之后</strong>，属性填充以及初始化之前，如果允许提前曝光，Spring 会将实例化后的 <code>bean</code> 提前曝光，也就是把该 <code>bean</code> 转换成 <code>beanFactory</code> 并加入到 <code>singletonFactories</code>。</li></ul><p><code>DefaultSingletonBeanRegistry.java Line#182</code></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> Object <span class="hljs-title">getSingleton</span><span class="hljs-params">(String beanName, <span class="hljs-keyword">boolean</span> allowEarlyReference)</span> </span>&#123;    <span class="hljs-comment">// 从 singletonObjects 获取实例，singletonObjects 中的实例都是准备好的 bean 实例，可以直接使用</span>    Object singletonObject = <span class="hljs-keyword">this</span>.singletonObjects.get(beanName);    <span class="hljs-comment">// isSingletonCurrentlyInCreation() 判断当前单例bean是否正在创建中</span>    <span class="hljs-keyword">if</span> (singletonObject == <span class="hljs-keyword">null</span> &amp;&amp; isSingletonCurrentlyInCreation(beanName)) &#123;        <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>.singletonObjects) &#123;            <span class="hljs-comment">// 一级缓存没有，就去二级缓存找</span>            singletonObject = <span class="hljs-keyword">this</span>.earlySingletonObjects.get(beanName);            <span class="hljs-keyword">if</span> (singletonObject == <span class="hljs-keyword">null</span> &amp;&amp; allowEarlyReference) &#123;                <span class="hljs-comment">// 二级缓存也没有，就去三级缓存找</span>                ObjectFactory singletonFactory = <span class="hljs-keyword">this</span>.singletonFactories.get(beanName);                <span class="hljs-keyword">if</span> (singletonFactory != <span class="hljs-keyword">null</span>) &#123;                    <span class="hljs-comment">// 三级缓存有的话，就把他移动到二级缓存</span>                    <span class="hljs-comment">// getObject() 是一个接口方法</span>                    <span class="hljs-comment">// 实现见: #创建 Bean -&gt; ##createBean -&gt; getEarlyBeanReference</span>                    singletonObject = singletonFactory.getObject();                    <span class="hljs-keyword">this</span>.earlySingletonObjects.put(beanName, singletonObject);                    <span class="hljs-keyword">this</span>.singletonFactories.remove(beanName);                &#125;            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> singletonObject;&#125;</code></pre><h2 id="创建-bean"><a class="markdownIt-Anchor" href="#创建-bean"></a> 创建 Bean</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201126123413.png" srcset="/img/loading.gif" alt="" /></p><p>在三级缓存中找不到 Bean，进行创建。<br /><code>AbstractBeanFactory.java Line#309</code></p><pre><code class="hljs java"><span class="hljs-keyword">if</span> (mbd.isSingleton()) &#123;    sharedInstance = getSingleton(beanName, () -&gt; &#123;        <span class="hljs-comment">// 这里就是 singletonFactory#getObject() 的一个实现</span>        <span class="hljs-keyword">try</span> &#123;            <span class="hljs-comment">// 实际的创建 Bean 的方法</span>            <span class="hljs-keyword">return</span> createBean(beanName, mbd, args);        &#125;        <span class="hljs-keyword">catch</span> (BeansException ex) &#123;            destroySingleton(beanName);            <span class="hljs-keyword">throw</span> ex;        &#125;    &#125;);    bean = getObjectForBeanInstance(sharedInstance, name, beanName, mbd);&#125;</code></pre><p><code>getSingleton</code> 的主要逻辑：<br /><code>DefaultSingletonBeanRegistry.java Line#208</code></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">getSingleton</span><span class="hljs-params">(String beanName, ObjectFactory singletonFactory)</span> </span>&#123;    <span class="hljs-comment">// 创建 singletonObject</span>    singletonObject = singletonFactory.getObject();    <span class="hljs-comment">// 将 singletonObject 放入缓存</span>    addSingleton(beanName, singletonObject);&#125;</code></pre><p>因此实际创建 <code>Bean</code> 的流程为：</p><ol><li>创建 <code>Bean</code>：<code>singletonFactory.getObject()</code> 调用 <code>createBean(beanName, mbd, args)</code></li><li>将 <code>Bean</code> 放入<strong>一级缓存</strong>：<code>addSingleton(beanName, singletonObject)</code></li></ol><h3 id="1-createbean"><a class="markdownIt-Anchor" href="#1-createbean"></a> 1. createBean</h3><p><code>createBean(beanName, mbd, args)</code> 方法主要调用的是 <code>doCreateBean</code> 方法。</p><p><code>AbstractAutowireCapableBeanFactory.java Line#536</code></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> Object <span class="hljs-title">doCreateBean</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String beanName, <span class="hljs-keyword">final</span> RootBeanDefinition mbd, <span class="hljs-keyword">final</span> @Nullable Object[] args)</span> </span>&#123;    <span class="hljs-comment">// 1. 创建 Bean 实例</span>    BeanWrapper instanceWrapper = createBeanInstance(beanName, mbd, args);    <span class="hljs-comment">// 2. 将 Bean 包装为一个 singletonFactory 放入三级缓存</span>    addSingletonFactory(beanName, () -&gt; getEarlyBeanReference(beanName, mbd, bean));    <span class="hljs-comment">// 3. 属性注入并解析依赖</span>    populateBean(beanName, mbd, instanceWrapper);&#125;</code></pre><p><code>DefaultSingletonBeanRegistry.java Line#156</code></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addSingletonFactory</span><span class="hljs-params">(String beanName, ObjectFactory&lt;?&gt; singletonFactory)</span> </span>&#123;    Assert.notNull(singletonFactory, <span class="hljs-string">"Singleton factory must not be null"</span>);    <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>.singletonObjects) &#123;        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.singletonObjects.containsKey(beanName)) &#123;            <span class="hljs-comment">// 放入三级缓存</span>            <span class="hljs-keyword">this</span>.singletonFactories.put(beanName, singletonFactory);            <span class="hljs-comment">// 删除二级缓存</span>            <span class="hljs-keyword">this</span>.earlySingletonObjects.remove(beanName);            <span class="hljs-keyword">this</span>.registeredSingletons.add(beanName);        &#125;    &#125;&#125;</code></pre><ul><li><code>createBeanInstance</code> 仅仅实例化一个 <code>Bean</code>，并没有进行属性的注入。</li><li><code>addSingletonFactory</code> 中第二个参数中的 <code>getEarlyBeanReference</code> 实际上是 <code>singletonFactory#getObject()</code> 的一个实现，当要从三级缓存中查找 <code>Bean</code> 时，调用的就是这个方法。</li><li><code>populateBean</code> 中为实例化后的 <code>Bean</code> 注入属性，并填充依赖。在这里<strong>解决循环依赖</strong>。<ul><li>假设此时创建的是 <code>A</code>，并将 <code>A</code> 放入三级缓存；</li><li>在属性注入时发现依赖 <code>B</code>，此时 <code>B</code> 还未创建，于是开始创建 <code>B</code>；</li><li>创建 <code>B</code> 时发现依赖 <code>A</code>，同样的到了 <code>populateBean</code> 阶段，<code>B</code> 尝试通过 <code>getBean(A)</code> 从三级缓存中获取 <code>A</code>，这时三级缓存中已经有了对 <code>A</code> 的引用，只不过 <code>A</code> 还未完成属性注入，于是把 <code>A</code> 的引用注入 <code>B</code> 对象，并将 <code>A</code> 移动到二级缓存；</li><li><code>B</code> 创建完成后，就可以把 <code>B</code> 注入到 <code>A</code> 的依赖，完成 <code>A</code> 的创建。</li></ul></li></ul><h3 id="2-addsingleton"><a class="markdownIt-Anchor" href="#2-addsingleton"></a> 2. addSingleton</h3><p><code>DefaultSingletonBeanRegistry.java Line#139</code></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addSingleton</span><span class="hljs-params">(String beanName, Object singletonObject)</span> </span>&#123;    <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>.singletonObjects) &#123;        <span class="hljs-comment">// 放入一级缓存</span>        <span class="hljs-keyword">this</span>.singletonObjects.put(beanName, singletonObject);        <span class="hljs-comment">// 从三级缓存中删除</span>        <span class="hljs-keyword">this</span>.singletonFactories.remove(beanName);        <span class="hljs-comment">// 从二级缓存中删除</span>        <span class="hljs-keyword">this</span>.earlySingletonObjects.remove(beanName);        <span class="hljs-keyword">this</span>.registeredSingletons.add(beanName);    &#125;&#125;</code></pre><h2 id="总流程"><a class="markdownIt-Anchor" href="#总流程"></a> 总流程</h2><ol><li>通过 <code>getSingleton(beanName)</code> 方法尝试从缓存中查找是不是有该实例 <code>sharedInstance</code><ol><li>若存在实例，返回</li><li>若不存在实例，进行创建</li></ol></li><li>通过 <code>getSingleton(beanName, singletonFactory)</code> 创建 <code>Bean</code><ol><li>创建 <code>singletonObject</code>： <code>singletonFactory.getObject()</code> -&gt; <code>createBean(beanName, mbd, args)</code><ol><li><strong>创建 <code>Bean</code> 实例</strong>：<code>createBeanInstance(beanName, mbd, args)</code></li><li><strong>将 <code>Bean</code> 包装为一个 <code>singletonFactory</code> 放入三级缓存</strong>：<code>addSingletonFactory(beanName, singletonFactory)</code></li><li><strong>属性注入并解析依赖</strong>：<code>populateBean(beanName, mbd, instanceWrapper)</code></li></ol></li><li>将 <code>Bean</code> 放入<strong>一级缓存</strong>：<code>addSingleton(beanName, singletonObject)</code></li></ol></li></ol><h1 id="解决循环依赖"><a class="markdownIt-Anchor" href="#解决循环依赖"></a> 解决循环依赖</h1><h2 id="大致流程"><a class="markdownIt-Anchor" href="#大致流程"></a> 大致流程</h2><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20201126132735.png" srcset="/img/loading.gif" alt="" /></p><ol><li><p><code>Spring</code> 创建 <code>bean</code> 主要分为两个步骤，<strong>创建原始 bean 对象</strong>，接着<strong>填充对象属性和初始化</strong>；</p></li><li><p>每次创建 <code>bean</code> 之前，我们都会从缓存中查下有没有该 <code>bean</code>，因为是单例，只能有一个；</p></li><li><p>当我们创建 <code>beanA</code> 的原始对象后，并把它放到<strong>三级缓存</strong>中，接下来就该<strong>填充对象属性</strong>了，这时候发现依赖了 <code>beanB</code>，接着就又去创建 <code>beanB</code>，同样的流程，创建完 <code>beanB</code> 填充属性时又发现它依赖了 <code>beanA</code>，又是同样的流程，不同的是，这时候<strong>可以在三级缓存中查到刚放进去的原始对象 <code>beanA</code></strong>，所以不需要继续创建，用它<strong>注入 <code>beanB</code></strong>，完成 <code>beanB</code> 的创建；</p></li><li><p>既然 <code>beanB</code> 创建好了，所以 <code>beanA</code> 就可以<strong>完成填充属性</strong>的步骤了，接着执行剩下的逻辑，闭环完成；</p></li></ol><h2 id="为什么使用三级缓存而不是二级缓存"><a class="markdownIt-Anchor" href="#为什么使用三级缓存而不是二级缓存"></a> 为什么使用三级缓存，而不是二级缓存</h2><p>在 <code>beanB</code> 从三级缓存查找 <code>beanA</code> 时，会触发<strong>前期引用</strong>。</p><p><code>DefaultSingletonBeanRegistry.java Line#188</code></p><pre><code class="hljs java"><span class="hljs-comment">// 在三级缓存找 beanA</span>ObjectFactory singletonFactory = <span class="hljs-keyword">this</span>.singletonFactories.get(beanName);<span class="hljs-keyword">if</span> (singletonFactory != <span class="hljs-keyword">null</span>) &#123;    <span class="hljs-comment">// 三级缓存有的话，就把它移动到二级缓存</span>    <span class="hljs-comment">// getObject() -&gt; getEarlyBeanReference</span>    singletonObject = singletonFactory.getObject();    <span class="hljs-comment">// 放入二级缓存的是代理对象</span>    <span class="hljs-keyword">this</span>.earlySingletonObjects.put(beanName, singletonObject);    <span class="hljs-comment">// 删除三级缓存</span>    <span class="hljs-keyword">this</span>.singletonFactories.remove(beanName);&#125;</code></pre><p>在 <code>beanA</code> 实例化后，<code>beanA</code> 被包装成 <code>singletonFactory</code> 放入三级缓存中。<br /><code>singletonFactory.getObject()</code> 的具体实现为 <code>singletonFactory</code> 的 <code>getEarlyBeanReference</code> 方法。</p><p><code>AbstractAutowireCapableBeanFactory.java Line#901</code></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> Object <span class="hljs-title">getEarlyBeanReference</span><span class="hljs-params">(String beanName, RootBeanDefinition mbd, Object bean)</span> </span>&#123;    Object exposedObject = bean;    <span class="hljs-keyword">if</span> (!mbd.isSynthetic() &amp;&amp; hasInstantiationAwareBeanPostProcessors()) &#123;        <span class="hljs-keyword">for</span> (BeanPostProcessor bp : getBeanPostProcessors()) &#123;            <span class="hljs-keyword">if</span> (bp <span class="hljs-keyword">instanceof</span> SmartInstantiationAwareBeanPostProcessor) &#123;                SmartInstantiationAwareBeanPostProcessor ibp = (SmartInstantiationAwareBeanPostProcessor) bp;                <span class="hljs-comment">// 存在 SmartInstantiationAwareBeanPostProcessor 后置处理器</span>                <span class="hljs-comment">// 当循环依赖存在时，提前 AOP，将原始对象变为代理对象，并将该对象放到二级缓存</span>                exposedObject = ibp.getEarlyBeanReference(exposedObject, beanName);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> exposedObject;&#125;</code></pre><p>因此使用三级缓存的原因是为了<strong>后置处理</strong>，当存在循环依赖时，对 <code>Bean</code> 提前进行 AOP 代理，并放入二级缓存中，因此<strong>二级缓存中存放的是提前曝光的 AOP 代理对象</strong>。</p><p><code>AbstractAutowireCapableBeanFactory.java Line#536</code></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> Object <span class="hljs-title">doCreateBean</span><span class="hljs-params">( ... )</span></span>&#123; ...  <span class="hljs-keyword">boolean</span> earlySingletonExposure = (mbd.isSingleton() &amp;&amp; <span class="hljs-keyword">this</span>.allowCircularReferences &amp;&amp; isSingletonCurrentlyInCreation(beanName)); <span class="hljs-comment">// 需要提前暴露（支持循环依赖），就注册一个ObjectFactory到三级缓存</span> <span class="hljs-keyword">if</span> (earlySingletonExposure) &#123;   <span class="hljs-comment">// 添加 bean 工厂对象到 singletonFactories 缓存中，并获取原始对象的早期引用</span>  <span class="hljs-comment">// 匿名内部方法 getEarlyBeanReference 就是后置处理器 SmartInstantiationAwareBeanPostProcessor 的一个方法，</span>  <span class="hljs-comment">// 它的功效为：保证自己被循环依赖的时候，即使被别的 Bean @Autowire 进去的也是代理对象</span>  addSingletonFactory(beanName, () -&gt; getEarlyBeanReference(beanName, mbd, bean)); &#125; <span class="hljs-comment">// 此处注意：如果此处自己被循环依赖了，那它会走上面的getEarlyBeanReference，从而创建一个代理对象从 三级缓存转移到二级缓存里</span> <span class="hljs-comment">// 注意此时候对象还在二级缓存里，并没有在一级缓存。并且此时后续的这两步操作还是用的 exposedObject，它仍旧是原始对象</span> populateBean(beanName, mbd, instanceWrapper); exposedObject = initializeBean(beanName, exposedObject, mbd); <span class="hljs-comment">// 因为事务的AOP自动代理创建器在 getEarlyBeanReference 创建代理后，initializeBean 就不会再重复创建了，二选一的）   </span> <span class="hljs-comment">// 所以经过这两大步后，exposedObject 还是原始对象，通过 getEarlyBeanReference 创建的代理对象还在二级缓存</span>  ...  <span class="hljs-comment">// 循环依赖校验</span> <span class="hljs-keyword">if</span> (earlySingletonExposure) &#123;  <span class="hljs-comment">// 注意此处第二个参数传的 false，表示不去三级缓存里再去调用一次 getObject()方法了，此时代理对象还在二级缓存，所以这里拿出来的就是个 代理对象</span>  <span class="hljs-comment">// 最后赋值给 exposedObject，然后 return 出去，进而最终被 addSingleton() 添加进一级缓存里面去  </span>  <span class="hljs-comment">// 这样就保证了我们容器里 最终实际上是代理对象，而非原始对象</span>  Object earlySingletonReference = getSingleton(beanName, <span class="hljs-keyword">false</span>);  <span class="hljs-keyword">if</span> (earlySingletonReference != <span class="hljs-keyword">null</span>) &#123;   <span class="hljs-keyword">if</span> (exposedObject == bean) &#123;     exposedObject = earlySingletonReference;   &#125;  &#125;  ... &#125; &#125;</code></pre><h2 id="aop-代理对象如何保证依赖注入"><a class="markdownIt-Anchor" href="#aop-代理对象如何保证依赖注入"></a> AOP 代理对象如何保证依赖注入</h2><blockquote><p>AOP 代理对象提前放入了三级缓存，没有经过属性填充和初始化，这个代理又是如何保证依赖属性的注入的？</p></blockquote><p><code>Spring</code> 中动态代理的实现，不管是 <code>cglib</code> 代理还是 <code>JDK</code> 动态代理生成的代理类，代理时，会将目标对象 <code>target</code> 保存在最后生成的代理 <code>$proxy</code> 中，当调用 <code>$proxy</code> 方法时会回调 <code>h.invoke</code>，而 <code>h.invoke</code> 又会回调目标对象 <code>target</code> 的原始方法。</p><p>所以，其实在 <code>AOP</code> 动态代理时，原始 <code>bean</code> 已经被保存在 <strong>提前曝光代理中了</strong>，之后 原始 <code>bean</code> 继续完成属性填充和初始化操作。因为 <code>AOP</code> 代理 <code>$proxy</code> 中保存着 <code>traget</code> 也就是是 <strong>原始 <code>bean</code> 的引用</strong>，因此后续 <strong>原始 bean</strong> 的完善，也就相当于 <code>Spring AOP</code> 中的 <strong>代理对象</strong> 的完善，这样就保证了 <code>AOP</code> 的属性填充与初始化了。</p><h2 id="构造器注入"><a class="markdownIt-Anchor" href="#构造器注入"></a> 构造器注入</h2><p>如果使用构造器注入，循环依赖是无法解决的。应该用 <code>setter</code> 注入方式代替构造器注入。</p><p><code>Spring</code> 解决循环依赖依靠的是 <code>Bean</code> 的<strong>中间态</strong>这个概念，而这个中间态指的是<strong>已经实例化，但还没初始化</strong>的状态。实例化的过程又是通过<strong>构造器</strong>创建的，如果 <code>A</code> 还没创建好出来，怎么可能提前曝光，所以构造器的循环依赖无法解决。</p><h2 id="解决循环依赖的流程"><a class="markdownIt-Anchor" href="#解决循环依赖的流程"></a> 解决循环依赖的流程</h2><blockquote><p>如果没有 <code>AOP</code> 代理，二级缓存可以解决问题，但是有 <code>AOP</code> 代理的情况下，只用二级缓存就意味着<strong>所有 <code>Bean</code> 在实例化后就要完成 AOP 代理</strong>，这样违背了 <code>Spring</code> 设计的原则，<code>Spring</code> 在设计之初就是通过 <code>AnnotationAwareAspectJAutoProxyCreator</code> 这个后置处理器来在 <code>Bean</code> <strong>生命周期的最后一步</strong>来完成 <code>AOP</code> 代理，而不是在实例化后就立马进行 <code>AOP</code> 代理。</p></blockquote><p><code>Spring</code> 为了解决单例的循环依赖问题，使用了<strong>三级缓存</strong>。<br />其中一级缓存为单例池（<code>singletonObjects</code>），二级缓存为提前曝光对象（<code>earlySingletonObjects</code>），三级缓存为提前曝光对象工厂（<code>singletonFactories</code>）。</p><p>假设 <code>A</code>、<code>B</code> 循环引用，实例化 <code>A</code> 的时候就将其放入<strong>三级缓存</strong>中，接着填充属性的时候，发现依赖了 <code>B</code>，同样的流程也是实例化后放入<strong>三级缓存</strong>，接着去填充属性时又发现自己依赖 <code>A</code>，这时候从缓存中查找到早期暴露的 <code>A</code></p><ul><li>如果没有 <code>AOP</code> 代理的话，直接将 <code>A</code> 的原始对象注入 <code>B</code>，完成 <code>B</code> 的初始化后，进行属性填充和初始化，这时候 <code>B</code> 完成后，就去完成剩下的 A 的步骤</li><li>如果有 <code>AOP</code> 代理，就进行 <code>AOP</code> 处理获取代理后的对象 <code>A</code>，注入 <code>B</code>，走剩下的流程。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Spring</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Spring</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 114. 二叉树展开为链表</title>
     <link href="/2020/11/25/LeetCode-114-flatten-binary-tree-to-linked-list/"/>
     <url>/2020/11/25/LeetCode-114-flatten-binary-tree-to-linked-list/</url>
@@ -244,9 +269,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
       <tag>链表</tag>
       
@@ -304,9 +329,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
       <tag>链表</tag>
       
@@ -321,7 +346,7 @@
     <link href="/2020/11/20/spring-ioc-implementation/"/>
     <url>/2020/11/20/spring-ioc-implementation/</url>
     
-    <content type="html"><![CDATA[<h1 id="ioc-实现"><a class="markdownIt-Anchor" href="#ioc-实现"></a> IoC 实现</h1><p><a href="https://github.com/LikaiLee/tiny-spring/tree/945f2f664e66fe7deda29c95ff4e03cfdf08a0b3" target="_blank" rel="noopener">IoC 实现源码</a></p><h2 id="主要逻辑"><a class="markdownIt-Anchor" href="#主要逻辑"></a> 主要逻辑</h2><ol><li>通过 <code>ClassPathXmlApplication</code> 读取 <code>xml</code> 配置文件，进行 <code>bean</code> 的获取；</li><li><code>XmlBeanDefinitionReader</code> 读取 <code>xml</code> 中的 <code>bean</code> 元数据，并生成对应的 <code>BeanDefinition</code>；</li><li><code>BeanFactory</code> 对 <code>BeanDefinition</code> 注册，并实例化 <code>bean</code>。</li></ol><h2 id="resource"><a class="markdownIt-Anchor" href="#resource"></a> Resource</h2><p>以 <code>Resource</code> 接口为核心发散出的几个类，都是用于解决 <code>IoC</code> 容器中的内容从哪里来的问题，也就是 <strong>配置文件从哪里读取、配置文件如何读取</strong> 的问题。</p><table><thead><tr><th>类名</th><th>说明</th></tr></thead><tbody><tr><td><code>Resource</code></td><td>接口，标识一个外部资源。通过 <code>getInputStream()</code> 方法 获取资源的输入流 。</td></tr><tr><td><code>UrlResource</code></td><td>实现 <code>Resource</code> 接口的资源类，通过 <code>URL</code> 获取资源。</td></tr><tr><td><code>ResourceLoader</code></td><td>资源加载类。通过 <code>getResource(String)</code> 方法获取一个 <code>Resouce</code> 对象，是 <strong>获取 <code>Resouce</code> 的主要途径</strong> 。</td></tr></tbody></table><h2 id="beandefinition"><a class="markdownIt-Anchor" href="#beandefinition"></a> BeanDefinition</h2><p>以 <code>BeanDefinition</code> 类为核心发散出的几个类，都是用于解决 <code>Bean</code> 的具体定义问题，包括 <code>Bean</code> 的名字是什么、它的类型是什么，它的属性赋予了哪些值或者引用，也就是 <strong>如何在 <code>IoC</code> 容器中定义一个 <code>Bean</code></strong>，使得 <strong><code>IoC</code> 容器可以根据这个定义来生成实例</strong> 的问题。</p><table><thead><tr><th>类名</th><th>说明</th></tr></thead><tbody><tr><td><code>BeanDefinition</code></td><td>该类保存了 <code>Bean</code> 定义。包括 <code>Bean</code> 的 名字 <code>String beanClassName</code>、类型 <code>Class beanClass</code>、属性 <code>PropertyValues propertyValues</code>。根据其 <strong>类型</strong> 可以生成一个类实例，然后可以把 <strong>属性</strong> 注入进去。<code>propertyValues</code> 里面包含了一个个 <code>PropertyValue</code> 条目，每个条目都是键值对 <code>String - Object</code>，分别对应要生成实例的属性的名字与类型。在 <code>Spring</code> 的 <code>XML</code> 中的 <code>property</code> 中，键是 <code>key</code> ，值是 <code>value</code> 或者 <code>ref</code>。对于 <code>value</code> 只要直接注入属性就行了，但是 <code>ref</code> 要先进行解析。<code>Object</code> 如果是 <code>BeanReference</code> 类型，则说明其是一个引用，其中保存了引用的名字，需要用先进行解析，转化为对应的实际 <code>Object</code>。</td></tr><tr><td><code>BeanDefinitionReader</code></td><td>解析 <code>BeanDefinition</code> 的接口。通过 <code>loadBeanDefinitions(String)</code> 来从一个地址加载类定义。</td></tr><tr><td><code>AbstractBeanDefinitionReader</code></td><td>实现 <code>BeanDefinitionReader</code> 接口的抽象类（未具体实现 <code>loadBeanDefinitions</code>，而是规范了 <code>BeanDefinitionReader</code> 的基本结构）。内置一个 <code>HashMap rigistry</code>，用于保存 <code>String - beanDefinition</code> 的键值对。内置一个 <code>ResourceLoader resourceLoader</code>，用于保存类加载器。用意在于，使用时，只需要向其 <code>loadBeanDefinitions()</code> 传入一个资源地址，就可以自动调用其类加载器，并把解析到的 <code>BeanDefinition</code> 保存到 <code>registry</code> 中去。</td></tr><tr><td><code>XmlBeanDefinitionReader</code></td><td>具体实现了 <code>loadBeanDefinitions()</code> 方法，从 <code>XML</code> 文件中读取类定义。</td></tr></tbody></table><h2 id="beanfactory"><a class="markdownIt-Anchor" href="#beanfactory"></a> BeanFactory</h2><p>以 <code>BeanFactory</code> 接口为核心发散出的几个类，都是用于解决 <code>IoC</code> 容器在 <strong>已经获取 <code>Bean</code>的定义</strong> 的情况下，如何 <strong>装配、获取 Bean 实例</strong> 的问题。</p><table><thead><tr><th>类名</th><th>说明</th></tr></thead><tbody><tr><td><code>BeanFactory</code></td><td>接口，标识一个 <code>IoC</code> 容器。通过 <code>getBean(String)</code> 方法来 获取一个对象</td></tr><tr><td><code>AbstractBeanFactory</code></td><td><code>BeanFactory</code> 的一种抽象类实现，规范了 <code>IoC</code> 容器的基本结构，但是把<strong>生成 <code>Bean</code> 的具体实现方式留给子类实现</strong>。<code>IoC</code> 容器的结构：<code>AbstractBeanFactory</code> 维护一个 <code>beanDefinitionMap</code> 哈希表用于保存类的定义信息（<code>BeanDefinition</code>）。获取 <code>Bean</code> 时，如果 <code>Bean</code> 已经存在于容器中，则返回之，否则则调用 <code>doCreateBean</code> 方法装配一个 <code>Bean</code>。（所谓存在于容器中，是指容器可以通过 <code>beanDefinitionMap</code> 获取 <code>BeanDefinition</code> 进而通过其 <code>getBean()</code> 方法获取 <code>Bean</code>。）</td></tr><tr><td><code>AutowireCapableBeanFactory</code></td><td>可以实现自动装配的 <code>BeanFactory</code>。在这个工厂中，实现了 <code>doCreateBean</code> 方法，该方法分三步：1，通过 <code>BeanDefinition</code> 中保存的类信息实例化一个对象；2，把对象保存在 <code>BeanDefinition</code> 中，以备下次获取；3，为其装配属性。装配属性时，通过 <code>BeanDefinition</code> 中维护的 <code>PropertyValues</code> 集合类，把 <code>String - Value</code> 键值对注入到 <code>Bean</code> 的属性中去。如果 <code>Value</code> 的类型是 <code>BeanReference</code> 则说明其是一个引用（对应于 <code>XML</code> 中的 <code>ref</code>），通过 <code>getBean</code> 对其进行获取，然后注入到属性中。</td></tr></tbody></table><h2 id="applicationcontext"><a class="markdownIt-Anchor" href="#applicationcontext"></a> ApplicationContext</h2><p>以 <code>ApplicationContext</code> 接口为核心发散出的几个类，主要是对前面 <code>Resouce</code> 、 <code>BeanFactory</code>、<code>BeanDefinition</code> 进行了功能的封装，解决 <strong>根据地址获取 <code>IoC</code> 容器并使用</strong> 的问题。</p><table><thead><tr><th>类名</th><th>说明</th></tr></thead><tbody><tr><td><code>ApplicationContext</code></td><td>标记接口，继承了 <code>BeanFactory</code>。通常，要实现一个 <code>IoC</code> 容器时，需要先通过 <code>ResourceLoader</code> 获取一个 <code>Resource</code>，其中包括了容器的配置、<code>Bean</code> 的定义信息。接着，使用 <code>BeanDefinitionReader</code> 读取该 <code>Resource</code> 中的 <code>BeanDefinition</code> 信息。最后，把 <code>BeanDefinition</code> 保存在 <code>BeanFactory</code> 中，容器配置完毕可以使用。注意到 <code>BeanFactory</code> 只实现了 <code>Bean</code> 的 装配、获取，并未说明 <code>Bean</code> 的 来源 也就是 <code>BeanDefinition</code> 是如何 加载 的。<strong>该接口把 <code>BeanFactory</code> 和 <code>BeanDefinitionReader</code> 结合在了一起。</strong></td></tr><tr><td><code>AbstractApplicationContext</code></td><td><code>ApplicationContext</code> 的抽象实现，内部包含一个 <code>BeanFactory</code> 类。主要方法有 <code>getBean()</code> 和 <code>refresh()</code> 方法。<code>getBean()</code> 直接调用了内置 <code>BeanFactory</code> 的 <code>getBean()</code> 方法，<code>refresh()</code> 则用于实现 <code>BeanFactory</code> 的刷新，也就是告诉 <code>BeanFactory</code> 该使用哪个资源（<code>Resource</code>）加载类定义（<code>BeanDefinition</code>）信息，该方法留给子类实现，用以实现 <strong>从不同来源的不同类型的资源加载类定义</strong> 的效果。</td></tr><tr><td><code>ClassPathXmlApplicationContext</code></td><td>从类路径加载资源的具体实现类。内部通过 <code>XmlBeanDefinitionReader</code> 解析 <code>UrlResourceLoader</code> 读取到的 <code>Resource</code>，获取 <code>BeanDefinition</code> 信息，然后将其保存到内置的 <code>BeanFactory</code> 中。</td></tr></tbody></table><h2 id="设计模式"><a class="markdownIt-Anchor" href="#设计模式"></a> 设计模式</h2><h3 id="模板方法"><a class="markdownIt-Anchor" href="#模板方法"></a> 模板方法</h3><p>该模式大量使用，例如在 <code>BeanFactory</code> 中，把 <code>getBean()</code> 交给子类实现，不同的子类 <strong>BeanFactory</strong> 对其可以采取不同的实现。</p><h3 id="代理模式"><a class="markdownIt-Anchor" href="#代理模式"></a> 代理模式</h3><p><code>ApplicationContext</code> 继承了 <code>BeanFactory</code> 接口，具备了 <code>getBean()</code> 功能，但是又内置了一个 <code>BeanFactory</code> 实例，<code>getBean()</code> 直接调用 <code>BeanFactory</code> 的 <code>getBean()</code> 。但是 <code>ApplicationContext</code> 加强了 <code>BeanFactory</code>，它把类定义的加载也包含进去了。</p><h2 id="循环引用"><a class="markdownIt-Anchor" href="#循环引用"></a> 循环引用</h2><p><code>BeanDefinitionReader</code> 中并没有使用读取到的 <code>Bean</code> 配置对 <code>Bean</code> 进行实例化。这里提供了两种实例化方式。</p><ol><li><code>AbstractBeanFactory#getBean()</code> 时判断 <code>Bean</code> 是否为空，若为空进行实例化。</li><li><code>AbstractBeanFactory#preInstantiateSingletons()</code>手动进行实例化。</li></ol><p><a href="https://github.com/LikaiLee/tiny-spring/blob/945f2f664e66fe7deda29c95ff4e03cfdf08a0b3/src/main/java/site/likailee/spring/ioc/factory/AutowireCapableBeanFactory.java#L21" target="_blank" rel="noopener">实例化过程</a></p><p>最终的实例化过程都在 <code>AbstractBeanFactory</code> 的子类 <code>doCreateBean()</code> 中完成，首先实例化一个属性为空的对象，这样相互引用的对象都持有对方实例化过后的对象，只不过该对象的属性为空，从而避免了 <code>bean</code> 创建死锁的问题，然后进行各自的属性注入过程。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="ioc-实现"><a class="markdownIt-Anchor" href="#ioc-实现"></a> IoC 实现</h1><p><a href="https://github.com/LikaiLee/tiny-spring/tree/945f2f664e66fe7deda29c95ff4e03cfdf08a0b3" target="_blank" rel="noopener">IoC 实现源码</a></p><h2 id="主要逻辑"><a class="markdownIt-Anchor" href="#主要逻辑"></a> 主要逻辑</h2><ol><li>通过 <code>ClassPathXmlApplication</code> 读取 <code>xml</code> 配置文件，进行 <code>bean</code> 的获取；</li><li><code>XmlBeanDefinitionReader</code> 读取 <code>xml</code> 中的 <code>bean</code> 元数据，并生成对应的 <code>BeanDefinition</code>；</li><li><code>BeanFactory</code> 对 <code>BeanDefinition</code> 注册，并实例化 <code>bean</code>。</li></ol><h2 id="resource"><a class="markdownIt-Anchor" href="#resource"></a> Resource</h2><p>以 <code>Resource</code> 接口为核心发散出的几个类，都是用于解决 <code>IoC</code> 容器中的内容从哪里来的问题，也就是 <strong>配置文件从哪里读取、配置文件如何读取</strong> 的问题。</p><table><thead><tr><th>类名</th><th>说明</th></tr></thead><tbody><tr><td><code>Resource</code></td><td>接口，标识一个外部资源。通过 <code>getInputStream()</code> 方法 获取资源的输入流 。</td></tr><tr><td><code>UrlResource</code></td><td>实现 <code>Resource</code> 接口的资源类，通过 <code>URL</code> 获取资源。</td></tr><tr><td><code>ResourceLoader</code></td><td>资源加载类。通过 <code>getResource(String)</code> 方法获取一个 <code>Resouce</code> 对象，是 <strong>获取 <code>Resouce</code> 的主要途径</strong> 。</td></tr></tbody></table><h2 id="beandefinition"><a class="markdownIt-Anchor" href="#beandefinition"></a> BeanDefinition</h2><p>以 <code>BeanDefinition</code> 类为核心发散出的几个类，都是用于解决 <code>Bean</code> 的具体定义问题，包括 <code>Bean</code> 的名字是什么、它的类型是什么，它的属性赋予了哪些值或者引用，也就是 <strong>如何在 <code>IoC</code> 容器中定义一个 <code>Bean</code></strong>，使得 <strong><code>IoC</code> 容器可以根据这个定义来生成实例</strong> 的问题。</p><table><thead><tr><th>类名</th><th>说明</th></tr></thead><tbody><tr><td><code>BeanDefinition</code></td><td>该类保存了 <code>Bean</code> 定义。包括 <code>Bean</code> 的 名字 <code>String beanClassName</code>、类型 <code>Class beanClass</code>、属性 <code>PropertyValues propertyValues</code>。根据其 <strong>类型</strong> 可以生成一个类实例，然后可以把 <strong>属性</strong> 注入进去。<code>propertyValues</code> 里面包含了一个个 <code>PropertyValue</code> 条目，每个条目都是键值对 <code>String - Object</code>，分别对应要生成实例的属性的名字与类型。在 <code>Spring</code> 的 <code>XML</code> 中的 <code>property</code> 中，键是 <code>key</code> ，值是 <code>value</code> 或者 <code>ref</code>。对于 <code>value</code> 只要直接注入属性就行了，但是 <code>ref</code> 要先进行解析。<code>Object</code> 如果是 <code>BeanReference</code> 类型，则说明其是一个引用，其中保存了引用的名字，需要用先进行解析，转化为对应的实际 <code>Object</code>。</td></tr><tr><td><code>BeanDefinitionReader</code></td><td>解析 <code>BeanDefinition</code> 的接口。通过 <code>loadBeanDefinitions(String)</code> 来从一个地址加载类定义。</td></tr><tr><td><code>AbstractBeanDefinitionReader</code></td><td>实现 <code>BeanDefinitionReader</code> 接口的抽象类（未具体实现 <code>loadBeanDefinitions</code>，而是规范了 <code>BeanDefinitionReader</code> 的基本结构）。内置一个 <code>HashMap rigistry</code>，用于保存 <code>String - beanDefinition</code> 的键值对。内置一个 <code>ResourceLoader resourceLoader</code>，用于保存类加载器。用意在于，使用时，只需要向其 <code>loadBeanDefinitions()</code> 传入一个资源地址，就可以自动调用其类加载器，并把解析到的 <code>BeanDefinition</code> 保存到 <code>registry</code> 中去。</td></tr><tr><td><code>XmlBeanDefinitionReader</code></td><td>具体实现了 <code>loadBeanDefinitions()</code> 方法，从 <code>XML</code> 文件中读取类定义。</td></tr></tbody></table><h2 id="beanfactory"><a class="markdownIt-Anchor" href="#beanfactory"></a> BeanFactory</h2><p>以 <code>BeanFactory</code> 接口为核心发散出的几个类，都是用于解决 <code>IoC</code> 容器在 <strong>已经获取 <code>Bean</code>的定义</strong> 的情况下，如何 <strong>装配、获取 Bean 实例</strong> 的问题。</p><table><thead><tr><th>类名</th><th>说明</th></tr></thead><tbody><tr><td><code>BeanFactory</code></td><td>接口，标识一个 <code>IoC</code> 容器。通过 <code>getBean(String)</code> 方法来 获取一个对象</td></tr><tr><td><code>AbstractBeanFactory</code></td><td><code>BeanFactory</code> 的一种抽象类实现，规范了 <code>IoC</code> 容器的基本结构，但是把<strong>生成 <code>Bean</code> 的具体实现方式留给子类实现</strong>。<code>IoC</code> 容器的结构：<code>AbstractBeanFactory</code> 维护一个 <code>beanDefinitionMap</code> 哈希表用于保存类的定义信息（<code>BeanDefinition</code>）。获取 <code>Bean</code> 时，如果 <code>Bean</code> 已经存在于容器中，则返回之，否则则调用 <code>doCreateBean</code> 方法装配一个 <code>Bean</code>。（所谓存在于容器中，是指容器可以通过 <code>beanDefinitionMap</code> 获取 <code>BeanDefinition</code> 进而通过其 <code>getBean()</code> 方法获取 <code>Bean</code>。）</td></tr><tr><td><code>AutowireCapableBeanFactory</code></td><td>可以实现自动装配的 <code>BeanFactory</code>。在这个工厂中，实现了 <code>doCreateBean</code> 方法，该方法分三步：1，通过 <code>BeanDefinition</code> 中保存的类信息实例化一个对象；2，把对象保存在 <code>BeanDefinition</code> 中，以备下次获取；3，为其装配属性。装配属性时，通过 <code>BeanDefinition</code> 中维护的 <code>PropertyValues</code> 集合类，把 <code>String - Value</code> 键值对注入到 <code>Bean</code> 的属性中去。如果 <code>Value</code> 的类型是 <code>BeanReference</code> 则说明其是一个引用（对应于 <code>XML</code> 中的 <code>ref</code>），通过 <code>getBean</code> 对其进行获取，然后注入到属性中。</td></tr></tbody></table><h2 id="applicationcontext"><a class="markdownIt-Anchor" href="#applicationcontext"></a> ApplicationContext</h2><p>以 <code>ApplicationContext</code> 接口为核心发散出的几个类，主要是对前面 <code>Resouce</code> 、 <code>BeanFactory</code>、<code>BeanDefinition</code> 进行了功能的封装，解决 <strong>根据地址获取 <code>IoC</code> 容器并使用</strong> 的问题。</p><table><thead><tr><th>类名</th><th>说明</th></tr></thead><tbody><tr><td><code>ApplicationContext</code></td><td>标记接口，继承了 <code>BeanFactory</code>。通常，要实现一个 <code>IoC</code> 容器时，需要先通过 <code>ResourceLoader</code> 获取一个 <code>Resource</code>，其中包括了容器的配置、<code>Bean</code> 的定义信息。接着，使用 <code>BeanDefinitionReader</code> 读取该 <code>Resource</code> 中的 <code>BeanDefinition</code> 信息。最后，把 <code>BeanDefinition</code> 保存在 <code>BeanFactory</code> 中，容器配置完毕可以使用。注意到 <code>BeanFactory</code> 只实现了 <code>Bean</code> 的 装配、获取，并未说明 <code>Bean</code> 的 来源 也就是 <code>BeanDefinition</code> 是如何 加载 的。<strong>该接口把 <code>BeanFactory</code> 和 <code>BeanDefinitionReader</code> 结合在了一起。</strong></td></tr><tr><td><code>AbstractApplicationContext</code></td><td><code>ApplicationContext</code> 的抽象实现，内部包含一个 <code>BeanFactory</code> 类。主要方法有 <code>getBean()</code> 和 <code>refresh()</code> 方法。<code>getBean()</code> 直接调用了内置 <code>BeanFactory</code> 的 <code>getBean()</code> 方法，<code>refresh()</code> 则用于实现 <code>BeanFactory</code> 的刷新，也就是告诉 <code>BeanFactory</code> 该使用哪个资源（<code>Resource</code>）加载类定义（<code>BeanDefinition</code>）信息，该方法留给子类实现，用以实现 <strong>从不同来源的不同类型的资源加载类定义</strong> 的效果。</td></tr><tr><td><code>ClassPathXmlApplicationContext</code></td><td>从类路径加载资源的具体实现类。内部通过 <code>XmlBeanDefinitionReader</code> 解析 <code>UrlResourceLoader</code> 读取到的 <code>Resource</code>，获取 <code>BeanDefinition</code> 信息，然后将其保存到内置的 <code>BeanFactory</code> 中。</td></tr></tbody></table><h2 id="设计模式"><a class="markdownIt-Anchor" href="#设计模式"></a> 设计模式</h2><h3 id="工厂模式"><a class="markdownIt-Anchor" href="#工厂模式"></a> 工厂模式</h3><p>通过 <code>BeanFactory</code> 创建、获取 <code>Bean</code>。</p><h3 id="模板方法"><a class="markdownIt-Anchor" href="#模板方法"></a> 模板方法</h3><p>该模式大量使用，例如在 <code>BeanFactory</code> 中，把 <code>getBean()</code> 交给子类实现，不同的子类 <strong>BeanFactory</strong> 对其可以采取不同的实现。</p><h3 id="代理模式"><a class="markdownIt-Anchor" href="#代理模式"></a> 代理模式</h3><p><code>ApplicationContext</code> 继承了 <code>BeanFactory</code> 接口，具备了 <code>getBean()</code> 功能，但是又内置了一个 <code>BeanFactory</code> 实例，<code>getBean()</code> 直接调用 <code>BeanFactory</code> 的 <code>getBean()</code> 。但是 <code>ApplicationContext</code> 加强了 <code>BeanFactory</code>，它把类定义的加载也包含进去了。</p><h2 id="循环引用"><a class="markdownIt-Anchor" href="#循环引用"></a> 循环引用</h2><p><code>BeanDefinitionReader</code> 中并没有使用读取到的 <code>Bean</code> 配置对 <code>Bean</code> 进行实例化。这里提供了两种实例化方式。</p><ol><li><code>AbstractBeanFactory#getBean()</code> 时判断 <code>Bean</code> 是否为空，若为空进行实例化。</li><li><code>AbstractBeanFactory#preInstantiateSingletons()</code>手动进行实例化。</li></ol><p><a href="https://github.com/LikaiLee/tiny-spring/blob/945f2f664e66fe7deda29c95ff4e03cfdf08a0b3/src/main/java/site/likailee/spring/ioc/factory/AutowireCapableBeanFactory.java#L21" target="_blank" rel="noopener">实例化过程</a></p><p>最终的实例化过程都在 <code>AbstractBeanFactory</code> 的子类 <code>doCreateBean()</code> 中完成，首先实例化一个属性为空的对象，这样相互引用的对象都持有对方实例化过后的对象，只不过该对象的属性为空，从而避免了 <code>bean</code> 创建死锁的问题，然后进行各自的属性注入过程。</p>]]></content>
     
     
     <categories>
@@ -414,9 +439,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -1294,11 +1319,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -1325,11 +1350,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>DFS</tag>
+      
       <tag>树</tag>
       
       <tag>分治</tag>
-      
-      <tag>DFS</tag>
       
     </tags>
     
@@ -1356,11 +1381,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>DFS</tag>
+      
       <tag>树</tag>
       
       <tag>分治</tag>
-      
-      <tag>DFS</tag>
       
     </tags>
     
@@ -1476,9 +1501,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -1818,9 +1843,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -1849,9 +1874,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -1880,9 +1905,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>树</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3275,9 +3300,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -3721,9 +3746,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -4123,11 +4148,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -4326,9 +4351,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4992,9 +5017,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5021,9 +5046,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5050,9 +5075,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5079,9 +5104,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5108,9 +5133,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5137,9 +5162,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5284,11 +5309,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -5344,9 +5369,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -5402,9 +5427,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5431,9 +5456,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5489,9 +5514,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5657,9 +5682,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -5688,9 +5713,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5748,9 +5773,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5777,9 +5802,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6821,9 +6846,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
