@@ -170,6 +170,108 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/07/InnoDB-index/">InnoDB 索引</a>
+
+      <a href="/2020/08/07/InnoDB-index/" class="index-excerpt">
+        
+        
+          
+        
+        <div> 介绍
+ B+ 树
+
+
+🙃又是考研内容。
+
+一棵 m 阶 B+ 树需满足下列条件：
+
+每个分支结点最多有 m 棵子树（子结点）。
+非叶根结点至少有两棵子树，其他每个分支结点至少有 ⌈m / 2⌉ 棵子树。
+结点的子树个数与关键字个数相等。
+所有叶子结点包含全部关键字及指向相应记录的指针，叶子结点中关键字按大小排序，相邻叶结点按大小顺序相互链接起来。
+所有分支结点中仅包含它的各个子结点中关键字的最</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-07
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/MySQL/">MySQL</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL/">MySQL</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/06/LeetCode-433-minimum-genetic-mutation/">LeetCode 433. 最小基因变化</a>
+
+      <a href="/2020/08/06/LeetCode-433-minimum-genetic-mutation/" class="index-excerpt">
+        
+        
+          
+        
+        <div>433. 最小基因变化
+ 回溯
+第一次解法击败 100% 用户。
+每一次的变异都可在基因库中找到，因此从基因库中构建决策树，与当前基因相差一个碱基且在之前的选择路径中未出现的基因即为下一步变异的基因。
+int minStep = Integer.MAX_VALUE;
+
+    public int minMutation(String start, String end, String[] ban</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-06
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/06/LeetCode-102-binary-tree-level-order-traversal/">LeetCode 102. 二叉树的层序遍历</a>
 
       <a href="/2020/08/06/LeetCode-102-binary-tree-level-order-traversal/" class="index-excerpt">
@@ -600,104 +702,6 @@ Page Down
             
           </div>
         
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/29/java-memory-model/">Java 内存模型</a>
-
-      <a href="/2020/07/29/java-memory-model/" class="index-excerpt">
-        
-        
-          
-        
-        <div>
-Java 内存模型（Java Memory Model），简称 JMM。
-JVM 中试图定义一种 JMM 来屏蔽各种硬件和操作系统的内存访问差异，以实现让 Java 程序在各种平台下都能达到一致的内存访问效果。
-
- 物理内存模型
-物理机遇到的并发问题与虚拟机中的情况有不少相似之处，物理机对并发的处理方案对于虚拟机的实现也有相当大的参考意义。
- 硬件处理效率
-物理内存的第一个问题是：硬件处理效率。</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-29
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%B9%B6%E5%8F%91/">并发</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%B9%B6%E5%8F%91/">并发</a>
-            
-              <a href="/tags/Java/">Java</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/28/concurrent-utils/">并发-工具类</a>
-
-      <a href="/2020/07/28/concurrent-utils/" class="index-excerpt">
-        
-        
-          
-        
-        <div> CountDownLatch
-
-CountDownLatch 维护一个计数器 count，表示需要等待的事件数量。countDown() 方法递减计数器，表示有一个事件已经发生。调用 await() 方法的线程会一直阻塞直到计数器为零，或者等待中的线程中断，或者等待超时。
-
-
-CountDownLatch 是基于 AQS 实现的。
-CountDownLatch 唯一的构造方法：
-// count</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-28
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%B9%B6%E5%8F%91/">并发</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%B9%B6%E5%8F%91/">并发</a>
-            
-              <a href="/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/">工具类</a>
-            
-          </div>
         
       </div>
     </div>

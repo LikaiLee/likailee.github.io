@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 354. 俄罗斯套娃信封问题 - Likai Lee</title>
+  <title>LeetCode 646. 最长数对链 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 354. 俄罗斯套娃信封问题
+                LeetCode 646. 最长数对链
               
             </span>
 
@@ -154,7 +154,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-12-01 18:39">
+    <time datetime="2020-12-01 18:50">
       2020年12月1日 晚上
     </time>
   </div>
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      144 字
+      119 字
     </span>
   
 
@@ -212,22 +212,21 @@
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/russian-doll-envelopes/" target="_blank" rel="noopener">354. 俄罗斯套娃信封问题</a></p>
+              <p><a href="https://leetcode-cn.com/problems/maximum-length-of-pair-chain/" target="_blank" rel="noopener">646. 最长数对链</a></p>
 <p>和 <a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/" target="_blank" rel="noopener">300. 最长上升子序列</a> 类似。</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxEnvelopes</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] envelopes)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = envelopes.length;
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findLongestChain</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] pairs)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> len = pairs.length;
     <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;
         <span class="hljs-keyword">return</span> len;
     &#125;
-    Arrays.sort(envelopes, Comparator.comparingInt(o -&gt; o[<span class="hljs-number">0</span>]));
-    <span class="hljs-comment">// dp[i]: 以第 i 个信封结尾的最大深度</span>
+    Arrays.sort(pairs, Comparator.comparingInt(o -&gt; o[<span class="hljs-number">0</span>]));
+    <span class="hljs-comment">// dp[i]: 以 pairs[i] 结尾的最长数对长度</span>
     <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
     <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
         <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; i; j++) &#123;
-            <span class="hljs-comment">// 前面的比 envelopes[i] 小，则可放入</span>
-            <span class="hljs-keyword">if</span> (envelopes[j][<span class="hljs-number">0</span>] &lt; envelopes[i][<span class="hljs-number">0</span>] &amp;&amp; envelopes[j][<span class="hljs-number">1</span>] &lt; envelopes[i][<span class="hljs-number">1</span>]) &#123;
+            <span class="hljs-keyword">if</span> (pairs[j][<span class="hljs-number">1</span>] &lt; pairs[i][<span class="hljs-number">0</span>]) &#123;
                 max = Math.max(max, dp[j] + <span class="hljs-number">1</span>);
             &#125;
         &#125;
@@ -269,9 +268,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/12/01/LeetCode-646-maximum-length-of-pair-chain/">
+                      <a href="/2020/12/01/LeetCode-124-binary-tree-maximum-path-sum/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 646. 最长数对链</span>
+                        <span class="hidden-mobile">LeetCode 124. 二叉树中的最大路径和</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -279,8 +278,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/11/30/LeetCode-767-reorganize-string/">
-                        <span class="hidden-mobile">LeetCode 767. 重构字符串</span>
+                      <a href="/2020/12/01/LeetCode-354-russian-doll-envelopes/">
+                        <span class="hidden-mobile">LeetCode 354. 俄罗斯套娃信封问题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

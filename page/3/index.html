@@ -170,6 +170,104 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/11/20/spring-ioc-implementation/">Spring IoC 实现</a>
+
+      <a href="/2020/11/20/spring-ioc-implementation/" class="index-excerpt">
+        
+        
+          
+        
+        <div> IoC 实现
+IoC 实现源码
+ 主要逻辑
+
+通过 ClassPathXmlApplication 读取 xml 配置文件，进行 bean 的获取；
+XmlBeanDefinitionReader 读取 xml 中的 bean 元数据，并生成对应的 BeanDefinition；
+BeanFactory 对 BeanDefinition 注册，并实例化 bean。
+
+ Resource
+以 Re</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-11-20
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Spring/">Spring</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Spring/">Spring</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/11/19/LeetCode-104-maximum-depth-of-binary-tree/">LeetCode 104. 二叉树的最大深度</a>
+
+      <a href="/2020/11/19/LeetCode-104-maximum-depth-of-binary-tree/" class="index-excerpt">
+        
+        
+          
+        
+        <div>104. 二叉树的最大深度
+public int maxDepth(TreeNode root) &#123;
+    if (root == null) &#123;
+        return 0;
+    &#125;
+    int leftDepth = maxDepth(root.left);
+    int rightDepth = maxDepth(root.right);
+  </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-11-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E6%A0%91/">树</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/11/19/LeetCode-543-diameter-of-binary-tree/">LeetCode 543. 二叉树的直径</a>
 
       <a href="/2020/11/19/LeetCode-543-diameter-of-binary-tree/" class="index-excerpt">
@@ -553,106 +651,6 @@ public List&lt;String&gt; letterCasePermutation(String S) &#123;
               <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/11/14/LeetCode-93-restore-ip-addresses/">LeetCode 93. 复原IP地址</a>
-
-      <a href="/2020/11/14/LeetCode-93-restore-ip-addresses/" class="index-excerpt">
-        
-        
-          
-        
-        <div>93. 复原IP地址
-public List&lt;String&gt; restoreIpAddresses(String s) &#123;
-    List&lt;String&gt; res = new ArrayList&lt;&gt;();
-    int len = s.length();
-    if (len &lt; 4) &#123;
-        return res;
-</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-11-14
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/11/13/LeetCode-328-odd-even-linked-list/">LeetCode 328. 奇偶链表</a>
-
-      <a href="/2020/11/13/LeetCode-328-odd-even-linked-list/" class="index-excerpt">
-        
-        
-          
-        
-        <div>328. 奇偶链表
-public ListNode oddEvenList(ListNode head) &#123;
-    if (head == null) &#123;
-        return null;
-    &#125;
-    // 1 2 3 4 5 6
-    // o e
-    ListNode odd = head;
-    ListNode even = head</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-11-13
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-              <a href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
             
           </div>
         

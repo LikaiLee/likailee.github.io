@@ -4,11 +4,69 @@
   
   
   <entry>
+    <title>LeetCode 124. 二叉树中的最大路径和</title>
+    <link href="/2020/12/01/LeetCode-124-binary-tree-maximum-path-sum/"/>
+    <url>/2020/12/01/LeetCode-124-binary-tree-maximum-path-sum/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/" target="_blank" rel="noopener">124. 二叉树中的最大路径和</a></p><pre><code class="hljs java"><span class="hljs-keyword">int</span> res = Integer.MIN_VALUE;<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxPathSum</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    dfs(root);    <span class="hljs-keyword">return</span> res;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-comment">// 分别计算左右子树的最大路径和</span>    <span class="hljs-keyword">int</span> leftMax = dfs(root.left);    <span class="hljs-keyword">int</span> rightMax = dfs(root.right);    <span class="hljs-comment">// 计算以 root 为根的子树路径和</span>    res = Math.max(res, leftMax + rightMax + root.val);    <span class="hljs-comment">// 提供给父节点的路径和，若为负数返回 0</span>    <span class="hljs-keyword">int</span> sum = Math.max(leftMax, rightMax) + root.val;    <span class="hljs-keyword">return</span> Math.max(<span class="hljs-number">0</span>, sum);&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>DFS</tag>
+      
+      <tag>树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>LeetCode 646. 最长数对链</title>
+    <link href="/2020/12/01/LeetCode-646-maximum-length-of-pair-chain/"/>
+    <url>/2020/12/01/LeetCode-646-maximum-length-of-pair-chain/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/maximum-length-of-pair-chain/" target="_blank" rel="noopener">646. 最长数对链</a></p><p>和 <a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/" target="_blank" rel="noopener">300. 最长上升子序列</a> 类似。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findLongestChain</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] pairs)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = pairs.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> len;    &#125;    Arrays.sort(pairs, Comparator.comparingInt(o -&gt; o[<span class="hljs-number">0</span>]));    <span class="hljs-comment">// dp[i]: 以 pairs[i] 结尾的最长数对长度</span>    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; i; j++) &#123;            <span class="hljs-keyword">if</span> (pairs[j][<span class="hljs-number">1</span>] &lt; pairs[i][<span class="hljs-number">0</span>]) &#123;                max = Math.max(max, dp[j] + <span class="hljs-number">1</span>);            &#125;        &#125;        dp[i] = max;        res = Math.max(res, dp[i]);    &#125;    <span class="hljs-keyword">return</span> res + <span class="hljs-number">1</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>贪心</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 354. 俄罗斯套娃信封问题</title>
     <link href="/2020/12/01/LeetCode-354-russian-doll-envelopes/"/>
     <url>/2020/12/01/LeetCode-354-russian-doll-envelopes/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/russian-doll-envelopes/" target="_blank" rel="noopener">354. 俄罗斯套娃信封问题</a></p><p>和 <a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/" target="_blank" rel="noopener">300. 最长上升子序列</a> 类似。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxEnvelopes</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] envelopes)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = envelopes.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    Arrays.sort(envelopes, Comparator.comparingInt(o -&gt; o[<span class="hljs-number">0</span>]));    <span class="hljs-comment">// dp[i]: 以第 i 个信封结尾的最大深度</span>    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; i; j++) &#123;            <span class="hljs-comment">// 前面的比 envelopes[i] 小，则可放入</span>            <span class="hljs-keyword">if</span> (envelopes[j][<span class="hljs-number">0</span>] &lt; envelopes[i][<span class="hljs-number">0</span>] &amp;&amp; envelopes[j][<span class="hljs-number">1</span>] &lt; envelopes[i][<span class="hljs-number">1</span>]) &#123;                max = Math.max(max, dp[j] + <span class="hljs-number">1</span>);            &#125;        &#125;        dp[i] = max;        res = Math.max(res, dp[i]);    &#125;    <span class="hljs-keyword">return</span> res + <span class="hljs-number">1</span>;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/russian-doll-envelopes/" target="_blank" rel="noopener">354. 俄罗斯套娃信封问题</a></p><p>和 <a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/" target="_blank" rel="noopener">300. 最长上升子序列</a> 类似。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxEnvelopes</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] envelopes)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = envelopes.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> len;    &#125;    Arrays.sort(envelopes, Comparator.comparingInt(o -&gt; o[<span class="hljs-number">0</span>]));    <span class="hljs-comment">// dp[i]: 以第 i 个信封结尾的最大深度</span>    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; i; j++) &#123;            <span class="hljs-comment">// 前面的比 envelopes[i] 小，则可放入</span>            <span class="hljs-keyword">if</span> (envelopes[j][<span class="hljs-number">0</span>] &lt; envelopes[i][<span class="hljs-number">0</span>] &amp;&amp; envelopes[j][<span class="hljs-number">1</span>] &lt; envelopes[i][<span class="hljs-number">1</span>]) &#123;                max = Math.max(max, dp[j] + <span class="hljs-number">1</span>);            &#125;        &#125;        dp[i] = max;        res = Math.max(res, dp[i]);    &#125;    <span class="hljs-keyword">return</span> res + <span class="hljs-number">1</span>;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -1580,9 +1638,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>递归</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -1638,9 +1696,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>递归</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
