@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 354. 俄罗斯套娃信封问题</title>
+    <link href="/2020/12/01/LeetCode-354-russian-doll-envelopes/"/>
+    <url>/2020/12/01/LeetCode-354-russian-doll-envelopes/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/russian-doll-envelopes/" target="_blank" rel="noopener">354. 俄罗斯套娃信封问题</a></p><p>和 <a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/" target="_blank" rel="noopener">300. 最长上升子序列</a> 类似。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxEnvelopes</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] envelopes)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = envelopes.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    Arrays.sort(envelopes, Comparator.comparingInt(o -&gt; o[<span class="hljs-number">0</span>]));    <span class="hljs-comment">// dp[i]: 以第 i 个信封结尾的最大深度</span>    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; i; j++) &#123;            <span class="hljs-comment">// 前面的比 envelopes[i] 小，则可放入</span>            <span class="hljs-keyword">if</span> (envelopes[j][<span class="hljs-number">0</span>] &lt; envelopes[i][<span class="hljs-number">0</span>] &amp;&amp; envelopes[j][<span class="hljs-number">1</span>] &lt; envelopes[i][<span class="hljs-number">1</span>]) &#123;                max = Math.max(max, dp[j] + <span class="hljs-number">1</span>);            &#125;        &#125;        dp[i] = max;        res = Math.max(res, dp[i]);    &#125;    <span class="hljs-keyword">return</span> res + <span class="hljs-number">1</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>贪心</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 767. 重构字符串</title>
     <link href="/2020/11/30/LeetCode-767-reorganize-string/"/>
     <url>/2020/11/30/LeetCode-767-reorganize-string/</url>
@@ -1551,9 +1580,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -1609,9 +1638,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -2671,9 +2700,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3912,9 +3941,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     

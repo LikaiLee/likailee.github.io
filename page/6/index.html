@@ -170,6 +170,54 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/11/06/design-patterns-creational/">设计模式-创建型</a>
+
+      <a href="/2020/11/06/design-patterns-creational/" class="index-excerpt">
+        
+        
+          
+        
+        <div> 单例（Singleton）
+
+确保一个类只有一个实例，并提供该实例的全局访问点。
+
+使用一个私有构造函数、一个私有静态变量以及一个公有静态函数来实现。
+私有构造函数保证了不能通过构造函数来创建对象实例，只能通过公有静态函数返回唯一的私有静态变量。
+
+ 懒汉式-线程不安全
+以下实现中，私有静态变量 uniqueInstance 被延迟实例化，这样做的好处是，如果没有用到该类，那么就不会实例化 un</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-11-06
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/11/05/LeetCode-92-reverse-linked-list-ii/">LeetCode 92. 反转链表 II</a>
 
       <a href="/2020/11/05/LeetCode-92-reverse-linked-list-ii/" class="index-excerpt">
@@ -465,9 +513,9 @@ public TreeNode buildTree(int[] inorder, int[] postorder) &#123;
             
               <a href="/tags/%E6%A0%91/">树</a>
             
-              <a href="/tags/%E9%80%92%E5%BD%92/">递归</a>
-            
               <a href="/tags/%E5%88%86%E6%B2%BB/">分治</a>
+            
+              <a href="/tags/%E9%80%92%E5%BD%92/">递归</a>
             
           </div>
         
@@ -564,9 +612,9 @@ public TreeNode buildTree(int[] preorder, int[] inorder) &#123;
             
               <a href="/tags/%E6%A0%91/">树</a>
             
-              <a href="/tags/%E9%80%92%E5%BD%92/">递归</a>
-            
               <a href="/tags/%E5%88%86%E6%B2%BB/">分治</a>
+            
+              <a href="/tags/%E9%80%92%E5%BD%92/">递归</a>
             
           </div>
         
@@ -618,53 +666,6 @@ public List&lt;String&gt; binaryTreePaths(TreeNode root) &#123;
               <a href="/tags/%E6%A0%91/">树</a>
             
               <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/11/03/LeetCode-941-valid-mountain-array/">LeetCode 941. 有效的山脉数组</a>
-
-      <a href="/2020/11/03/LeetCode-941-valid-mountain-array/" class="index-excerpt">
-        
-        
-          
-        
-        <div>941. 有效的山脉数组
-public boolean validMountainArray(int[] A) &#123;
-    int len = A.length;
-    int i = 0, j = len - 1;
-    // 从左往右，i 最多只能到 len - 2，因为要形成山脉
-    while (i + 1 &lt; len &amp;&amp; A[i] &lt; A[</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-11-03
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
             
           </div>
         
