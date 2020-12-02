@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 995. K 连续位的最小翻转次数 - Likai Lee</title>
+  <title>LeetCode 321. 拼接最大数 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 995. K 连续位的最小翻转次数
+                LeetCode 321. 拼接最大数
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-30 20:49">
-      2020年9月30日 晚上
+    <time datetime="2020-12-02 21:54">
+      2020年12月2日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      226 字
+      288 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      5
        分钟
     </span>
   
@@ -207,53 +207,79 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月30日 晚上
+                  本文最后更新于：2020年12月2日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/minimum-number-of-k-consecutive-bit-flips/" target="_blank" rel="noopener">995. K 连续位的最小翻转次数</a></p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minKBitFlips</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A, <span class="hljs-keyword">int</span> K)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = A.length;
-    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-keyword">if</span> (A[i] == <span class="hljs-number">1</span>) &#123;
-            <span class="hljs-keyword">continue</span>;
-        &#125;
-        <span class="hljs-comment">// A[i] == 0，但后面没有 K 位，无法翻转</span>
-        <span class="hljs-keyword">if</span> (i + K &gt; len) &#123;
-            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
-        &#125;
-        <span class="hljs-comment">// 遇到 0 就反转</span>
-        count++;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i; j &lt; i + K; j++) &#123;
-            A[j] ^= <span class="hljs-number">1</span>;
+              <p><a href="https://leetcode-cn.com/problems/create-maximum-number/" target="_blank" rel="noopener">321. 拼接最大数</a></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] maxNumber(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2, <span class="hljs-keyword">int</span> k) &#123;
+    <span class="hljs-keyword">int</span> m = nums1.length, n = nums2.length;
+    <span class="hljs-keyword">int</span>[] maxSubsequence = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[k];
+    <span class="hljs-keyword">int</span> start = Math.max(<span class="hljs-number">0</span>, k - n), end = Math.min(k, m);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = start; i &lt;= end; i++) &#123;
+        <span class="hljs-keyword">int</span>[] subsequence1 = maxSubsequence(nums1, i);
+        <span class="hljs-keyword">int</span>[] subsequence2 = maxSubsequence(nums2, k - i);
+        <span class="hljs-keyword">int</span>[] curMaxSubsequence = merge(subsequence1, subsequence2);
+        <span class="hljs-keyword">if</span> (compare(curMaxSubsequence, <span class="hljs-number">0</span>, maxSubsequence, <span class="hljs-number">0</span>) &gt; <span class="hljs-number">0</span>) &#123;
+            System.arraycopy(curMaxSubsequence, <span class="hljs-number">0</span>, maxSubsequence, <span class="hljs-number">0</span>, k);
         &#125;
     &#125;
-    <span class="hljs-keyword">return</span> count;
-&#125;</code></pre>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minKBitFlips</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A, <span class="hljs-keyword">int</span> K)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = A.length;
-    ArrayDeque&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
-    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-comment">// i 不在前几次的翻转子数组中</span>
-        <span class="hljs-keyword">while</span> (!queue.isEmpty() &amp;&amp; queue.peekFirst() + K &lt;= i) &#123;
-            queue.poll();
+    <span class="hljs-keyword">return</span> maxSubsequence;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] maxSubsequence(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k) &#123;
+    <span class="hljs-keyword">int</span> length = nums.length;
+    <span class="hljs-keyword">int</span>[] stack = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[k];
+    <span class="hljs-keyword">int</span> top = -<span class="hljs-number">1</span>;
+    <span class="hljs-keyword">int</span> remain = length - k;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) &#123;
+        <span class="hljs-keyword">int</span> num = nums[i];
+        <span class="hljs-keyword">while</span> (top &gt;= <span class="hljs-number">0</span> &amp;&amp; stack[top] &lt; num &amp;&amp; remain &gt; <span class="hljs-number">0</span>) &#123;
+            top--;
+            remain--;
         &#125;
-        <span class="hljs-comment">// 在 [i - k + 1, i - 1] 翻转中</span>
-        <span class="hljs-comment">// 1 翻转奇数次后变为 0</span>
-        <span class="hljs-comment">// 0 翻转偶数次后变为 1，这两种情况需要再次翻转</span>
-        <span class="hljs-keyword">if</span> (queue.size() % <span class="hljs-number">2</span> == A[i]) &#123;
-            <span class="hljs-comment">// 剩下不足 K 位，无法翻转</span>
-            <span class="hljs-keyword">if</span> (i + K &gt; len) &#123;
-                <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
-            &#125;
-            count++;
-            queue.add(i);
+        <span class="hljs-keyword">if</span> (top &lt; k - <span class="hljs-number">1</span>) &#123;
+            stack[++top] = num;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            remain--;
         &#125;
     &#125;
-    <span class="hljs-keyword">return</span> count;
+    <span class="hljs-keyword">return</span> stack;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] merge(<span class="hljs-keyword">int</span>[] subsequence1, <span class="hljs-keyword">int</span>[] subsequence2) &#123;
+    <span class="hljs-keyword">int</span> x = subsequence1.length, y = subsequence2.length;
+    <span class="hljs-keyword">if</span> (x == <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-keyword">return</span> subsequence2;
+    &#125;
+    <span class="hljs-keyword">if</span> (y == <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-keyword">return</span> subsequence1;
+    &#125;
+    <span class="hljs-keyword">int</span> mergeLength = x + y;
+    <span class="hljs-keyword">int</span>[] merged = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[mergeLength];
+    <span class="hljs-keyword">int</span> index1 = <span class="hljs-number">0</span>, index2 = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; mergeLength; i++) &#123;
+        <span class="hljs-keyword">if</span> (compare(subsequence1, index1, subsequence2, index2) &gt; <span class="hljs-number">0</span>) &#123;
+            merged[i] = subsequence1[index1++];
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            merged[i] = subsequence2[index2++];
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> merged;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compare</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] subsequence1, <span class="hljs-keyword">int</span> index1, <span class="hljs-keyword">int</span>[] subsequence2, <span class="hljs-keyword">int</span> index2)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> x = subsequence1.length, y = subsequence2.length;
+    <span class="hljs-keyword">while</span> (index1 &lt; x &amp;&amp; index2 &lt; y) &#123;
+        <span class="hljs-keyword">int</span> difference = subsequence1[index1] - subsequence2[index2];
+        <span class="hljs-keyword">if</span> (difference != <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">return</span> difference;
+        &#125;
+        index1++;
+        index2++;
+    &#125;
+    <span class="hljs-keyword">return</span> (x - index1) - (y - index2);
 &#125;</code></pre>
             </article>
             <hr>
@@ -273,10 +299,6 @@
                     
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
-                    
                   </div>
                 
               </div>
@@ -288,18 +310,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/30/LeetCode-offer-48-zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">剑指 Offer 48. 最长不含重复字符的子字符串</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/30/os-io/">
-                        <span class="hidden-mobile">操作系统 输入输出</span>
+                      <a href="/2020/12/01/LeetCode-124-binary-tree-maximum-path-sum/">
+                        <span class="hidden-mobile">LeetCode 124. 二叉树中的最大路径和</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

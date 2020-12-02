@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>LeetCode 321. 拼接最大数</title>
+    <link href="/2020/12/02/LeetCode-321-create-maximum-number/"/>
+    <url>/2020/12/02/LeetCode-321-create-maximum-number/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/create-maximum-number/" target="_blank" rel="noopener">321. 拼接最大数</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] maxNumber(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2, <span class="hljs-keyword">int</span> k) &#123;    <span class="hljs-keyword">int</span> m = nums1.length, n = nums2.length;    <span class="hljs-keyword">int</span>[] maxSubsequence = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[k];    <span class="hljs-keyword">int</span> start = Math.max(<span class="hljs-number">0</span>, k - n), end = Math.min(k, m);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = start; i &lt;= end; i++) &#123;        <span class="hljs-keyword">int</span>[] subsequence1 = maxSubsequence(nums1, i);        <span class="hljs-keyword">int</span>[] subsequence2 = maxSubsequence(nums2, k - i);        <span class="hljs-keyword">int</span>[] curMaxSubsequence = merge(subsequence1, subsequence2);        <span class="hljs-keyword">if</span> (compare(curMaxSubsequence, <span class="hljs-number">0</span>, maxSubsequence, <span class="hljs-number">0</span>) &gt; <span class="hljs-number">0</span>) &#123;            System.arraycopy(curMaxSubsequence, <span class="hljs-number">0</span>, maxSubsequence, <span class="hljs-number">0</span>, k);        &#125;    &#125;    <span class="hljs-keyword">return</span> maxSubsequence;&#125;<span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] maxSubsequence(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k) &#123;    <span class="hljs-keyword">int</span> length = nums.length;    <span class="hljs-keyword">int</span>[] stack = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[k];    <span class="hljs-keyword">int</span> top = -<span class="hljs-number">1</span>;    <span class="hljs-keyword">int</span> remain = length - k;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) &#123;        <span class="hljs-keyword">int</span> num = nums[i];        <span class="hljs-keyword">while</span> (top &gt;= <span class="hljs-number">0</span> &amp;&amp; stack[top] &lt; num &amp;&amp; remain &gt; <span class="hljs-number">0</span>) &#123;            top--;            remain--;        &#125;        <span class="hljs-keyword">if</span> (top &lt; k - <span class="hljs-number">1</span>) &#123;            stack[++top] = num;        &#125; <span class="hljs-keyword">else</span> &#123;            remain--;        &#125;    &#125;    <span class="hljs-keyword">return</span> stack;&#125;<span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] merge(<span class="hljs-keyword">int</span>[] subsequence1, <span class="hljs-keyword">int</span>[] subsequence2) &#123;    <span class="hljs-keyword">int</span> x = subsequence1.length, y = subsequence2.length;    <span class="hljs-keyword">if</span> (x == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> subsequence2;    &#125;    <span class="hljs-keyword">if</span> (y == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> subsequence1;    &#125;    <span class="hljs-keyword">int</span> mergeLength = x + y;    <span class="hljs-keyword">int</span>[] merged = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[mergeLength];    <span class="hljs-keyword">int</span> index1 = <span class="hljs-number">0</span>, index2 = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; mergeLength; i++) &#123;        <span class="hljs-keyword">if</span> (compare(subsequence1, index1, subsequence2, index2) &gt; <span class="hljs-number">0</span>) &#123;            merged[i] = subsequence1[index1++];        &#125; <span class="hljs-keyword">else</span> &#123;            merged[i] = subsequence2[index2++];        &#125;    &#125;    <span class="hljs-keyword">return</span> merged;&#125;<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compare</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] subsequence1, <span class="hljs-keyword">int</span> index1, <span class="hljs-keyword">int</span>[] subsequence2, <span class="hljs-keyword">int</span> index2)</span> </span>&#123;    <span class="hljs-keyword">int</span> x = subsequence1.length, y = subsequence2.length;    <span class="hljs-keyword">while</span> (index1 &lt; x &amp;&amp; index2 &lt; y) &#123;        <span class="hljs-keyword">int</span> difference = subsequence1[index1] - subsequence2[index2];        <span class="hljs-keyword">if</span> (difference != <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> difference;        &#125;        index1++;        index2++;    &#125;    <span class="hljs-keyword">return</span> (x - index1) - (y - index2);&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 124. 二叉树中的最大路径和</title>
     <link href="/2020/12/01/LeetCode-124-binary-tree-maximum-path-sum/"/>
     <url>/2020/12/01/LeetCode-124-binary-tree-maximum-path-sum/</url>
@@ -775,9 +800,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>排序</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -2758,9 +2783,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -3999,9 +4024,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
