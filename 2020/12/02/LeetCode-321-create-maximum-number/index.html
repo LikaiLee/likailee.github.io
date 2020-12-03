@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      288 字
+      447 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      7
        分钟
     </span>
   
@@ -207,79 +207,108 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月2日 晚上
+                  本文最后更新于：2020年12月3日 下午
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/create-maximum-number/" target="_blank" rel="noopener">321. 拼接最大数</a></p>
+<p><a href="https://leetcode-cn.com/problems/remove-k-digits/" target="_blank" rel="noopener">402. 移掉K位数字</a></p>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] maxNumber(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2, <span class="hljs-keyword">int</span> k) &#123;
-    <span class="hljs-keyword">int</span> m = nums1.length, n = nums2.length;
-    <span class="hljs-keyword">int</span>[] maxSubsequence = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[k];
-    <span class="hljs-keyword">int</span> start = Math.max(<span class="hljs-number">0</span>, k - n), end = Math.min(k, m);
+    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[k];
+    <span class="hljs-keyword">int</span> len1 = nums1.length, len2 = nums2.length;
+    <span class="hljs-comment">// nums1 最多可取 k 个或全部取 (k &gt;= len1)</span>
+    <span class="hljs-keyword">int</span> end = Math.min(k, len1);
+    <span class="hljs-comment">// nums1 最少可取 k - len2 个或一个都不取 (k - len2 &lt;= 0)</span>
+    <span class="hljs-keyword">int</span> start = Math.max(<span class="hljs-number">0</span>, k - len2);
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = start; i &lt;= end; i++) &#123;
-        <span class="hljs-keyword">int</span>[] subsequence1 = maxSubsequence(nums1, i);
-        <span class="hljs-keyword">int</span>[] subsequence2 = maxSubsequence(nums2, k - i);
-        <span class="hljs-keyword">int</span>[] curMaxSubsequence = merge(subsequence1, subsequence2);
-        <span class="hljs-keyword">if</span> (compare(curMaxSubsequence, <span class="hljs-number">0</span>, maxSubsequence, <span class="hljs-number">0</span>) &gt; <span class="hljs-number">0</span>) &#123;
-            System.arraycopy(curMaxSubsequence, <span class="hljs-number">0</span>, maxSubsequence, <span class="hljs-number">0</span>, k);
+        <span class="hljs-comment">// 从 nums1 取 i 个，num2 取 k - i 个</span>
+        <span class="hljs-keyword">int</span>[] subSeq1 = maxSubsequence(nums1, i);
+        <span class="hljs-keyword">int</span>[] subSeq2 = maxSubsequence(nums2, k - i);
+        <span class="hljs-comment">// 合并两个子序列</span>
+        <span class="hljs-keyword">int</span>[] tmp = merge(subSeq1, subSeq2);
+        <span class="hljs-comment">// 取最终结果</span>
+        <span class="hljs-keyword">if</span> (compare(tmp, <span class="hljs-number">0</span>, res, <span class="hljs-number">0</span>)) &#123;
+            System.arraycopy(tmp, <span class="hljs-number">0</span>, res, <span class="hljs-number">0</span>, k);
         &#125;
     &#125;
-    <span class="hljs-keyword">return</span> maxSubsequence;
+    <span class="hljs-keyword">return</span> res;
 &#125;
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] maxSubsequence(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k) &#123;
-    <span class="hljs-keyword">int</span> length = nums.length;
-    <span class="hljs-keyword">int</span>[] stack = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[k];
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 合并两个子序列</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> subSeq1</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> subSeq2</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] merge(<span class="hljs-keyword">int</span>[] subSeq1, <span class="hljs-keyword">int</span>[] subSeq2) &#123;
+    <span class="hljs-keyword">int</span> len1 = subSeq1.length, len2 = subSeq2.length;
+    <span class="hljs-keyword">int</span> len = len1 + len2;
+    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
+    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; len; k++) &#123;
+        <span class="hljs-keyword">if</span> (compare(subSeq1, i, subSeq2, j)) &#123;
+            res[k] = subSeq1[i++];
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            res[k] = subSeq2[j++];
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> res;
+&#125;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 比较两个数组</span>
+<span class="hljs-comment"> * 对应位置上的元素大的数组更大，否则长度长的那个数组大</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> nums1</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> start1</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> nums2</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> start2</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@return</span> true if nums1 &gt; nums2</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">compare</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span> start1, <span class="hljs-keyword">int</span>[] nums2, <span class="hljs-keyword">int</span> start2)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> len1 = nums1.length, len2 = nums2.length;
+    <span class="hljs-keyword">while</span> (start1 &lt; len1 &amp;&amp; start2 &lt; len2) &#123;
+        <span class="hljs-keyword">if</span> (nums1[start1] &gt; nums2[start2]) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums1[start1] &lt; nums2[start2]) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            start1++;
+            start2++;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> len1 - start1 &gt; len2 - start2;
+&#125;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 求 nums 中 n 个最大子序列</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> nums</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> n</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] maxSubsequence(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> n) &#123;
+    <span class="hljs-comment">// 需要删除的位数</span>
+    <span class="hljs-keyword">int</span> dropNum = nums.length - n;
+    <span class="hljs-keyword">int</span>[] stack = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[nums.length];
+    <span class="hljs-comment">// 栈顶元素的位置</span>
     <span class="hljs-keyword">int</span> top = -<span class="hljs-number">1</span>;
-    <span class="hljs-keyword">int</span> remain = length - k;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) &#123;
-        <span class="hljs-keyword">int</span> num = nums[i];
-        <span class="hljs-keyword">while</span> (top &gt;= <span class="hljs-number">0</span> &amp;&amp; stack[top] &lt; num &amp;&amp; remain &gt; <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;
+        <span class="hljs-comment">// 栈顶 &lt; nums[i] &amp;&amp; 可删除，则出栈</span>
+        <span class="hljs-keyword">while</span> (top &gt;= <span class="hljs-number">0</span> &amp;&amp; dropNum &gt; <span class="hljs-number">0</span> &amp;&amp; stack[top] &lt; num) &#123;
             top--;
-            remain--;
+            dropNum--;
         &#125;
-        <span class="hljs-keyword">if</span> (top &lt; k - <span class="hljs-number">1</span>) &#123;
-            stack[++top] = num;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            remain--;
-        &#125;
+        stack[++top] = num;
     &#125;
-    <span class="hljs-keyword">return</span> stack;
-&#125;
-
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] merge(<span class="hljs-keyword">int</span>[] subsequence1, <span class="hljs-keyword">int</span>[] subsequence2) &#123;
-    <span class="hljs-keyword">int</span> x = subsequence1.length, y = subsequence2.length;
-    <span class="hljs-keyword">if</span> (x == <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">return</span> subsequence2;
+    <span class="hljs-comment">// 删除的位数不够</span>
+    <span class="hljs-keyword">while</span> (dropNum-- &gt; <span class="hljs-number">0</span>) &#123;
+        top--;
     &#125;
-    <span class="hljs-keyword">if</span> (y == <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">return</span> subsequence1;
-    &#125;
-    <span class="hljs-keyword">int</span> mergeLength = x + y;
-    <span class="hljs-keyword">int</span>[] merged = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[mergeLength];
-    <span class="hljs-keyword">int</span> index1 = <span class="hljs-number">0</span>, index2 = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; mergeLength; i++) &#123;
-        <span class="hljs-keyword">if</span> (compare(subsequence1, index1, subsequence2, index2) &gt; <span class="hljs-number">0</span>) &#123;
-            merged[i] = subsequence1[index1++];
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            merged[i] = subsequence2[index2++];
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> merged;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compare</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] subsequence1, <span class="hljs-keyword">int</span> index1, <span class="hljs-keyword">int</span>[] subsequence2, <span class="hljs-keyword">int</span> index2)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> x = subsequence1.length, y = subsequence2.length;
-    <span class="hljs-keyword">while</span> (index1 &lt; x &amp;&amp; index2 &lt; y) &#123;
-        <span class="hljs-keyword">int</span> difference = subsequence1[index1] - subsequence2[index2];
-        <span class="hljs-keyword">if</span> (difference != <span class="hljs-number">0</span>) &#123;
-            <span class="hljs-keyword">return</span> difference;
-        &#125;
-        index1++;
-        index2++;
-    &#125;
-    <span class="hljs-keyword">return</span> (x - index1) - (y - index2);
+    <span class="hljs-comment">// 返回 n 个子序列</span>
+    <span class="hljs-keyword">return</span> Arrays.copyOfRange(stack, <span class="hljs-number">0</span>, n);
 &#125;</code></pre>
             </article>
             <hr>
@@ -298,6 +327,10 @@
                     <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/">单调栈</a>
                     
                   </div>
                 
