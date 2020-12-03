@@ -170,6 +170,52 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/11/26/spring-circular-reference/">Spring 循环依赖</a>
+
+      <a href="/2020/11/26/spring-circular-reference/" class="index-excerpt">
+        
+        
+          
+        
+        <div> Bean 获取和创建过程
+ Bean 获取流程
+
+
+getBean 是个空壳方法，所有逻辑直接到 doGetBean 方法中；
+transformedBeanName 将 name 转换为真正的 beanName（name 可能是 FactoryBean 以 &amp; 字符开头或者有别名的情况，所以需要转化下）；
+然后通过 getSingleton(beanName) 方法尝试从缓存中查找是不</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-11-26
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Spring/">Spring</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Spring/">Spring</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/11/25/LeetCode-114-flatten-binary-tree-to-linked-list/">LeetCode 114. 二叉树展开为链表</a>
 
       <a href="/2020/11/25/LeetCode-114-flatten-binary-tree-to-linked-list/" class="index-excerpt">
@@ -548,9 +594,9 @@ public int findMinArrowShots(int[][] points) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
-            
               <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+            
+              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
             
           </div>
         
@@ -604,58 +650,6 @@ public ListNode sortList(ListNode head) &#123;
               <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
             
               <a href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/11/20/LeetCode-279-perfect-squares/">LeetCode 279. 完全平方数</a>
-
-      <a href="/2020/11/20/LeetCode-279-perfect-squares/" class="index-excerpt">
-        
-        
-          
-        
-        <div>279. 完全平方数
- 动态规划
-public int numSquares(int n) &#123;
-    int[] dp = new int[n + 1];
-    Arrays.fill(dp, Integer.MAX_VALUE);
-    dp[0] = 0;
-    dp[1] = 1;
-    // dp[i]: 组成 i 所需的最少完全平方数
-    for (int i =</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-11-20
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-              <a href="/tags/BFS/">BFS</a>
             
           </div>
         
