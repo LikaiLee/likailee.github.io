@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 659. 分割数组为连续子序列</title>
+    <link href="/2020/12/04/LeetCode-659-split-array-into-consecutive-subsequences/"/>
+    <url>/2020/12/04/LeetCode-659-split-array-into-consecutive-subsequences/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/split-array-into-consecutive-subsequences/" target="_blank" rel="noopener">659. 分割数组为连续子序列</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPossible</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-comment">// 每个数字的出现次数</span>    Map&lt;Integer, Integer&gt; occur = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-comment">// 以 key 结尾的子序列个数</span>    Map&lt;Integer, Integer&gt; tail = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;        <span class="hljs-keyword">int</span> count = occur.getOrDefault(num, <span class="hljs-number">0</span>);        occur.put(num, count + <span class="hljs-number">1</span>);    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;        <span class="hljs-keyword">int</span> numCount = occur.get(num);        <span class="hljs-comment">// num 已经用完</span>        <span class="hljs-keyword">if</span> (numCount &lt;= <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">continue</span>;        &#125;        <span class="hljs-comment">// 是否可以连在前一个数字后面</span>        <span class="hljs-keyword">int</span> prevCount = tail.getOrDefault(num - <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);        <span class="hljs-keyword">if</span> (prevCount &gt; <span class="hljs-number">0</span>) &#123;            <span class="hljs-comment">// 使用一个 num</span>            occur.put(num, numCount - <span class="hljs-number">1</span>);            <span class="hljs-comment">// num - 1 结尾的子序列 - 1</span>            tail.put(num - <span class="hljs-number">1</span>, prevCount - <span class="hljs-number">1</span>);            <span class="hljs-comment">// num 结尾的子序列 + 1</span>            tail.put(num, tail.getOrDefault(num, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// 是否往后可以组成三个连续序列</span>            <span class="hljs-keyword">int</span> next1Count = occur.getOrDefault(num + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);            <span class="hljs-keyword">int</span> next2Count = occur.getOrDefault(num + <span class="hljs-number">2</span>, <span class="hljs-number">0</span>);            <span class="hljs-keyword">if</span> (next1Count &gt; <span class="hljs-number">0</span> &amp;&amp; next2Count &gt; <span class="hljs-number">0</span>) &#123;                occur.put(num, numCount - <span class="hljs-number">1</span>);                occur.put(num + <span class="hljs-number">1</span>, next1Count - <span class="hljs-number">1</span>);                occur.put(num + <span class="hljs-number">2</span>, next2Count - <span class="hljs-number">1</span>);                tail.put(num + <span class="hljs-number">2</span>, tail.getOrDefault(num + <span class="hljs-number">2</span>, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);            &#125;            <span class="hljs-comment">// 往前往后都不能组成连续序列</span>            <span class="hljs-keyword">else</span> &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>贪心</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 204. 计数质数</title>
     <link href="/2020/12/03/LeetCode-204-count-primes/"/>
     <url>/2020/12/03/LeetCode-204-count-primes/</url>
@@ -22,9 +51,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -358,9 +387,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>排序</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -582,9 +611,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -833,9 +862,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>排序</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -1696,9 +1725,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -1754,9 +1783,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -1924,9 +1953,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1955,11 +1984,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -4028,9 +4057,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4430,11 +4459,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5094,9 +5123,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5123,9 +5152,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -5270,9 +5299,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5415,9 +5444,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5444,9 +5473,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5473,9 +5502,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -5591,11 +5620,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5622,9 +5651,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5738,9 +5767,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5906,11 +5935,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
       
       <tag>排序</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5964,9 +5993,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -5995,9 +6024,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6055,9 +6084,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6084,9 +6113,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6962,9 +6991,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -7114,7 +7143,7 @@
     <link href="/2020/08/20/LeetCode-1143-longest-common-subsequence/"/>
     <url>/2020/08/20/LeetCode-1143-longest-common-subsequence/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-common-subsequence/" target="_blank" rel="noopener">1143. 最长公共子序列</a></p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200820153633.png" srcset="/img/loading.gif" alt="" /></p><p>base: 两个字符串中有一个为空，则 <code>dp[0][j] = 0</code> 或 <code>dp[i][0] = 0</code><br />状态：<code>dp[i][j]</code> -&gt; <code>str1[:i]</code> 和 <code>str[:j]</code> 的最长序列<br />转移：</p><ul><li>比较位置：<code>str[:i], str[:j]</code> || <code>str1[:i-1]</code>, <code>str2[:j]</code> || <code>str1[:i]</code>, <code>str2[:j-1]</code></li><li>若 <code>i</code>, <code>j</code> 位置相等，直接 + 1</li><li>若不等：取 <code>str1[:i-1]</code>, <code>str2[:j]</code> 和 <code>str1[:i]</code>, <code>str2[:j-1]</code> 中的最大值</li></ul><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestCommonSubsequence</span><span class="hljs-params">(String text1, String text2)</span> </span>&#123;        <span class="hljs-keyword">int</span> len1 = text1.length();        <span class="hljs-keyword">int</span> len2 = text2.length();        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len1 + <span class="hljs-number">1</span>][len2 + <span class="hljs-number">1</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len1; i++) &#123;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= len2; j++) &#123;                <span class="hljs-keyword">if</span> (text1.charAt(i - <span class="hljs-number">1</span>) == text2.charAt(j - <span class="hljs-number">1</span>)) &#123;                    dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;                &#125; <span class="hljs-keyword">else</span> &#123;                    dp[i][j] = Math.max(dp[i - <span class="hljs-number">1</span>][j], dp[i][j - <span class="hljs-number">1</span>]);                &#125;            &#125;        &#125;        <span class="hljs-keyword">return</span> dp[len1][len2];    &#125;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-common-subsequence/" target="_blank" rel="noopener">1143. 最长公共子序列</a></p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200820153633.png" srcset="/img/loading.gif" alt="" /></p><p>base: 两个字符串中有一个为空，则 <code>dp[0][j] = 0</code> 或 <code>dp[i][0] = 0</code><br />状态：<code>dp[i][j]</code> -&gt; <code>str1[:i]</code> 和 <code>str[:j]</code> 的最长序列<br />转移：</p><ul><li>比较位置：<code>str[:i], str[:j]</code> || <code>str1[:i-1]</code>, <code>str2[:j]</code> || <code>str1[:i]</code>, <code>str2[:j-1]</code></li><li>若 <code>i</code>, <code>j</code> 位置相等，直接 + 1</li><li>若不等：取 <code>str1[:i-1]</code>, <code>str2[:j]</code> 和 <code>str1[:i]</code>, <code>str2[:j-1]</code> 中的最大值</li></ul><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestCommonSubsequence</span><span class="hljs-params">(String text1, String text2)</span> </span>&#123;    <span class="hljs-keyword">int</span> len1 = text1.length();    <span class="hljs-keyword">int</span> len2 = text2.length();    <span class="hljs-keyword">char</span>[] str1 = text1.toCharArray();    <span class="hljs-keyword">char</span>[] str2 = text2.toCharArray();    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len1 + <span class="hljs-number">1</span>][len2 + <span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len1; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= len2; j++) &#123;            <span class="hljs-keyword">if</span> (str1[i - <span class="hljs-number">1</span>] == str2[j - <span class="hljs-number">1</span>]) &#123;                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> &#123;                dp[i][j] = Math.max(dp[i - <span class="hljs-number">1</span>][j], dp[i][j - <span class="hljs-number">1</span>]);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> dp[len1][len2];&#125;</code></pre>]]></content>
     
     
     <categories>

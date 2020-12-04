@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      185 字
+      187 字
     </span>
   
 
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月4日 下午
+                  本文最后更新于：2020年12月3日 晚上
                 
               </p>
             
@@ -222,22 +222,22 @@
 <li>若 <code>i</code>, <code>j</code> 位置相等，直接 + 1</li>
 <li>若不等：取 <code>str1[:i-1]</code>, <code>str2[:j]</code> 和 <code>str1[:i]</code>, <code>str2[:j-1]</code> 中的最大值</li>
 </ul>
-<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestCommonSubsequence</span><span class="hljs-params">(String text1, String text2)</span> </span>&#123;
-        <span class="hljs-keyword">int</span> len1 = text1.length();
-        <span class="hljs-keyword">int</span> len2 = text2.length();
-        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len1 + <span class="hljs-number">1</span>][len2 + <span class="hljs-number">1</span>];
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len1; i++) &#123;
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= len2; j++) &#123;
-                <span class="hljs-keyword">if</span> (text1.charAt(i - <span class="hljs-number">1</span>) == text2.charAt(j - <span class="hljs-number">1</span>)) &#123;
-                    dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;
-                &#125; <span class="hljs-keyword">else</span> &#123;
-                    dp[i][j] = Math.max(dp[i - <span class="hljs-number">1</span>][j], dp[i][j - <span class="hljs-number">1</span>]);
-                &#125;
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestCommonSubsequence</span><span class="hljs-params">(String text1, String text2)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> len1 = text1.length();
+    <span class="hljs-keyword">int</span> len2 = text2.length();
+    <span class="hljs-keyword">char</span>[] str1 = text1.toCharArray();
+    <span class="hljs-keyword">char</span>[] str2 = text2.toCharArray();
+    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len1 + <span class="hljs-number">1</span>][len2 + <span class="hljs-number">1</span>];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len1; i++) &#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= len2; j++) &#123;
+            <span class="hljs-keyword">if</span> (str1[i - <span class="hljs-number">1</span>] == str2[j - <span class="hljs-number">1</span>]) &#123;
+                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                dp[i][j] = Math.max(dp[i - <span class="hljs-number">1</span>][j], dp[i][j - <span class="hljs-number">1</span>]);
             &#125;
         &#125;
-        <span class="hljs-keyword">return</span> dp[len1][len2];
     &#125;
+    <span class="hljs-keyword">return</span> dp[len1][len2];
 &#125;</code></pre>
             </article>
             <hr>
