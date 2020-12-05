@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      323 字
+      367 字
     </span>
   
 
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月26日 下午
+                  本文最后更新于：2020年12月5日 下午
                 
               </p>
             
@@ -237,39 +237,41 @@
 &#125;</code></pre>
 <h1 id="优先队列"><a class="markdownIt-Anchor" href="#优先队列"></a> 优先队列</h1>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">leastInterval</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] tasks, <span class="hljs-keyword">int</span> n)</span> </span>&#123;
+    <span class="hljs-comment">// 最小时间只和任务数量最多的那个任务有关</span>
+    <span class="hljs-comment">// 在 n + 1 时间内的任务都不重复</span>
     <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];
-    <span class="hljs-comment">// 统计每个任务的数量</span>
+    <span class="hljs-comment">// 统计每个任务的出现次数</span>
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> task : tasks) &#123;
         counts[task - <span class="hljs-string">'A'</span>]++;
     &#125;
-    <span class="hljs-comment">// 大顶堆，优先安排数量多的任务</span>
-    Queue&lt;Integer&gt; maxHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;(<span class="hljs-number">26</span>, (o1, o2) -&gt; o2 - o1);
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : counts) &#123;
-        <span class="hljs-keyword">if</span> (num &gt; <span class="hljs-number">0</span>) &#123;
-            maxHeap.add(num);
+    <span class="hljs-comment">// 大顶堆</span>
+    PriorityQueue&lt;Integer&gt; maxHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; o2 - o1);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> count : counts) &#123;
+        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">0</span>) &#123;
+            maxHeap.add(count);
         &#125;
     &#125;
     <span class="hljs-keyword">int</span> time = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">while</span> (!maxHeap.isEmpty()) &#123;
-        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
-        List&lt;Integer&gt; nextRound = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
-        <span class="hljs-comment">// 每轮分配 n + 1 个任务</span>
-        <span class="hljs-keyword">while</span> (i &lt;= n) &#123;
-            time++;
+        List&lt;Integer&gt; next = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+        <span class="hljs-comment">// 每轮安排 n + 1 个任务</span>
+        <span class="hljs-keyword">int</span> taskNum = n + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span> (taskNum-- &gt; <span class="hljs-number">0</span>) &#123;
             <span class="hljs-keyword">if</span> (!maxHeap.isEmpty()) &#123;
-                <span class="hljs-comment">// 每次取最大任务数（堆顶）</span>
-                <span class="hljs-keyword">int</span> taskCount = maxHeap.poll();
-                <span class="hljs-keyword">if</span> (taskCount &gt; <span class="hljs-number">1</span>) &#123;
-                    <span class="hljs-comment">// 任务数 - 1 放入下一轮</span>
-                    nextRound.add(taskCount - <span class="hljs-number">1</span>);
+                <span class="hljs-comment">// 每次优先安排任务数最多的任务</span>
+                <span class="hljs-keyword">int</span> max = maxHeap.poll();
+                <span class="hljs-keyword">if</span> (max &gt; <span class="hljs-number">1</span>) &#123;
+                    <span class="hljs-comment">// 更新当前的任务数，用于下一轮</span>
+                    next.add(max - <span class="hljs-number">1</span>);
                 &#125;
             &#125;
-            <span class="hljs-keyword">if</span> (maxHeap.isEmpty() &amp;&amp; nextRound.isEmpty()) &#123;
-                <span class="hljs-keyword">break</span>;
+            <span class="hljs-comment">// 下一轮和堆里没有可以安排的任务</span>
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (next.isEmpty()) &#123;
+                <span class="hljs-keyword">return</span> time;
             &#125;
-            i++;
+            time++;
         &#125;
-        maxHeap.addAll(nextRound);
+        maxHeap.addAll(next);
     &#125;
     <span class="hljs-keyword">return</span> time;
 &#125;</code></pre>

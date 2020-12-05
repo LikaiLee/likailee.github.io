@@ -387,9 +387,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -862,9 +862,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -2580,7 +2580,7 @@
     <link href="/2020/10/26/LeetCode-621-task-scheduler/"/>
     <url>/2020/10/26/LeetCode-621-task-scheduler/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/task-scheduler/" target="_blank" rel="noopener">621. 任务调度器</a></p><h1 id="排序"><a class="markdownIt-Anchor" href="#排序"></a> 排序</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">leastInterval</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] tasks, <span class="hljs-keyword">int</span> n)</span> </span>&#123;    <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];    <span class="hljs-comment">// 统计每个任务的数量</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> task : tasks) &#123;        counts[task - <span class="hljs-string">'A'</span>]++;    &#125;    <span class="hljs-comment">// 找到任务数最多的任务</span>    Arrays.sort(counts);    <span class="hljs-keyword">int</span> maxCount = counts[<span class="hljs-number">25</span>];    <span class="hljs-comment">// 需要几个任务队列取决于数量最多的那个任务</span>    <span class="hljs-keyword">int</span> time = (maxCount - <span class="hljs-number">1</span>) * (n + <span class="hljs-number">1</span>);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">25</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;        <span class="hljs-comment">// 有其他任务和 max 一样，则多花一个时间</span>        <span class="hljs-keyword">if</span> (counts[i] == maxCount) &#123;            time++;        &#125;    &#125;    <span class="hljs-comment">// 若有空闲时间，res = time</span>    <span class="hljs-comment">// 若没有空闲时间，表示 n 个序列都已用完，需要扩充 n，res = len</span>    <span class="hljs-keyword">return</span> Math.max(time, tasks.length);&#125;</code></pre><h1 id="优先队列"><a class="markdownIt-Anchor" href="#优先队列"></a> 优先队列</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">leastInterval</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] tasks, <span class="hljs-keyword">int</span> n)</span> </span>&#123;    <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];    <span class="hljs-comment">// 统计每个任务的数量</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> task : tasks) &#123;        counts[task - <span class="hljs-string">'A'</span>]++;    &#125;    <span class="hljs-comment">// 大顶堆，优先安排数量多的任务</span>    Queue&lt;Integer&gt; maxHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;(<span class="hljs-number">26</span>, (o1, o2) -&gt; o2 - o1);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : counts) &#123;        <span class="hljs-keyword">if</span> (num &gt; <span class="hljs-number">0</span>) &#123;            maxHeap.add(num);        &#125;    &#125;    <span class="hljs-keyword">int</span> time = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (!maxHeap.isEmpty()) &#123;        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;        List&lt;Integer&gt; nextRound = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();        <span class="hljs-comment">// 每轮分配 n + 1 个任务</span>        <span class="hljs-keyword">while</span> (i &lt;= n) &#123;            time++;            <span class="hljs-keyword">if</span> (!maxHeap.isEmpty()) &#123;                <span class="hljs-comment">// 每次取最大任务数（堆顶）</span>                <span class="hljs-keyword">int</span> taskCount = maxHeap.poll();                <span class="hljs-keyword">if</span> (taskCount &gt; <span class="hljs-number">1</span>) &#123;                    <span class="hljs-comment">// 任务数 - 1 放入下一轮</span>                    nextRound.add(taskCount - <span class="hljs-number">1</span>);                &#125;            &#125;            <span class="hljs-keyword">if</span> (maxHeap.isEmpty() &amp;&amp; nextRound.isEmpty()) &#123;                <span class="hljs-keyword">break</span>;            &#125;            i++;        &#125;        maxHeap.addAll(nextRound);    &#125;    <span class="hljs-keyword">return</span> time;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/task-scheduler/" target="_blank" rel="noopener">621. 任务调度器</a></p><h1 id="排序"><a class="markdownIt-Anchor" href="#排序"></a> 排序</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">leastInterval</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] tasks, <span class="hljs-keyword">int</span> n)</span> </span>&#123;    <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];    <span class="hljs-comment">// 统计每个任务的数量</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> task : tasks) &#123;        counts[task - <span class="hljs-string">'A'</span>]++;    &#125;    <span class="hljs-comment">// 找到任务数最多的任务</span>    Arrays.sort(counts);    <span class="hljs-keyword">int</span> maxCount = counts[<span class="hljs-number">25</span>];    <span class="hljs-comment">// 需要几个任务队列取决于数量最多的那个任务</span>    <span class="hljs-keyword">int</span> time = (maxCount - <span class="hljs-number">1</span>) * (n + <span class="hljs-number">1</span>);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">25</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;        <span class="hljs-comment">// 有其他任务和 max 一样，则多花一个时间</span>        <span class="hljs-keyword">if</span> (counts[i] == maxCount) &#123;            time++;        &#125;    &#125;    <span class="hljs-comment">// 若有空闲时间，res = time</span>    <span class="hljs-comment">// 若没有空闲时间，表示 n 个序列都已用完，需要扩充 n，res = len</span>    <span class="hljs-keyword">return</span> Math.max(time, tasks.length);&#125;</code></pre><h1 id="优先队列"><a class="markdownIt-Anchor" href="#优先队列"></a> 优先队列</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">leastInterval</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] tasks, <span class="hljs-keyword">int</span> n)</span> </span>&#123;    <span class="hljs-comment">// 最小时间只和任务数量最多的那个任务有关</span>    <span class="hljs-comment">// 在 n + 1 时间内的任务都不重复</span>    <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];    <span class="hljs-comment">// 统计每个任务的出现次数</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> task : tasks) &#123;        counts[task - <span class="hljs-string">'A'</span>]++;    &#125;    <span class="hljs-comment">// 大顶堆</span>    PriorityQueue&lt;Integer&gt; maxHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; o2 - o1);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> count : counts) &#123;        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">0</span>) &#123;            maxHeap.add(count);        &#125;    &#125;    <span class="hljs-keyword">int</span> time = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (!maxHeap.isEmpty()) &#123;        List&lt;Integer&gt; next = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();        <span class="hljs-comment">// 每轮安排 n + 1 个任务</span>        <span class="hljs-keyword">int</span> taskNum = n + <span class="hljs-number">1</span>;        <span class="hljs-keyword">while</span> (taskNum-- &gt; <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">if</span> (!maxHeap.isEmpty()) &#123;                <span class="hljs-comment">// 每次优先安排任务数最多的任务</span>                <span class="hljs-keyword">int</span> max = maxHeap.poll();                <span class="hljs-keyword">if</span> (max &gt; <span class="hljs-number">1</span>) &#123;                    <span class="hljs-comment">// 更新当前的任务数，用于下一轮</span>                    next.add(max - <span class="hljs-number">1</span>);                &#125;            &#125;            <span class="hljs-comment">// 下一轮和堆里没有可以安排的任务</span>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (next.isEmpty()) &#123;                <span class="hljs-keyword">return</span> time;            &#125;            time++;        &#125;        maxHeap.addAll(next);    &#125;    <span class="hljs-keyword">return</span> time;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -4057,9 +4057,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -4459,11 +4459,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -5444,9 +5444,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5473,9 +5473,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5620,11 +5620,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -5767,9 +5767,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5937,9 +5937,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>排序</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5993,9 +5993,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -6024,9 +6024,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6084,9 +6084,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6113,9 +6113,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
