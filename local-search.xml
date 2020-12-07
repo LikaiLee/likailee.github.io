@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>LeetCode 12. 整数转罗马数字</title>
+    <link href="/2020/12/07/LeetCode-12-integer-to-roman/"/>
+    <url>/2020/12/07/LeetCode-12-integer-to-roman/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/integer-to-roman/" target="_blank" rel="noopener">12. 整数转罗马数字</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">intToRoman</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;    <span class="hljs-keyword">int</span>[] nums = &#123;<span class="hljs-number">1000</span>, <span class="hljs-number">900</span>, <span class="hljs-number">500</span>, <span class="hljs-number">400</span>, <span class="hljs-number">100</span>, <span class="hljs-number">90</span>, <span class="hljs-number">50</span>, <span class="hljs-number">40</span>, <span class="hljs-number">10</span>, <span class="hljs-number">9</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>&#125;;    String[] romans = &#123;<span class="hljs-string">"M"</span>, <span class="hljs-string">"CM"</span>, <span class="hljs-string">"D"</span>, <span class="hljs-string">"CD"</span>, <span class="hljs-string">"C"</span>, <span class="hljs-string">"XC"</span>, <span class="hljs-string">"L"</span>, <span class="hljs-string">"XL"</span>, <span class="hljs-string">"X"</span>, <span class="hljs-string">"IX"</span>, <span class="hljs-string">"V"</span>, <span class="hljs-string">"IV"</span>, <span class="hljs-string">"I"</span>&#125;;    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();    <span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (num &gt; <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = start; i &lt; nums.length; i++) &#123;            <span class="hljs-keyword">int</span> romanNum = nums[i];            <span class="hljs-keyword">if</span> (num - romanNum &gt;= <span class="hljs-number">0</span>) &#123;                sb.append(romans[i]);                num -= romanNum;                <span class="hljs-comment">// 不断使用 i 位置上的数减去 num</span>                start = i;                <span class="hljs-keyword">break</span>;            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> sb.toString();&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>贪心</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>LeetCode 861. 翻转矩阵后的得分</title>
+    <link href="/2020/12/07/LeetCode-861-score-after-flipping-matrix/"/>
+    <url>/2020/12/07/LeetCode-861-score-after-flipping-matrix/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/score-after-flipping-matrix/" target="_blank" rel="noopener">861. 翻转矩阵后的得分</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">matrixScore</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] A)</span> </span>&#123;    <span class="hljs-comment">// [0,0,1,1]     [1,1,1,1]</span>    <span class="hljs-comment">// [1,0,1,0] =&gt;  [1,0,0,1]</span>    <span class="hljs-comment">// [1,1,0,0]     [1,1,1,1]</span>    <span class="hljs-comment">// 要保证结果最大，每列的首位 == 1</span>    <span class="hljs-keyword">int</span> rows = A.length;    <span class="hljs-keyword">int</span> cols = A[<span class="hljs-number">0</span>].length;    <span class="hljs-comment">// 计算每列首位 = 1 时的第一列元素之和</span>    <span class="hljs-keyword">int</span> res = rows * (<span class="hljs-number">1</span> &lt;&lt; (cols - <span class="hljs-number">1</span>));    <span class="hljs-comment">// 按列计算 1 的个数</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; cols; j++) &#123;        <span class="hljs-keyword">int</span> ones = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] row : A) &#123;            <span class="hljs-comment">// 该行首位 = 0，需要翻转行</span>            <span class="hljs-keyword">if</span> (row[<span class="hljs-number">0</span>] == <span class="hljs-number">0</span>) &#123;                ones += row[j] ^ <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> &#123;                ones += row[j];            &#125;        &#125;        <span class="hljs-comment">// ones &lt; zeros，需要翻转列，使 `0` =&gt; `1`</span>        res += Math.max(ones, rows - ones) * (<span class="hljs-number">1</span> &lt;&lt; (cols - j - <span class="hljs-number">1</span>));    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>贪心</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 118. 杨辉三角</title>
     <link href="/2020/12/06/LeetCode-118-pascals-triangle/"/>
     <url>/2020/12/06/LeetCode-118-pascals-triangle/</url>
@@ -76,9 +130,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -219,11 +273,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -410,9 +464,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -464,9 +518,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -562,7 +616,7 @@
     <link href="/2020/11/23/LeetCode-452-minimum-number-of-arrows-to-burst-balloons/"/>
     <url>/2020/11/23/LeetCode-452-minimum-number-of-arrows-to-burst-balloons/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/" target="_blank" rel="noopener">452. 用最少数量的箭引爆气球</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findMinArrowShots</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] points)</span> </span>&#123;    <span class="hljs-comment">// [[10,16],[2,8],[1,6],[7,12]]</span>    <span class="hljs-comment">// [[3,9],[7,12],[3,8],[6,8],[9,10],[2,9],[0,9],[3,9],[0,6],[2,8]]</span>    <span class="hljs-comment">// [[-2147483646,-2147483645],[2147483646,2147483647]]</span>    <span class="hljs-comment">// 不能用减法来比较 &amp;&amp; 子区间内也要重合</span>    Arrays.sort(points, (o1, o2) -&gt; Integer.compare(o1[<span class="hljs-number">1</span>], o2[<span class="hljs-number">1</span>]));    <span class="hljs-comment">// System.out.println(Arrays.deepToString(points));</span>    <span class="hljs-keyword">int</span> len = points.length;    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (i &lt; len) &#123;        count++;        <span class="hljs-keyword">int</span> end = points[i][<span class="hljs-number">1</span>];        <span class="hljs-comment">// 比较的是下一个区间</span>        <span class="hljs-keyword">while</span> (i &lt; len - <span class="hljs-number">1</span> &amp;&amp; end &gt;= points[i + <span class="hljs-number">1</span>][<span class="hljs-number">0</span>]) &#123;            i++;        &#125;        <span class="hljs-comment">// 确保更新 新的边界</span>        i++;    &#125;    <span class="hljs-keyword">return</span> count;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/" target="_blank" rel="noopener">452. 用最少数量的箭引爆气球</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findMinArrowShots</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] points)</span> </span>&#123;    <span class="hljs-comment">// 不能用减法来比较 &amp;&amp; 子区间内也要重合</span>    Arrays.sort(points, (o1, o2) -&gt; Integer.compare(o1[<span class="hljs-number">1</span>], o2[<span class="hljs-number">1</span>]));    <span class="hljs-comment">// System.out.println(Arrays.deepToString(points));</span>    <span class="hljs-keyword">int</span> len = points.length;    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (i &lt; len) &#123;        count++;        <span class="hljs-keyword">int</span> end = points[i][<span class="hljs-number">1</span>];        <span class="hljs-comment">// 比较的是下一个区间</span>        <span class="hljs-keyword">while</span> (i &lt; len - <span class="hljs-number">1</span> &amp;&amp; end &gt;= points[i + <span class="hljs-number">1</span>][<span class="hljs-number">0</span>]) &#123;            i++;        &#125;        <span class="hljs-comment">// 确保更新 新的边界</span>        i++;    &#125;    <span class="hljs-keyword">return</span> count;&#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findMinArrowShots</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] points)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = points.length;    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> len;    &#125;    <span class="hljs-comment">// 按左端点升序</span>    Arrays.sort(points, Comparator.comparingInt(o -&gt; o[<span class="hljs-number">0</span>]));    System.out.println(Arrays.deepToString(points));    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (i &lt; len) &#123;        count++;        <span class="hljs-keyword">int</span> end = points[i][<span class="hljs-number">1</span>];        <span class="hljs-keyword">while</span> (i &lt; len - <span class="hljs-number">1</span> &amp;&amp; end &gt;= points[i + <span class="hljs-number">1</span>][<span class="hljs-number">0</span>]) &#123;            <span class="hljs-comment">// 收缩右端点才能完全覆盖</span>            end = Math.min(end, points[i + <span class="hljs-number">1</span>][<span class="hljs-number">1</span>]);            i++;        &#125;        i++;    &#125;    <span class="hljs-keyword">return</span> count;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -887,9 +941,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -1688,9 +1742,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -1719,9 +1773,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -2241,9 +2295,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>树</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -2870,9 +2924,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4111,9 +4165,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -4482,9 +4536,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -5206,9 +5260,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -5291,9 +5345,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -5322,11 +5376,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5351,11 +5405,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5380,11 +5434,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5409,11 +5463,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5438,11 +5492,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5467,9 +5521,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -5496,9 +5550,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -5643,9 +5697,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -5674,11 +5728,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5703,11 +5757,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -5761,11 +5815,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5790,9 +5844,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -5848,11 +5902,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5958,11 +6012,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -6016,9 +6070,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6047,9 +6101,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6076,9 +6130,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6107,9 +6161,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6136,9 +6190,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6165,9 +6219,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6192,9 +6246,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6219,9 +6273,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6271,9 +6325,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6298,9 +6352,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6325,9 +6379,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7180,11 +7234,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     

@@ -170,6 +170,105 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/21/LeetCode-451-sort-characters-by-frequency/">LeetCode 451. 根据字符出现频率排序</a>
+
+      <a href="/2020/09/21/LeetCode-451-sort-characters-by-frequency/" class="index-excerpt">
+        
+        
+          
+        
+        <div>451. 根据字符出现频率排序
+ 排序
+public String frequencySort(String s) &#123;
+    char[] chars = s.toCharArray();
+    Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+    List&lt;Character&gt; list = new</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-21
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+            
+              <a href="/tags/%E9%98%9F%E5%88%97/">队列</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/21/LeetCode-189-rotate-array/">LeetCode 189. 旋转数组</a>
+
+      <a href="/2020/09/21/LeetCode-189-rotate-array/" class="index-excerpt">
+        
+        
+          
+        
+        <div>189. 旋转数组
+public void rotate(int[] nums, int k) &#123;
+    int len = nums.length;
+    // 每次反转都有 k % n 个 数字被移动到前部
+    k = k % len;
+    // 全部反转
+    reverse(nums, 0, len - 1);
+    // 反转前 k 个
+    reverse(</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-21
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/09/21/os-process-thread/">操作系统 进程与线程</a>
 
       <a href="/2020/09/21/os-process-thread/" class="index-excerpt">
@@ -534,104 +633,6 @@ public List&lt;Integer&gt; findDisappearedNumbers(int[] nums) &#123;
               <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/16/LeetCode-41-first-missing-positive/">LeetCode 41. 缺失的第一个正数</a>
-
-      <a href="/2020/09/16/LeetCode-41-first-missing-positive/" class="index-excerpt">
-        
-        
-          
-        
-        <div>41. 缺失的第一个正数
- 哈希
-空间不符合
-public int firstMissingPositive(int[] nums) &#123;
-    int len = nums.length;
-    if (len == 0) &#123;
-        return 1;
-    &#125;
-    Map&lt;Integer, Integer&gt; map = new Has</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-16
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
-            
-              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/16/os-overview/">操作系统总览</a>
-
-      <a href="/2020/09/16/os-overview/" class="index-excerpt">
-        
-        
-          
-        
-        <div> 操作系统
- 组成
-现代计算机系统由一个或多个处理器、主存、打印机、键盘、鼠标、显示器、网络接口以及各种输入/输出设备构成。
-然而，程序员不会直接和这些硬件打交道，在硬件的基础之上，计算机安装了一层软件，这层软件能够通过响应用户输入的指令达到控制硬件的效果，从而满足用户需求，这种软件称之为 操作系统，它的任务就是为用户程序提供一个更好、更简单、更清晰的计算机模型。
-
- 用户态和内核态
-大部分计算机</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-16
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
             
           </div>
         

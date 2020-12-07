@@ -170,6 +170,105 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/11/23/LeetCode-538-convert-bst-to-greater-tree/">LeetCode 538. 把二叉搜索树转换为累加树</a>
+
+      <a href="/2020/11/23/LeetCode-538-convert-bst-to-greater-tree/" class="index-excerpt">
+        
+        
+          
+        
+        <div>538. 把二叉搜索树转换为累加树
+public TreeNode convertBST(TreeNode root) &#123;
+    dfs(root, 0);
+    return root;
+&#125;
+
+private int dfs(TreeNode root, int sum) &#123;
+    if (root == null) &#123;
+        return</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-11-23
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E6%A0%91/">树</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/11/23/LeetCode-343-integer-break/">LeetCode 343. 整数拆分</a>
+
+      <a href="/2020/11/23/LeetCode-343-integer-break/" class="index-excerpt">
+        
+        
+          
+        
+        <div>343. 整数拆分
+差一点😭😭😭
+public int integerBreak(int n) &#123;
+    int[] dp = new int[n + 1];
+    dp[1] = 1;
+    dp[2] = 1;
+    for (int i = 3; i &lt;= n; i++) &#123;
+        for (int j = 1; j &lt; i; j++)</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-11-23
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/11/23/LeetCode-452-minimum-number-of-arrows-to-burst-balloons/">LeetCode 452. 用最少数量的箭引爆气球</a>
 
       <a href="/2020/11/23/LeetCode-452-minimum-number-of-arrows-to-burst-balloons/" class="index-excerpt">
@@ -179,9 +278,9 @@
         
         <div>452. 用最少数量的箭引爆气球
 public int findMinArrowShots(int[][] points) &#123;
-    // [[10,16],[2,8],[1,6],[7,12]]
-    // [[3,9],[7,12],[3,8],[6,8],[9,10],[2,9],[0,9],[3,9],[0,6],[2,8]]
-    // [[-2147483646,-21</div>
+    // 不能用减法来比较 &amp;&amp; 子区间内也要重合
+    Arrays.sort(points, (o1, o2) -&gt; Integer.compare(o1[1], o2[1]));
+    // System.out.printl</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -568,103 +667,6 @@ public int findUnsortedSubarray(int[] nums) &#123;
               <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
             
               <a href="/tags/%E6%A0%88/">栈</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/11/18/LeetCode-134-gas-station/">LeetCode 134. 加油站</a>
-
-      <a href="/2020/11/18/LeetCode-134-gas-station/" class="index-excerpt">
-        
-        
-          
-        
-        <div>134. 加油站
-public int canCompleteCircuit(int[] gas, int[] cost) &#123;
-    int len = gas.length;
-    for (int i = 0; i &lt; len; i++) &#123;
-        if (dfs(i, i, 0, len, gas, cost)) &#123;
-            </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-11-18
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/11/17/LeetCode-617-merge-two-binary-trees/">LeetCode 617. 合并二叉树</a>
-
-      <a href="/2020/11/17/LeetCode-617-merge-two-binary-trees/" class="index-excerpt">
-        
-        
-          
-        
-        <div>617. 合并二叉树
-public TreeNode mergeTrees(TreeNode t1, TreeNode t2) &#123;
-    if (t1 == null) &#123;
-        return t2;
-    &#125;
-    if (t2 == null) &#123;
-        return t1;
-    &#125;
-    // t1, t2 都</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-11-17
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E6%A0%91/">树</a>
             
           </div>
         
