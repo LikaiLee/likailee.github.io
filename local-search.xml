@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>LeetCode 1248. 统计「优美子数组」</title>
+    <link href="/2020/12/10/LeetCode-1248-count-number-of-nice-subarrays/"/>
+    <url>/2020/12/10/LeetCode-1248-count-number-of-nice-subarrays/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/count-number-of-nice-subarrays/" target="_blank" rel="noopener">1248. 统计「优美子数组」</a></p><h1 id="前缀和"><a class="markdownIt-Anchor" href="#前缀和"></a> 前缀和</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numberOfSubarrays</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-comment">// [1,1,2,1,1], k = 3</span>    <span class="hljs-comment">//  1 2 2 3 4</span>    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;    <span class="hljs-comment">// counts[i]: 包含 i 个奇数的子数组个数</span>    <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len + <span class="hljs-number">1</span>];    counts[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;        <span class="hljs-comment">// nums[i] 的奇数个数</span>        sum += num &amp; <span class="hljs-number">1</span>;        counts[sum]++;        <span class="hljs-comment">// 与 k 个奇数的距离</span>        <span class="hljs-keyword">int</span> target = sum - k;        <span class="hljs-keyword">if</span> (target &gt;= <span class="hljs-number">0</span>) &#123;            res += counts[target];        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre><h1 id="滑动窗口"><a class="markdownIt-Anchor" href="#滑动窗口"></a> 滑动窗口</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numberOfSubarrays</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-comment">// [2,2,2,1,2,2,1,2,2,2], k = 2</span>    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> oddCount = <span class="hljs-number">0</span>, res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        oddCount += nums[right] &amp; <span class="hljs-number">1</span>;        right++;        <span class="hljs-comment">// nums[left:right - 1] 有 k 个奇数</span>        <span class="hljs-keyword">if</span> (oddCount == k) &#123;            <span class="hljs-keyword">int</span> start = right;            <span class="hljs-comment">// 向右找偶数</span>            <span class="hljs-keyword">while</span> (right &lt; len &amp;&amp; (nums[right] &amp; <span class="hljs-number">1</span>) == <span class="hljs-number">0</span>) &#123;                right++;            &#125;            <span class="hljs-comment">// nums[start:right] 的偶数可以作为子数组的终点</span>            <span class="hljs-keyword">int</span> rightEvenCount = right - start + <span class="hljs-number">1</span>;            <span class="hljs-comment">// 从 left 到 right 找偶数，作为起点</span>            <span class="hljs-keyword">int</span> leftEvenCount = <span class="hljs-number">1</span>;            <span class="hljs-keyword">while</span> ((nums[left] &amp; <span class="hljs-number">1</span>) == <span class="hljs-number">0</span>) &#123;                left++;                leftEvenCount++;            &#125;            res += leftEvenCount * rightEvenCount;            left++;            oddCount--;        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 202. 快乐数</title>
     <link href="/2020/12/10/LeetCode-202-happy-number/"/>
     <url>/2020/12/10/LeetCode-202-happy-number/</url>
@@ -22,9 +53,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -779,9 +810,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1893,9 +1924,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -1951,9 +1982,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -2121,9 +2152,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -2152,11 +2183,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -5291,9 +5322,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5320,9 +5351,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -5670,9 +5701,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7159,9 +7190,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
