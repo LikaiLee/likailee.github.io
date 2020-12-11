@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 44. 通配符匹配 - Likai Lee</title>
+  <title>LeetCode 649. Dota2 参议院 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 44. 通配符匹配
+                LeetCode 649. Dota2 参议院
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-09 19:28">
-      2020年9月9日 晚上
+    <time datetime="2020-12-11 20:34">
+      2020年12月11日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      163 字
+      155 字
     </span>
   
 
@@ -207,39 +207,39 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月9日 晚上
+                  本文最后更新于：2020年12月11日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/wildcard-matching/" target="_blank" rel="noopener">44. 通配符匹配</a></p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isMatch</span><span class="hljs-params">(String s, String p)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> rows = p.length();
-    <span class="hljs-keyword">int</span> cols = s.length();
-    <span class="hljs-keyword">char</span>[] sChars = s.toCharArray();
-    <span class="hljs-keyword">char</span>[] pChars = p.toCharArray();
-    <span class="hljs-keyword">boolean</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[rows + <span class="hljs-number">1</span>][cols + <span class="hljs-number">1</span>];
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-keyword">true</span>;
-    <span class="hljs-comment">// 若以 '*' 开始，则 p 可以匹配 空串</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= rows; i++) &#123;
-        <span class="hljs-keyword">if</span> (pChars[i - <span class="hljs-number">1</span>] == <span class="hljs-string">'*'</span>) &#123;
-            dp[i][<span class="hljs-number">0</span>] = <span class="hljs-keyword">true</span>;
+              <p><a href="https://leetcode-cn.com/problems/dota2-senate/" target="_blank" rel="noopener">649. Dota2 参议院</a></p>
+<p>需要禁止的是后续最先投票的对方阵营的人。</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">predictPartyVictory</span><span class="hljs-params">(String senate)</span> </span>&#123;
+    <span class="hljs-keyword">char</span>[] senates = senate.toCharArray();
+    <span class="hljs-keyword">int</span> len = senates.length;
+    LinkedList&lt;Integer&gt; r = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
+    LinkedList&lt;Integer&gt; d = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
+    <span class="hljs-comment">// 从前往后按原始顺序排列</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+        <span class="hljs-keyword">if</span> (senates[i] == <span class="hljs-string">'R'</span>) &#123;
+            r.addLast(i);
         &#125; <span class="hljs-keyword">else</span> &#123;
-            <span class="hljs-keyword">break</span>;
+            d.addLast(i);
         &#125;
     &#125;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= rows; i++) &#123;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= cols; j++) &#123;
-            <span class="hljs-comment">// 对应字符匹配 || p[j] == '?' 可匹配任意字符</span>
-            <span class="hljs-keyword">if</span> (sChars[j - <span class="hljs-number">1</span>] == pChars[i - <span class="hljs-number">1</span>] || pChars[i - <span class="hljs-number">1</span>] == <span class="hljs-string">'?'</span>) &#123;
-                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];
-            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pChars[i - <span class="hljs-number">1</span>] == <span class="hljs-string">'*'</span>) &#123;
-                <span class="hljs-comment">// '*' 可匹配任意长度</span>
-                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j] || dp[i][j - <span class="hljs-number">1</span>];
-            &#125;
+    <span class="hljs-keyword">while</span> (!r.isEmpty() &amp;&amp; !d.isEmpty()) &#123;
+        <span class="hljs-comment">// r &lt; d, r 先行使权力</span>
+        <span class="hljs-keyword">if</span> (r.getFirst() &lt; d.getFirst()) &#123;
+            <span class="hljs-comment">// 禁止最近的 d</span>
+            d.removeFirst();
+            <span class="hljs-comment">// 当前 r 进入最后面</span>
+            r.addLast(r.pollFirst() + len);
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            r.removeFirst();
+            d.addLast(d.pollFirst() + len);
         &#125;
     &#125;
-    <span class="hljs-keyword">return</span> dp[rows][cols];
+    <span class="hljs-keyword">return</span> r.isEmpty() ? <span class="hljs-string">"Dire"</span> : <span class="hljs-string">"Radiant"</span>;
 &#125;</code></pre>
             </article>
             <hr>
@@ -259,9 +259,9 @@
                     
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+                      <a class="hover-with-bg" href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+                      <a class="hover-with-bg" href="/tags/%E9%98%9F%E5%88%97/">队列</a>
                     
                   </div>
                 
@@ -274,18 +274,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/10/LeetCode-583-delete-operation-for-two-strings/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 583. 两个字符串的删除操作</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/09/LeetCode-10-regular-expression-matching/">
-                        <span class="hidden-mobile">LeetCode 10. 正则表达式匹配</span>
+                      <a href="/2020/12/10/LeetCode-974-subarray-sums-divisible-by-k/">
+                        <span class="hidden-mobile">LeetCode 974. 和可被 K 整除的子数组</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
