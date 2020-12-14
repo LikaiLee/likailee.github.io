@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 207. 课程表</title>
+    <link href="/2020/12/14/LeetCode-207-course-schedule/"/>
+    <url>/2020/12/14/LeetCode-207-course-schedule/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/course-schedule/" target="_blank" rel="noopener">207. 课程表</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canFinish</span><span class="hljs-params">(<span class="hljs-keyword">int</span> numCourses, <span class="hljs-keyword">int</span>[][] prerequisites)</span> </span>&#123;    <span class="hljs-keyword">int</span>[] inDegree = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[numCourses];    List&lt;Set&lt;Integer&gt;&gt; adj = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(numCourses);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numCourses; i++) &#123;        adj.add(<span class="hljs-keyword">new</span> HashSet&lt;&gt;());    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] p : prerequisites) &#123;        adj.get(p[<span class="hljs-number">1</span>]).add(p[<span class="hljs-number">0</span>]);        <span class="hljs-comment">// 统计入度</span>        inDegree[p[<span class="hljs-number">0</span>]]++;    &#125;    LinkedList&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numCourses; i++) &#123;        <span class="hljs-comment">// 入度 == 0，作为起点</span>        <span class="hljs-keyword">if</span> (inDegree[i] == <span class="hljs-number">0</span>) &#123;            queue.add(i);        &#125;    &#125;    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;        <span class="hljs-keyword">int</span> from = queue.poll();        <span class="hljs-comment">// numCourses 表示已经未访问的节点数</span>        numCourses--;        <span class="hljs-comment">// 把与 from 连接的所有点入度 - 1</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> to : adj.get(from)) &#123;            inDegree[to]--;            <span class="hljs-comment">// 若节点入度为 0，则可作为下一次的起点</span>            <span class="hljs-keyword">if</span> (inDegree[to] == <span class="hljs-number">0</span>) &#123;                queue.add(to);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> numCourses == <span class="hljs-number">0</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>BFS</tag>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 13. 机器人的运动范围</title>
     <link href="/2020/12/11/LeetCode-offer-13-ji-qi-ren-de-yun-dong-fan-wei-lcof/"/>
     <url>/2020/12/11/LeetCode-offer-13-ji-qi-ren-de-yun-dong-fan-wei-lcof/</url>
@@ -82,9 +111,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -111,11 +140,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -142,9 +171,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -200,9 +229,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>字符串</tag>
       
       <tag>回溯</tag>
       
@@ -310,9 +339,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -339,9 +368,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -484,9 +513,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -675,9 +704,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>排序</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2013,9 +2042,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>递归</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -2071,9 +2100,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>递归</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -2504,9 +2533,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2942,9 +2971,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2971,9 +3000,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3133,9 +3162,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -4235,9 +4264,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -4345,9 +4374,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4374,9 +4403,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -4486,9 +4515,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4687,11 +4716,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4747,11 +4776,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5411,9 +5440,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -5440,9 +5469,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -5616,9 +5645,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5645,9 +5674,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5674,9 +5703,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5703,9 +5732,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5732,9 +5761,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5761,9 +5790,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5908,11 +5937,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5968,9 +5997,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6026,9 +6055,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6055,9 +6084,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6113,9 +6142,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6225,9 +6254,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>字符串</tag>
-      
       <tag>排序</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6281,9 +6310,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6312,9 +6341,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6372,9 +6401,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6401,9 +6430,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7445,9 +7474,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
