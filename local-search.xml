@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 993. 二叉树的堂兄弟节点</title>
+    <link href="/2020/12/15/LeetCode-993-cousins-in-binary-tree/"/>
+    <url>/2020/12/15/LeetCode-993-cousins-in-binary-tree/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/cousins-in-binary-tree/" target="_blank" rel="noopener">993. 二叉树的堂兄弟节点</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isCousins</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;    LinkedList&lt;TreeNode&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();    queue.add(root);    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;        <span class="hljs-keyword">int</span> size = queue.size();        <span class="hljs-keyword">int</span> foundX = -<span class="hljs-number">1</span>;        <span class="hljs-keyword">int</span> foundY = -<span class="hljs-number">1</span>;        <span class="hljs-keyword">while</span> (size-- &gt; <span class="hljs-number">0</span>) &#123;            TreeNode cur = queue.poll();            <span class="hljs-keyword">if</span> (cur.left != <span class="hljs-keyword">null</span>) &#123;                <span class="hljs-keyword">if</span> (cur.left.val == x) &#123;                    foundX = cur.val;                &#125;                <span class="hljs-keyword">if</span> (cur.left.val == y) &#123;                    foundY = cur.val;                &#125;                queue.add(cur.left);            &#125;            <span class="hljs-keyword">if</span> (cur.right != <span class="hljs-keyword">null</span>) &#123;                <span class="hljs-keyword">if</span> (cur.right.val == x) &#123;                    foundX = cur.val;                &#125;                <span class="hljs-keyword">if</span> (cur.right.val == y) &#123;                    foundY = cur.val;                &#125;                queue.add(cur.right);            &#125;        &#125;        <span class="hljs-keyword">if</span> (foundX != -<span class="hljs-number">1</span> &amp;&amp; foundY != -<span class="hljs-number">1</span>) &#123;            <span class="hljs-keyword">return</span> foundX != foundY;        &#125;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>BFS</tag>
+      
+      <tag>树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 210. 课程表 II</title>
     <link href="/2020/12/15/LeetCode-210-course-schedule-ii/"/>
     <url>/2020/12/15/LeetCode-210-course-schedule-ii/</url>
@@ -167,9 +196,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -196,11 +225,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -227,9 +256,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -395,9 +424,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -424,9 +453,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -760,9 +789,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>排序</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4430,9 +4459,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4832,11 +4861,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5496,9 +5525,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5525,9 +5554,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -5672,9 +5701,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5817,9 +5846,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5846,9 +5875,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5993,11 +6022,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6024,9 +6053,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6140,9 +6169,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6308,11 +6337,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
       
       <tag>排序</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6366,9 +6395,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6397,9 +6426,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6457,9 +6486,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6486,9 +6515,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
