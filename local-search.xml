@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 210. 课程表 II</title>
+    <link href="/2020/12/15/LeetCode-210-course-schedule-ii/"/>
+    <url>/2020/12/15/LeetCode-210-course-schedule-ii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/course-schedule-ii/" target="_blank" rel="noopener">210. 课程表 II</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] findOrder(<span class="hljs-keyword">int</span> numCourses, <span class="hljs-keyword">int</span>[][] prerequisites) &#123;    List&lt;Set&lt;Integer&gt;&gt; adj = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numCourses; i++) &#123;        adj.add(<span class="hljs-keyword">new</span> HashSet&lt;&gt;());    &#125;    <span class="hljs-keyword">int</span>[] require = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[numCourses];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] p : prerequisites) &#123;        <span class="hljs-comment">// p[0] 依赖 p[1]，当 p[1] 没有依赖时，可以消除 p[0] 的一个依赖</span>        adj.get(p[<span class="hljs-number">1</span>]).add(p[<span class="hljs-number">0</span>]);        <span class="hljs-comment">// p[0] 的依赖总数</span>        require[p[<span class="hljs-number">0</span>]]++;    &#125;    <span class="hljs-comment">// 队列中保存的都是没有依赖的节点</span>    LinkedList&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numCourses; i++) &#123;        <span class="hljs-comment">// 让没有依赖的节点入队，消除其他节点的依赖</span>        <span class="hljs-keyword">if</span> (require[i] == <span class="hljs-number">0</span>) &#123;            queue.add(i);        &#125;    &#125;    <span class="hljs-keyword">int</span> solved = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[numCourses];    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;        <span class="hljs-keyword">int</span> cur = queue.poll();        res[solved] = cur;        solved++;        <span class="hljs-comment">// cur 没有依赖，可以消除对 cur 有依赖的其他节点</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> to : adj.get(cur)) &#123;            require[to]--;            <span class="hljs-keyword">if</span> (require[to] == <span class="hljs-number">0</span>) &#123;                queue.add(to);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> solved == numCourses ? res : <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">0</span>];&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>BFS</tag>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 738. 单调递增的数字</title>
     <link href="/2020/12/15/LeetCode-738-monotone-increasing-digits/"/>
     <url>/2020/12/15/LeetCode-738-monotone-increasing-digits/</url>
@@ -138,9 +167,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -167,11 +196,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -198,9 +227,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -256,9 +285,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>字符串</tag>
       
       <tag>回溯</tag>
       
@@ -366,9 +395,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -395,9 +424,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -540,9 +569,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3189,9 +3218,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4430,9 +4459,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5467,9 +5496,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -5496,9 +5525,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -5643,9 +5672,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -5672,9 +5701,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5701,9 +5730,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5730,9 +5759,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5759,9 +5788,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5995,9 +6024,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -6024,9 +6053,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6082,9 +6111,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6169,9 +6198,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6279,9 +6308,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>排序</tag>
       
@@ -7501,9 +7530,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
