@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 690. 员工的重要性</title>
+    <link href="/2020/12/16/LeetCode-690-employee-importance/"/>
+    <url>/2020/12/16/LeetCode-690-employee-importance/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/employee-importance/" target="_blank" rel="noopener">690. 员工的重要性</a></p><h1 id="dfs"><a class="markdownIt-Anchor" href="#dfs"></a> DFS</h1><pre><code class="hljs java"><span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getImportance</span><span class="hljs-params">(List&lt;Employee&gt; employees, <span class="hljs-keyword">int</span> id)</span> </span>&#123;    Map&lt;Integer, Employee&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-keyword">for</span> (Employee e : employees) &#123;        map.put(e.id, e);    &#125;    dfs(id, map);    <span class="hljs-keyword">return</span> res;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id, Map&lt;Integer, Employee&gt; map)</span> </span>&#123;    Employee cur = map.get(id);    res += cur.importance;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> subId : cur.subordinates) &#123;        dfs(subId, map);    &#125;&#125;</code></pre><h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getImportance</span><span class="hljs-params">(List&lt;Employee&gt; employees, <span class="hljs-keyword">int</span> id)</span> </span>&#123;    Map&lt;Integer, Employee&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-keyword">for</span> (Employee e : employees) &#123;        map.put(e.id, e);    &#125;    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    LinkedList&lt;Employee&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();    queue.add(map.get(id));    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;        Employee cur = queue.poll();        res += cur.importance;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> subId : cur.subordinates) &#123;            queue.add(map.get(subId));        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>BFS</tag>
+      
+      <tag>DFS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 290. 单词规律</title>
     <link href="/2020/12/16/LeetCode-290-word-pattern/"/>
     <url>/2020/12/16/LeetCode-290-word-pattern/</url>
@@ -341,9 +370,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>字符串</tag>
       
       <tag>回溯</tag>
       
@@ -451,9 +480,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -480,9 +509,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -625,9 +654,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5728,9 +5757,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -5757,9 +5786,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5786,9 +5815,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5815,9 +5844,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5844,9 +5873,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6080,9 +6109,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -6109,9 +6138,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6167,9 +6196,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6254,9 +6283,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6364,9 +6393,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>排序</tag>
       
@@ -7586,9 +7615,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
