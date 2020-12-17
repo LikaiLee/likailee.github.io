@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 365. 水壶问题</title>
+    <link href="/2020/12/17/LeetCode-365-water-and-jug-problem/"/>
+    <url>/2020/12/17/LeetCode-365-water-and-jug-problem/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/water-and-jug-problem/" target="_blank" rel="noopener">365. 水壶问题</a></p><p>BFS 超时了。</p><h1 id="数学"><a class="markdownIt-Anchor" href="#数学"></a> 数学</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canMeasureWater</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> z)</span> </span>&#123;    <span class="hljs-keyword">if</span> (x + y &lt; z) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-keyword">if</span> (x == <span class="hljs-number">0</span> || y == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> z == <span class="hljs-number">0</span> || x + y == z;    &#125;    <span class="hljs-comment">// ax + by = z, z 是 x, y 的最大公约数</span>    <span class="hljs-keyword">return</span> z % gcd(x, y) == <span class="hljs-number">0</span>;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">gcd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;    <span class="hljs-keyword">int</span> reminder = x % y;    <span class="hljs-keyword">while</span> (reminder != <span class="hljs-number">0</span>) &#123;        x = y;        y = reminder;        reminder = x % y;    &#125;    <span class="hljs-keyword">return</span> y;&#125;</code></pre><h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canMeasureWater</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> z)</span> </span>&#123;        Set&lt;String&gt; visited = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();        LinkedList&lt;<span class="hljs-keyword">int</span>[]&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        queue.add(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;);        visited.add(<span class="hljs-string">"0,0"</span>);        <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;            <span class="hljs-keyword">int</span>[] cur = queue.poll();            <span class="hljs-comment">// 两个水壶容量满足要求</span>            <span class="hljs-keyword">if</span> (cur[<span class="hljs-number">0</span>] + cur[<span class="hljs-number">1</span>] == z) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;            &#125;            List&lt;<span class="hljs-keyword">int</span>[]&gt; nextStates = getNextStates(cur, x, y);            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] state : nextStates) &#123;                String key = getIdentifier(state);                <span class="hljs-keyword">if</span> (visited.contains(key)) &#123;                    <span class="hljs-keyword">continue</span>;                &#125;                visited.add(key);                queue.add(state);            &#125;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">getIdentifier</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] state)</span> </span>&#123;        <span class="hljs-keyword">return</span> state[<span class="hljs-number">0</span>] + <span class="hljs-string">","</span> + state[<span class="hljs-number">1</span>];    &#125;    <span class="hljs-keyword">private</span> List&lt;<span class="hljs-keyword">int</span>[]&gt; getNextStates(<span class="hljs-keyword">int</span>[] cur, <span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y) &#123;        List&lt;<span class="hljs-keyword">int</span>[]&gt; states = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();        <span class="hljs-comment">// 装满任意一个水壶</span>        <span class="hljs-keyword">int</span>[] s1 = &#123;x, cur[<span class="hljs-number">1</span>]&#125;;        <span class="hljs-keyword">int</span>[] s2 = &#123;cur[<span class="hljs-number">0</span>], y&#125;;        <span class="hljs-comment">// 清空任意一个水壶</span>        <span class="hljs-keyword">int</span>[] s3 = &#123;<span class="hljs-number">0</span>, cur[<span class="hljs-number">1</span>]&#125;;        <span class="hljs-keyword">int</span>[] s4 = &#123;cur[<span class="hljs-number">0</span>], <span class="hljs-number">0</span>&#125;;        <span class="hljs-comment">// 从一个水壶向另外一个水壶倒水，直到装满或者倒空 3(1) 5(4)</span>        <span class="hljs-keyword">int</span> canPour1 = Math.min(x - cur[<span class="hljs-number">0</span>], cur[<span class="hljs-number">1</span>]);        <span class="hljs-keyword">int</span>[] s5 = &#123;cur[<span class="hljs-number">0</span>] + canPour1, cur[<span class="hljs-number">1</span>] - canPour1&#125;;        <span class="hljs-keyword">int</span> canPour2 = Math.min(y - cur[<span class="hljs-number">1</span>], cur[<span class="hljs-number">0</span>]);        <span class="hljs-keyword">int</span>[] s6 = &#123;cur[<span class="hljs-number">0</span>] - canPour2, cur[<span class="hljs-number">1</span>] + canPour2&#125;;        states.add(s1);        states.add(s2);        states.add(s3);        states.add(s4);        states.add(s5);        states.add(s6);        <span class="hljs-keyword">return</span> states;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>BFS</tag>
+      
+      <tag>数学</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 690. 员工的重要性</title>
     <link href="/2020/12/16/LeetCode-690-employee-importance/"/>
     <url>/2020/12/16/LeetCode-690-employee-importance/</url>
@@ -480,9 +509,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -509,9 +538,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4515,9 +4544,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4917,11 +4946,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5757,9 +5786,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5902,9 +5931,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5931,9 +5960,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6078,11 +6107,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6109,9 +6138,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6225,9 +6254,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6393,9 +6422,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -6451,9 +6480,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6482,9 +6511,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6542,9 +6571,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6571,9 +6600,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
