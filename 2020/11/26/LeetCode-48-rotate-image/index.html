@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      98 字
+      102 字
     </span>
   
 
@@ -207,28 +207,29 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年11月30日 晚上
+                  本文最后更新于：2020年12月19日 晚上
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/rotate-image/" target="_blank" rel="noopener">48. 旋转图像</a></p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] matrix)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> len = matrix.length;
     <span class="hljs-comment">// 转置</span>
-    <span class="hljs-keyword">int</span> n = matrix.length;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i; j &lt; n; j++) &#123;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+        <span class="hljs-comment">// j 从 i 开始</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i; j &lt; len; j++) &#123;
             <span class="hljs-keyword">int</span> t = matrix[i][j];
             matrix[i][j] = matrix[j][i];
             matrix[j][i] = t;
         &#125;
     &#125;
-    <span class="hljs-comment">// 翻转每一行</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n / <span class="hljs-number">2</span>; j++) &#123;
+    <span class="hljs-comment">// 翻转每行</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; len / <span class="hljs-number">2</span>; j++) &#123;
             <span class="hljs-keyword">int</span> t = matrix[i][j];
-            matrix[i][j] = matrix[i][n - j - <span class="hljs-number">1</span>];
-            matrix[i][n - j - <span class="hljs-number">1</span>] = t;
+            matrix[i][j] = matrix[i][len - j - <span class="hljs-number">1</span>];
+            matrix[i][len - j - <span class="hljs-number">1</span>] = t;
         &#125;
     &#125;
 &#125;</code></pre>
