@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 350. 两个数组的交集 II - Likai Lee</title>
+  <title>LeetCode 312. 戳气球 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 350. 两个数组的交集 II
+                LeetCode 312. 戳气球
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-13 14:31">
-      2020年9月13日 下午
+    <time datetime="2020-12-21 19:47">
+      2020年12月21日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      227 字
+      159 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      2
        分钟
     </span>
   
@@ -207,64 +207,43 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月13日 下午
+                  本文最后更新于：2020年12月21日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/intersection-of-two-arrays-ii/" target="_blank" rel="noopener">350. 两个数组的交集 II</a></p>
-<h1 id="哈希表"><a class="markdownIt-Anchor" href="#哈希表"></a> 哈希表</h1>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] intersect(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2) &#123;
-    List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
-    <span class="hljs-comment">// map 中存储每个数的出现次数</span>
-    Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums1) &#123;
-        map.put(num, map.getOrDefault(num, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);
-    &#125;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> key : nums2) &#123;
-        <span class="hljs-keyword">if</span> (!map.containsKey(key)) &#123;
-            <span class="hljs-keyword">continue</span>;
-        &#125;
-        <span class="hljs-keyword">int</span> count = map.get(key);
-        <span class="hljs-comment">// 出现次数大于 1 才有效</span>
-        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">0</span>) &#123;
-            list.add(key);
-            <span class="hljs-comment">// 更新剩下的次数</span>
-            map.put(key, count - <span class="hljs-number">1</span>);
-        &#125;
-    &#125;
-    <span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[list.size()];
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : list) &#123;
-        res[k++] = num;
-    &#125;
-    <span class="hljs-keyword">return</span> res;
-&#125;</code></pre>
-<h1 id="双指针"><a class="markdownIt-Anchor" href="#双指针"></a> 双指针</h1>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] intersect(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2) &#123;
-    List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
-    Arrays.sort(nums1);
-    Arrays.sort(nums2);
+              <p><a href="https://leetcode-cn.com/problems/burst-balloons/" target="_blank" rel="noopener">312. 戳气球</a></p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxCoins</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> len = nums.length;
+    <span class="hljs-keyword">int</span> newLen = len + <span class="hljs-number">2</span>;
+    <span class="hljs-keyword">int</span>[] nums1 = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[newLen];
+    System.arraycopy(nums, <span class="hljs-number">0</span>, nums1, <span class="hljs-number">1</span>, len);
+    nums1[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
+    nums1[len + <span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">int</span>[][] cache = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[newLen][newLen];
+    <span class="hljs-comment">// 戳破 nums[begin + 1, end - 1] 之间的气球</span>
+    <span class="hljs-keyword">return</span> dfs(<span class="hljs-number">0</span>, newLen - <span class="hljs-number">1</span>, cache, nums1);
+&#125;
 
-    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">while</span> (i &lt; nums1.length &amp;&amp; j &lt; nums2.length) &#123;
-        <span class="hljs-keyword">if</span> (nums1[i] == nums2[j]) &#123;
-            list.add(nums1[i]);
-            i++;
-            j++;
-        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums1[i] &gt; nums2[j]) &#123;
-            j++;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            i++;
-        &#125;
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> begin, <span class="hljs-keyword">int</span> end, <span class="hljs-keyword">int</span>[][] cache, <span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+    <span class="hljs-comment">// begin, end 之间没有气球</span>
+    <span class="hljs-keyword">if</span> (begin + <span class="hljs-number">1</span> &gt;= end) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
     &#125;
-
-    <span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[list.size()];
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : list) &#123;
-        res[k++] = num;
+    <span class="hljs-keyword">if</span> (cache[begin][end] != <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-keyword">return</span> cache[begin][end];
     &#125;
-    <span class="hljs-keyword">return</span> res;
+    <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;
+    <span class="hljs-comment">// 每次选择 nums[i] 最后戳破</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = begin + <span class="hljs-number">1</span>; i &lt; end; i++) &#123;
+        <span class="hljs-keyword">int</span> cur = dfs(begin, i, cache, nums)
+                + dfs(i, end, cache, nums)
+                + nums[begin] * nums[i] * nums[end];
+        max = Math.max(max, cur);
+    &#125;
+    <span class="hljs-comment">// 缓存</span>
+    cache[begin][end] = max;
+    <span class="hljs-keyword">return</span> max;
 &#125;</code></pre>
             </article>
             <hr>
@@ -284,9 +263,11 @@
                     
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+                      <a class="hover-with-bg" href="/tags/DFS/">DFS</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
                     
                   </div>
                 
@@ -299,18 +280,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/14/string-matching-algorithms/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">字符串匹配算法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/13/LeetCode-349-intersection-of-two-arrays/">
-                        <span class="hidden-mobile">LeetCode 349. 两个数组的交集</span>
+                      <a href="/2020/12/18/LeetCode-136-single-number/">
+                        <span class="hidden-mobile">LeetCode 136. 只出现一次的数字</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
