@@ -165,9 +165,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -339,9 +339,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -368,11 +368,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -399,9 +399,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -455,9 +455,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>贪心</tag>
       
@@ -567,9 +567,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -596,9 +596,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -654,9 +654,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -739,9 +739,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>贪心</tag>
       
@@ -770,9 +770,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>排序</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -930,11 +930,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>排序</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -984,9 +984,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -1096,9 +1096,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>排序</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -1125,9 +1125,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
       <tag>链表</tag>
       
@@ -1156,9 +1156,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1185,9 +1185,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
       <tag>链表</tag>
       
@@ -1295,9 +1295,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -1436,9 +1436,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>排序</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -2175,11 +2175,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2206,11 +2206,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>DFS</tag>
+      
       <tag>树</tag>
       
       <tag>分治</tag>
-      
-      <tag>DFS</tag>
       
     </tags>
     
@@ -2237,11 +2237,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>DFS</tag>
+      
       <tag>树</tag>
       
       <tag>分治</tag>
-      
-      <tag>DFS</tag>
       
     </tags>
     
@@ -2357,9 +2357,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -2498,9 +2498,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -2529,11 +2529,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -2699,9 +2699,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -2730,9 +2730,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -2761,9 +2761,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -3139,9 +3139,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>排序</tag>
+      
+      <tag>贪心</tag>
       
       <tag>队列</tag>
       
@@ -3390,9 +3390,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -4156,9 +4156,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -4631,9 +4631,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -5002,9 +5002,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -5207,9 +5207,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5668,9 +5668,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5697,9 +5697,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -5726,9 +5726,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -5811,9 +5811,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -5842,11 +5842,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5871,9 +5871,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -5900,9 +5900,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -5929,9 +5929,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -5958,9 +5958,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -5987,9 +5987,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6016,9 +6016,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6047,9 +6047,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6163,9 +6163,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -6194,11 +6194,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6223,9 +6223,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -6281,9 +6281,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -6310,9 +6310,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -6368,9 +6368,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -6385,7 +6385,7 @@
     <link href="/2020/09/04/LeetCode-746-min-cost-climbing-stairs/"/>
     <url>/2020/09/04/LeetCode-746-min-cost-climbing-stairs/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/min-cost-climbing-stairs/" target="_blank" rel="noopener">746. 使用最小花费爬楼梯</a></p><table><thead><tr><th style="text-align:center">0</th><th style="text-align:center">1</th><th style="text-align:center">2</th><th style="text-align:center">3</th></tr></thead><tbody><tr><td style="text-align:center">10</td><td style="text-align:center">15</td><td style="text-align:center">20</td><td style="text-align:center"></td></tr></tbody></table><p>爬上第 <code>3</code> 阶楼梯可以从第 <code>1</code> 阶爬两步或者从第 <code>2</code> 阶爬一步。</p><p>题意：阶梯总数 = <code>cost.length</code>，爬上第 <code>i</code> 阶楼梯 &lt;=&gt; 不能算上第 <code>i</code> 阶楼梯的花费 <code>cost[i]</code>，也就是只能算到 <code>i - 1</code> 和 <code>i - 2</code> 阶楼梯。</p><ul><li>状态转移方程: <code>dp[i] = Math.min(dp[i - 1], dp[i - 2]) + cost[i]</code></li><li>结果: <code>min(dp[len - 1], dp[len - 2])</code></li></ul><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minCostClimbingStairs</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] cost)</span> </span>&#123;        <span class="hljs-keyword">int</span> len = cost.length;        <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];        dp[<span class="hljs-number">0</span>] = cost[<span class="hljs-number">0</span>];        dp[<span class="hljs-number">1</span>] = cost[<span class="hljs-number">1</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; len; i++) &#123;            dp[i] = Math.min(dp[i - <span class="hljs-number">1</span>], dp[i - <span class="hljs-number">2</span>]) + cost[i];        &#125;        <span class="hljs-keyword">return</span> Math.min(dp[len - <span class="hljs-number">1</span>], dp[len - <span class="hljs-number">2</span>]);    &#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/min-cost-climbing-stairs/" target="_blank" rel="noopener">746. 使用最小花费爬楼梯</a></p><h1 id="解法一"><a class="markdownIt-Anchor" href="#解法一"></a> 解法一</h1><table><thead><tr><th style="text-align:center">0</th><th style="text-align:center">1</th><th style="text-align:center">2</th><th style="text-align:center">3</th></tr></thead><tbody><tr><td style="text-align:center">10</td><td style="text-align:center">15</td><td style="text-align:center">20</td><td style="text-align:center"></td></tr></tbody></table><p>爬上第 <code>3</code> 阶楼梯可以从第 <code>1</code> 阶爬两步或者从第 <code>2</code> 阶爬一步。</p><p>题意：阶梯总数 = <code>cost.length</code>，爬上第 <code>i</code> 阶楼梯 &lt;=&gt; 不能算上第 <code>i</code> 阶楼梯的花费 <code>cost[i]</code>，也就是只能算到 <code>i - 1</code> 和 <code>i - 2</code> 阶楼梯。</p><ul><li>状态转移方程: <code>dp[i] = Math.min(dp[i - 1], dp[i - 2]) + cost[i]</code></li><li>结果: <code>min(dp[len - 1], dp[len - 2])</code></li></ul><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minCostClimbingStairs</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] cost)</span> </span>&#123;        <span class="hljs-keyword">int</span> len = cost.length;        <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];        dp[<span class="hljs-number">0</span>] = cost[<span class="hljs-number">0</span>];        dp[<span class="hljs-number">1</span>] = cost[<span class="hljs-number">1</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; len; i++) &#123;            dp[i] = Math.min(dp[i - <span class="hljs-number">1</span>], dp[i - <span class="hljs-number">2</span>]) + cost[i];        &#125;        <span class="hljs-keyword">return</span> Math.min(dp[len - <span class="hljs-number">1</span>], dp[len - <span class="hljs-number">2</span>]);    &#125;</code></pre><h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1><p>从第 <code>i</code> 阶楼梯走一步或两步要花费 <code>cost[i]</code>。<br />走上第 <code>i</code> 阶楼梯可以从 <code>i - 1</code> 阶或 <code>i - 2</code> 阶开始。<br />状态：<code>dp[i]</code> - 走上第 <code>i</code> 阶楼梯的花费。<br />状态转移方程：<code>dp[i] = Math.min(起点 + 花费)</code></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minCostClimbingStairs</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] cost)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = cost.length;    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len + <span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= len; i++) &#123;        <span class="hljs-comment">// 从 i - 2 起跳</span>        <span class="hljs-keyword">int</span> a = cost[i - <span class="hljs-number">2</span>] + dp[i - <span class="hljs-number">2</span>];        <span class="hljs-comment">// 从 i - 1 起跳</span>        <span class="hljs-keyword">int</span> b = cost[i - <span class="hljs-number">1</span>] + dp[i - <span class="hljs-number">1</span>];        dp[i] = Math.min(a, b);    &#125;    <span class="hljs-keyword">return</span> dp[len];&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -6478,13 +6478,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
       
       <tag>排序</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6536,9 +6536,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6567,9 +6567,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6596,9 +6596,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6627,9 +6627,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6656,9 +6656,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6685,9 +6685,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6712,9 +6712,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6739,9 +6739,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6791,9 +6791,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6818,9 +6818,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6845,9 +6845,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7536,9 +7536,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7700,9 +7700,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
