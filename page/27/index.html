@@ -170,298 +170,28 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/25/LeetCode-547-friend-circles/">LeetCode 547. 朋友圈</a>
+      <a class="index-header" href="/2020/08/17/LeetCode-153-find-minimum-in-rotated-sorted-array/">LeetCode 153. 寻找旋转排序数组中的最小值</a>
 
-      <a href="/2020/08/25/LeetCode-547-friend-circles/" class="index-excerpt">
+      <a href="/2020/08/17/LeetCode-153-find-minimum-in-rotated-sorted-array/" class="index-excerpt">
         
         
           
         
-        <div>547. 朋友圈
- DFS
-boolean[] visited;
-int n;
-
-public int findCircleNum(int[][] M) &#123;
-    n = M.length;
-    int count = 0;
-    visited = new boolean[n];
-    // i 表示第 i 个人
-    for (int i = 0; i &lt; n; i</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-25
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/DFS/">DFS</a>
-            
-              <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/25/data-structure-union-find/">并查集</a>
-
-      <a href="/2020/08/25/data-structure-union-find/" class="index-excerpt">
-        
-        
-          
-        
-        <div>class UnionFind &#123;
-    /**
-     * 连通分量个数
-     */
-    private int count;
-    /**
-     * 并查集对应的树
-     */
-    private int[] parent;
-    /**
-     * 每棵树的子结点数量
-     */
-    private int[] size;
-
-    publi</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-25
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/24/LeetCode-212-word-search-ii/">LeetCode 212. 单词搜索 II</a>
-
-      <a href="/2020/08/24/LeetCode-212-word-search-ii/" class="index-excerpt">
-        
-        
-          
-        
-        <div>212. 单词搜索 II
-坑：查找前缀时，若找到 word，不能 return，否则递归结束会导致与 word 同前缀的单词丢失，如 aaba 和 aaab，只能找到 aaba。
-还是对前缀树理解不够，找了好久才发现。
-public class Solution &#123;
-    int[][] dirs = &#123;&#123;1, 0&#125;, &#123;-1, 0&#125;,</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-24
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/DFS/">DFS</a>
-            
-              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-              <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">字典树</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/24/LeetCode-79-word-search/">LeetCode 79. 单词搜索</a>
-
-      <a href="/2020/08/24/LeetCode-79-word-search/" class="index-excerpt">
-        
-        
-          
-        
-        <div>79. 单词搜索
-还是类似岛屿数量的回溯思想，整体不难，注意细节。
-一开始方向的坐标写重复了一个，还忘了状态重置，一直无法通过，调了很久才发现。
-public boolean exist(char[][] board, String word) &#123;
-    int rows = board.length;
-    int cols = board[0].length;
-    char[</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-24
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/DFS/">DFS</a>
-            
-              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/24/LeetCode-208-implement-trie-prefix-tree/">LeetCode 208. 实现 Trie (前缀树)</a>
-
-      <a href="/2020/08/24/LeetCode-208-implement-trie-prefix-tree/" class="index-excerpt">
-        
-        
-          
-        
-        <div>208. 实现 Trie (前缀树)
-字典树 结点定义：
-/**
- * 字典树 结点
- */
-class TrieNode &#123;
-    /**
-     * 每个结点相当于一个数组
-     * 若数组的某个位置不为空，则指向下一个结点
-     */
-    private TrieNode[] links;
-
-    /**
-     * 数组的长度
-     */
-    priv</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-24
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">字典树</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/23/LeetCode-309-best-time-to-buy-and-sell-stock-with-cooldown/">LeetCode 309. 最佳买卖股票时机含冷冻期</a>
-
-      <a href="/2020/08/23/LeetCode-309-best-time-to-buy-and-sell-stock-with-cooldown/" class="index-excerpt">
-        
-        
-          
-        
-        <div>309. 最佳买卖股票时机含冷冻期
-public int maxProfit(int[] prices) &#123;
-    int len = prices.length;
-    if (len &lt; 2) &#123;
-        return 0;
+        <div>153. 寻找旋转排序数组中的最小值
+第一次通过的代码：
+public int findMin(int[] nums) &#123;
+    if (nums.length == 0) &#123;
+        return -1;
     &#125;
-    /*
-    0 rest
-    1 买入
-    2 卖出
-    3 卖出后的冷冻期
-     </div>
+    int min = Integer.MAX_VALUE;
+    int left = 0;
+    int right = num</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-23
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-17
           </div>
         
         
@@ -478,7 +208,7 @@ public int maxProfit(int[] prices) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
             
           </div>
         
@@ -490,27 +220,169 @@ public int maxProfit(int[] prices) &#123;
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/22/LeetCode-309-best-time-to-buy-and-sell-stock-with-transaction-fee/">LeetCode 714. 买卖股票的最佳时机含手续费</a>
+      <a class="index-header" href="/2020/08/17/LeetCode-81-search-in-rotated-sorted-array-ii/">LeetCode 81. 搜索旋转排序数组 II</a>
 
-      <a href="/2020/08/22/LeetCode-309-best-time-to-buy-and-sell-stock-with-transaction-fee/" class="index-excerpt">
+      <a href="/2020/08/17/LeetCode-81-search-in-rotated-sorted-array-ii/" class="index-excerpt">
         
         
           
         
-        <div>714. 买卖股票的最佳时机含手续费
-此题加了手续费，但解法还是和第二题类似。
-public int maxProfit(int[] prices, int fee) &#123;
-    int len = prices.length;
-    if (len &lt; 2) &#123;
-        return 0;
+        <div>81. 搜索旋转排序数组 II
+本题加入重复数字，所以在判断哪一部分有序时，若 nums[left] == nums[mid] 可能出现判断不出来的情况，一开始一直卡着，后来发现只要丢弃一个重复数字，则下一次就可成功判断。
+public boolean search(int[] nums, int target) &#123;
+        if (nums.length == 0) &#123</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-17
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/17/LeetCode-74-search-a-2d-matrix/">LeetCode 74. 搜索二维矩阵</a>
+
+      <a href="/2020/08/17/LeetCode-74-search-a-2d-matrix/" class="index-excerpt">
+        
+        
+          
+        
+        <div>74. 搜索二维矩阵
+一开始用 i = mid / rows 计算行数，导致位置计算不正确。
+public boolean searchMatrix(int[][] matrix, int target) &#123;
+        int rows = matrix.length;
+        if (rows == 0) &#123;
+            return false;
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-17
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/17/LeetCode-33-search-in-rotated-sorted-array/">LeetCode 33. 搜索旋转排序数组</a>
+
+      <a href="/2020/08/17/LeetCode-33-search-in-rotated-sorted-array/" class="index-excerpt">
+        
+        
+          
+        
+        <div>33. 搜索旋转排序数组
+public int search(int[] nums, int target) &#123;
+        int left = 0;
+        int right = nums.length - 1;
+        while (left &lt; right) &#123;
+            int mid = left + (right - le</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-17
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/16/LeetCode-367.%20valid-perfect-square/">LeetCode 367. 有效的完全平方数</a>
+
+      <a href="/2020/08/16/LeetCode-367.%20valid-perfect-square/" class="index-excerpt">
+        
+        
+          
+        
+        <div>367. 有效的完全平方数
+两种解法都击败 100%
+ 二分法
+public boolean isPerfectSquare(int num) &#123;
+    if (num == 0) &#123;
+        return true;
     &#125;
-    int[][] dp = new int</div>
+    long left = 1;
+    long right = num / 2;
+    while (left &lt</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-22
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-16
           </div>
         
         
@@ -527,7 +399,7 @@ public int maxProfit(int[] prices, int fee) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
             
           </div>
         
@@ -539,26 +411,31 @@ public int maxProfit(int[] prices, int fee) &#123;
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/22/LeetCode-188-best-time-to-buy-and-sell-stock-iv/">LeetCode 188.  买卖股票的最佳时机 IV</a>
+      <a class="index-header" href="/2020/08/15/LeetCode-69-sqrtx/">LeetCode 69. x 的平方根</a>
 
-      <a href="/2020/08/22/LeetCode-188-best-time-to-buy-and-sell-stock-iv/" class="index-excerpt">
+      <a href="/2020/08/15/LeetCode-69-sqrtx/" class="index-excerpt">
         
         
           
         
-        <div>188. 买卖股票的最佳时机 IV
+        <div>69. x 的平方根
+ 二分
 
-一次交易至少需要 2 天，一天买，一天卖。因此如果 k 很大，大到大于等于 len / 2，就相当于股票系列的第 2 题，使用贪心算法去做就可以了。这是一个特判。
+sqrt(x) &lt;= x / 2
+一个数的平方根 &lt;= 这个数的一半，所以右边界最大 = x / 2
 
-可进行状态压缩，省去第一维空间。加上无限交易次数的贪心版本，可加快速度。
-public int maxProfit(int k, int[] prices) &#123;
-    int len </div>
+
+先写分支逻辑，再决定中间数是否上取整；
+只要看到 left = mid ，它对应的取中位数的取法一定是 mid = left + (right - left + 1) / 2;。
+
+public int mySqrt(int x) &#123;
+  </div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-22
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-15
           </div>
         
         
@@ -575,7 +452,7 @@ public int maxProfit(int k, int[] prices) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
             
           </div>
         
@@ -587,28 +464,26 @@ public int maxProfit(int k, int[] prices) &#123;
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/22/LeetCode-123-best-time-to-buy-and-sell-stock-iii/">LeetCode 123. 买卖股票的最佳时机 III</a>
+      <a class="index-header" href="/2020/08/14/LeetCode-45-jump-game-ii/">LeetCode 45. 跳跃游戏 II</a>
 
-      <a href="/2020/08/22/LeetCode-123-best-time-to-buy-and-sell-stock-iii/" class="index-excerpt">
+      <a href="/2020/08/14/LeetCode-45-jump-game-ii/" class="index-excerpt">
         
         
           
         
-        <div>123. 买卖股票的最佳时机 III
- 解法一
-public int maxProfit(int[] prices) &#123;
-    int len = prices.length;
-    if (len == 0) &#123;
-        return 0;
-    &#125;
-    int k = 2;
-    int[][][] dp = new int[len][k + </div>
+        <div>45. 跳跃游戏 II
+本题在 55. 跳跃游戏 基础上加了个最小次数，其实也是计算每个位置能跳到的最远距离，关键在于要保存上一次的最远边界，用来判断跳跃的次数。
+public int jump(int[] nums) &#123;
+        int pos = 0;
+        int count = 0;
+        int begin = 0;
+        int end </div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-22
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-14
           </div>
         
         
@@ -625,7 +500,7 @@ public int maxProfit(int[] prices) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
             
           </div>
         
@@ -637,33 +512,25 @@ public int maxProfit(int[] prices) &#123;
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/22/LeetCode-121-best-time-to-buy-and-sell-stock/">LeetCode 121. 买卖股票的最佳时机</a>
+      <a class="index-header" href="/2020/08/14/LeetCode-55-jump-game/">LeetCode 55. 跳跃游戏</a>
 
-      <a href="/2020/08/22/LeetCode-121-best-time-to-buy-and-sell-stock/" class="index-excerpt">
+      <a href="/2020/08/14/LeetCode-55-jump-game/" class="index-excerpt">
         
         
           
         
-        <div>121. 买卖股票的最佳时机
- 解法一
-状态：
-dp[i][j][s]: 第 i 天最多进行了 j 次交易后，持有股票状态为 s 的最大利润。
-
-i: 第 i 天
-j: 到今天进行的最大交易次数
-s: 今天是否持有股票
-
-状态转移方程：
-
-dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1] + prices[i])
-
-昨天就没有持有，然后今天选择 rest</div>
+        <div>55. 跳跃游戏
+(🙃一开始还用的回溯。。。)
+关键在于：若能跳到第 i 个位置，则在这之前的所有位置都能到达，所以只要计算从第 i 个位置起跳能跳到的最远位置。
+public boolean canJump(int[] nums) &#123;
+        int maxPos = 0;
+        for (int i = 0; i &lt; nums.length; i++) &#</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-22
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-14
           </div>
         
         
@@ -680,7 +547,103 @@ dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1] + prices[i])
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/13/LeetCode-874-walking-robot-simulation/">LeetCode 874. 模拟行走机器人</a>
+
+      <a href="/2020/08/13/LeetCode-874-walking-robot-simulation/" class="index-excerpt">
+        
+        
+          
+        
+        <div>874. 模拟行走机器人
+一开始用的 findObstacle()，每走一步都要遍历 obstacles，效率很慢，官方题解采取将障碍编码的方式，这样只要 O(1) 就可以完成判断。
+public int robotSim(int[] commands, int[][] obstacles) &#123;
+        int x = 0, y = 0;
+        int[][] dirs</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-13
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/13/LeetCode-455-assign-cookies/">LeetCode 455. 分发饼干</a>
+
+      <a href="/2020/08/13/LeetCode-455-assign-cookies/" class="index-excerpt">
+        
+        
+          
+        
+        <div>455. 分发饼干
+优先用小饼干满足胃口小的孩子
+public int findContentChildren(int[] g, int[] s) &#123;
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int child = 0;
+        int cookie = 0;
+        int count = 0;
+ </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-13
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
             
           </div>
         
@@ -692,7 +655,7 @@ dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1] + prices[i])
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/26/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/28/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/26/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/28/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

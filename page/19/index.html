@@ -170,25 +170,370 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/25/LeetCode-567-permutation-in-string/">LeetCode 567. 字符串的排列</a>
+      <a class="index-header" href="/2020/09/16/LeetCode-448-find-all-numbers-disappeared-in-an-array/">LeetCode 448. 找到所有数组中消失的数字</a>
 
-      <a href="/2020/09/25/LeetCode-567-permutation-in-string/" class="index-excerpt">
+      <a href="/2020/09/16/LeetCode-448-find-all-numbers-disappeared-in-an-array/" class="index-excerpt">
         
         
           
         
-        <div>567. 字符串的排列
-public boolean checkInclusion(String s1, String s2) &#123;
-    char[] chars1 = s1.toCharArray();
-    char[] chars2 = s2.toCharArray();
-    int[] window = new int[26];
-    int[] needs = new</div>
+        <div>448. 找到所有数组中消失的数字
+public List&lt;Integer&gt; findDisappearedNumbers(int[] nums) &#123;
+    List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+    int len = nums.length;
+    for (int i = 0; i &lt; len;</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-25
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-16
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/16/LeetCode-41-first-missing-positive/">LeetCode 41. 缺失的第一个正数</a>
+
+      <a href="/2020/09/16/LeetCode-41-first-missing-positive/" class="index-excerpt">
+        
+        
+          
+        
+        <div>41. 缺失的第一个正数
+ 哈希
+空间不符合
+public int firstMissingPositive(int[] nums) &#123;
+    int len = nums.length;
+    if (len == 0) &#123;
+        return 1;
+    &#125;
+    Map&lt;Integer, Integer&gt; map = new Has</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-16
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+            
+              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/15/LeetCode-215-kth-largest-element-in-an-array/">LeetCode 215. 数组中的第K个最大元素</a>
+
+      <a href="/2020/09/15/LeetCode-215-kth-largest-element-in-an-array/" class="index-excerpt">
+        
+        
+          
+        
+        <div>215. 数组中的第K个最大元素
+ 快排
+思想：排序后第 k 个最大元素位置 = len - k，每次 partition 后，都会将 pivot 移动到其最终位置，此时就可比较该位置是否是目标位置。
+public int findKthLargest(int[] nums, int k) &#123;
+    int len = nums.length;
+    // 排序后第 k 大的数所在位</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-15
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">优先队列</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/14/LeetCode-offer-51-shu-zu-zhong-de-ni-xu-dui-lcof/">剑指 Offer 51. 数组中的逆序对</a>
+
+      <a href="/2020/09/14/LeetCode-offer-51-shu-zu-zhong-de-ni-xu-dui-lcof/" class="index-excerpt">
+        
+        
+          
+        
+        <div>剑指 Offer 51. 数组中的逆序对
+public int reversePairs(int[] nums) &#123;
+    return reverse(nums, 0, nums.length - 1);
+&#125;
+
+private int reverse(int[] nums, int left, int right) &#123;
+    if (left &gt;= rig</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-14
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+            
+              <a href="/tags/%E5%89%91%E6%8C%87-Offer/">剑指 Offer</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/14/LeetCode-912-sort-an-array/">LeetCode 912. 排序数组</a>
+
+      <a href="/2020/09/14/LeetCode-912-sort-an-array/" class="index-excerpt">
+        
+        
+          
+        
+        <div>912. 排序数组
+public int[] sortArray(int[] nums) &#123;
+    mergeSort(nums, 0, nums.length - 1);
+    return nums;
+&#125;
+
+private void mergeSort(int[] nums, int low, int high) &#123;
+    if (low &lt; high</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-14
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/13/LeetCode-350-intersection-of-two-arrays-ii/">LeetCode 350. 两个数组的交集 II</a>
+
+      <a href="/2020/09/13/LeetCode-350-intersection-of-two-arrays-ii/" class="index-excerpt">
+        
+        
+          
+        
+        <div>350. 两个数组的交集 II
+ 哈希表
+public int[] intersect(int[] nums1, int[] nums2) &#123;
+    List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+    // map 中存储每个数的出现次数
+    Map&lt;Integer, Integer&gt; map = new Ha</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-13
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+            
+              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/13/LeetCode-349-intersection-of-two-arrays/">LeetCode 349. 两个数组的交集</a>
+
+      <a href="/2020/09/13/LeetCode-349-intersection-of-two-arrays/" class="index-excerpt">
+        
+        
+          
+        
+        <div>349. 两个数组的交集
+ 哈希表
+public int[] intersection(int[] nums1, int[] nums2) &#123;
+    Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+    Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+    for (i</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-13
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+            
+              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+            
+              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/12/LeetCode-227-basic-calculator-ii/">LeetCode 227. 基本计算器 II</a>
+
+      <a href="/2020/09/12/LeetCode-227-basic-calculator-ii/" class="index-excerpt">
+        
+        
+          
+        
+        <div>227. 基本计算器 II
+public int calculate(String s) &#123;
+        char[] chars = s.toCharArray();
+        Deque&lt;Integer&gt; stack = new ArrayDeque&lt;&gt;();
+        // 每个数字前的符号
+        char sign = '+';
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-12
           </div>
         
         
@@ -207,9 +552,9 @@ public boolean checkInclusion(String s1, String s2) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
+              <a href="/tags/%E6%A0%88/">栈</a>
             
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
             
           </div>
         
@@ -221,25 +566,25 @@ public boolean checkInclusion(String s1, String s2) &#123;
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/24/LeetCode-424-longest-repeating-character-replacement/">LeetCode 424. 替换后的最长重复字符</a>
+      <a class="index-header" href="/2020/09/12/LeetCode-1-two-sum/">LeetCode 1. 两数之和</a>
 
-      <a href="/2020/09/24/LeetCode-424-longest-repeating-character-replacement/" class="index-excerpt">
+      <a href="/2020/09/12/LeetCode-1-two-sum/" class="index-excerpt">
         
         
           
         
-        <div>424. 替换后的最长重复字符
-实际上，窗口始终增大，因为要求最长子串，窗口内的字符出现次数在窗口收缩一位后，没有必要进行更新。
-public int characterReplacement(String s, int k) &#123;
-    char[] chars = s.toCharArray();
-    int len = chars.length;
-    // 窗口内字符的出现</div>
+        <div>1. 两数之和
+public int[] twoSum(int[] nums, int target) &#123;
+    Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+    int[] res = new int[2];
+    for (int i = 0; i &lt; nums.length; i++) &#123;
+</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-24
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-12
           </div>
         
         
@@ -256,9 +601,7 @@ public int characterReplacement(String s, int k) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+              <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
             
           </div>
         
@@ -270,79 +613,26 @@ public int characterReplacement(String s, int k) &#123;
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/24/LeetCode-239-sliding-window-maximum/">LeetCode 239. 滑动窗口最大值</a>
+      <a class="index-header" href="/2020/09/12/LeetCode-560-subarray-sum-equals-k/">LeetCode 560. 和为K的子数组</a>
 
-      <a href="/2020/09/24/LeetCode-239-sliding-window-maximum/" class="index-excerpt">
+      <a href="/2020/09/12/LeetCode-560-subarray-sum-equals-k/" class="index-excerpt">
         
         
           
         
-        <div>239. 滑动窗口最大值
-public int[] maxSlidingWindow(int[] nums, int k) &#123;
-    int len = nums.length;
-    int[] res = new int[len - k + 1];
-    int j = 0;
-    // 单调递减队列：队首 &gt; 队尾
-    // 维护窗口内的最大值，当队首不在窗口内时</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-24
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-              <a href="/tags/%E9%98%9F%E5%88%97/">队列</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/24/LeetCode-209-minimum-size-subarray-sum/">LeetCode 209. 长度最小的子数组</a>
-
-      <a href="/2020/09/24/LeetCode-209-minimum-size-subarray-sum/" class="index-excerpt">
-        
-        
-          
-        
-        <div>209. 长度最小的子数组
- 滑动窗口
-public int minSubArrayLen(int s, int[] nums) &#123;
-    int len = nums.length;
-    int left = 0, right = 0;
-    int minLen = Integer.MAX_VALUE;
+        <div>560. 和为K的子数组
+public int subarraySum(int[] nums, int k) &#123;
+    int count = 0;
+    // 当前前缀和 sum, 之前的某个前缀和 preSum
+    // sum - preSum = k，preSum 出现的次数就是当前位置和为 k 的个数
     int sum = 0;
-    while (right &l</div>
+    // key: 前缀和 v</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-24
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-12
           </div>
         
         
@@ -359,301 +649,7 @@ public int minSubArrayLen(int s, int[] nums) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/24/os-ram-manage/">操作系统 内存管理</a>
-
-      <a href="/2020/09/24/os-ram-manage/" class="index-excerpt">
-        
-        
-          
-        
-        <div>分层存储器体系(memory hierarchy)：
-
-位于顶层的存储器速度最快，但是相对容量最小，成本非常高。层级结构向下，其访问速度会变慢，但是容量会变大，相对造价也就越便宜。（所以个人感觉相对存储容量来说，访问速度是更重要的）
-操作系统中管理内存层次结构的部分称为 内存管理器(memory manager)，它的主要工作是有效的管理内存，记录哪些内存是正在使用的，在进程需要时分配内存以及在进</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-24
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/23/LeetCode-76-minimum-window-substring/">LeetCode 76. 最小覆盖子串</a>
-
-      <a href="/2020/09/23/LeetCode-76-minimum-window-substring/" class="index-excerpt">
-        
-        
-          
-        
-        <div>76. 最小覆盖子串
-使用一个计数器统计窗口内目标字符的出现次数，当满足要求时，移动 left，并更新最小长度，若移除的字符为目标字符，则计数器也要减小。
-public String minWindow(String s, String t) &#123;
-    char[] sChar = s.toCharArray();
-    char[] tChar = t.toCharArray();</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-23
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/22/LeetCode-283-move-zeroes/">LeetCode 283. 移动零</a>
-
-      <a href="/2020/09/22/LeetCode-283-move-zeroes/" class="index-excerpt">
-        
-        
-          
-        
-        <div>283. 移动零
-统计非 0 元素的个数，若 nums[i] != 0 则进行交换。
-public void moveZeroes(int[] nums) &#123;
-        // 非 0 元素的个数，nums[0:j) != 0
-        int j = 0;
-        for (int i = 0; i &lt; nums.length; i++) &#123;
-    </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-22
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/22/LeetCode-75-sort-colors/">LeetCode 75. 颜色分类</a>
-
-      <a href="/2020/09/22/LeetCode-75-sort-colors/" class="index-excerpt">
-        
-        
-          
-        
-        <div>75. 颜色分类
-public void sortColors(int[] nums) &#123;
-    int len = nums.length;
-    // 0,0,0,.zero.1,1,1,1,1.two.2,2,2,2,2,len
-    // [0, zero) 0
-    // [zero, i) 1
-    // [two, len) 2
-
-    // `0` 的边界从 </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-22
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/21/LeetCode-451-sort-characters-by-frequency/">LeetCode 451. 根据字符出现频率排序</a>
-
-      <a href="/2020/09/21/LeetCode-451-sort-characters-by-frequency/" class="index-excerpt">
-        
-        
-          
-        
-        <div>451. 根据字符出现频率排序
- 排序
-public String frequencySort(String s) &#123;
-    char[] chars = s.toCharArray();
-    Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
-    List&lt;Character&gt; list = new</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
-            
-              <a href="/tags/%E9%98%9F%E5%88%97/">队列</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/21/LeetCode-189-rotate-array/">LeetCode 189. 旋转数组</a>
-
-      <a href="/2020/09/21/LeetCode-189-rotate-array/" class="index-excerpt">
-        
-        
-          
-        
-        <div>189. 旋转数组
-public void rotate(int[] nums, int k) &#123;
-    int len = nums.length;
-    // 每次反转都有 k % n 个 数字被移动到前部
-    k = k % len;
-    // 全部反转
-    reverse(nums, 0, len - 1);
-    // 反转前 k 个
-    reverse(</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+              <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
             
           </div>
         
@@ -665,7 +661,7 @@ public void rotate(int[] nums, int k) &#123;
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/18/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/20/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/18/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/20/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

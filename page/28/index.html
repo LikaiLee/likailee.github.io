@@ -170,238 +170,28 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/21/LeetCode-337-house-robber-iii/">LeetCode 337. 打家劫舍 III</a>
+      <a class="index-header" href="/2020/08/12/LeetCode-122-best-time-to-buy-and-sell-stock-ii/">LeetCode 122. 买卖股票的最佳时机 II</a>
 
-      <a href="/2020/08/21/LeetCode-337-house-robber-iii/" class="index-excerpt">
+      <a href="/2020/08/12/LeetCode-122-best-time-to-buy-and-sell-stock-ii/" class="index-excerpt">
         
         
           
         
-        <div>337. 打家劫舍 III
- 解法一：记忆化递归
-Map&lt;TreeNode, Integer&gt; memo = new HashMap&lt;&gt;();
+        <div>122. 买卖股票的最佳时机 II
+ 贪心
 
-    public int rob(TreeNode root) &#123;
-        if (root == null) &#123;
-            return 0;
-        &#125;
-    </div>
+贪心的思想在于每一步作出的决策在现在看来总是最好的，它不关心过去或者未来的状态。
+
+只要今天的价格高于明天就计算收益：相当于在今天判断：是否买入昨天，卖出今天。这样每一天都有收益，最终的收益就是最大的。
+public int maxProfit(int[] prices) &#123;
+        int profit = 0;
+        f</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-              <a href="/tags/DFS/">DFS</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/21/LeetCode-213-house-robber-ii/">LeetCode 213. 打家劫舍 II</a>
-
-      <a href="/2020/08/21/LeetCode-213-house-robber-ii/" class="index-excerpt">
-        
-        
-          
-        
-        <div>213. 打家劫舍 II
-题目说明：首尾不能同时 rob，那么可以去除第一个元素或去除最后一个元素进行 rob，还是使用 198. 打家劫舍 的解法
-public int rob(int[] nums) &#123;
-    int len = nums.length;
-    if (len == 0) &#123;
-        return 0;
-    &#125;
-    if (le</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/21/LeetCode-198-house-robber/">LeetCode 198. 打家劫舍</a>
-
-      <a href="/2020/08/21/LeetCode-198-house-robber/" class="index-excerpt">
-        
-        
-          
-        
-        <div>198. 打家劫舍
-状态：dp[i] 第 i 个数结尾的最大子序列和
-转移：
-
-不偷 nums[i], dp[i] = dp[i - 1]
-偷 nums[i - 2], dp[i] = dp[i - 2] + nums[i - 1]
-
-public int rob(int[] nums) &#123;
-    int len = nums.length;
-    if (len == 0) &#1</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/21/LeetCode-152-maximum-product-subarray/">LeetCode 152. 乘积最大子数组</a>
-
-      <a href="/2020/08/21/LeetCode-152-maximum-product-subarray/" class="index-excerpt">
-        
-        
-          
-        
-        <div>152. 乘积最大子数组
-状态：
-
-dp[i][0]: 以 nums[i] 结尾的子数组最小值
-dp[i][1]: 以 nums[i] 结尾的子数组最大值
-
-状态转移：
-
-nums[i] &gt; 0
-
-最大值 * nums[i] 还是最大值
-最小值 * nums[i] 还是最小值
-
-
-nums[i] &gt; 0
-
-最大值 * nums[i] = 最小值
-最小值 * nums[i] = 最大值
-</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/20/LeetCode-53-maximum-subarray/">LeetCode 53. 最大子序和</a>
-
-      <a href="/2020/08/20/LeetCode-53-maximum-subarray/" class="index-excerpt">
-        
-        
-          
-        
-        <div>53. 最大子序和
-状态转移：如果前一个子序列和 nums[i - 1] 无法为 nums[i] 带来正增益，则 nums[i] 为 dp[i] 的最大值。
-/**
- * 状态：dp[i] 以 nums[i] 结尾的子数组最大和
- * 转移方程：
- * dp[i] = 前一个子序列 + nums[i] if 前一个子序列 + nums[i] &gt; nums[i] else nums[i]
- *</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-20
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-12
           </div>
         
         
@@ -432,27 +222,29 @@ nums[i] &gt; 0
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/20/LeetCode-120-triangle/">LeetCode 120. 三角形最小路径和</a>
+      <a class="index-header" href="/2020/08/11/LeetCode-860-lemonade-change/">LeetCode 860. 柠檬水找零</a>
 
-      <a href="/2020/08/20/LeetCode-120-triangle/" class="index-excerpt">
+      <a href="/2020/08/11/LeetCode-860-lemonade-change/" class="index-excerpt">
         
         
           
         
-        <div>120. 三角形最小路径和
-最开始用回溯，最后一个测试用例未通过，原因是输出太长了。
-然后用动态规划：
-状态转移方程：
-dp[i][j] = triangle[i][j] + min(dp[i + 1][j], dp[i + 1][j + 1])
- 自顶向下
-判断很多，最后还要排序，虽然也过了，后来题解发现可以采用自底向上可以方便很多。
-public int minimumTotal(List&l</div>
+        <div>860. 柠檬水找零
+
+不带零钱你买什么柠檬水！！！
+
+虽然有点贪心的思想，我感觉这题在搞笑。。。
+public boolean lemonadeChange(int[] bills) &#123;
+        if (bills.length == 0) &#123;
+            return true;
+        &#125;
+        int five = 0, </div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-20
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-11
           </div>
         
         
@@ -469,7 +261,7 @@ public int minimumTotal(List&l</div>
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
             
           </div>
         
@@ -481,79 +273,33 @@ public int minimumTotal(List&l</div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/20/LeetCode-1143-longest-common-subsequence/">LeetCode 1143. 最长公共子序列</a>
+      <a class="index-header" href="/2020/08/11/LeetCode-529-minesweeper/">LeetCode 529. 扫雷游戏</a>
 
-      <a href="/2020/08/20/LeetCode-1143-longest-common-subsequence/" class="index-excerpt">
+      <a href="/2020/08/11/LeetCode-529-minesweeper/" class="index-excerpt">
         
         
           
         
-        <div>1143. 最长公共子序列
+        <div>529. 扫雷游戏
+ DFS
 
-base: 两个字符串中有一个为空，则 dp[0][j] = 0 或 dp[i][0] = 0
-状态：dp[i][j] -&gt; str1[:i] 和 str[:j] 的最长序列
-转移：
+找周围的雷和进入下一层递归都是在 八个方向 游走。
 
-比较位置：str[:i], str[:j] || str1[:i-1], str2[:j] || str1[:i], str2[:j-1]
-若 i, j 位置相等，直接 + 1
-</div>
+典型的 DFS。
+若 click 位置为 M，标记返回，否则进入递归。
+需要注意的是新的位置不能越界，且未被标记过。
+
+若周围有雷，遍历周围的八个位置，找到雷的数量，标记后返回
+若周围没有雷，标记为 B，遍历周围八个位置，进入递归。
+
+int[][] dirs = &#123;
+            // 上：</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-20
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/19/LeetCode-322-coin-change/">LeetCode 322. 零钱兑换</a>
-
-      <a href="/2020/08/19/LeetCode-322-coin-change/" class="index-excerpt">
-        
-        
-          
-        
-        <div>322. 零钱兑换
- 动态规划
-public int coinChange(int[] coins, int amount) &#123;
-    int[] mem = new int[amount + 1];
-    return dp(amount, coins, mem);
-&#125;
-
-private int dp(int amount, int[] coins, int[] mem)</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-19
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-11
           </div>
         
         
@@ -570,7 +316,9 @@ private int dp(int amount, int[] coins, int[] mem)</div>
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/DFS/">DFS</a>
             
           </div>
         
@@ -582,38 +330,40 @@ private int dp(int amount, int[] coins, int[] mem)</div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/19/MySQL-replication/">MySQL 复制</a>
+      <a class="index-header" href="/2020/08/10/LeetCode-200-number-of-islands/">LeetCode 200. 岛屿数量</a>
 
-      <a href="/2020/08/19/MySQL-replication/" class="index-excerpt">
+      <a href="/2020/08/10/LeetCode-200-number-of-islands/" class="index-excerpt">
         
         
           
         
-        <div> 工作原理
-
-主服务器把数据更改记录到二进制日志中。
-从服务器把主服务器的二进制日志复制到自己的中继日志中。
-从服务器重做中继日志中的日志，把更改应用到自己的数据库上，以达到数据的最终一致性。
-
-需要注意的是：复制不是完全实时地进行同步，而是异步实时。这中间存在主从服务器之间的执行延时，如果主服务器的压力很大，则可能导致主从服务器延时较大。
-
- 快照 + 复制的备份架构
-复制的主要功能：
-
-数据分</div>
+        <div>200. 岛屿数量
+ DFS
+int rows;
+    int cols;
+    /**
+     * 已被访问的数组
+     */
+    boolean[][] visited;
+    /**
+     * 移动方向
+     */
+    int[][] dir = new int[][]&#123;
+            // 上: (x - 1, y)
+            </div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-19
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-10
           </div>
         
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/MySQL/">MySQL</a>
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
             
           </div>
         
@@ -621,7 +371,15 @@ private int dp(int amount, int[] coins, int[] mem)</div>
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/MySQL/">MySQL</a>
+              <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
             
           </div>
         
@@ -633,26 +391,27 @@ private int dp(int amount, int[] coins, int[] mem)</div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/18/LeetCode-63-unique-paths-ii/">LeetCode 63. 不同路径 II</a>
+      <a class="index-header" href="/2020/08/09/LeetCode-126-word-ladder-ii/">LeetCode 126. 单词接龙 II</a>
 
-      <a href="/2020/08/18/LeetCode-63-unique-paths-ii/" class="index-excerpt">
+      <a href="/2020/08/09/LeetCode-126-word-ladder-ii/" class="index-excerpt">
         
         
           
         
-        <div>63. 不同路径 II
-一开始判断第一行或第一列的障碍时没有及时 break，导致若只有一行或一列的情况下出错。
-class Solution &#123;
-    public int uniquePathsWithObstacles(int[][] obstacleGrid) &#123;
-        /**
-         * base: 若左边或上边存在障碍，则不能继续往下走
-   </div>
+        <div>126. 单词接龙 II
+
+找的是最短路径，且可能有多个
+一开始用的 List 存放每层元素，结果 回溯的时候难以访问下一层，最好用 Map 存放
+！！最短路径要及时剪枝
+！！不能用 used 数组标记访问过的元素，而是标记当前层和以上层已经访问过的数组，因为若存在多个最短路径，元素可能重复使用，used 数组标记后会把下层的元素也标记，会导致漏解。
+
+public List&lt;List&lt</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-18
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-09
           </div>
         
         
@@ -669,7 +428,259 @@ class Solution &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/08/LeetCode-127-word-ladder/">LeetCode 127. 单词接龙</a>
+
+      <a href="/2020/08/08/LeetCode-127-word-ladder/" class="index-excerpt">
+        
+        
+          
+        
+        <div>127. 单词接龙
+和 433.最小基因那题很像，不过本题变异的字母是不确定的，不再是 ACGT，若用回溯会超时。
+ BFS
+public int ladderLength(String beginWord, String endWord, List&lt;String&gt; wordList) &#123;
+        // ! endWord 不在 wordList 中直接返回
+    </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-08
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/07/LeetCode-515-find-largest-value-in-each-tree-row/">LeetCode 515. 在每个树行中找最大值</a>
+
+      <a href="/2020/08/07/LeetCode-515-find-largest-value-in-each-tree-row/" class="index-excerpt">
+        
+        
+          
+        
+        <div>515. 在每个树行中找最大值
+ BFS
+层次遍历
+public List&lt;Integer&gt; largestValues(TreeNode root) &#123;
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        if (root == null) &#123;
+            return </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-07
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/07/LeetCode-22-generate-parentheses/">LeetCode 22. 括号生成</a>
+
+      <a href="/2020/08/07/LeetCode-22-generate-parentheses/" class="index-excerpt">
+        
+        
+          
+        
+        <div>22. 括号生成
+ 回溯
+List&lt;String&gt; res = new ArrayList&lt;&gt;();
+
+    public List&lt;String&gt; generateParenthesis(int n) &#123;
+        if (n &lt; 1) &#123;
+            return res;
+        &#125;
+    </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-07
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/06/LeetCode-433-minimum-genetic-mutation/">LeetCode 433. 最小基因变化</a>
+
+      <a href="/2020/08/06/LeetCode-433-minimum-genetic-mutation/" class="index-excerpt">
+        
+        
+          
+        
+        <div>433. 最小基因变化
+ 回溯
+第一次解法击败 100% 用户。
+每一次的变异都可在基因库中找到，因此从基因库中构建决策树，与当前基因相差一个碱基且在之前的选择路径中未出现的基因即为下一步变异的基因。
+int minStep = Integer.MAX_VALUE;
+
+    public int minMutation(String start, String end, String[] ban</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-06
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/06/LeetCode-102-binary-tree-level-order-traversal/">LeetCode 102. 二叉树的层序遍历</a>
+
+      <a href="/2020/08/06/LeetCode-102-binary-tree-level-order-traversal/" class="index-excerpt">
+        
+        
+          
+        
+        <div>二叉树的层序遍历
+主要在于判断每一层有哪些结点：遍历之前先保存每层结点数，然后按层处理结点。
+ BFS
+public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;
+        List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
+     </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-06
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/BFS/">BFS</a>
+            
+              <a href="/tags/DFS/">DFS</a>
             
           </div>
         
@@ -681,7 +692,7 @@ class Solution &#123;
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/27/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/29/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/27/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/29/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

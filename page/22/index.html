@@ -170,27 +170,43 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/11/LeetCode-205-isomorphic-strings/">LeetCode 205. 同构字符串</a>
+      <a class="index-header" href="/2020/09/04/LeetCode-746-min-cost-climbing-stairs/">LeetCode 746. 使用最小花费爬楼梯</a>
 
-      <a href="/2020/09/11/LeetCode-205-isomorphic-strings/" class="index-excerpt">
+      <a href="/2020/09/04/LeetCode-746-min-cost-climbing-stairs/" class="index-excerpt">
         
         
           
         
-        <div>205. 同构字符串
-需要从两个方向判断！
-public boolean isIsomorphic(String s, String t) &#123;
-    return check(s, t) &amp;&amp; check(t, s);
-&#125;
+        <div>746. 使用最小花费爬楼梯
+ 解法一
 
-public boolean check(String s, String t) &#123;
-    int len = s.leng</div>
+
+
+0
+1
+2
+3
+
+
+
+
+10
+15
+20
+
+
+
+
+爬上第 3 阶楼梯可以从第 1 阶爬两步或者从第 2 阶爬一步。
+题意：阶梯总数 = cost.length，爬上第 i 阶楼梯 &lt;=&gt; 不能算上第 i 阶楼梯的花费 cost[i]，也就是只能算到 i - 1 和 i - 2 阶楼梯。
+
+状态转移方程: dp[i] = Math.min(d</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-11
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-04
           </div>
         
         
@@ -204,6 +220,157 @@ public boolean check(String s, String t) &#123;
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/03/LeetCode-493-reverse-pairs/">LeetCode 493. 翻转对</a>
+
+      <a href="/2020/09/03/LeetCode-493-reverse-pairs/" class="index-excerpt">
+        
+        
+          
+        
+        <div>493. 翻转对
+解法：
+
+使用归并排序，把数组分为左右两部分，且都单调递增；
+则每次都固定左边元素 nums[i]，遍历右边元素 nums[j]；
+因为都是有序的，对于 nums[j] 而言，nums[i:mid] 就是翻转对个数，且右边的元素只要遍历一遍。
+
+public int reversePairs(int[] nums) &#123;
+    return mergeSort(nums</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-03
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/03/LeetCode-56-merge-intervals/">LeetCode 56. 合并区间</a>
+
+      <a href="/2020/09/03/LeetCode-56-merge-intervals/" class="index-excerpt">
+        
+        
+          
+        
+        <div>56. 合并区间
+ 解法一
+public int[][] merge(int[][] intervals) &#123;
+    int len = intervals.length;
+    if (len &lt; 2) &#123;
+        return intervals;
+    &#125;
+    quickSort(intervals, 0, len - 1);
+    S</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-03
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/03/LeetCode-242-valid-anagram/">LeetCode 242. 有效的字母异位词</a>
+
+      <a href="/2020/09/03/LeetCode-242-valid-anagram/" class="index-excerpt">
+        
+        
+          
+        
+        <div>242. 有效的字母异位词
+ 解法一
+public boolean isAnagram(String s, String t) &#123;
+    char[] sc = s.toCharArray();
+    char[] tc = t.toCharArray();
+    Arrays.sort(sc);
+    Arrays.sort(tc);
+    return Arrays.equ</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-03
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
             
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
             
@@ -221,26 +388,26 @@ public boolean check(String s, String t) &#123;
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/10/LeetCode-583-delete-operation-for-two-strings/">LeetCode 583. 两个字符串的删除操作</a>
+      <a class="index-header" href="/2020/09/03/LeetCode-1122-relative-sort-array/">LeetCode 1122. 数组的相对排序</a>
 
-      <a href="/2020/09/10/LeetCode-583-delete-operation-for-two-strings/" class="index-excerpt">
+      <a href="/2020/09/03/LeetCode-1122-relative-sort-array/" class="index-excerpt">
         
         
           
         
-        <div>583. 两个字符串的删除操作
-和 72. 编辑距离 类似。
-public int minDistance(String word1, String word2) &#123;
-    int rows = word1.length();
-    int cols = word2.length();
-    char[] chars1 = word1.toCharArray();
-    char</div>
+        <div>1122. 数组的相对排序
+使用计数排序。
+public int[] relativeSortArray(int[] arr1, int[] arr2) &#123;
+    int len1 = arr1.length;
+    int[] res = new int[len1];
+    // 记录 arr1 中每个元素的出现次数
+    int[] bucket = new int[1001</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-10
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-03
           </div>
         
         
@@ -255,11 +422,9 @@ public int minDistance(String word1, String word2) &#123;
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
             
               <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
             
           </div>
         
@@ -271,243 +436,27 @@ public int minDistance(String word1, String word2) &#123;
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/09/LeetCode-44-wildcard-matching/">LeetCode 44. 通配符匹配</a>
+      <a class="index-header" href="/2020/09/02/LeetCode-917-reverse-only-letters/">LeetCode 917. 仅仅反转字母</a>
 
-      <a href="/2020/09/09/LeetCode-44-wildcard-matching/" class="index-excerpt">
+      <a href="/2020/09/02/LeetCode-917-reverse-only-letters/" class="index-excerpt">
         
         
           
         
-        <div>44. 通配符匹配
-public boolean isMatch(String s, String p) &#123;
-    int rows = p.length();
-    int cols = s.length();
-    char[] sChars = s.toCharArray();
-    char[] pChars = p.toCharArray();
-    boolean[</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-09
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/09/LeetCode-10-regular-expression-matching/">LeetCode 10. 正则表达式匹配</a>
-
-      <a href="/2020/09/09/LeetCode-10-regular-expression-matching/" class="index-excerpt">
-        
-        
-          
-        
-        <div>10. 正则表达式匹配
-dp[i][j] 表示 s[0:i] 是否能匹配到 p[0:j]
-
-s[i] == p[j]，对应位置匹配
-dp[i][j] = dp[i - 1][j - 1]
-p[j] == '.'，'.' 可以匹配任意字符
-dp[i][j] = dp[i - 1][j - 1]
-s[i] != p[j]，若 p[j] != '*'，则肯定无法匹配，只有当 * 时才有可能消除不匹配的字</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-09
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/09/LeetCode-5-longest-palindromic-substring/">LeetCode 5. 最长回文子串</a>
-
-      <a href="/2020/09/09/LeetCode-5-longest-palindromic-substring/" class="index-excerpt">
-        
-        
-          
-        
-        <div>5. 最长回文子串
- 动态规划
-
-
-如果一个字符串的头尾两个字符都不相等，那么这个字符串一定不是回文串；
-
-
-如果一个字符串的头尾两个字符相等，才有必要继续判断下去。
-
-
-如果里面的子串是回文，整体就是回文串；
-
-
-如果里面的子串不是回文串，整体就不是回文串。
-
-
-
-
-状态：dp[i][j] - s[i:j] 是否为回文串
-状态转移方程：dp[i][j] = s[i] == s[j] and dp</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-09
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/09/LeetCode-680-valid-palindrome-ii/">LeetCode 680. 验证回文字符串 Ⅱ</a>
-
-      <a href="/2020/09/09/LeetCode-680-valid-palindrome-ii/" class="index-excerpt">
-        
-        
-          
-        
-        <div>680. 验证回文字符串 Ⅱ
-public boolean validPalindrome(String s) &#123;
-    int left = 0;
-    int right = s.length() - 1;
-    while (left &lt; right) &#123;
-        // 最多删除一个字符，当有一个字符不等时，判断删除该字符后剩下的部分是否为回文
-   </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-09
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/09/LeetCode-125-valid-palindrome/">LeetCode 125. 验证回文串</a>
-
-      <a href="/2020/09/09/LeetCode-125-valid-palindrome/" class="index-excerpt">
-        
-        
-          
-        
-        <div>125. 验证回文串
+        <div>917. 仅仅反转字母
  双指针
-public boolean isPalindrome(String s) &#123;
-    s = s.toLowerCase();
-    int right = s.length() - 1;
-    if (right &lt; 0) &#123;
-        return true;
-    &#125;
+public String reverseOnlyLetters(String S) &#123;
+    char[] chars = S.toCharArray();
+    int len = chars.length;
     int left = 0;
-   </div>
+    int right = len - 1;
+    while (left &lt; right</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-09
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-02
           </div>
         
         
@@ -527,164 +476,213 @@ public boolean isPalindrome(String s) &#123;
               <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/08/LeetCode-818-race-car/">LeetCode 818. 赛车</a>
-
-      <a href="/2020/09/08/LeetCode-818-race-car/" class="index-excerpt">
-        
-        
-          
-        
-        <div>818. 赛车
- BFS
-需要注意：newPos &lt; target * 2，因为对于 target 而言，
-
-可以在 target 之前进行加速或减速操作；
-或者超过 target 之后进行减速操作；
-
-这两种方式都可能到达 target，把 newPos 限制在 2 * target 里，是为了让操作的步数不再递增，导致找不到终点。
-public int racecar(int targe</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-08
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-              <a href="/tags/BFS/">BFS</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/08/LeetCode-115-distinct-subsequences/">LeetCode 115. 不同的子序列</a>
-
-      <a href="/2020/09/08/LeetCode-115-distinct-subsequences/" class="index-excerpt">
-        
-        
-          
-        
-        <div>115. 不同的子序列
- 回溯
-public class Solution &#123;
-
-    int count = 0;
-    Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
-
-    public int numDistinct(String s, String t) &#123;
-        backtrack(0,</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-08
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/08/LeetCode-85-maximal-rectangle/">LeetCode 85. 最大矩形</a>
-
-      <a href="/2020/09/08/LeetCode-85-maximal-rectangle/" class="index-excerpt">
-        
-        
-          
-        
-        <div>85. 最大矩形
- 暴力
-保存每个 1 元素的最长距离，向上查找高度。
-public int maximalRectangle(char[][] matrix) &#123;
-    int rows = matrix.length;
-    if (rows == 0) &#123;
-        return 0;
-    &#125;
-    int cols = matrix[0].le</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-08
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
             
               <a href="/tags/%E6%A0%88/">栈</a>
             
-              <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/">单调栈</a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/02/LeetCode-557-reverse-words-in-a-string-iii/">LeetCode 557. 反转字符串中的单词 III</a>
+
+      <a href="/2020/09/02/LeetCode-557-reverse-words-in-a-string-iii/" class="index-excerpt">
+        
+        
+          
+        
+        <div>557. 反转字符串中的单词 III
+public String reverseWords(String s) &#123;
+    int start = 0;
+    char[] chars = s.toCharArray();
+    int len = chars.length;
+    for (int i = 0; i &lt; len; i++) &#123;
+        if</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-02
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/02/LeetCode-151-reverse-words-in-a-string/">LeetCode 151. 翻转字符串里的单词</a>
+
+      <a href="/2020/09/02/LeetCode-151-reverse-words-in-a-string/" class="index-excerpt">
+        
+        
+          
+        
+        <div>151. 翻转字符串里的单词
+ 栈
+public String reverseWords(String s) &#123;
+    char[] chars = s.toCharArray();
+    int len = chars.length;
+    int start = 0;
+    int end = len - 1;
+    // 去除前面空格
+    while (start &</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-02
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E6%A0%88/">栈</a>
+            
+              <a href="/tags/%E9%98%9F%E5%88%97/">队列</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/02/LeetCode-541-reverse-string-ii/">LeetCode 541. 反转字符串 II</a>
+
+      <a href="/2020/09/02/LeetCode-541-reverse-string-ii/" class="index-excerpt">
+        
+        
+          
+        
+        <div>541. 反转字符串 II
+public String reverseStr(String s, int k) &#123;
+    char[] chars = s.toCharArray();
+    int len = chars.length;
+    int i = 0;
+    while (i &lt; len) &#123;
+        // 对 (i, i + k) 之间的字</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-02
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/02/LeetCode-344-reverse-string/">LeetCode 344. 反转字符串</a>
+
+      <a href="/2020/09/02/LeetCode-344-reverse-string/" class="index-excerpt">
+        
+        
+          
+        
+        <div>344. 反转字符串
+public void reverseString(char[] s) &#123;
+    int len = s.length;
+    int left = 0;
+    int right = len - 1;
+    while (left &lt; right) &#123;
+        char c = s[left];
+        s[left] = </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-02
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
             
           </div>
         
@@ -696,7 +694,7 @@ public int maximalRectangle(char[][] matrix) &#123;
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/21/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/23/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/21/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/23/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
