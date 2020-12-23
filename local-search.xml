@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 6. Z 字形变换</title>
+    <link href="/2020/12/23/LeetCode-6-zigzag-conversion/"/>
+    <url>/2020/12/23/LeetCode-6-zigzag-conversion/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/zigzag-conversion/" target="_blank" rel="noopener">6. Z 字形变换</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">convert</span><span class="hljs-params">(String s, <span class="hljs-keyword">int</span> numRows)</span> </span>&#123;    <span class="hljs-keyword">if</span> (numRows &lt; <span class="hljs-number">2</span>) &#123;        <span class="hljs-keyword">return</span> s;    &#125;    List&lt;StringBuilder&gt; rows = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(numRows);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numRows; i++) &#123;        rows.add(<span class="hljs-keyword">new</span> StringBuilder());    &#125;    <span class="hljs-keyword">char</span>[] str = s.toCharArray();    <span class="hljs-keyword">int</span> row = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> dir = -<span class="hljs-number">1</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : str) &#123;        rows.get(row).append(c);        <span class="hljs-comment">// 到达最后一行，需要往上排列</span>        <span class="hljs-comment">// 到达第一行，需要向下排列</span>        <span class="hljs-keyword">if</span> (row == numRows - <span class="hljs-number">1</span> || row == <span class="hljs-number">0</span>) &#123;            dir = -dir;        &#125;        row += dir;    &#125;    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();    <span class="hljs-keyword">for</span> (StringBuilder rowBuilder : rows) &#123;        sb.append(rowBuilder);    &#125;    <span class="hljs-keyword">return</span> sb.toString();&#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">convert</span><span class="hljs-params">(String s, <span class="hljs-keyword">int</span> numRows)</span> </span>&#123;    <span class="hljs-keyword">if</span> (numRows == <span class="hljs-number">1</span>) &#123;        <span class="hljs-keyword">return</span> s;    &#125;    List&lt;List&lt;Character&gt;&gt; rows = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(numRows);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numRows; i++) &#123;        rows.add(<span class="hljs-keyword">new</span> ArrayList&lt;&gt;());    &#125;    <span class="hljs-keyword">char</span>[] str = s.toCharArray();    <span class="hljs-keyword">int</span> row = <span class="hljs-number">0</span>;    <span class="hljs-keyword">boolean</span> reverse = <span class="hljs-keyword">false</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : str) &#123;        rows.get(row).add(c);        <span class="hljs-comment">// 到达最后一行，需要往上排列</span>        <span class="hljs-keyword">if</span> (row == numRows - <span class="hljs-number">1</span>) &#123;            reverse = <span class="hljs-keyword">true</span>;        &#125;        <span class="hljs-comment">// 到达第一行，需要往下排列</span>        <span class="hljs-keyword">if</span> (row == <span class="hljs-number">0</span>) &#123;            reverse = <span class="hljs-keyword">false</span>;        &#125;        row = reverse ? row - <span class="hljs-number">1</span> : row + <span class="hljs-number">1</span>;    &#125;    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();    <span class="hljs-keyword">for</span> (List&lt;Character&gt; rowList : rows) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : rowList) &#123;            sb.append(c);        &#125;    &#125;    <span class="hljs-keyword">return</span> sb.toString();&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 238. 除自身以外数组的乘积</title>
     <link href="/2020/12/23/LeetCode-238-product-of-array-except-self/"/>
     <url>/2020/12/23/LeetCode-238-product-of-array-except-self/</url>
@@ -49,9 +76,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -252,9 +279,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -654,9 +681,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -683,9 +710,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -741,9 +768,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2087,11 +2114,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2118,9 +2145,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -2149,9 +2176,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -2269,9 +2296,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -2611,9 +2638,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -2642,9 +2669,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -2673,9 +2700,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -3918,9 +3945,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
