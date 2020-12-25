@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 9. 回文数</title>
+    <link href="/2020/12/25/LeetCode-9-palindrome-number/"/>
+    <url>/2020/12/25/LeetCode-9-palindrome-number/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/palindrome-number/" target="_blank" rel="noopener">9. 回文数</a></p><h1 id="翻转"><a class="markdownIt-Anchor" href="#翻转"></a> 翻转</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;    <span class="hljs-comment">// 末尾 = 0，肯定不是回文数</span>    <span class="hljs-keyword">if</span> (x &lt; <span class="hljs-number">0</span> || (x != <span class="hljs-number">0</span> &amp;&amp; x % <span class="hljs-number">10</span> == <span class="hljs-number">0</span>)) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-keyword">int</span> num = x;    <span class="hljs-keyword">int</span> reverseNum = <span class="hljs-number">0</span>;    <span class="hljs-comment">// x 全部翻转</span>    <span class="hljs-keyword">while</span> (x != <span class="hljs-number">0</span>) &#123;        reverseNum = reverseNum * <span class="hljs-number">10</span> + x % <span class="hljs-number">10</span>;        x /= <span class="hljs-number">10</span>;    &#125;    <span class="hljs-keyword">return</span> num == reverseNum;&#125;</code></pre><h1 id="逐位判断"><a class="markdownIt-Anchor" href="#逐位判断"></a> 逐位判断</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;    <span class="hljs-keyword">if</span> (x &lt; <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-keyword">int</span> div = <span class="hljs-number">1</span>;    <span class="hljs-comment">// 直到 div 能够取首位</span>    <span class="hljs-keyword">while</span> (x / div &gt;= <span class="hljs-number">10</span>) &#123;        div *= <span class="hljs-number">10</span>;    &#125;    <span class="hljs-keyword">while</span> (x &gt; <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">int</span> left = x / div;        <span class="hljs-keyword">int</span> right = x % <span class="hljs-number">10</span>;        <span class="hljs-keyword">if</span> (left != right) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        <span class="hljs-comment">// 去除首尾</span>        x = x % div / <span class="hljs-number">10</span>;        <span class="hljs-comment">// 缩小除数</span>        div /= <span class="hljs-number">100</span>;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>数学</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 128. 最长连续序列</title>
     <link href="/2020/12/25/LeetCode-128-longest-consecutive-sequence/"/>
     <url>/2020/12/25/LeetCode-128-longest-consecutive-sequence/</url>
@@ -134,9 +161,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -337,9 +364,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -768,9 +795,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -826,9 +853,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2172,11 +2199,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2203,9 +2230,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -2234,9 +2261,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -2267,9 +2294,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>递归</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -2325,9 +2352,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>递归</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -2354,9 +2381,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -2696,9 +2723,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -2727,9 +2754,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -3121,9 +3148,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3150,9 +3177,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4003,9 +4030,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -4312,9 +4339,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -4538,9 +4565,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -4714,11 +4741,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
