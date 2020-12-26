@@ -188,9 +188,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -391,9 +391,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -565,9 +565,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -594,11 +594,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -625,9 +625,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -793,9 +793,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -822,9 +822,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -880,9 +880,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2226,11 +2226,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2257,11 +2257,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>DFS</tag>
+      
       <tag>树</tag>
       
       <tag>分治</tag>
-      
-      <tag>DFS</tag>
       
     </tags>
     
@@ -2288,11 +2288,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>DFS</tag>
+      
       <tag>树</tag>
       
       <tag>分治</tag>
-      
-      <tag>DFS</tag>
       
     </tags>
     
@@ -2408,9 +2408,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -2750,9 +2750,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -2781,9 +2781,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -2812,9 +2812,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>树</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3175,9 +3175,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3204,9 +3204,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3341,9 +3341,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4057,9 +4057,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -4366,9 +4366,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -4505,9 +4505,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -4592,9 +4592,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -4768,11 +4768,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -5392,9 +5392,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5421,9 +5421,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -5815,7 +5815,7 @@
     <link href="/2020/09/08/LeetCode-85-maximal-rectangle/"/>
     <url>/2020/09/08/LeetCode-85-maximal-rectangle/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/maximal-rectangle/" target="_blank" rel="noopener">85. 最大矩形</a></p><h1 id="暴力"><a class="markdownIt-Anchor" href="#暴力"></a> 暴力</h1><p>保存每个 <code>1</code> 元素的最长距离，向上查找高度。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maximalRectangle</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] matrix)</span> </span>&#123;    <span class="hljs-keyword">int</span> rows = matrix.length;    <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span> cols = matrix[<span class="hljs-number">0</span>].length;    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 以 widths[row][col] 结尾的最长 `1` 的个数</span>    <span class="hljs-keyword">int</span>[][] widths = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[rows][cols];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;            <span class="hljs-comment">// 当前位置为 `1`</span>            <span class="hljs-keyword">if</span> (matrix[i][j] == <span class="hljs-string">'1'</span>) &#123;                widths[i][j] = <span class="hljs-number">1</span>;                <span class="hljs-comment">// 不是第一列，则 = 1 + 左边那个格子的最长数</span>                <span class="hljs-keyword">if</span> (j != <span class="hljs-number">0</span>) &#123;                    widths[i][j] += widths[i][j - <span class="hljs-number">1</span>];                &#125;            &#125; <span class="hljs-keyword">else</span> &#123;                widths[i][j] = <span class="hljs-number">0</span>;            &#125;            <span class="hljs-keyword">int</span> minWidth = widths[i][j];            <span class="hljs-comment">// 向上查找最小矩形</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> row = i; row &gt;= <span class="hljs-number">0</span>; row--) &#123;                minWidth = Math.min(minWidth, widths[row][j]);                <span class="hljs-keyword">int</span> height = i - row + <span class="hljs-number">1</span>;                res = Math.max(res, minWidth * height);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre><h1 id="单调栈"><a class="markdownIt-Anchor" href="#单调栈"></a> 单调栈</h1><p>在 <a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/" target="_blank" rel="noopener">84. 柱状图中最大的矩形</a> 的基础上，转化为按行求每行的最大矩形面积。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maximalRectangle</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] matrix)</span> </span>&#123;    <span class="hljs-keyword">int</span> rows = matrix.length;    <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span> cols = matrix[<span class="hljs-number">0</span>].length;    <span class="hljs-keyword">if</span> (cols == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-comment">// 保存每一列的高度</span>    <span class="hljs-keyword">int</span>[] heights = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[cols];    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;            <span class="hljs-keyword">if</span> (matrix[i][j] == <span class="hljs-string">'1'</span>) &#123;                <span class="hljs-comment">// 当前列为 1，在上一行的基础上 + 1</span>                heights[j]++;            &#125; <span class="hljs-keyword">else</span> &#123;                <span class="hljs-comment">// 重新开始</span>                heights[j] = <span class="hljs-number">0</span>;            &#125;        &#125;        <span class="hljs-comment">// 求每一行的最大值</span>        res = Math.max(res, largestRectangleArea(heights));    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/maximal-rectangle/" target="_blank" rel="noopener">85. 最大矩形</a></p><h1 id="暴力"><a class="markdownIt-Anchor" href="#暴力"></a> 暴力</h1><p>保存每个 <code>1</code> 元素的最长距离，向上查找高度。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maximalRectangle</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] matrix)</span> </span>&#123;    <span class="hljs-keyword">int</span> rows = matrix.length;    <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span> cols = matrix[<span class="hljs-number">0</span>].length;    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 以 widths[row][col] 结尾的最长 `1` 的个数</span>    <span class="hljs-keyword">int</span>[][] widths = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[rows][cols];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;            <span class="hljs-comment">// 当前位置为 `1`</span>            <span class="hljs-keyword">if</span> (matrix[i][j] == <span class="hljs-string">'1'</span>) &#123;                widths[i][j] = <span class="hljs-number">1</span>;                <span class="hljs-comment">// 不是第一列，则 = 1 + 左边那个格子的最长数</span>                <span class="hljs-keyword">if</span> (j != <span class="hljs-number">0</span>) &#123;                    widths[i][j] += widths[i][j - <span class="hljs-number">1</span>];                &#125;            &#125; <span class="hljs-keyword">else</span> &#123;                widths[i][j] = <span class="hljs-number">0</span>;            &#125;            <span class="hljs-keyword">int</span> minWidth = widths[i][j];            <span class="hljs-comment">// 向上查找最小矩形</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> row = i; row &gt;= <span class="hljs-number">0</span>; row--) &#123;                minWidth = Math.min(minWidth, widths[row][j]);                <span class="hljs-keyword">int</span> height = i - row + <span class="hljs-number">1</span>;                res = Math.max(res, minWidth * height);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre><h1 id="单调栈"><a class="markdownIt-Anchor" href="#单调栈"></a> 单调栈</h1><p>在 <a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/" target="_blank" rel="noopener">84. 柱状图中最大的矩形</a> 的基础上，转化为按行求每行的最大矩形面积。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maximalRectangle</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] matrix)</span> </span>&#123;    <span class="hljs-keyword">int</span> rows = matrix.length;    <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span> cols = matrix[<span class="hljs-number">0</span>].length;    <span class="hljs-keyword">if</span> (cols == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-comment">// 保存每一列的高度</span>    <span class="hljs-keyword">int</span>[] heights = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[cols];    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;            <span class="hljs-keyword">if</span> (matrix[i][j] == <span class="hljs-string">'1'</span>) &#123;                <span class="hljs-comment">// 当前列为 1，在上一行的基础上 + 1</span>                heights[j]++;            &#125; <span class="hljs-keyword">else</span> &#123;                <span class="hljs-comment">// 重新开始</span>                heights[j] = <span class="hljs-number">0</span>;            &#125;        &#125;        <span class="hljs-comment">// 求每一行的最大值</span>        res = Math.max(res, largestRectangleArea(heights));    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maximalRectangle</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] matrix)</span> </span>&#123;        <span class="hljs-keyword">int</span> rows = matrix.length;        <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> cols = matrix[<span class="hljs-number">0</span>].length;        <span class="hljs-keyword">int</span>[] heights = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[cols];        <span class="hljs-keyword">int</span>[] left = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[cols];        <span class="hljs-keyword">int</span>[] right = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[cols];        <span class="hljs-comment">// 左边最低位置 -1</span>        Arrays.fill(left, -<span class="hljs-number">1</span>);        <span class="hljs-comment">// 右边最低位置 len</span>        Arrays.fill(right, cols);        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span>[] line : matrix) &#123;            <span class="hljs-comment">// 计算该行每个元素的矩形高度</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; cols; i++) &#123;                <span class="hljs-keyword">if</span> (line[i] == <span class="hljs-string">'1'</span>) &#123;                    heights[i]++;                &#125; <span class="hljs-keyword">else</span> &#123;                    heights[i] = <span class="hljs-number">0</span>;                &#125;            &#125;            <span class="hljs-comment">// 左边最低位置</span>            <span class="hljs-keyword">int</span> leftZero = -<span class="hljs-number">1</span>;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; cols; i++) &#123;                <span class="hljs-keyword">if</span> (line[i] == <span class="hljs-string">'1'</span>) &#123;                    <span class="hljs-comment">// 若当前为 `1`，可能左边存在 `0`，取最靠近右边的 `0` 才能形成矩形</span>                    left[i] = Math.max(left[i], leftZero);                &#125; <span class="hljs-keyword">else</span> &#123;                    <span class="hljs-comment">// 当前为 `0`，高度也为 0，左边最低位置在起始点</span>                    left[i] = -<span class="hljs-number">1</span>;                    leftZero = i;                &#125;            &#125;            <span class="hljs-comment">// 右边最低位置</span>            <span class="hljs-keyword">int</span> rightZero = cols;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = cols - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;                <span class="hljs-keyword">if</span> (line[i] == <span class="hljs-string">'1'</span>) &#123;                    right[i] = Math.min(right[i], rightZero);                &#125; <span class="hljs-keyword">else</span> &#123;                    right[i] = cols;                    rightZero = i;                &#125;            &#125;            <span class="hljs-comment">// 对该行每个位置求能组成的矩形面积</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; cols; i++) &#123;                <span class="hljs-keyword">int</span> cur = (right[i] - left[i] - <span class="hljs-number">1</span>) * heights[i];                res = Math.max(cur, res);            &#125;        &#125;        <span class="hljs-keyword">return</span> res;    &#125;</code></pre>]]></content>
     
     
     <categories>
