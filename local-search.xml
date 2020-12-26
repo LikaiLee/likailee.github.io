@@ -74,13 +74,13 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>排序</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
@@ -132,9 +132,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -418,11 +418,11 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>BFS</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -474,11 +474,11 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>BFS</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -681,11 +681,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
+      
+      <tag>字符串</tag>
       
       <tag>回溯</tag>
       
@@ -965,11 +965,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -994,11 +994,11 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -1075,9 +1075,9 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -1131,11 +1131,11 @@
     
     <tags>
       
-      <tag>排序</tag>
+      <tag>LeetCode</tag>
       
       <tag>字符串</tag>
       
-      <tag>LeetCode</tag>
+      <tag>排序</tag>
       
     </tags>
     
@@ -1160,9 +1160,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -1270,11 +1270,11 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -1299,11 +1299,11 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>链表</tag>
       
@@ -1359,11 +1359,11 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>链表</tag>
       
@@ -1444,11 +1444,11 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>栈</tag>
       
@@ -1556,11 +1556,11 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>BFS</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -1585,11 +1585,11 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -1921,9 +1921,9 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -2056,9 +2056,9 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -2083,9 +2083,9 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
       
       <tag>优先队列</tag>
       
@@ -2321,9 +2321,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -2348,9 +2348,9 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -2379,9 +2379,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -3113,11 +3113,11 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -3144,11 +3144,11 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4826,9 +4826,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -5004,11 +5004,11 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5033,9 +5033,9 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -5089,9 +5089,9 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5197,9 +5197,9 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5307,9 +5307,9 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
       
       <tag>优先队列</tag>
       
@@ -5363,9 +5363,9 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5450,9 +5450,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -5535,9 +5535,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -5566,11 +5566,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5595,11 +5595,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5624,11 +5624,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5653,11 +5653,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5682,11 +5682,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5711,9 +5711,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -5740,9 +5740,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -5846,7 +5846,7 @@
     <link href="/2020/09/08/LeetCode-84-largest-rectangle-in-histogram/"/>
     <url>/2020/09/08/LeetCode-84-largest-rectangle-in-histogram/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/" target="_blank" rel="noopener">84. 柱状图中最大的矩形</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">largestRectangleArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] heights)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = heights.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">1</span>) &#123;        <span class="hljs-keyword">return</span> heights[<span class="hljs-number">0</span>];    &#125;    <span class="hljs-comment">// 添加哨兵，头尾都加一个 0，避免边界判断</span>    <span class="hljs-keyword">int</span>[] newHeights = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len + <span class="hljs-number">2</span>];    System.arraycopy(heights, <span class="hljs-number">0</span>, newHeights, <span class="hljs-number">1</span>, len);    <span class="hljs-comment">// 单调递增栈，当要入栈元素小于栈顶元素时</span>    <span class="hljs-comment">// 栈顶元素为最大值，可计算以栈顶为高度的最大矩形面积</span>    Deque&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;(len);    stack.push(<span class="hljs-number">0</span>);    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; newHeights.length; i++) &#123;        <span class="hljs-comment">// 严格递减，则计算面积</span>        <span class="hljs-keyword">while</span> (newHeights[i] &lt; newHeights[stack.peek()]) &#123;            <span class="hljs-comment">// 高度为当前栈顶元素</span>            <span class="hljs-keyword">int</span> height = newHeights[stack.pop()];            <span class="hljs-comment">// 栈顶出栈后，新的栈顶 = 左边小于 height 的元素</span>            <span class="hljs-keyword">int</span> width = i - stack.peek() - <span class="hljs-number">1</span>;            res = Math.max(res, height * width);        &#125;        stack.push(i);    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/" target="_blank" rel="noopener">84. 柱状图中最大的矩形</a></p><h1 id="单调栈"><a class="markdownIt-Anchor" href="#单调栈"></a> 单调栈</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">largestRectangleArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] heights)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = heights.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">1</span>) &#123;        <span class="hljs-keyword">return</span> heights[<span class="hljs-number">0</span>];    &#125;    <span class="hljs-comment">// 添加哨兵，头尾都加一个 0，避免边界判断</span>    <span class="hljs-keyword">int</span>[] newHeights = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len + <span class="hljs-number">2</span>];    System.arraycopy(heights, <span class="hljs-number">0</span>, newHeights, <span class="hljs-number">1</span>, len);    <span class="hljs-comment">// 单调递增栈，当要入栈元素小于栈顶元素时</span>    <span class="hljs-comment">// 栈顶元素为最大值，可计算以栈顶为高度的最大矩形面积</span>    Deque&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;(len);    stack.push(<span class="hljs-number">0</span>);    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; newHeights.length; i++) &#123;        <span class="hljs-comment">// 严格递减，则计算面积</span>        <span class="hljs-keyword">while</span> (newHeights[i] &lt; newHeights[stack.peek()]) &#123;            <span class="hljs-comment">// 高度为当前栈顶元素</span>            <span class="hljs-keyword">int</span> height = newHeights[stack.pop()];            <span class="hljs-comment">// 栈顶出栈后，新的栈顶 = 左边小于 height 的元素</span>            <span class="hljs-keyword">int</span> width = i - stack.peek() - <span class="hljs-number">1</span>;            res = Math.max(res, height * width);        &#125;        stack.push(i);    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre><h1 id="双指针"><a class="markdownIt-Anchor" href="#双指针"></a> 双指针</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">largestRectangleArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] heights)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = heights.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span>[] left = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    <span class="hljs-keyword">int</span>[] right = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];    left[<span class="hljs-number">0</span>] = -<span class="hljs-number">1</span>;    right[len - <span class="hljs-number">1</span>] = len;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 找左边第一个最低</span>        <span class="hljs-keyword">int</span> j = i - <span class="hljs-number">1</span>;        <span class="hljs-keyword">while</span> (j &gt;= <span class="hljs-number">0</span> &amp;&amp; heights[j] &gt;= heights[i]) &#123;            j--;        &#125;        left[i] = j;    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123;        <span class="hljs-comment">// 找右边第一个最低</span>        <span class="hljs-keyword">int</span> j = i + <span class="hljs-number">1</span>;        <span class="hljs-keyword">while</span> (j &lt; len &amp;&amp; heights[j] &gt;= heights[i]) &#123;            j++;        &#125;        right[i] = j;    &#125;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">int</span> cur = (right[i] - left[i] - <span class="hljs-number">1</span>) * heights[i];        res = Math.max(res, cur);    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -5859,6 +5859,8 @@
     <tags>
       
       <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -5887,9 +5889,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -5918,11 +5920,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5947,11 +5949,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6005,11 +6007,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6034,9 +6036,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -6092,11 +6094,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6148,9 +6150,9 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -6175,9 +6177,9 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -6202,13 +6204,13 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -6233,9 +6235,9 @@
     
     <tags>
       
-      <tag>排序</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -6260,9 +6262,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6291,9 +6293,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6320,9 +6322,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6351,9 +6353,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6380,9 +6382,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -6409,9 +6411,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6436,9 +6438,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6463,9 +6465,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6490,9 +6492,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6517,9 +6519,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6544,9 +6546,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6571,9 +6573,9 @@
     
     <tags>
       
-      <tag>数据结构</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>数据结构</tag>
       
     </tags>
     
@@ -6901,11 +6903,11 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>DFS</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
@@ -6930,11 +6932,11 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>DFS</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     
@@ -7347,11 +7349,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7866,8 +7868,6 @@
     
     <tags>
       
-      <tag>并查集</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>BFS</tag>
@@ -7875,6 +7875,8 @@
       <tag>DFS</tag>
       
       <tag>回溯</tag>
+      
+      <tag>并查集</tag>
       
     </tags>
     

@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      201 字
+      350 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      5
        分钟
     </span>
   
@@ -207,12 +207,13 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月8日 上午
+                  本文最后更新于：2020年12月26日 晚上
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/" target="_blank" rel="noopener">84. 柱状图中最大的矩形</a></p>
+<h1 id="单调栈"><a class="markdownIt-Anchor" href="#单调栈"></a> 单调栈</h1>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">largestRectangleArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] heights)</span> </span>&#123;
     <span class="hljs-keyword">int</span> len = heights.length;
     <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;
@@ -242,6 +243,39 @@
     &#125;
     <span class="hljs-keyword">return</span> res;
 &#125;</code></pre>
+<h1 id="双指针"><a class="markdownIt-Anchor" href="#双指针"></a> 双指针</h1>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">largestRectangleArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] heights)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> len = heights.length;
+    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    &#125;
+    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span>[] left = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
+    <span class="hljs-keyword">int</span>[] right = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
+    left[<span class="hljs-number">0</span>] = -<span class="hljs-number">1</span>;
+    right[len - <span class="hljs-number">1</span>] = len;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;
+        <span class="hljs-comment">// 找左边第一个最低</span>
+        <span class="hljs-keyword">int</span> j = i - <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span> (j &gt;= <span class="hljs-number">0</span> &amp;&amp; heights[j] &gt;= heights[i]) &#123;
+            j--;
+        &#125;
+        left[i] = j;
+    &#125;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123;
+        <span class="hljs-comment">// 找右边第一个最低</span>
+        <span class="hljs-keyword">int</span> j = i + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span> (j &lt; len &amp;&amp; heights[j] &gt;= heights[i]) &#123;
+            j++;
+        &#125;
+        right[i] = j;
+    &#125;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+        <span class="hljs-keyword">int</span> cur = (right[i] - left[i] - <span class="hljs-number">1</span>) * heights[i];
+        res = Math.max(res, cur);
+    &#125;
+    <span class="hljs-keyword">return</span> res;
+&#125;</code></pre>
             </article>
             <hr>
             <div>
@@ -259,6 +293,8 @@
                     <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
                     
                       <a class="hover-with-bg" href="/tags/%E6%A0%88/">栈</a>
                     
