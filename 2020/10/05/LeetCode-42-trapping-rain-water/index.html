@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      403 字
+      399 字
     </span>
   
 
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月5日 下午
+                  本文最后更新于：2020年12月26日 晚上
                 
               </p>
             
@@ -215,21 +215,22 @@
               <p><a href="https://leetcode-cn.com/problems/trapping-rain-water/" target="_blank" rel="noopener">42. 接雨水</a></p>
 <h1 id="单调栈"><a class="markdownIt-Anchor" href="#单调栈"></a> 单调栈</h1>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">trap</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] height)</span> </span>&#123;
-    ArrayDeque&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
+    <span class="hljs-keyword">int</span> len = height.length;
     <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; height.length; i++) &#123;
-        <span class="hljs-comment">// 当前高度 &gt; 栈顶时，计算栈顶元素上的积水</span>
+    LinkedList&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+        <span class="hljs-comment">// 单调递减栈</span>
         <span class="hljs-keyword">while</span> (!stack.isEmpty() &amp;&amp; height[i] &gt; height[stack.peek()]) &#123;
-            <span class="hljs-comment">// 栈顶元素的高度</span>
+            <span class="hljs-comment">// 栈顶元素本次计算的水，新的栈顶为左边界，i 为右边界</span>
+            <span class="hljs-comment">// peek() &lt; heightOfTop &lt; i</span>
             <span class="hljs-keyword">int</span> top = height[stack.pop()];
             <span class="hljs-keyword">if</span> (stack.isEmpty()) &#123;
                 <span class="hljs-keyword">break</span>;
             &#125;
-            <span class="hljs-comment">// 可形成积水的宽度</span>
-            <span class="hljs-keyword">int</span> width = i - stack.peek() - <span class="hljs-number">1</span>;
-            <span class="hljs-comment">// 栈顶元素的两侧均 &gt; 栈顶高度，取最小值</span>
-            <span class="hljs-keyword">int</span> minHeight = Math.min(height[i], height[stack.peek()]);
-            res += width * (minHeight - top);
+            <span class="hljs-comment">// 计算 top 上面能放多少水</span>
+            <span class="hljs-keyword">int</span> h = Math.min(height[i], height[stack.peek()]) - top;
+            <span class="hljs-keyword">int</span> w = i - stack.peek() - <span class="hljs-number">1</span>;
+            res += h * w;
         &#125;
         stack.push(i);
     &#125;
