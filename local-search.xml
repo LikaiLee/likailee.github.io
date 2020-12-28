@@ -74,13 +74,13 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
-      <tag>哈希表</tag>
+      <tag>并查集</tag>
       
       <tag>排序</tag>
       
-      <tag>并查集</tag>
+      <tag>LeetCode</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -132,9 +132,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -188,9 +188,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -391,9 +391,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -418,11 +418,11 @@
     
     <tags>
       
+      <tag>排序</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>BFS</tag>
-      
-      <tag>排序</tag>
       
     </tags>
     
@@ -474,11 +474,11 @@
     
     <tags>
       
+      <tag>排序</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>BFS</tag>
-      
-      <tag>排序</tag>
       
     </tags>
     
@@ -681,11 +681,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
-      
-      <tag>字符串</tag>
       
       <tag>回溯</tag>
       
@@ -822,9 +822,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -880,9 +880,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -965,11 +965,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -994,11 +994,11 @@
     
     <tags>
       
+      <tag>排序</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
-      
-      <tag>排序</tag>
       
     </tags>
     
@@ -1075,9 +1075,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>排序</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -1131,11 +1131,11 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
+      <tag>排序</tag>
       
       <tag>字符串</tag>
       
-      <tag>排序</tag>
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -1160,9 +1160,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -1270,11 +1270,11 @@
     
     <tags>
       
+      <tag>排序</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
-      
-      <tag>排序</tag>
       
     </tags>
     
@@ -1299,11 +1299,11 @@
     
     <tags>
       
+      <tag>排序</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>排序</tag>
       
       <tag>链表</tag>
       
@@ -1359,11 +1359,11 @@
     
     <tags>
       
+      <tag>排序</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>排序</tag>
       
       <tag>链表</tag>
       
@@ -1444,11 +1444,11 @@
     
     <tags>
       
+      <tag>排序</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>排序</tag>
       
       <tag>栈</tag>
       
@@ -1556,11 +1556,11 @@
     
     <tags>
       
+      <tag>排序</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>BFS</tag>
-      
-      <tag>排序</tag>
       
     </tags>
     
@@ -1585,11 +1585,11 @@
     
     <tags>
       
+      <tag>排序</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
-      
-      <tag>排序</tag>
       
     </tags>
     
@@ -1921,9 +1921,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>排序</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2056,9 +2056,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>排序</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2083,9 +2083,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>排序</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>优先队列</tag>
       
@@ -2226,11 +2226,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -2257,9 +2257,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -2288,9 +2288,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -2321,9 +2321,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>递归</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -2348,9 +2348,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>排序</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -2379,9 +2379,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>递归</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -2408,9 +2408,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -2750,9 +2750,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -2781,9 +2781,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -3113,11 +3113,11 @@
     
     <tags>
       
+      <tag>排序</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
-      
-      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -3144,11 +3144,11 @@
     
     <tags>
       
+      <tag>排序</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>排序</tag>
       
     </tags>
     
@@ -3341,9 +3341,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -4057,9 +4057,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -4505,9 +4505,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -4826,9 +4826,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
@@ -5004,11 +5004,11 @@
     
     <tags>
       
+      <tag>排序</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>排序</tag>
       
     </tags>
     
@@ -5033,9 +5033,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>排序</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>队列</tag>
       
@@ -5089,9 +5089,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>排序</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -5197,9 +5197,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>排序</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -5307,9 +5307,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>排序</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>优先队列</tag>
       
@@ -5363,9 +5363,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>排序</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -5450,9 +5450,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -5535,9 +5535,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -5566,11 +5566,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -5595,11 +5595,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -5624,11 +5624,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -5653,11 +5653,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -5682,11 +5682,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -5711,9 +5711,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -5740,9 +5740,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -5889,9 +5889,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
@@ -5920,11 +5920,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -5949,11 +5949,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6007,11 +6007,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6036,9 +6036,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
@@ -6094,11 +6094,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6150,9 +6150,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>排序</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -6177,9 +6177,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>排序</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -6204,13 +6204,13 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
-      <tag>哈希表</tag>
+      <tag>排序</tag>
       
       <tag>字符串</tag>
       
-      <tag>排序</tag>
+      <tag>LeetCode</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -6235,9 +6235,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>排序</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -6262,9 +6262,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -6293,9 +6293,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -6322,9 +6322,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -6353,9 +6353,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -6382,9 +6382,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -6411,9 +6411,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -6438,9 +6438,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -6465,9 +6465,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -6492,9 +6492,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -6519,9 +6519,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -6546,9 +6546,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -6573,9 +6573,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -6903,11 +6903,11 @@
     
     <tags>
       
+      <tag>并查集</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>DFS</tag>
-      
-      <tag>并查集</tag>
       
     </tags>
     
@@ -6932,11 +6932,11 @@
     
     <tags>
       
+      <tag>并查集</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>DFS</tag>
-      
-      <tag>并查集</tag>
       
     </tags>
     
@@ -7171,7 +7171,7 @@
     <link href="/2020/08/21/LeetCode-337-house-robber-iii/"/>
     <url>/2020/08/21/LeetCode-337-house-robber-iii/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/house-robber-iii/" target="_blank" rel="noopener">337. 打家劫舍 III</a></p><h1 id="解法一记忆化递归"><a class="markdownIt-Anchor" href="#解法一记忆化递归"></a> 解法一：记忆化递归</h1><pre><code class="hljs java">Map&lt;TreeNode, Integer&gt; memo = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-keyword">if</span> (memo.containsKey(root)) &#123;            <span class="hljs-keyword">return</span> memo.get(root);        &#125;        <span class="hljs-comment">// 打劫根结点</span>        <span class="hljs-keyword">int</span> doRob = root.val;        <span class="hljs-keyword">if</span> (root.left != <span class="hljs-keyword">null</span>) &#123;            doRob += rob(root.left.left) + rob(root.left.right);        &#125;        <span class="hljs-keyword">if</span> (root.right != <span class="hljs-keyword">null</span>) &#123;            doRob += rob(root.right.left) + rob(root.right.right);        &#125;        <span class="hljs-comment">// 不打劫根结点</span>        <span class="hljs-keyword">int</span> notRob = rob(root.left) + rob(root.right);        <span class="hljs-keyword">int</span> res = Math.max(doRob, notRob);        memo.put(root, res);        <span class="hljs-keyword">return</span> res;    &#125;</code></pre><h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1><p>状态：</p><ul><li><code>dp[root][0]</code> - 不打劫 <code>root</code> 结点</li><li><code>dp[root][1]</code> - 打劫 <code>root</code> 结点</li></ul><p>转移方程：</p><ul><li><code>dp[root][0]</code>：左右子结点可选择偷或不偷，取他们的最大值</li><li><code>dp[root][1]</code>：左右子结点不偷</li></ul><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">int</span>[] res = robber(root);    <span class="hljs-keyword">return</span> Math.max(res[<span class="hljs-number">0</span>], res[<span class="hljs-number">1</span>]);&#125;<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] robber(TreeNode root) &#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;;    &#125;    <span class="hljs-comment">// 后序遍历，自底向上，先计算左右结点，再计算 root</span>    <span class="hljs-keyword">int</span>[] left = robber(root.left);    <span class="hljs-keyword">int</span>[] right = robber(root.right);    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>];    <span class="hljs-comment">// 打劫 root</span>    dp[<span class="hljs-number">1</span>] = root.val + left[<span class="hljs-number">0</span>] + right[<span class="hljs-number">0</span>];    <span class="hljs-comment">// 不打劫 root</span>    dp[<span class="hljs-number">0</span>] = Math.max(left[<span class="hljs-number">0</span>], left[<span class="hljs-number">1</span>]) + Math.max(right[<span class="hljs-number">0</span>], right[<span class="hljs-number">1</span>]);    <span class="hljs-keyword">return</span> dp;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/house-robber-iii/" target="_blank" rel="noopener">337. 打家劫舍 III</a></p><h1 id="暴力"><a class="markdownIt-Anchor" href="#暴力"></a> 暴力</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-comment">// 不 rob 孩子</span>    <span class="hljs-keyword">int</span> doNotRobChildren = root.val;    <span class="hljs-comment">// rob 左孙子</span>    <span class="hljs-keyword">if</span> (root.left != <span class="hljs-keyword">null</span>) &#123;        doNotRobChildren += rob(root.left.left) + rob(root.left.right);    &#125;    <span class="hljs-comment">// rob 右孙子</span>    <span class="hljs-keyword">if</span> (root.right != <span class="hljs-keyword">null</span>) &#123;        doNotRobChildren += rob(root.right.left) + rob(root.right.right);    &#125;    <span class="hljs-comment">// rob 孩子</span>    <span class="hljs-keyword">int</span> robChildren = rob(root.left) + rob(root.right);    <span class="hljs-keyword">return</span> Math.max(doNotRobChildren, robChildren);&#125;</code></pre><h1 id="解法一记忆化递归"><a class="markdownIt-Anchor" href="#解法一记忆化递归"></a> 解法一：记忆化递归</h1><pre><code class="hljs java">Map&lt;TreeNode, Integer&gt; memo = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-keyword">if</span> (memo.containsKey(root)) &#123;            <span class="hljs-keyword">return</span> memo.get(root);        &#125;        <span class="hljs-comment">// 打劫根结点</span>        <span class="hljs-keyword">int</span> doRob = root.val;        <span class="hljs-keyword">if</span> (root.left != <span class="hljs-keyword">null</span>) &#123;            doRob += rob(root.left.left) + rob(root.left.right);        &#125;        <span class="hljs-keyword">if</span> (root.right != <span class="hljs-keyword">null</span>) &#123;            doRob += rob(root.right.left) + rob(root.right.right);        &#125;        <span class="hljs-comment">// 不打劫根结点</span>        <span class="hljs-keyword">int</span> notRob = rob(root.left) + rob(root.right);        <span class="hljs-keyword">int</span> res = Math.max(doRob, notRob);        memo.put(root, res);        <span class="hljs-keyword">return</span> res;    &#125;</code></pre><h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1><p>状态：</p><ul><li><code>dp[root][0]</code> - 不打劫 <code>root</code> 结点</li><li><code>dp[root][1]</code> - 打劫 <code>root</code> 结点</li></ul><p>转移方程：</p><ul><li><code>dp[root][0]</code>：左右子结点可选择偷或不偷，取他们的最大值</li><li><code>dp[root][1]</code>：左右子结点不偷</li></ul><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">int</span>[] res = robber(root);    <span class="hljs-keyword">return</span> Math.max(res[<span class="hljs-number">0</span>], res[<span class="hljs-number">1</span>]);&#125;<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] robber(TreeNode root) &#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;;    &#125;    <span class="hljs-comment">// 后序遍历，自底向上，先计算左右结点，再计算 root</span>    <span class="hljs-keyword">int</span>[] left = robber(root.left);    <span class="hljs-keyword">int</span>[] right = robber(root.right);    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>];    <span class="hljs-comment">// 打劫 root</span>    dp[<span class="hljs-number">1</span>] = root.val + left[<span class="hljs-number">0</span>] + right[<span class="hljs-number">0</span>];    <span class="hljs-comment">// 不打劫 root</span>    dp[<span class="hljs-number">0</span>] = Math.max(left[<span class="hljs-number">0</span>], left[<span class="hljs-number">1</span>]) + Math.max(right[<span class="hljs-number">0</span>], right[<span class="hljs-number">1</span>]);    <span class="hljs-keyword">return</span> dp;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -7349,11 +7349,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7868,6 +7868,8 @@
     
     <tags>
       
+      <tag>并查集</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>BFS</tag>
@@ -7875,8 +7877,6 @@
       <tag>DFS</tag>
       
       <tag>回溯</tag>
-      
-      <tag>并查集</tag>
       
     </tags>
     
