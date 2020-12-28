@@ -233,10 +233,11 @@ public int longestValidParentheses(String s) &#123;
         
         <div>20. 有效的括号
 public boolean isValid(String s) &#123;
-    Deque&lt;Character&gt; stack = new ArrayDeque&lt;&gt;();
-    Map&lt;Character, Character&gt; map = new HashMap&lt;&gt;(3);
+    Map&lt;Character, Character&gt; map = new HashMap&lt;&gt;();
     map.put(')', '(');
-</div>
+    map.put('&#125;', '&#123;');
+    map.put(']', '[');
+    Li</div>
       </a>
 
       <div class="index-btm post-metas">

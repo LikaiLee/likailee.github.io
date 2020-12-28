@@ -246,9 +246,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1361,9 +1361,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -2578,9 +2578,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -2609,11 +2609,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -2841,9 +2841,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>树</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3204,9 +3204,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3233,9 +3233,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3370,9 +3370,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4395,9 +4395,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -4534,9 +4534,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -4621,9 +4621,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -4797,11 +4797,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -5800,9 +5800,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -5997,7 +5997,7 @@
     <link href="/2020/09/05/LeetCode-20-valid-parentheses/"/>
     <url>/2020/09/05/LeetCode-20-valid-parentheses/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/valid-parentheses/" target="_blank" rel="noopener">20. 有效的括号</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValid</span><span class="hljs-params">(String s)</span> </span>&#123;    Deque&lt;Character&gt; stack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    Map&lt;Character, Character&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(<span class="hljs-number">3</span>);    map.put(<span class="hljs-string">')'</span>, <span class="hljs-string">'('</span>);    map.put(<span class="hljs-string">'&#125;'</span>, <span class="hljs-string">'&#123;'</span>);    map.put(<span class="hljs-string">']'</span>, <span class="hljs-string">'['</span>);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; s.length(); i++) &#123;        <span class="hljs-keyword">char</span> c = s.charAt(i);        <span class="hljs-comment">// 右括号</span>        <span class="hljs-keyword">if</span> (map.containsKey(c)) &#123;            <span class="hljs-keyword">char</span> top = stack.isEmpty() ? <span class="hljs-string">'#'</span> : stack.pop();            <span class="hljs-comment">// 和栈顶元素不匹配，直接返回</span>            <span class="hljs-comment">// 因为后续元素不会与当前右括号匹配</span>            <span class="hljs-keyword">if</span> (top != map.get(c)) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// 左括号 || 栈为空 直接入栈</span>            stack.push(c);        &#125;    &#125;    <span class="hljs-keyword">return</span> stack.isEmpty();&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/valid-parentheses/" target="_blank" rel="noopener">20. 有效的括号</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValid</span><span class="hljs-params">(String s)</span> </span>&#123;    Map&lt;Character, Character&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    map.put(<span class="hljs-string">')'</span>, <span class="hljs-string">'('</span>);    map.put(<span class="hljs-string">'&#125;'</span>, <span class="hljs-string">'&#123;'</span>);    map.put(<span class="hljs-string">']'</span>, <span class="hljs-string">'['</span>);    LinkedList&lt;Character&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> right : s.toCharArray()) &#123;        <span class="hljs-comment">// 当前为右括号</span>        <span class="hljs-keyword">if</span> (map.containsKey(right)) &#123;            <span class="hljs-comment">// 若栈顶与当前的右括号不匹配，则无效</span>            <span class="hljs-keyword">if</span> (stack.isEmpty() || !map.get(right).equals(stack.pop())) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;        &#125; <span class="hljs-keyword">else</span> &#123;            stack.push(right);        &#125;    &#125;    <span class="hljs-keyword">return</span> stack.isEmpty();&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -7214,9 +7214,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
