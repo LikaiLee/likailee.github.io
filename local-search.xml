@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 330. 按要求补齐数组</title>
+    <link href="/2020/12/29/LeetCode-330-patching-array/"/>
+    <url>/2020/12/29/LeetCode-330-patching-array/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/patching-array/" target="_blank" rel="noopener">330. 按要求补齐数组</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minPatches</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> n)</span> </span>&#123;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 需要覆盖到的数</span>    <span class="hljs-keyword">long</span> x = <span class="hljs-number">1</span>;    <span class="hljs-comment">// 当前使用的数组元素个数</span>    <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 数组的原始长度：未添加新元素</span>    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-keyword">while</span> (x &lt;= n) &#123;        <span class="hljs-comment">// 数组的和可以组成 x</span>        <span class="hljs-keyword">if</span> (index &lt; len &amp;&amp; nums[index] &lt;= x) &#123;            <span class="hljs-comment">// 更新 x，可覆盖 [1, x + nums[index]]</span>            x += nums[index];            index++;        &#125;        <span class="hljs-comment">// 数组的和无法组成 x</span>        <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// 往数组中添加 x</span>            <span class="hljs-comment">// 覆盖范围翻倍</span>            x *= <span class="hljs-number">2</span>;            count++;        &#125;    &#125;    <span class="hljs-keyword">return</span> count;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>贪心</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 21. 合并两个有序链表</title>
     <link href="/2020/12/28/LeetCode-21-merge-two-sorted-lists/"/>
     <url>/2020/12/28/LeetCode-21-merge-two-sorted-lists/</url>
@@ -244,9 +271,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -447,9 +474,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -621,9 +648,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -650,11 +677,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -681,9 +708,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -936,9 +963,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2282,11 +2309,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2313,9 +2340,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -2344,9 +2371,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -2377,9 +2404,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -2435,9 +2462,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -2464,9 +2491,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -2806,9 +2833,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -2837,9 +2864,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -3231,9 +3258,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3260,9 +3287,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3397,9 +3424,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4113,9 +4140,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -4422,9 +4449,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -4561,9 +4588,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -4648,9 +4675,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -4824,11 +4851,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -5448,9 +5475,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5477,9 +5504,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
