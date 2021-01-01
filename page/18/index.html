@@ -170,6 +170,57 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/29/LeetCode-1423-maximum-points-you-can-obtain-from-cards/">LeetCode 1423. 可获得的最大点数</a>
+
+      <a href="/2020/09/29/LeetCode-1423-maximum-points-you-can-obtain-from-cards/" class="index-excerpt">
+        
+        
+          
+        
+        <div>1423. 可获得的最大点数
+左边取 i 个，则右边取 k - i 个，依次比较最大值。
+public int maxScore(int[] cardPoints, int k) &#123;
+    int len = cardPoints.length;
+    int leftSum = 0;
+    int rightSum = 0;
+    // 右边 k 个之和
+    for (in</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-29
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+              <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/09/29/LeetCode-offer-59-II-dui-lie-de-zui-da-zhi-lcof/">剑指 Offer 59 - II. 队列的最大值</a>
 
       <a href="/2020/09/29/LeetCode-offer-59-II-dui-lie-de-zui-da-zhi-lcof/" class="index-excerpt">
@@ -464,11 +515,11 @@ public int maxTurbulenceSize(int[] A) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
               <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
             
               <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
             
           </div>
         
@@ -566,11 +617,11 @@ public boolean checkInclusion(String s1, String s2) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
               <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
             
               <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
             
           </div>
         
@@ -620,58 +671,6 @@ public int characterReplacement(String s, int k) &#123;
               <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
             
               <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/24/LeetCode-239-sliding-window-maximum/">LeetCode 239. 滑动窗口最大值</a>
-
-      <a href="/2020/09/24/LeetCode-239-sliding-window-maximum/" class="index-excerpt">
-        
-        
-          
-        
-        <div>239. 滑动窗口最大值
-public int[] maxSlidingWindow(int[] nums, int k) &#123;
-    int len = nums.length;
-    int[] res = new int[len - k + 1];
-    int j = 0;
-    // 单调递减队列：队首 &gt; 队尾
-    // 维护窗口内的最大值，当队首不在窗口内时</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-24
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-              <a href="/tags/%E9%98%9F%E5%88%97/">队列</a>
             
           </div>
         
@@ -744,7 +743,7 @@ public int[] maxSlidingWindow(int[] nums, int k) &#123;
       Crafted with
       <i class="iconfont icon-love" style="color: #f30;"></i>
       by <a href="https://github.com/likailee" target="_blank" rel="noopener">Likai Lee</a>
-      | &copy; 2017 - 2020
+      | &copy; 2017 - 2021
       <!-- <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
         <span>Fluid</span></a> -->
     </div>
