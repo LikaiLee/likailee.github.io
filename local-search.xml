@@ -3401,9 +3401,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3430,9 +3430,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4592,9 +4592,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -4702,9 +4702,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4818,9 +4818,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4994,11 +4994,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5054,11 +5054,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5100,7 +5100,7 @@
     <link href="/2020/09/24/LeetCode-239-sliding-window-maximum/"/>
     <url>/2020/09/24/LeetCode-239-sliding-window-maximum/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/sliding-window-maximum/" target="_blank" rel="noopener">239. 滑动窗口最大值</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] maxSlidingWindow(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k) &#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len - k + <span class="hljs-number">1</span>];    <span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 单调递减队列：队首 &gt; 队尾</span>    <span class="hljs-comment">// 维护窗口内的最大值，当队首不在窗口内时则移除</span>    ArrayDeque&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 移除队列中比当前值小的元素</span>        <span class="hljs-keyword">while</span> (!queue.isEmpty() &amp;&amp; nums[queue.peekLast()] &lt; nums[i]) &#123;            queue.removeLast();        &#125;        <span class="hljs-comment">// 添加当前元素</span>        queue.add(i);        <span class="hljs-comment">// 判断队首值是否在窗口内，若不在则移除</span>        <span class="hljs-keyword">if</span> (queue.getFirst() &lt;= i - k) &#123;            queue.removeFirst();        &#125;        <span class="hljs-comment">// 形成有效窗口大小</span>        <span class="hljs-keyword">if</span> (i &gt;= k - <span class="hljs-number">1</span>) &#123;            res[j++] = nums[queue.getFirst()];        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/sliding-window-maximum/" target="_blank" rel="noopener">239. 滑动窗口最大值</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] maxSlidingWindow(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k) &#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len - k + <span class="hljs-number">1</span>];    <span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 单调递减队列：队首 &gt; 队尾</span>    <span class="hljs-comment">// 维护窗口内的最大值，当队首不在窗口内时则移除</span>    ArrayDeque&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 移除队列中比当前值小的元素</span>        <span class="hljs-keyword">while</span> (!queue.isEmpty() &amp;&amp; nums[queue.peekLast()] &lt; nums[i]) &#123;            queue.removeLast();        &#125;        <span class="hljs-comment">// 添加当前元素</span>        queue.add(i);        <span class="hljs-comment">// 判断队首值是否在窗口内，若不在则移除</span>        <span class="hljs-keyword">if</span> (queue.getFirst() &lt;= i - k) &#123;            queue.removeFirst();        &#125;        <span class="hljs-comment">// 形成有效窗口大小</span>        <span class="hljs-keyword">if</span> (i &gt;= k - <span class="hljs-number">1</span>) &#123;            res[j++] = nums[queue.getFirst()];        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre><h1 id="大顶堆超时"><a class="markdownIt-Anchor" href="#大顶堆超时"></a> 大顶堆（超时）</h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] maxSlidingWindow(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k) &#123;    <span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> len = nums.length;    PriorityQueue&lt;Integer&gt; maxHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; o2 - o1);    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len - k + <span class="hljs-number">1</span>];    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        <span class="hljs-comment">// 可形成窗口</span>        <span class="hljs-keyword">if</span> (maxHeap.size() &gt;= k) &#123;            <span class="hljs-comment">// 删除不在窗口内的左边界</span>            maxHeap.remove(nums[right - k]);        &#125;        <span class="hljs-comment">// 添加当前元素</span>        maxHeap.add(nums[right]);        <span class="hljs-keyword">if</span> (right &gt;= k - <span class="hljs-number">1</span>) &#123;            res[i++] = maxHeap.peek();        &#125;        right++;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -5939,9 +5939,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5968,9 +5968,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6117,11 +6117,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6264,9 +6264,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6490,9 +6490,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6521,9 +6521,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6581,9 +6581,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6610,9 +6610,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
