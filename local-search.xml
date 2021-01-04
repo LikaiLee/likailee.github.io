@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 1319. 连通网络的操作次数</title>
+    <link href="/2021/01/04/LeetCode-1319-number-of-operations-to-make-network-connected/"/>
+    <url>/2021/01/04/LeetCode-1319-number-of-operations-to-make-network-connected/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/number-of-operations-to-make-network-connected/" target="_blank" rel="noopener">1319. 连通网络的操作次数</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">makeConnected</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span>[][] connections)</span> </span>&#123;    UnionFind uf = <span class="hljs-keyword">new</span> UnionFind(n);    <span class="hljs-keyword">int</span> canRelease = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] c : connections) &#123;        <span class="hljs-comment">// 已经连接，可以拔下它们之间的线</span>        <span class="hljs-keyword">if</span> (uf.isConnected(c[<span class="hljs-number">0</span>], c[<span class="hljs-number">1</span>])) &#123;            canRelease++;        &#125; <span class="hljs-keyword">else</span> &#123;            uf.union(c[<span class="hljs-number">0</span>], c[<span class="hljs-number">1</span>]);        &#125;    &#125;    <span class="hljs-comment">// 未连接的个数</span>    <span class="hljs-keyword">int</span> require = uf.getCount() - <span class="hljs-number">1</span>;    <span class="hljs-keyword">return</span> require &gt; canRelease ? -<span class="hljs-number">1</span> : require;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>并查集</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 684. 冗余连接</title>
     <link href="/2021/01/04/LeetCode-684-redundant-connection/"/>
     <url>/2021/01/04/LeetCode-684-redundant-connection/</url>
@@ -990,9 +1017,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>贪心</tag>
       
       <tag>回溯</tag>
       
@@ -1274,9 +1301,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -2628,9 +2655,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -2686,9 +2713,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -5904,9 +5931,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5933,9 +5960,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5962,9 +5989,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5991,9 +6018,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6258,9 +6285,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -6316,9 +6343,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6403,9 +6430,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7658,9 +7685,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
