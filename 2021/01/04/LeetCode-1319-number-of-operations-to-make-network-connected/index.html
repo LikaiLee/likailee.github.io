@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      83 字
+      154 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      2
        分钟
     </span>
   
@@ -213,6 +213,12 @@
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/number-of-operations-to-make-network-connected/" target="_blank" rel="noopener">1319. 连通网络的操作次数</a></p>
+<blockquote>
+<p>不能使用 <code>connected[i]</code> 数组判断，因为不知道 <code>i</code> 连接的是哪个连通分量。可能存在多个连通分量，如：</p>
+</blockquote>
+<pre><code class="hljs json"><span class="hljs-number">6</span>
+[[<span class="hljs-number">0</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">3</span>],[<span class="hljs-number">4</span>,<span class="hljs-number">5</span>],[<span class="hljs-number">0</span>,<span class="hljs-number">3</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]]</code></pre>
+<p>所有的结点都已经被访问过了，会 <code>return 0</code>，实际上需要 <code>return 1</code>。</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">makeConnected</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span>[][] connections)</span> </span>&#123;
     UnionFind uf = <span class="hljs-keyword">new</span> UnionFind(n);
     <span class="hljs-keyword">int</span> canRelease = <span class="hljs-number">0</span>;

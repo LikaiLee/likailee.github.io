@@ -178,11 +178,13 @@
           
         
         <div>1319. 连通网络的操作次数
-public int makeConnected(int n, int[][] connections) &#123;
-    UnionFind uf = new UnionFind(n);
-    int canRelease = 0;
-    for (int[] c : connections) &#123;
-        // 已经连接，可以拔下它们之间</div>
+
+不能使用 connected[i] 数组判断，因为不知道 i 连接的是哪个连通分量。可能存在多个连通分量，如：
+
+6
+[[0,2],[1,3],[4,5],[0,3],[1,2]]
+所有的结点都已经被访问过了，会 return 0，实际上需要 return 1。
+public int makeConnected(int n, int[][] connections</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -494,11 +496,11 @@ public boolean isSymmetric(TreeNode root) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
+              <a href="/tags/%E6%A0%91/">树</a>
+            
               <a href="/tags/BFS/">BFS</a>
             
               <a href="/tags/DFS/">DFS</a>
-            
-              <a href="/tags/%E6%A0%91/">树</a>
             
           </div>
         
