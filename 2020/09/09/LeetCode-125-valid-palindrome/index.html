@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      136 字
+      128 字
     </span>
   
 
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月9日 上午
+                  本文最后更新于：2021年1月4日 晚上
                 
               </p>
             
@@ -215,24 +215,20 @@
               <p><a href="https://leetcode-cn.com/problems/valid-palindrome/" target="_blank" rel="noopener">125. 验证回文串</a></p>
 <h1 id="双指针"><a class="markdownIt-Anchor" href="#双指针"></a> 双指针</h1>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(String s)</span> </span>&#123;
-    s = s.toLowerCase();
-    <span class="hljs-keyword">int</span> right = s.length() - <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">if</span> (right &lt; <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-    &#125;
-    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">while</span> (left &lt; right) &#123;
-        <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; !Character.isLetterOrDigit(s.charAt(left))) &#123;
-            left++;
+    <span class="hljs-keyword">char</span>[] str = s.toCharArray();
+    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = str.length - <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">while</span> (i &lt; j) &#123;
+        <span class="hljs-keyword">while</span> (i &lt; j &amp;&amp; !Character.isLetterOrDigit(str[i])) &#123;
+            i++;
         &#125;
-        <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; !Character.isLetterOrDigit(s.charAt(right))) &#123;
-            right--;
+        <span class="hljs-keyword">while</span> (i &lt; j &amp;&amp; !Character.isLetterOrDigit(str[j])) &#123;
+            j--;
         &#125;
-        <span class="hljs-keyword">if</span> (s.charAt(left) != s.charAt(right)) &#123;
+        <span class="hljs-keyword">if</span> (Character.toLowerCase(str[i]) != Character.toLowerCase(str[j])) &#123;
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
         &#125;
-        left++;
-        right--;
+        i++;
+        j--;
     &#125;
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
 &#125;</code></pre>
