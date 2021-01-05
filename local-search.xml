@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 540. 有序数组中的单一元素</title>
+    <link href="/2021/01/05/LeetCode-540-single-element-in-a-sorted-array/"/>
+    <url>/2021/01/05/LeetCode-540-single-element-in-a-sorted-array/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/single-element-in-a-sorted-array/" target="_blank" rel="noopener">540. 有序数组中的单一元素</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">singleNonDuplicate</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> right = nums.length - <span class="hljs-number">1</span>;    <span class="hljs-keyword">while</span> (left &lt; right) &#123;        <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;        <span class="hljs-comment">// [3,3,7,7,10,11,11]</span>        <span class="hljs-keyword">boolean</span> isOdd = (right - mid) % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>;        <span class="hljs-comment">// mid 和 左边相等，查看左边</span>        <span class="hljs-keyword">if</span> (nums[mid] == nums[mid - <span class="hljs-number">1</span>]) &#123;            <span class="hljs-comment">// 左边偶数个</span>            <span class="hljs-comment">// 3,3,7,7(mid), 10,11,11</span>            <span class="hljs-keyword">if</span> ((mid - left + <span class="hljs-number">1</span>) % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) &#123;                left = mid + <span class="hljs-number">1</span>;            &#125;            <span class="hljs-comment">// 左边奇数个，target 在左边</span>            <span class="hljs-comment">// 3,3,7(mid), 10,11,11</span>            <span class="hljs-keyword">else</span> &#123;                right = mid - <span class="hljs-number">2</span>;            &#125;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] == nums[mid + <span class="hljs-number">1</span>]) &#123;            <span class="hljs-keyword">if</span> ((right - mid + <span class="hljs-number">1</span>) % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) &#123;                right = mid - <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> &#123;                left = mid + <span class="hljs-number">2</span>;            &#125;        &#125;        <span class="hljs-comment">// nums[mid] 和左右都不等</span>        <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">return</span> nums[mid];        &#125;    &#125;    <span class="hljs-keyword">return</span> nums[left];&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>二分</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 945. 使数组唯一的最小增量</title>
     <link href="/2021/01/05/LeetCode-945-minimum-increment-to-make-array-unique/"/>
     <url>/2021/01/05/LeetCode-945-minimum-increment-to-make-array-unique/</url>
@@ -1693,9 +1720,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
       <tag>链表</tag>
       
@@ -1753,9 +1780,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
       <tag>链表</tag>
       
@@ -1838,9 +1865,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -3204,9 +3231,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>树</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5398,9 +5425,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>排序</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     

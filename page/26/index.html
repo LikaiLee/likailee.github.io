@@ -170,6 +170,55 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/28/LeetCode-190-reverse-bits/">LeetCode 190. 颠倒二进制位</a>
+
+      <a href="/2020/08/28/LeetCode-190-reverse-bits/" class="index-excerpt">
+        
+        
+          
+        
+        <div>190. 颠倒二进制位
+ 解法一
+逐位移动，n 从右往左取，取出的每一位放到 res 中，res 从左往右放。
+public int reverseBits(int n) &#123;
+    int res = 0;
+    int mask = 31;
+    for (int i = 0; i &lt; 32; i++) &#123;
+        // 先左移空出最右边一位，再加上 n </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-28
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/28/LeetCode-50-powx-n/">LeetCode 50. Pow(x, n)</a>
 
       <a href="/2020/08/28/LeetCode-50-powx-n/" class="index-excerpt">
@@ -634,56 +683,6 @@ public int findCircleNum(int[][] M) &#123;
               <a href="/tags/DFS/">DFS</a>
             
               <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/24/LeetCode-212-word-search-ii/">LeetCode 212. 单词搜索 II</a>
-
-      <a href="/2020/08/24/LeetCode-212-word-search-ii/" class="index-excerpt">
-        
-        
-          
-        
-        <div>212. 单词搜索 II
-坑：查找前缀时，若找到 word，不能 return，否则递归结束会导致与 word 同前缀的单词丢失，如 aaba 和 aaab，只能找到 aaba。
-还是对前缀树理解不够，找了好久才发现。
-public class Solution &#123;
-    int[][] dirs = &#123;&#123;1, 0&#125;, &#123;-1, 0&#125;,</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-24
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/DFS/">DFS</a>
-            
-              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-              <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">字典树</a>
             
           </div>
         
