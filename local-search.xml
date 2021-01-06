@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 399. 除法求值</title>
+    <link href="/2021/01/06/LeetCode-399-evaluate-division/"/>
+    <url>/2021/01/06/LeetCode-399-evaluate-division/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/evaluate-division/" target="_blank" rel="noopener">399. 除法求值</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span>[] calcEquation(List&lt;List&lt;String&gt;&gt; equations, <span class="hljs-keyword">double</span>[] values, List&lt;List&lt;String&gt;&gt; queries) &#123;    <span class="hljs-comment">// 每个 equation 两个字母，映射到并查集 2 * size 个元素</span>    <span class="hljs-keyword">int</span> size = equations.size();    Map&lt;String, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(size * <span class="hljs-number">2</span>);    UnionFind uf = <span class="hljs-keyword">new</span> UnionFind(size * <span class="hljs-number">2</span>);    <span class="hljs-comment">// equation 中的字母在并查集中的索引</span>    <span class="hljs-keyword">int</span> id = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++) &#123;        List&lt;String&gt; equation = equations.get(i);        String x = equation.get(<span class="hljs-number">0</span>);        String y = equation.get(<span class="hljs-number">1</span>);        map.putIfAbsent(x, id++);        map.putIfAbsent(y, id++);        <span class="hljs-comment">// x / y = values[i]</span>        uf.union(map.get(x), map.get(y), values[i]);    &#125;    <span class="hljs-keyword">int</span> querySize = queries.size();    <span class="hljs-keyword">double</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">double</span>[querySize];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; querySize; i++) &#123;        List&lt;String&gt; query = queries.get(i);        String x = query.get(<span class="hljs-number">0</span>);        String y = query.get(<span class="hljs-number">1</span>);        <span class="hljs-keyword">if</span> (!map.containsKey(x) || !map.containsKey(y)) &#123;            res[i] = -<span class="hljs-number">1.0</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">double</span> divide = uf.connected(map.get(x), map.get(y));            res[i] = divide;        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;<span class="hljs-keyword">private</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UnionFind</span> </span>&#123;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] parent;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span>[] weight;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UnionFind</span><span class="hljs-params">(<span class="hljs-keyword">int</span> size)</span> </span>&#123;        <span class="hljs-keyword">this</span>.parent = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[size];        <span class="hljs-keyword">this</span>.weight = <span class="hljs-keyword">new</span> <span class="hljs-keyword">double</span>[size];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++) &#123;            parent[i] = i;            weight[i] = <span class="hljs-number">1.0</span>;        &#125;    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">union</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">double</span> value)</span> </span>&#123;        <span class="hljs-keyword">int</span> rootX = findRoot(x);        <span class="hljs-keyword">int</span> rootY = findRoot(y);        <span class="hljs-keyword">if</span> (rootX == rootY) &#123;            <span class="hljs-keyword">return</span>;        &#125;        <span class="hljs-comment">// x 的根节点连到 y 的根节点</span>        <span class="hljs-comment">// x 和 y 之间没有直接连接</span>        parent[rootX] = rootY;        <span class="hljs-comment">// x -&gt; rootX -&gt; rootY</span>        <span class="hljs-comment">// x &gt;(value) y -&gt; rootY</span>        <span class="hljs-comment">// 两条路径的权值相等</span>        weight[rootX] = value * weight[y] / weight[x];    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findRoot</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;        <span class="hljs-keyword">while</span> (x != parent[x]) &#123;            <span class="hljs-keyword">int</span> p = parent[x];            <span class="hljs-comment">// 路径压缩，所有节点都能连到根节点</span>            parent[x] = findRoot(parent[x]);            <span class="hljs-comment">// 更新权值</span>            <span class="hljs-comment">// 从   x -&gt; parent[x] -&gt; p[p[x]]</span>            <span class="hljs-comment">// 变为  x -&gt; p[p[x]]</span>            weight[x] *= weight[p];            x = parent[x];        &#125;        <span class="hljs-keyword">return</span> x;    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">connected</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;        <span class="hljs-keyword">int</span> rootX = findRoot(x);        <span class="hljs-keyword">int</span> rootY = findRoot(y);        <span class="hljs-comment">// 根节点相同说明能转为同一个字母，才能相除</span>        <span class="hljs-keyword">return</span> rootX == rootY ? weight[x] / weight[y] : -<span class="hljs-number">1.0</span>;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>并查集</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 540. 有序数组中的单一元素</title>
     <link href="/2021/01/05/LeetCode-540-single-element-in-a-sorted-array/"/>
     <url>/2021/01/05/LeetCode-540-single-element-in-a-sorted-array/</url>
@@ -1720,9 +1747,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>链表</tag>
       
@@ -1780,9 +1807,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>链表</tag>
       
@@ -1865,9 +1892,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
       <tag>栈</tag>
       
@@ -3231,9 +3258,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -5425,9 +5452,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
