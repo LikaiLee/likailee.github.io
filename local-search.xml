@@ -298,11 +298,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -634,9 +634,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -837,9 +837,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -1326,9 +1326,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -2672,11 +2672,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -2703,9 +2703,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -2734,9 +2734,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -2854,9 +2854,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -3196,9 +3196,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -3227,9 +3227,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -3258,9 +3258,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>树</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3787,9 +3787,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -4503,9 +4503,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -4951,9 +4951,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -7362,11 +7362,11 @@
   
   
   <entry>
-    <title>LeetCode 547. 朋友圈</title>
-    <link href="/2020/08/25/LeetCode-547-friend-circles/"/>
-    <url>/2020/08/25/LeetCode-547-friend-circles/</url>
+    <title>LeetCode 547. 省份数量</title>
+    <link href="/2020/08/25/LeetCode-547-number-of-provinces/"/>
+    <url>/2020/08/25/LeetCode-547-number-of-provinces/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/friend-circles/" target="_blank" rel="noopener">547. 朋友圈</a></p><h1 id="dfs"><a class="markdownIt-Anchor" href="#dfs"></a> DFS</h1><pre><code class="hljs java"><span class="hljs-keyword">boolean</span>[] visited;<span class="hljs-keyword">int</span> n;<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findCircleNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] M)</span> </span>&#123;    n = M.length;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    visited = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[n];    <span class="hljs-comment">// i 表示第 i 个人</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;        <span class="hljs-keyword">if</span> (!visited[i]) &#123;            count++;            dfs(i, M);        &#125;    &#125;    <span class="hljs-keyword">return</span> count;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span>[][] m)</span> </span>&#123;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++) &#123;        <span class="hljs-comment">// i 和 j 为朋友，则从 j 开始递归查找</span>        <span class="hljs-comment">// 直到 j 的朋友为空</span>        <span class="hljs-keyword">if</span> (m[i][j] == <span class="hljs-number">1</span> &amp;&amp; !visited[j]) &#123;            visited[j] = <span class="hljs-keyword">true</span>;            dfs(j, m);        &#125;    &#125;&#125;</code></pre><h1 id="并查集"><a class="markdownIt-Anchor" href="#并查集"></a> 并查集</h1><p>并查集的连通分量数就是朋友圈的数量。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findCircleNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] M)</span> </span>&#123;    <span class="hljs-keyword">int</span> n = M.length;    UnionFind uf = <span class="hljs-keyword">new</span> UnionFind(n);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; M[<span class="hljs-number">0</span>].length; j++) &#123;            <span class="hljs-keyword">if</span> (M[i][j] == <span class="hljs-number">1</span>) &#123;                uf.union(i, j);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> uf.getCount();&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/number-of-provinces/" target="_blank" rel="noopener">547. 省份数量</a></p><h1 id="dfs"><a class="markdownIt-Anchor" href="#dfs"></a> DFS</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findCircleNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] isConnected)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = isConnected.length;    <span class="hljs-keyword">boolean</span>[] visited = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[len];    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 当前节点未被访问，为一个新的连通域</span>        <span class="hljs-keyword">if</span> (!visited[i]) &#123;            count++;            dfs(i, len, isConnected, visited);        &#125;    &#125;    <span class="hljs-keyword">return</span> count;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> len, <span class="hljs-keyword">int</span>[][] isConnected, <span class="hljs-keyword">boolean</span>[] visited)</span> </span>&#123;    visited[i] = <span class="hljs-keyword">true</span>;    <span class="hljs-comment">// 对 i 的每个连通节点递归标记访问</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; len; j++) &#123;        <span class="hljs-comment">// i, j 连通 &amp;&amp; j 未被访问</span>        <span class="hljs-keyword">if</span> (isConnected[i][j] == <span class="hljs-number">1</span> &amp;&amp; !visited[j]) &#123;            dfs(j, len, isConnected, visited);        &#125;    &#125;&#125;</code></pre><h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findCircleNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] isConnected)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = isConnected.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">boolean</span>[] visited = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[len];    LinkedList&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">if</span> (visited[i]) &#123;            <span class="hljs-keyword">continue</span>;        &#125;        count++;        queue.add(i);        visited[i] = <span class="hljs-keyword">true</span>;        <span class="hljs-comment">// 标记与 i 连接的所有节点</span>        <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;            <span class="hljs-keyword">int</span> cur = queue.poll();            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; len; j++) &#123;                <span class="hljs-keyword">if</span> (isConnected[cur][j] == <span class="hljs-number">1</span> &amp;&amp; !visited[j]) &#123;                    queue.add(j);                    visited[j] = <span class="hljs-keyword">true</span>;                &#125;            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> count;&#125;</code></pre><h1 id="并查集"><a class="markdownIt-Anchor" href="#并查集"></a> 并查集</h1><p>并查集的连通分量数就是朋友圈的数量。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findCircleNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] M)</span> </span>&#123;    <span class="hljs-keyword">int</span> n = M.length;    UnionFind uf = <span class="hljs-keyword">new</span> UnionFind(n);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; M[<span class="hljs-number">0</span>].length; j++) &#123;            <span class="hljs-keyword">if</span> (M[i][j] == <span class="hljs-number">1</span>) &#123;                uf.union(i, j);            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> uf.getCount();&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -7379,6 +7379,8 @@
     <tags>
       
       <tag>LeetCode</tag>
+      
+      <tag>BFS</tag>
       
       <tag>DFS</tag>
       
