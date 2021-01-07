@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 172. 阶乘后的零</title>
+    <link href="/2021/01/07/LeetCode-172-factorial-trailing-zeroes/"/>
+    <url>/2021/01/07/LeetCode-172-factorial-trailing-zeroes/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/factorial-trailing-zeroes/" target="_blank" rel="noopener">172. 阶乘后的零</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">trailingZeroes</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (n &gt;= <span class="hljs-number">5</span>) &#123;        count += n / <span class="hljs-number">5</span>;        n /= <span class="hljs-number">5</span>;    &#125;    <span class="hljs-keyword">return</span> count;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>数学</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 399. 除法求值</title>
     <link href="/2021/01/06/LeetCode-399-evaluate-division/"/>
     <url>/2021/01/06/LeetCode-399-evaluate-division/</url>
