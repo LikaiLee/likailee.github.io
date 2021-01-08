@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      97 字
+      253 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      4
        分钟
     </span>
   
@@ -207,12 +207,13 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月21日 晚上
+                  本文最后更新于：2021年1月8日 晚上
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/rotate-array/" target="_blank" rel="noopener">189. 旋转数组</a></p>
+<h1 id="三次翻转"><a class="markdownIt-Anchor" href="#三次翻转"></a> 三次翻转</h1>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
     <span class="hljs-keyword">int</span> len = nums.length;
     <span class="hljs-comment">// 每次反转都有 k % n 个 数字被移动到前部</span>
@@ -232,6 +233,42 @@
         nums[end] = t;
         start++;
         end--;
+    &#125;
+&#125;</code></pre>
+<h1 id="依次移动"><a class="markdownIt-Anchor" href="#依次移动"></a> 依次移动</h1>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> len = nums.length;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; k; i++) &#123;
+        <span class="hljs-keyword">int</span> end = nums[len - <span class="hljs-number">1</span>];
+        <span class="hljs-comment">// 每个元素依次后移</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = len - <span class="hljs-number">1</span>; j &gt; <span class="hljs-number">0</span>; j--) &#123;
+            nums[j] = nums[j - <span class="hljs-number">1</span>];
+        &#125;
+        <span class="hljs-comment">// 末尾元素移到前面</span>
+        nums[<span class="hljs-number">0</span>] = end;
+    &#125;
+&#125;</code></pre>
+<h1 id="环形移动"><a class="markdownIt-Anchor" href="#环形移动"></a> 环形移动</h1>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> len = nums.length;
+    <span class="hljs-keyword">int</span> placed = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span> (placed &lt; len) &#123;
+        <span class="hljs-keyword">int</span> cur = start;
+        <span class="hljs-keyword">int</span> curVal = nums[cur];
+        <span class="hljs-keyword">do</span> &#123;
+            <span class="hljs-comment">// cur 的目标位置</span>
+            <span class="hljs-keyword">int</span> next = (cur + k) % len;
+            <span class="hljs-keyword">int</span> nextVal = nums[next];
+            nums[next] = curVal;
+            <span class="hljs-comment">// 下一轮放置 next</span>
+            cur = next;
+            curVal = nextVal;
+            placed++;
+        &#125; <span class="hljs-keyword">while</span> (cur != start);
+        <span class="hljs-comment">// cur == start，放置下一个位置</span>
+        start++;
+        System.out.println(start);
     &#125;
 &#125;</code></pre>
             </article>
