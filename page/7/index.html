@@ -170,6 +170,56 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/11/23/LeetCode-538-convert-bst-to-greater-tree/">LeetCode 538. 把二叉搜索树转换为累加树</a>
+
+      <a href="/2020/11/23/LeetCode-538-convert-bst-to-greater-tree/" class="index-excerpt">
+        
+        
+          
+        
+        <div>538. 把二叉搜索树转换为累加树
+public TreeNode convertBST(TreeNode root) &#123;
+    dfs(root, 0);
+    return root;
+&#125;
+
+private int dfs(TreeNode root, int sum) &#123;
+    if (root == null) &#123;
+        return</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-11-23
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E6%A0%91/">树</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/11/23/LeetCode-343-integer-break/">LeetCode 343. 整数拆分</a>
 
       <a href="/2020/11/23/LeetCode-343-integer-break/" class="index-excerpt">
@@ -253,9 +303,9 @@ public int findMinArrowShots(int[][] points) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
-            
               <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+            
+              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
             
           </div>
         
@@ -615,56 +665,6 @@ public int canCompleteCircuit(int[] gas, int[] cost) &#123;
               <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/11/17/LeetCode-617-merge-two-binary-trees/">LeetCode 617. 合并二叉树</a>
-
-      <a href="/2020/11/17/LeetCode-617-merge-two-binary-trees/" class="index-excerpt">
-        
-        
-          
-        
-        <div>617. 合并二叉树
-public TreeNode mergeTrees(TreeNode t1, TreeNode t2) &#123;
-    if (t1 == null) &#123;
-        return t2;
-    &#125;
-    if (t2 == null) &#123;
-        return t1;
-    &#125;
-    // t1, t2 都</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-11-17
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E6%A0%91/">树</a>
             
           </div>
         
