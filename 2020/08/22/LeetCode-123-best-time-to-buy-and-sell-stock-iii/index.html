@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      449 字
+      600 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      10
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月22日 晚上
+                  本文最后更新于：2021年1月9日 下午
                 
               </p>
             
@@ -243,6 +243,7 @@
     <span class="hljs-keyword">return</span> dp[len - <span class="hljs-number">1</span>][k][<span class="hljs-number">0</span>];
 &#125;</code></pre>
 <h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1>
+<p>写法一：</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;
     <span class="hljs-keyword">int</span> len = prices.length;
     <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;
@@ -271,7 +272,29 @@
     <span class="hljs-keyword">return</span> Math.max(Math.max(dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>], dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>]), dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">4</span>]);
 &#125;</code></pre>
 <p>可进行状态压缩，省去第一维空间。</p>
-
+<p>写法二：</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> len = prices.length;
+    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    &#125;
+    <span class="hljs-comment">// 0: 第一次买入</span>
+    <span class="hljs-comment">// 1: 第一次卖出</span>
+    <span class="hljs-comment">// 2: 第二次买入</span>
+    <span class="hljs-comment">// 3: 第二次卖出</span>
+    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len][<span class="hljs-number">4</span>];
+    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = -prices[<span class="hljs-number">0</span>];
+    <span class="hljs-comment">// dp[0][1] = Integer.MIN_VALUE;</span>
+    dp[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>] = Integer.MIN_VALUE;
+    <span class="hljs-comment">// dp[0][3] = Integer.MIN_VALUE;</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;
+        dp[i][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>], -prices[i]);
+        dp[i][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>] + prices[i]);
+        dp[i][<span class="hljs-number">2</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>] - prices[i]);
+        dp[i][<span class="hljs-number">3</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">3</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>] + prices[i]);
+    &#125;
+    <span class="hljs-keyword">return</span> Math.max(dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>], dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">3</span>]);
+&#125;</code></pre>
             </article>
             <hr>
             <div>

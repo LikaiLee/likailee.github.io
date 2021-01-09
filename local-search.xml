@@ -130,9 +130,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>并查集</tag>
       
@@ -323,9 +323,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -632,9 +632,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -1181,9 +1181,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>贪心</tag>
       
@@ -1322,9 +1322,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1465,9 +1465,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>贪心</tag>
       
@@ -1496,9 +1496,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -1631,9 +1631,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>排序</tag>
       
@@ -1660,9 +1660,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -1772,9 +1772,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -2087,9 +2087,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -3615,9 +3615,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -3675,9 +3675,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3704,9 +3704,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4866,9 +4866,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -4976,9 +4976,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5092,9 +5092,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5268,11 +5268,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -5326,13 +5326,13 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -5950,9 +5950,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -6035,9 +6035,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -6066,11 +6066,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6095,9 +6095,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -6124,9 +6124,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -6153,9 +6153,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -6182,9 +6182,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -6211,11 +6211,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6240,11 +6240,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6389,13 +6389,13 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6420,11 +6420,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6449,9 +6449,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -6507,9 +6507,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -6536,11 +6536,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6594,9 +6594,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -6704,11 +6704,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -6762,11 +6762,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6793,11 +6793,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6822,9 +6822,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -6853,11 +6853,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6882,11 +6882,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6911,9 +6911,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -6938,9 +6938,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -6965,9 +6965,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -6992,9 +6992,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7019,9 +7019,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7046,9 +7046,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7619,7 +7619,7 @@
     <link href="/2020/08/22/LeetCode-123-best-time-to-buy-and-sell-stock-iii/"/>
     <url>/2020/08/22/LeetCode-123-best-time-to-buy-and-sell-stock-iii/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/" target="_blank" rel="noopener">123. 买卖股票的最佳时机 III</a></p><h1 id="解法一"><a class="markdownIt-Anchor" href="#解法一"></a> 解法一</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = prices.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span> k = <span class="hljs-number">2</span>;    <span class="hljs-keyword">int</span>[][][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len][k + <span class="hljs-number">1</span>][<span class="hljs-number">2</span>];    <span class="hljs-comment">// 初始化第一天状态，只需要考虑持有股票的情况</span>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;    dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 1 次交易买入</span>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>];    dp[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 2 次交易买入</span>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 第一次交易</span>        dp[i][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] + prices[i]);        <span class="hljs-comment">// 可能买入 dp[i - 1][0][0] - prices[i]</span>        dp[i][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] - prices[i]);        <span class="hljs-comment">// 第二次交易</span>        dp[i][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] + prices[i]);        <span class="hljs-comment">// 可能买入 dp[i - 1][1][0] - prices[i]</span>        dp[i][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] - prices[i]);    &#125;    <span class="hljs-keyword">return</span> dp[len - <span class="hljs-number">1</span>][k][<span class="hljs-number">0</span>];&#125;</code></pre><h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = prices.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-comment">/*</span><span class="hljs-comment">    dp[i][0] 没有交易 rest</span><span class="hljs-comment">    dp[i][1] 第一次买入</span><span class="hljs-comment">    dp[i][2] 第一次卖出</span><span class="hljs-comment">    dp[i][3] 第二次买入</span><span class="hljs-comment">    dp[i][4] 第二次卖出</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len][<span class="hljs-number">5</span>];    <span class="hljs-comment">// 第一次买入</span>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>];    <span class="hljs-comment">// 第二次买入卖出都还没发生</span>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">3</span>] = Integer.MIN_VALUE;    dp[<span class="hljs-number">0</span>][<span class="hljs-number">4</span>] = Integer.MIN_VALUE;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;        dp[i][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>] - prices[i]);        dp[i][<span class="hljs-number">2</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>] + prices[i]);        dp[i][<span class="hljs-number">3</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">3</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>] - prices[i]);        dp[i][<span class="hljs-number">4</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">4</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">3</span>] + prices[i]);    &#125;    <span class="hljs-comment">// 没有交易 第一次卖出 第二次卖出 中可能存在最大值</span>    <span class="hljs-keyword">return</span> Math.max(Math.max(dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>], dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>]), dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">4</span>]);&#125;</code></pre><p>可进行状态压缩，省去第一维空间。</p>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/" target="_blank" rel="noopener">123. 买卖股票的最佳时机 III</a></p><h1 id="解法一"><a class="markdownIt-Anchor" href="#解法一"></a> 解法一</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = prices.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span> k = <span class="hljs-number">2</span>;    <span class="hljs-keyword">int</span>[][][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len][k + <span class="hljs-number">1</span>][<span class="hljs-number">2</span>];    <span class="hljs-comment">// 初始化第一天状态，只需要考虑持有股票的情况</span>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;    dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 1 次交易买入</span>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>];    dp[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 2 次交易买入</span>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 第一次交易</span>        dp[i][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] + prices[i]);        <span class="hljs-comment">// 可能买入 dp[i - 1][0][0] - prices[i]</span>        dp[i][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] - prices[i]);        <span class="hljs-comment">// 第二次交易</span>        dp[i][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] + prices[i]);        <span class="hljs-comment">// 可能买入 dp[i - 1][1][0] - prices[i]</span>        dp[i][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] - prices[i]);    &#125;    <span class="hljs-keyword">return</span> dp[len - <span class="hljs-number">1</span>][k][<span class="hljs-number">0</span>];&#125;</code></pre><h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1><p>写法一：</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = prices.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-comment">/*</span><span class="hljs-comment">    dp[i][0] 没有交易 rest</span><span class="hljs-comment">    dp[i][1] 第一次买入</span><span class="hljs-comment">    dp[i][2] 第一次卖出</span><span class="hljs-comment">    dp[i][3] 第二次买入</span><span class="hljs-comment">    dp[i][4] 第二次卖出</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len][<span class="hljs-number">5</span>];    <span class="hljs-comment">// 第一次买入</span>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>];    <span class="hljs-comment">// 第二次买入卖出都还没发生</span>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">3</span>] = Integer.MIN_VALUE;    dp[<span class="hljs-number">0</span>][<span class="hljs-number">4</span>] = Integer.MIN_VALUE;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;        dp[i][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>] - prices[i]);        dp[i][<span class="hljs-number">2</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>] + prices[i]);        dp[i][<span class="hljs-number">3</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">3</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>] - prices[i]);        dp[i][<span class="hljs-number">4</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">4</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">3</span>] + prices[i]);    &#125;    <span class="hljs-comment">// 没有交易 第一次卖出 第二次卖出 中可能存在最大值</span>    <span class="hljs-keyword">return</span> Math.max(Math.max(dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>], dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>]), dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">4</span>]);&#125;</code></pre><p>可进行状态压缩，省去第一维空间。</p><p>写法二：</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = prices.length;    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-comment">// 0: 第一次买入</span>    <span class="hljs-comment">// 1: 第一次卖出</span>    <span class="hljs-comment">// 2: 第二次买入</span>    <span class="hljs-comment">// 3: 第二次卖出</span>    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len][<span class="hljs-number">4</span>];    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = -prices[<span class="hljs-number">0</span>];    <span class="hljs-comment">// dp[0][1] = Integer.MIN_VALUE;</span>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>] = Integer.MIN_VALUE;    <span class="hljs-comment">// dp[0][3] = Integer.MIN_VALUE;</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;        dp[i][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>], -prices[i]);        dp[i][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>] + prices[i]);        dp[i][<span class="hljs-number">2</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>] - prices[i]);        dp[i][<span class="hljs-number">3</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">3</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>] + prices[i]);    &#125;    <span class="hljs-keyword">return</span> Math.max(dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>], dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">3</span>]);&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -7851,9 +7851,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
