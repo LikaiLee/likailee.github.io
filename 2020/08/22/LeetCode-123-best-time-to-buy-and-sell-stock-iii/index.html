@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      600 字
+      609 字
     </span>
   
 
@@ -219,28 +219,26 @@
     <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;
         <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
     &#125;
-    <span class="hljs-keyword">int</span> k = <span class="hljs-number">2</span>;
-    <span class="hljs-keyword">int</span>[][][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len][k + <span class="hljs-number">1</span>][<span class="hljs-number">2</span>];
-    <span class="hljs-comment">// 初始化第一天状态，只需要考虑持有股票的情况</span>
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
-    <span class="hljs-comment">// 1 次交易买入</span>
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>];
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
-    <span class="hljs-comment">// 2 次交易买入</span>
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>];
+    <span class="hljs-comment">// dp[i][k]:    第 k 次交易</span>
+    <span class="hljs-comment">// dp[i][k][0]: 买入</span>
+    <span class="hljs-comment">// dp[i][k][1]: 卖出</span>
+    <span class="hljs-keyword">int</span>[][][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len][<span class="hljs-number">3</span>][<span class="hljs-number">2</span>];
+    <span class="hljs-comment">// 第一次买入</span>
+    dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = -prices[<span class="hljs-number">0</span>];
+    <span class="hljs-comment">// 第二次买入卖出还未发生</span>
+    dp[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>] = Integer.MIN_VALUE;
+    dp[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] = Integer.MIN_VALUE;
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;
-        <span class="hljs-comment">// 第一次交易</span>
-        dp[i][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] + prices[i]);
-        <span class="hljs-comment">// 可能买入 dp[i - 1][0][0] - prices[i]</span>
-        dp[i][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] - prices[i]);
-        <span class="hljs-comment">// 第二次交易</span>
-        dp[i][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] + prices[i]);
-        <span class="hljs-comment">// 可能买入 dp[i - 1][1][0] - prices[i]</span>
-        dp[i][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] - prices[i]);
+        <span class="hljs-comment">// 今天第一次买入</span>
+        dp[i][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>], -prices[i]);
+        <span class="hljs-comment">// 今天第一次卖出：昨天第一次买入，今天卖出</span>
+        dp[i][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] + prices[i]);
+        <span class="hljs-comment">// 今天第二次卖入：昨天第一次卖出</span>
+        dp[i][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] - prices[i]);
+        <span class="hljs-comment">// 今天第二次卖出：昨天第二次买入</span>
+        dp[i][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">0</span>] + prices[i]);
     &#125;
-    <span class="hljs-keyword">return</span> dp[len - <span class="hljs-number">1</span>][k][<span class="hljs-number">0</span>];
+    <span class="hljs-keyword">return</span> Math.max(dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>], dp[len - <span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">1</span>]);
 &#125;</code></pre>
 <h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1>
 <p>写法一：</p>
