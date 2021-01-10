@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 5650. 执行交换操作后的最小汉明距离</title>
+    <link href="/2021/01/10/LeetCode-5650-minimize-hamming-distance-after-swap-operations/"/>
+    <url>/2021/01/10/LeetCode-5650-minimize-hamming-distance-after-swap-operations/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/minimize-hamming-distance-after-swap-operations/" target="_blank" rel="noopener">5650. 执行交换操作后的最小汉明距离</a></p><p><a href="https://leetcode-cn.com/problems/minimize-hamming-distance-after-swap-operations/solution/bing-cha-ji-ha-xi-biao-java-shuang-bai-5-viq6/" target="_blank" rel="noopener">题解</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minimumHammingDistance</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] source, <span class="hljs-keyword">int</span>[] target, <span class="hljs-keyword">int</span>[][] allowedSwaps)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = source.length;    UnionFind uf = <span class="hljs-keyword">new</span> UnionFind(len);    <span class="hljs-comment">// 建立连通图</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] allowedSwap : allowedSwaps) &#123;        uf.union(allowedSwap[<span class="hljs-number">0</span>], allowedSwap[<span class="hljs-number">1</span>]);    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * &gt;&gt; 同一个连通分量的所有节点在 source 中可以任意交换位置 &lt;&lt;</span><span class="hljs-comment">     *</span><span class="hljs-comment">     * 对于 target[i] 对应的连通分量，找到 i 的根节点 root</span><span class="hljs-comment">     * 若 target[i] 存在于 groups[root]，则 source 中第 i 个位置可以通过交换，使得 source[i] == target[i]</span><span class="hljs-comment">     */</span>    <span class="hljs-comment">// key: root =&gt; value: root 对应的连通分量中，所有子节点在 source 中的对应值的出现次数</span>    Map&lt;Integer, Map&lt;Integer, Integer&gt;&gt; groups = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(len);    <span class="hljs-comment">// 找到 i 的根节点，将 source[i] 加入根节点对应的 Map 中</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 获取 i 对应连通分量的根节点</span>        <span class="hljs-keyword">int</span> root = uf.find(i);        <span class="hljs-comment">// 把 source[i] 加入 root 对应的集合 groups[root]</span>        Map&lt;Integer, Integer&gt; members = groups.getOrDefault(root, <span class="hljs-keyword">new</span> HashMap&lt;&gt;());        <span class="hljs-comment">// 更新 source[i] 出现次数</span>        <span class="hljs-keyword">int</span> occur = members.getOrDefault(source[i], <span class="hljs-number">0</span>);        members.put(source[i], occur + <span class="hljs-number">1</span>);        groups.put(root, members);    &#125;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;        <span class="hljs-comment">// 获取 i 对应连通分量的根节点</span>        <span class="hljs-keyword">int</span> root = uf.find(i);        Map&lt;Integer, Integer&gt; members = groups.get(root);        <span class="hljs-keyword">int</span> occur = members.getOrDefault(target[i], <span class="hljs-number">0</span>);        <span class="hljs-comment">// source[i] 还有未被使用的才能继续进行交换</span>        <span class="hljs-keyword">if</span> (occur &gt; <span class="hljs-number">0</span>) &#123;            <span class="hljs-comment">// 交换过后出现次数 - 1</span>            members.put(target[i], occur - <span class="hljs-number">1</span>);        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-comment">// source[i] 已用完</span>            <span class="hljs-comment">// 或 source 中不存在 target[i]，无法交换</span>            count++;        &#125;    &#125;    <span class="hljs-keyword">return</span> count;&#125;<span class="hljs-keyword">private</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UnionFind</span> </span>&#123;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] parent;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UnionFind</span><span class="hljs-params">(<span class="hljs-keyword">int</span> count)</span> </span>&#123;        parent = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[count];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) &#123;            parent[i] = i;        &#125;    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">union</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;        <span class="hljs-keyword">int</span> rootX = find(x);        <span class="hljs-keyword">int</span> rootY = find(y);        <span class="hljs-keyword">if</span> (rootX == rootY) &#123;            <span class="hljs-keyword">return</span>;        &#125;        parent[rootX] = rootY;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;        <span class="hljs-keyword">while</span> (parent[x] != x) &#123;            parent[x] = parent[parent[x]];            x = parent[x];        &#125;        <span class="hljs-keyword">return</span> x;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>并查集</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 5652. 交换链表中的节点</title>
     <link href="/2021/01/10/LeetCode-5652-swapping-nodes-in-a-linked-list/"/>
     <url>/2021/01/10/LeetCode-5652-swapping-nodes-in-a-linked-list/</url>
@@ -1132,9 +1161,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1161,11 +1190,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -1192,9 +1221,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1360,9 +1389,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -1389,9 +1418,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3379,9 +3408,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>树</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3742,9 +3771,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3771,9 +3800,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3908,9 +3937,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4933,9 +4962,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -5043,9 +5072,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5072,9 +5101,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5159,9 +5188,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5335,11 +5364,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -5395,11 +5424,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -5959,9 +5988,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5988,9 +6017,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -6135,9 +6164,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6280,9 +6309,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6309,9 +6338,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6458,11 +6487,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6489,9 +6518,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6605,9 +6634,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -6773,9 +6802,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -6831,9 +6860,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -6862,9 +6891,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6922,9 +6951,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6951,9 +6980,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
