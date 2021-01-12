@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 1203. 项目管理</title>
+    <link href="/2021/01/12/LeetCode-1203-sort-items-by-groups-respecting-dependencies/"/>
+    <url>/2021/01/12/LeetCode-1203-sort-items-by-groups-respecting-dependencies/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/sort-items-by-groups-respecting-dependencies/" target="_blank" rel="noopener">1203. 项目管理</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] sortItems(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span>[] group, List&lt;List&lt;Integer&gt;&gt; beforeItems) &#123;        <span class="hljs-comment">// 对没有分配组的项目分配组，保证 -1 不会映射成一个组</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> item = <span class="hljs-number">0</span>; item &lt; n; item++) &#123;            <span class="hljs-keyword">if</span> (group[item] == -<span class="hljs-number">1</span>) &#123;                group[item] = m;                m++;            &#125;        &#125;        <span class="hljs-comment">// 若项目已经预先分配过组，则同一组的项目要相邻，意味着项目为拓扑序 且 组也为拓扑序</span>        <span class="hljs-comment">// 1. 建立 组的图 和 项目的图，并分别进行拓扑排序</span>        <span class="hljs-comment">// 2. 项目排序后，对项目分组，然后按组的拓扑序输出</span>        List&lt;Integer&gt;[] fromGroup = <span class="hljs-keyword">new</span> ArrayList[m];        <span class="hljs-keyword">int</span>[] inDegreeGroup = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[m];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; m; i++) &#123;            fromGroup[i] = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();        &#125;        List&lt;Integer&gt;[] fromItem = <span class="hljs-keyword">new</span> ArrayList[n];        <span class="hljs-keyword">int</span>[] inDegreeItem = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;            fromItem[i] = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();        &#125;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> item = <span class="hljs-number">0</span>; item &lt; n; item++) &#123;            <span class="hljs-keyword">int</span> curGroup = group[item];            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> beforeItem : beforeItems.get(item)) &#123;                <span class="hljs-comment">// 建立组之间的拓扑关系 beforeGroup -&gt; curGroup</span>                <span class="hljs-keyword">int</span> beforeGroup = group[beforeItem];                <span class="hljs-comment">// 二者不能相等，否则自身依赖自身</span>                <span class="hljs-keyword">if</span> (curGroup != beforeGroup) &#123;                    fromGroup[beforeGroup].add(curGroup);                    <span class="hljs-comment">// curGroup 入度</span>                    inDegreeGroup[curGroup]++;                &#125;                <span class="hljs-comment">// 建立项目之间的拓扑关系 beforeItem -&gt; curItem</span>                fromItem[beforeItem].add(item);                inDegreeItem[item]++;            &#125;        &#125;        <span class="hljs-comment">// 分别进行拓扑排序，若存在循环依赖直接返回</span>        List&lt;Integer&gt; sortedGroups = topSort(fromGroup, inDegreeGroup);        <span class="hljs-keyword">if</span> (sortedGroups.isEmpty()) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">0</span>];        &#125;        List&lt;Integer&gt; sortedItems = topSort(fromItem, inDegreeItem);        <span class="hljs-keyword">if</span> (sortedItems.isEmpty()) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">0</span>];        &#125;        <span class="hljs-comment">// 对排序后的项目分组</span>        Map&lt;Integer, List&lt;Integer&gt;&gt; group2Items = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(m);        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> item : sortedItems) &#123;            group2Items.computeIfAbsent(group[item], o -&gt; <span class="hljs-keyword">new</span> ArrayList&lt;&gt;()).add(item);        &#125;        <span class="hljs-comment">// 根据组的拓扑序输出</span>        List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> g : sortedGroups) &#123;            List&lt;Integer&gt; items = group2Items.getOrDefault(g, <span class="hljs-keyword">new</span> ArrayList&lt;&gt;());            res.addAll(items);        &#125;        <span class="hljs-keyword">return</span> res.stream().mapToInt(Integer::valueOf).toArray();    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> List&lt;Integer&gt; <span class="hljs-title">topSort</span><span class="hljs-params">(List&lt;Integer&gt;[] from, <span class="hljs-keyword">int</span>[] inDegree)</span> </span>&#123;        LinkedList&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        <span class="hljs-comment">// 入度为 0 加入队列</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; inDegree.length; i++) &#123;            <span class="hljs-keyword">if</span> (inDegree[i] == <span class="hljs-number">0</span>) &#123;                queue.offer(i);            &#125;        &#125;        List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();        <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;            <span class="hljs-keyword">int</span> cur = queue.poll();            res.add(cur);            <span class="hljs-comment">// 入度为 0 进入下一轮排序</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> to : from[cur]) &#123;                inDegree[to]--;                <span class="hljs-keyword">if</span> (inDegree[to] == <span class="hljs-number">0</span>) &#123;                    queue.offer(to);                &#125;            &#125;        &#125;        <span class="hljs-keyword">return</span> res.size() == inDegree.length ? res : <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>BFS</tag>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 342. 4的幂</title>
     <link href="/2021/01/11/LeetCode-342-power-of-four/"/>
     <url>/2021/01/11/LeetCode-342-power-of-four/</url>
@@ -821,9 +850,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -906,9 +935,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1370,11 +1399,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
-      
-      <tag>字符串</tag>
       
       <tag>回溯</tag>
       
@@ -1654,11 +1683,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>贪心</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -1820,9 +1849,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>排序</tag>
       
@@ -1849,9 +1878,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -2021,9 +2050,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -3238,9 +3267,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -3269,11 +3298,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -3864,9 +3893,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -3893,9 +3922,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5055,9 +5084,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -5165,9 +5194,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5281,9 +5310,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5457,11 +5486,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -5515,13 +5544,13 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6139,9 +6168,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -6224,9 +6253,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -6255,11 +6284,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6284,11 +6313,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6313,11 +6342,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6342,11 +6371,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6371,11 +6400,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6400,11 +6429,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6429,11 +6458,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6460,9 +6489,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -6578,13 +6607,13 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6609,11 +6638,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6638,11 +6667,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6696,11 +6725,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6725,11 +6754,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6783,11 +6812,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6893,11 +6922,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -6951,11 +6980,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6982,11 +7011,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7011,9 +7040,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -7042,11 +7071,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7071,11 +7100,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7100,9 +7129,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7127,9 +7156,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7154,9 +7183,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7181,9 +7210,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7208,9 +7237,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7235,9 +7264,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7876,9 +7905,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -8040,11 +8069,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
