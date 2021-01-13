@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 674. 最长连续递增序列 - Likai Lee</title>
+  <title>LeetCode 802. 找到最终的安全状态 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 674. 最长连续递增序列
+                LeetCode 802. 找到最终的安全状态
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-10-25 21:47">
-      2020年10月25日 晚上
+    <time datetime="2021-01-13 21:22">
+      2021年1月13日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      163 字
+      282 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      4
        分钟
     </span>
   
@@ -207,43 +207,55 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月25日 晚上
+                  本文最后更新于：2021年1月13日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/" target="_blank" rel="noopener">74. 最长连续递增序列</a></p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findLengthOfLCIS</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = nums.length;
-    <span class="hljs-keyword">int</span> curLen = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-comment">// 递增则更新长度</span>
-        <span class="hljs-keyword">if</span> (i - <span class="hljs-number">1</span> &gt;= <span class="hljs-number">0</span> &amp;&amp; nums[i - <span class="hljs-number">1</span>] &lt; nums[i]) &#123;
-            curLen++;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            <span class="hljs-comment">// 非连续递增，则重新开始计算长度</span>
-            curLen = <span class="hljs-number">1</span>;
+              <p><a href="https://leetcode-cn.com/problems/find-eventual-safe-states/" target="_blank" rel="noopener">802. 找到最终的安全状态</a></p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">eventualSafeNodes</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] graph)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> len = graph.length;
+        List&lt;List&lt;Integer&gt;&gt; fromEdges = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(len);
+        <span class="hljs-keyword">int</span>[] inDegree = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+            fromEdges.add(<span class="hljs-keyword">new</span> ArrayList&lt;&gt;());
         &#125;
-        max = Math.max(max, curLen);
-    &#125;
-    <span class="hljs-keyword">return</span> max;
-&#125;</code></pre>
-<h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findLengthOfLCIS</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = nums.length;
-    <span class="hljs-keyword">int</span>[] rights = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
-    Arrays.fill(rights, <span class="hljs-number">1</span>);
-    <span class="hljs-comment">// 从右边开始找最大递增数</span>
-    <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
-        <span class="hljs-keyword">if</span> (i + <span class="hljs-number">1</span> &lt; len &amp;&amp; nums[i] &lt; nums[i + <span class="hljs-number">1</span>]) &#123;
-            rights[i] = rights[i + <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;
+        <span class="hljs-comment">// 若节点 node 出度 == 0，从 node 出发不会形成环</span>
+        <span class="hljs-comment">// 因此可以继续看有哪些节点指向 node，继续查看这些节点出度是否 == 0</span>
+        <span class="hljs-comment">// 所以需要反向查找指向 node 的所有节点</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> from : graph[i]) &#123;
+                fromEdges.get(from).add(i);
+                inDegree[i]++;
+            &#125;
         &#125;
-        max = Math.max(max, rights[i]);
-    &#125;
-    <span class="hljs-keyword">return</span> max;
-&#125;</code></pre>
+        LinkedList&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+            <span class="hljs-keyword">if</span> (inDegree[i] == <span class="hljs-number">0</span>) &#123;
+                queue.offer(i);
+            &#125;
+        &#125;
+        <span class="hljs-keyword">boolean</span>[] safe = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[len];
+        <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;
+            <span class="hljs-comment">// cur 表示在原图中出度为 0</span>
+            <span class="hljs-comment">// 因此从 cur 出发是安全的，不会形成环</span>
+            <span class="hljs-keyword">int</span> cur = queue.poll();
+            safe[cur] = <span class="hljs-keyword">true</span>;
+            <span class="hljs-comment">// 对指向 cur 的节点继续寻找在反向图中入度为 0 的节点</span>
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> to : fromEdges.get(cur)) &#123;
+                <span class="hljs-keyword">if</span> (--inDegree[to] == <span class="hljs-number">0</span>) &#123;
+                    queue.offer(to);
+                &#125;
+            &#125;
+        &#125;
+        List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+            <span class="hljs-keyword">if</span> (safe[i]) &#123;
+                res.add(i);
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> res;
+    &#125;</code></pre>
             </article>
             <hr>
             <div>
@@ -262,9 +274,7 @@
                     
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
+                      <a class="hover-with-bg" href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
                     
                   </div>
                 
@@ -277,18 +287,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/26/LeetCode-1365-how-many-numbers-are-smaller-than-the-current-number/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 1365. 有多少小于当前数字的数字</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/10/25/LeetCode-845-longest-mountain-in-array/">
-                        <span class="hidden-mobile">LeetCode 845. 数组中的最长山脉</span>
+                      <a href="/2021/01/13/LeetCode-401-binary-watch/">
+                        <span class="hidden-mobile">LeetCode 401. 二进制手表</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
