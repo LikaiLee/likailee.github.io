@@ -8,7 +8,7 @@
     <link href="/2021/01/13/LeetCode-401-binary-watch/"/>
     <url>/2021/01/13/LeetCode-401-binary-watch/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/binary-watch/" target="_blank" rel="noopener">401. 二进制手表</a></p><p>表可真好看！🤮</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">readBinaryWatch</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;        <span class="hljs-keyword">int</span>[] bits = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>, <span class="hljs-number">16</span>, <span class="hljs-number">32</span>&#125;;        Set&lt;String&gt; res = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> hourNum = <span class="hljs-number">0</span>; hourNum &lt;= <span class="hljs-number">4</span>; hourNum++) &#123;            <span class="hljs-keyword">int</span> minuteNum = num - hourNum;            <span class="hljs-keyword">if</span> (minuteNum &lt; <span class="hljs-number">0</span>) &#123;                <span class="hljs-keyword">break</span>;            &#125;            List&lt;Integer&gt; hours = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();            dfs(hourNum, <span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-keyword">new</span> HashSet&lt;&gt;(), hours, bits);            List&lt;Integer&gt; minutes = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();            dfs(minuteNum, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-keyword">new</span> HashSet&lt;&gt;(), minutes, bits);            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> hour : hours) &#123;                <span class="hljs-keyword">if</span> (hour &gt; <span class="hljs-number">11</span>) &#123;                    <span class="hljs-keyword">continue</span>;                &#125;                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> minute : minutes) &#123;                    <span class="hljs-keyword">if</span> (minute &gt; <span class="hljs-number">59</span>) &#123;                        <span class="hljs-keyword">continue</span>;                    &#125;                    StringBuilder time = <span class="hljs-keyword">new</span> StringBuilder();                    time.append(hour);                    time.append(<span class="hljs-string">":"</span>);                    <span class="hljs-keyword">if</span> (minute &lt; <span class="hljs-number">10</span>) &#123;                        time.append(<span class="hljs-string">"0"</span>);                    &#125;                    time.append(minute);                    res.add(time.toString());                &#125;            &#125;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(res);    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num, <span class="hljs-keyword">int</span> begin, <span class="hljs-keyword">int</span> end, <span class="hljs-keyword">int</span> sum, Set&lt;Integer&gt; path, List&lt;Integer&gt; res, <span class="hljs-keyword">int</span>[] bits)</span> </span>&#123;        <span class="hljs-keyword">if</span> (num == <span class="hljs-number">0</span>) &#123;            res.add(sum);            <span class="hljs-keyword">return</span>;        &#125;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = begin; i &lt;= end; i++) &#123;            <span class="hljs-keyword">if</span> (!path.contains(bits[i])) &#123;                path.add(bits[i]);                sum += bits[i];                dfs(num - <span class="hljs-number">1</span>, begin, end, sum, path, res, bits);                sum -= bits[i];                path.remove(bits[i]);            &#125;        &#125;    &#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/binary-watch/" target="_blank" rel="noopener">401. 二进制手表</a></p><p>表可真好看！🤮</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">readBinaryWatch</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;        <span class="hljs-keyword">int</span>[] bits = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>, <span class="hljs-number">16</span>, <span class="hljs-number">32</span>&#125;;        Set&lt;String&gt; res = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> hourNum = <span class="hljs-number">0</span>; hourNum &lt;= <span class="hljs-number">4</span>; hourNum++) &#123;            <span class="hljs-keyword">int</span> minuteNum = num - hourNum;            <span class="hljs-keyword">if</span> (minuteNum &lt; <span class="hljs-number">0</span>) &#123;                <span class="hljs-keyword">break</span>;            &#125;            List&lt;Integer&gt; hours = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();            dfs(hourNum, <span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">0</span>, hours, bits);            List&lt;Integer&gt; minutes = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();            dfs(minuteNum, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, minutes, bits);            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> hour : hours) &#123;                <span class="hljs-keyword">if</span> (hour &gt; <span class="hljs-number">11</span>) &#123;                    <span class="hljs-keyword">continue</span>;                &#125;                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> minute : minutes) &#123;                    <span class="hljs-keyword">if</span> (minute &gt; <span class="hljs-number">59</span>) &#123;                        <span class="hljs-keyword">continue</span>;                    &#125;                    StringBuilder time = <span class="hljs-keyword">new</span> StringBuilder();                    time.append(hour);                    time.append(<span class="hljs-string">":"</span>);                    <span class="hljs-keyword">if</span> (minute &lt; <span class="hljs-number">10</span>) &#123;                        time.append(<span class="hljs-string">"0"</span>);                    &#125;                    time.append(minute);                    res.add(time.toString());                &#125;            &#125;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(res);    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num, <span class="hljs-keyword">int</span> begin, <span class="hljs-keyword">int</span> end, <span class="hljs-keyword">int</span> sum, List&lt;Integer&gt; res, <span class="hljs-keyword">int</span>[] bits)</span> </span>&#123;        <span class="hljs-keyword">if</span> (num == <span class="hljs-number">0</span>) &#123;            res.add(sum);            <span class="hljs-keyword">return</span>;        &#125;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = begin; i &lt;= end; i++) &#123;            sum += bits[i];            dfs(num - <span class="hljs-number">1</span>, i + <span class="hljs-number">1</span>, end, sum, res, bits);            sum -= bits[i];        &#125;    &#125;</code></pre>]]></content>
     
     
     <categories>
@@ -1366,9 +1366,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1395,11 +1395,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -1426,9 +1426,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -1484,9 +1484,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>字符串</tag>
       
       <tag>回溯</tag>
       
@@ -1768,9 +1768,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6193,9 +6193,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6222,9 +6222,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -6398,9 +6398,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6427,9 +6427,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6456,9 +6456,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6485,9 +6485,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6752,9 +6752,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6810,9 +6810,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6897,9 +6897,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8154,9 +8154,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
