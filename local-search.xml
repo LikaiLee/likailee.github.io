@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 947. 移除最多的同行或同列石头</title>
+    <link href="/2021/01/15/LeetCode-947-most-stones-removed-with-same-row-or-column/"/>
+    <url>/2021/01/15/LeetCode-947-most-stones-removed-with-same-row-or-column/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/most-stones-removed-with-same-row-or-column/" target="_blank" rel="noopener">947. 移除最多的同行或同列石头</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">removeStones</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] stones)</span> </span>&#123;        UnionFind uf = <span class="hljs-keyword">new</span> UnionFind(<span class="hljs-number">20002</span>);        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] stone : stones) &#123;            <span class="hljs-comment">// 连接行与列，在 stone[0] 行和 stone[1] 列上的节点在同一个连通分量中</span>            uf.union(stone[<span class="hljs-number">0</span>] + <span class="hljs-number">10000</span>, stone[<span class="hljs-number">1</span>]);        &#125;        Set&lt;Integer&gt; roots = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] stone : stones) &#123;            <span class="hljs-comment">// 行与列已经连接，找根节点只要找行或列</span>            roots.add(uf.find(stone[<span class="hljs-number">1</span>]));        &#125;        <span class="hljs-keyword">return</span> stones.length - roots.size();    &#125;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UnionFind</span> </span>&#123;        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span>[] parent;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UnionFind</span><span class="hljs-params">(<span class="hljs-keyword">int</span> len)</span> </span>&#123;            <span class="hljs-keyword">this</span>.parent = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;                <span class="hljs-keyword">this</span>.parent[i] = i;            &#125;        &#125;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">union</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;            <span class="hljs-keyword">int</span> rx = find(x);            <span class="hljs-keyword">int</span> ry = find(y);            <span class="hljs-keyword">if</span> (rx == ry) &#123;                <span class="hljs-keyword">return</span>;            &#125;            parent[rx] = ry;        &#125;        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;            <span class="hljs-keyword">while</span> (x != parent[x]) &#123;                parent[x] = parent[parent[x]];                x = parent[x];            &#125;            <span class="hljs-keyword">return</span> x;        &#125;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>并查集</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 575. 分糖果</title>
     <link href="/2021/01/14/LeetCode-575-distribute-candies/"/>
     <url>/2021/01/14/LeetCode-575-distribute-candies/</url>
@@ -512,9 +539,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>并查集</tag>
       
@@ -705,9 +732,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -1188,9 +1215,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -1565,9 +1592,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>字符串</tag>
       
       <tag>回溯</tag>
       
@@ -1849,9 +1876,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1878,9 +1905,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -2154,9 +2181,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -2469,9 +2496,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -3997,9 +4024,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -6334,9 +6361,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>数学</tag>
       
       <tag>栈</tag>
       
@@ -6419,9 +6446,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>数学</tag>
       
       <tag>栈</tag>
       
@@ -6479,9 +6506,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6508,9 +6535,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6537,9 +6564,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6566,9 +6593,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6833,9 +6860,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -6891,9 +6918,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6978,9 +7005,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8235,9 +8262,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
