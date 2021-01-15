@@ -170,6 +170,55 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/11/06/LeetCode-226-invert-binary-tree/">LeetCode 226. 翻转二叉树</a>
+
+      <a href="/2020/11/06/LeetCode-226-invert-binary-tree/" class="index-excerpt">
+        
+        
+          
+        
+        <div>226. 翻转二叉树
+public TreeNode invertTree(TreeNode root) &#123;
+    if (root == null) &#123;
+        return null;
+    &#125;
+    TreeNode tmp = root.left;
+    root.left = root.right;
+    root.right = tmp;</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-11-06
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E6%A0%91/">树</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/11/05/LeetCode-92-reverse-linked-list-ii/">LeetCode 92. 反转链表 II</a>
 
       <a href="/2020/11/05/LeetCode-92-reverse-linked-list-ii/" class="index-excerpt">
@@ -308,11 +357,11 @@ public List&lt;Integer&gt; rightSideView(TreeNode root) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E6%A0%91/">树</a>
-            
               <a href="/tags/BFS/">BFS</a>
             
               <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E6%A0%91/">树</a>
             
           </div>
         
@@ -361,9 +410,9 @@ public TreeNode sortedArrayToBST(int[] nums) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E6%A0%91/">树</a>
-            
               <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E6%A0%91/">树</a>
             
               <a href="/tags/%E5%88%86%E6%B2%BB/">分治</a>
             
@@ -414,9 +463,9 @@ public TreeNode sortedListToBST(ListNode head) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E6%A0%91/">树</a>
-            
               <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E6%A0%91/">树</a>
             
               <a href="/tags/%E5%88%86%E6%B2%BB/">分治</a>
             
@@ -613,58 +662,11 @@ public List&lt;String&gt; binaryTreePaths(TreeNode root) &#123;
             
               <a href="/tags/LeetCode/">LeetCode</a>
             
-              <a href="/tags/%E6%A0%91/">树</a>
-            
               <a href="/tags/DFS/">DFS</a>
             
+              <a href="/tags/%E6%A0%91/">树</a>
+            
               <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/11/03/LeetCode-941-valid-mountain-array/">LeetCode 941. 有效的山脉数组</a>
-
-      <a href="/2020/11/03/LeetCode-941-valid-mountain-array/" class="index-excerpt">
-        
-        
-          
-        
-        <div>941. 有效的山脉数组
-public boolean validMountainArray(int[] A) &#123;
-    int len = A.length;
-    int i = 0, j = len - 1;
-    // 从左往右，i 最多只能到 len - 2，因为要形成山脉
-    while (i + 1 &lt; len &amp;&amp; A[i] &lt; A[</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-11-03
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
             
           </div>
         
