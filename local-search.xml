@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>LeetCode 1584. 连接所有点的最小费用</title>
+    <link href="/2021/01/19/LeetCode-1584-min-cost-to-connect-all-points/"/>
+    <url>/2021/01/19/LeetCode-1584-min-cost-to-connect-all-points/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/min-cost-to-connect-all-points/" target="_blank" rel="noopener">1584. 连接所有点的最小费用</a></p><pre><code class="hljs java"> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minCostConnectPoints</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] points)</span> </span>&#123;    <span class="hljs-keyword">int</span> n = points.length;    <span class="hljs-comment">// 计算所有边的权值</span>    List&lt;<span class="hljs-keyword">int</span>[]&gt; edges = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(n * n);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i + <span class="hljs-number">1</span>; j &lt; n; j++) &#123;            <span class="hljs-keyword">int</span> cost = calcDist(points[i], points[j]);            edges.add(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;i * n + j, cost&#125;);        &#125;    &#125;    <span class="hljs-comment">// 按权值排序</span>    edges.sort(Comparator.comparingInt(o -&gt; o[<span class="hljs-number">1</span>]));    UnionFind uf = <span class="hljs-keyword">new</span> UnionFind(n);    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 遍历所有边 [idx, cost]，从权值小的边开始连接节点</span>    <span class="hljs-keyword">int</span> conn = <span class="hljs-number">1</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] edge : edges) &#123;        <span class="hljs-keyword">int</span> p1 = edge[<span class="hljs-number">0</span>] / n;        <span class="hljs-keyword">int</span> p2 = edge[<span class="hljs-number">0</span>] % n;        <span class="hljs-keyword">if</span> (uf.isConnected(p1, p2)) &#123;            <span class="hljs-keyword">continue</span>;        &#125;        uf.union(p1, p2);        res += edge[<span class="hljs-number">1</span>];        <span class="hljs-keyword">if</span> (++conn == n) &#123;            <span class="hljs-keyword">return</span> res;        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calcDist</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] p1, <span class="hljs-keyword">int</span>[] p2)</span> </span>&#123;    <span class="hljs-keyword">return</span> Math.abs(p1[<span class="hljs-number">0</span>] - p2[<span class="hljs-number">0</span>]) + Math.abs(p1[<span class="hljs-number">1</span>] - p2[<span class="hljs-number">1</span>]);&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>并查集</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>LeetCode 1332. 删除回文子序列</title>
+    <link href="/2021/01/18/LeetCode-1332-remove-palindromic-subsequences/"/>
+    <url>/2021/01/18/LeetCode-1332-remove-palindromic-subsequences/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/remove-palindromic-subsequences/" target="_blank" rel="noopener">1332. 删除回文子序列</a></p><p>真是个小机灵鬼！</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">removePalindromeSub</span><span class="hljs-params">(String s)</span> </span>&#123;        <span class="hljs-keyword">char</span>[] str = s.toCharArray();        <span class="hljs-keyword">int</span> len = str.length;        <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-keyword">if</span> (isPalindrome(str, <span class="hljs-number">0</span>, len)) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] str, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j)</span> </span>&#123;        <span class="hljs-keyword">while</span> (i &lt; j) &#123;            <span class="hljs-keyword">if</span> (str[i] != str[j]) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;            i++;            j--;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 721. 账户合并</title>
     <link href="/2021/01/18/LeetCode-721-accounts-merge/"/>
     <url>/2021/01/18/LeetCode-721-accounts-merge/</url>
@@ -672,9 +726,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>并查集</tag>
       
@@ -865,9 +919,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -1607,9 +1661,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1636,11 +1690,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1667,9 +1721,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2038,9 +2092,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -2314,9 +2368,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -2629,9 +2683,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -3854,9 +3908,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -4157,9 +4211,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -6434,9 +6488,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -6463,9 +6517,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -6494,9 +6548,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>数学</tag>
       
       <tag>栈</tag>
       
@@ -6579,9 +6633,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>数学</tag>
       
       <tag>栈</tag>
       

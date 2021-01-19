@@ -170,6 +170,103 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/19/LeetCode-322-coin-change/">LeetCode 322. 零钱兑换</a>
+
+      <a href="/2020/08/19/LeetCode-322-coin-change/" class="index-excerpt">
+        
+        
+          
+        
+        <div>322. 零钱兑换
+ 动态规划
+public int coinChange(int[] coins, int amount) &#123;
+    int[] mem = new int[amount + 1];
+    return dp(amount, coins, mem);
+&#125;
+
+private int dp(int amount, int[] coins, int[] mem)</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/18/LeetCode-63-unique-paths-ii/">LeetCode 63. 不同路径 II</a>
+
+      <a href="/2020/08/18/LeetCode-63-unique-paths-ii/" class="index-excerpt">
+        
+        
+          
+        
+        <div>63. 不同路径 II
+一开始判断第一行或第一列的障碍时没有及时 break，导致若只有一行或一列的情况下出错。
+class Solution &#123;
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) &#123;
+        /**
+         * base: 若左边或上边存在障碍，则不能继续往下走
+   </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-18
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/18/LeetCode-62-unique-paths/">LeetCode 62. 不同路径</a>
 
       <a href="/2020/08/18/LeetCode-62-unique-paths/" class="index-excerpt">
@@ -575,107 +672,6 @@ public boolean isPerfectSquare(int num) &#123;
               <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/15/LeetCode-69-sqrtx/">LeetCode 69. x 的平方根</a>
-
-      <a href="/2020/08/15/LeetCode-69-sqrtx/" class="index-excerpt">
-        
-        
-          
-        
-        <div>69. x 的平方根
- 二分
-
-sqrt(x) &lt;= x / 2
-一个数的平方根 &lt;= 这个数的一半，所以右边界最大 = x / 2
-
-
-先写分支逻辑，再决定中间数是否上取整；
-只要看到 left = mid ，它对应的取中位数的取法一定是 mid = left + (right - left + 1) / 2;。
-
-public int mySqrt(int x) &#123;
-  </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-15
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/14/LeetCode-45-jump-game-ii/">LeetCode 45. 跳跃游戏 II</a>
-
-      <a href="/2020/08/14/LeetCode-45-jump-game-ii/" class="index-excerpt">
-        
-        
-          
-        
-        <div>45. 跳跃游戏 II
-本题在 55. 跳跃游戏 基础上加了个最小次数，其实也是计算每个位置能跳到的最远距离，关键在于要保存上一次的最远边界，用来判断跳跃的次数。
-public int jump(int[] nums) &#123;
-        int pos = 0;
-        int count = 0;
-        int begin = 0;
-        int end </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-14
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
             
           </div>
         
