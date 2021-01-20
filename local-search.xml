@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 628. 三个数的最大乘积</title>
+    <link href="/2021/01/20/LeetCode-628-maximum-product-of-three-numbers/"/>
+    <url>/2021/01/20/LeetCode-628-maximum-product-of-three-numbers/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/maximum-product-of-three-numbers/" target="_blank" rel="noopener">628. 三个数的最大乘积</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maximumProduct</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    Arrays.sort(nums);    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-keyword">return</span> Math.max(nums[len - <span class="hljs-number">1</span>] * nums[len - <span class="hljs-number">2</span>] * nums[len - <span class="hljs-number">3</span>], nums[<span class="hljs-number">0</span>] * nums[<span class="hljs-number">1</span>] * nums[len - <span class="hljs-number">1</span>]);&#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maximumProduct</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;        <span class="hljs-keyword">int</span> min1 = Integer.MAX_VALUE;        <span class="hljs-keyword">int</span> min2 = Integer.MAX_VALUE;        <span class="hljs-keyword">int</span> max1 = Integer.MIN_VALUE;        <span class="hljs-keyword">int</span> max2 = Integer.MIN_VALUE;        <span class="hljs-keyword">int</span> max3 = Integer.MIN_VALUE;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;            <span class="hljs-keyword">if</span> (num &lt; min1) &#123;                min2 = min1;                min1 = num;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num &lt; min2) &#123;                min2 = num;            &#125;            <span class="hljs-keyword">if</span> (num &gt; max1) &#123;                max3 = max2;                max2 = max1;                max1 = num;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num &gt; max2) &#123;                max3 = max2;                max2 = num;            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num &gt; max3) &#123;                max3 = num;            &#125;        &#125;        <span class="hljs-keyword">return</span> Math.max(min1 * min2 * max1, max1 * max2 * max3);    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1584. 连接所有点的最小费用</title>
     <link href="/2021/01/19/LeetCode-1584-min-cost-to-connect-all-points/"/>
     <url>/2021/01/19/LeetCode-1584-min-cost-to-connect-all-points/</url>
@@ -1172,9 +1199,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>排序</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>并查集</tag>
       
@@ -1313,9 +1340,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1889,9 +1916,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1918,9 +1945,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2428,9 +2455,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -3645,9 +3672,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -3676,11 +3703,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -4242,9 +4269,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>排序</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -6664,9 +6691,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -6867,9 +6894,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -7018,9 +7045,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -7302,11 +7329,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
       
       <tag>排序</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -8283,9 +8310,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
