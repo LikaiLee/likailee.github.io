@@ -8,7 +8,7 @@
     <link href="/2021/01/21/LeetCode-1489-find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/"/>
     <url>/2021/01/21/LeetCode-1489-find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/" target="_blank" rel="noopener">1489. 找到最小生成树里的关键边和伪关键边</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; findCriticalAndPseudoCriticalEdges(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span>[][] edges) &#123;        <span class="hljs-keyword">int</span> edgeNum = edges.length;        <span class="hljs-comment">// edge index [3]: [0] &lt;-&gt; [1] with weight [2]</span>        <span class="hljs-keyword">int</span>[][] indexedEdges = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[edgeNum][<span class="hljs-number">4</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; edgeNum; i++) &#123;            System.arraycopy(edges[i], <span class="hljs-number">0</span>, indexedEdges[i], <span class="hljs-number">0</span>, <span class="hljs-number">3</span>);            <span class="hljs-comment">// 第四维为边的编号</span>            indexedEdges[i][<span class="hljs-number">3</span>] = i;        &#125;        <span class="hljs-comment">// 根据权值由小到大排序</span>        Arrays.sort(indexedEdges, Comparator.comparingInt(o -&gt; o[<span class="hljs-number">2</span>]));        <span class="hljs-comment">// 最小生成树的权值</span>        <span class="hljs-keyword">int</span> minWeight = <span class="hljs-number">0</span>;        UnionFind uf = <span class="hljs-keyword">new</span> UnionFind(n);        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] edge : indexedEdges) &#123;            minWeight = attemptConnect(minWeight, uf, edge);        &#125;        List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(<span class="hljs-number">2</span>);        res.add(<span class="hljs-keyword">new</span> ArrayList&lt;&gt;());        res.add(<span class="hljs-keyword">new</span> ArrayList&lt;&gt;());        <span class="hljs-comment">// 对于每条边构建最小生成树，判断关键边、伪关键边</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; edgeNum; i++) &#123;            <span class="hljs-comment">// 判断关键边</span>            uf = <span class="hljs-keyword">new</span> UnionFind(n);            <span class="hljs-keyword">int</span> weight = <span class="hljs-number">0</span>;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; edgeNum; j++) &#123;                <span class="hljs-comment">// 删去第 i 条边，若权值 &gt; minWeight，则为关键边</span>                <span class="hljs-keyword">if</span> (i == j) &#123;                    <span class="hljs-keyword">continue</span>;                &#125;                weight = attemptConnect(weight, uf, indexedEdges[j]);            &#125;            <span class="hljs-keyword">if</span> (uf.getCount() != <span class="hljs-number">1</span> || (uf.getCount() == <span class="hljs-number">1</span> &amp;&amp; weight &gt; minWeight)) &#123;                res.get(<span class="hljs-number">0</span>).add(indexedEdges[i][<span class="hljs-number">3</span>]);                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-comment">// 判断伪关键边</span>            uf = <span class="hljs-keyword">new</span> UnionFind(n);            <span class="hljs-comment">// 先连上该边，若权值 == minWeight，则为伪关键边</span>            uf.union(indexedEdges[i][<span class="hljs-number">0</span>], indexedEdges[i][<span class="hljs-number">1</span>]);            weight = indexedEdges[i][<span class="hljs-number">2</span>];            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] edge : indexedEdges) &#123;                weight = attemptConnect(weight, uf, edge);            &#125;            <span class="hljs-keyword">if</span> (weight == minWeight) &#123;                res.get(<span class="hljs-number">1</span>).add(indexedEdges[i][<span class="hljs-number">3</span>]);            &#125;        &#125;        <span class="hljs-keyword">return</span> res;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">attemptConnect</span><span class="hljs-params">(<span class="hljs-keyword">int</span> weight, UnionFind uf, <span class="hljs-keyword">int</span>[] indexedEdge)</span> </span>&#123;        <span class="hljs-keyword">if</span> (uf.isConnected(indexedEdge[<span class="hljs-number">0</span>], indexedEdge[<span class="hljs-number">1</span>])) &#123;            <span class="hljs-keyword">return</span> weight;        &#125;        uf.union(indexedEdge[<span class="hljs-number">0</span>], indexedEdge[<span class="hljs-number">1</span>]);        weight += indexedEdge[<span class="hljs-number">2</span>];        <span class="hljs-keyword">return</span> weight;    &#125;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UnionFind</span> </span>&#123;        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span>[] parent;        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UnionFind</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;            <span class="hljs-keyword">this</span>.parent = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];            <span class="hljs-keyword">this</span>.count = n;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;                <span class="hljs-keyword">this</span>.parent[i] = i;            &#125;        &#125;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getCount</span><span class="hljs-params">()</span> </span>&#123;            <span class="hljs-keyword">return</span> count;        &#125;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">union</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;            <span class="hljs-keyword">int</span> rootX = find(x);            <span class="hljs-keyword">int</span> rootY = find(y);            <span class="hljs-keyword">if</span> (rootX == rootY) &#123;                <span class="hljs-keyword">return</span>;            &#125;            parent[rootX] = rootY;            count--;        &#125;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;            <span class="hljs-keyword">while</span> (x != parent[x]) &#123;                parent[x] = parent[parent[x]];                x = parent[x];            &#125;            <span class="hljs-keyword">return</span> x;        &#125;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isConnected</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;            <span class="hljs-keyword">int</span> rootX = find(x);            <span class="hljs-keyword">int</span> rootY = find(y);            <span class="hljs-keyword">return</span> rootX == rootY;        &#125;    &#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/" target="_blank" rel="noopener">1489. 找到最小生成树里的关键边和伪关键边</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; findCriticalAndPseudoCriticalEdges(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span>[][] edges) &#123;        <span class="hljs-keyword">int</span> edgeNum = edges.length;        <span class="hljs-comment">// edge index [3]: [0] &lt;-&gt; [1] with weight [2]</span>        <span class="hljs-keyword">int</span>[][] indexedEdges = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[edgeNum][<span class="hljs-number">4</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; edgeNum; i++) &#123;            System.arraycopy(edges[i], <span class="hljs-number">0</span>, indexedEdges[i], <span class="hljs-number">0</span>, <span class="hljs-number">3</span>);            <span class="hljs-comment">// 第四维为边的编号</span>            indexedEdges[i][<span class="hljs-number">3</span>] = i;        &#125;        <span class="hljs-comment">// 根据权值由小到大排序</span>        Arrays.sort(indexedEdges, Comparator.comparingInt(o -&gt; o[<span class="hljs-number">2</span>]));        <span class="hljs-comment">// 最小生成树的权值</span>        <span class="hljs-keyword">int</span> minWeight = <span class="hljs-number">0</span>;        UnionFind uf = <span class="hljs-keyword">new</span> UnionFind(n);        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] edge : indexedEdges) &#123;            minWeight = attemptConnect(minWeight, uf, edge);        &#125;        List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(<span class="hljs-number">2</span>);        res.add(<span class="hljs-keyword">new</span> ArrayList&lt;&gt;());        res.add(<span class="hljs-keyword">new</span> ArrayList&lt;&gt;());        <span class="hljs-comment">// 对于每条边构建最小生成树，判断关键边、伪关键边</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; edgeNum; i++) &#123;            <span class="hljs-comment">// 判断关键边</span>            uf = <span class="hljs-keyword">new</span> UnionFind(n);            <span class="hljs-keyword">int</span> weight = <span class="hljs-number">0</span>;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; edgeNum; j++) &#123;                <span class="hljs-comment">// 删去第 i 条边，若权值 &gt; minWeight，则为关键边</span>                <span class="hljs-keyword">if</span> (i == j) &#123;                    <span class="hljs-keyword">continue</span>;                &#125;                weight = attemptConnect(weight, uf, indexedEdges[j]);            &#125;            <span class="hljs-keyword">if</span> (uf.getCount() != <span class="hljs-number">1</span> || (uf.getCount() == <span class="hljs-number">1</span> &amp;&amp; weight &gt; minWeight)) &#123;                res.get(<span class="hljs-number">0</span>).add(indexedEdges[i][<span class="hljs-number">3</span>]);                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-comment">// 判断伪关键边</span>            uf = <span class="hljs-keyword">new</span> UnionFind(n);            <span class="hljs-comment">// 先连上该边，若权值 == minWeight，则为伪关键边</span>            uf.union(indexedEdges[i][<span class="hljs-number">0</span>], indexedEdges[i][<span class="hljs-number">1</span>]);            weight = indexedEdges[i][<span class="hljs-number">2</span>];            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] edge : indexedEdges) &#123;                weight = attemptConnect(weight, uf, edge);            &#125;            <span class="hljs-keyword">if</span> (weight == minWeight) &#123;                res.get(<span class="hljs-number">1</span>).add(indexedEdges[i][<span class="hljs-number">3</span>]);            &#125;        &#125;        <span class="hljs-keyword">return</span> res;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">attemptConnect</span><span class="hljs-params">(<span class="hljs-keyword">int</span> weight, UnionFind uf, <span class="hljs-keyword">int</span>[] edge)</span> </span>&#123;        <span class="hljs-keyword">if</span> (uf.isConnected(edge[<span class="hljs-number">0</span>], edge[<span class="hljs-number">1</span>])) &#123;            <span class="hljs-keyword">return</span> weight;        &#125;        uf.union(edge[<span class="hljs-number">0</span>], edge[<span class="hljs-number">1</span>]);        weight += edge[<span class="hljs-number">2</span>];        <span class="hljs-keyword">return</span> weight;    &#125;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UnionFind</span> </span>&#123;        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span>[] parent;        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UnionFind</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;            <span class="hljs-keyword">this</span>.parent = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];            <span class="hljs-keyword">this</span>.count = n;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;                <span class="hljs-keyword">this</span>.parent[i] = i;            &#125;        &#125;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getCount</span><span class="hljs-params">()</span> </span>&#123;            <span class="hljs-keyword">return</span> count;        &#125;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">union</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;            <span class="hljs-keyword">int</span> rootX = find(x);            <span class="hljs-keyword">int</span> rootY = find(y);            <span class="hljs-keyword">if</span> (rootX == rootY) &#123;                <span class="hljs-keyword">return</span>;            &#125;            parent[rootX] = rootY;            count--;        &#125;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;            <span class="hljs-keyword">while</span> (x != parent[x]) &#123;                parent[x] = parent[parent[x]];                x = parent[x];            &#125;            <span class="hljs-keyword">return</span> x;        &#125;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isConnected</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;            <span class="hljs-keyword">int</span> rootX = find(x);            <span class="hljs-keyword">int</span> rootY = find(y);            <span class="hljs-keyword">return</span> rootX == rootY;        &#125;    &#125;</code></pre>]]></content>
     
     
     <categories>
@@ -101,9 +101,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -1282,9 +1282,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -1367,9 +1367,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -1831,9 +1831,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>贪心</tag>
       
@@ -1943,9 +1943,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -2115,9 +2115,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>贪心</tag>
       
@@ -2281,9 +2281,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>排序</tag>
       
@@ -2310,9 +2310,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -2482,9 +2482,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -3471,9 +3471,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>递归</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -3529,9 +3529,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>递归</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -3699,9 +3699,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -3730,11 +3730,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -4325,9 +4325,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -4354,9 +4354,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5516,9 +5516,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -5626,9 +5626,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5742,9 +5742,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5918,11 +5918,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -5976,13 +5976,13 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6600,9 +6600,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>数学</tag>
       
@@ -6685,9 +6685,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>数学</tag>
       
@@ -6716,9 +6716,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
       
@@ -6745,9 +6745,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -6774,9 +6774,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -6803,9 +6803,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -6832,9 +6832,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -6861,11 +6861,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6890,11 +6890,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -6921,9 +6921,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -7039,13 +7039,13 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7070,9 +7070,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
       
@@ -7099,9 +7099,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -7157,9 +7157,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -7186,11 +7186,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7244,9 +7244,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -7354,9 +7354,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
       
@@ -7412,11 +7412,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -7443,11 +7443,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7472,9 +7472,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -7503,11 +7503,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7532,11 +7532,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7561,9 +7561,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7588,9 +7588,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7615,9 +7615,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7642,9 +7642,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7669,9 +7669,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -7696,9 +7696,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -8337,9 +8337,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -8501,9 +8501,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       

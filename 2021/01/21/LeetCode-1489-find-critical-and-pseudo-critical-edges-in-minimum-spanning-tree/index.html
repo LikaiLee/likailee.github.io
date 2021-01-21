@@ -264,13 +264,12 @@
         &#125;
         <span class="hljs-keyword">return</span> res;
     &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">attemptConnect</span><span class="hljs-params">(<span class="hljs-keyword">int</span> weight, UnionFind uf, <span class="hljs-keyword">int</span>[] indexedEdge)</span> </span>&#123;
-        <span class="hljs-keyword">if</span> (uf.isConnected(indexedEdge[<span class="hljs-number">0</span>], indexedEdge[<span class="hljs-number">1</span>])) &#123;
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">attemptConnect</span><span class="hljs-params">(<span class="hljs-keyword">int</span> weight, UnionFind uf, <span class="hljs-keyword">int</span>[] edge)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (uf.isConnected(edge[<span class="hljs-number">0</span>], edge[<span class="hljs-number">1</span>])) &#123;
             <span class="hljs-keyword">return</span> weight;
         &#125;
-        uf.union(indexedEdge[<span class="hljs-number">0</span>], indexedEdge[<span class="hljs-number">1</span>]);
-        weight += indexedEdge[<span class="hljs-number">2</span>];
+        uf.union(edge[<span class="hljs-number">0</span>], edge[<span class="hljs-number">1</span>]);
+        weight += edge[<span class="hljs-number">2</span>];
         <span class="hljs-keyword">return</span> weight;
     &#125;
 
