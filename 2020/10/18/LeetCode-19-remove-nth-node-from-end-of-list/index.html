@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      71 字
+      100 字
     </span>
   
 
@@ -207,29 +207,33 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月18日 下午
+                  本文最后更新于：2021年1月22日 晚上
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/" target="_blank" rel="noopener">19. 删除链表的倒数第N个节点</a></p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(ListNode head, <span class="hljs-keyword">int</span> n)</span> </span>&#123;
-    ListNode dummy = <span class="hljs-keyword">new</span> ListNode(-<span class="hljs-number">1</span>, head);
-    ListNode p = dummy, q = dummy;
-    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">while</span> (q.next != <span class="hljs-keyword">null</span>) &#123;
-        q = q.next;
-        <span class="hljs-keyword">if</span> (i == n) &#123;
-            p = p.next;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            i++;
+        <span class="hljs-keyword">if</span> (head == <span class="hljs-keyword">null</span> || head.next == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
         &#125;
-    &#125;
-    <span class="hljs-keyword">if</span> (p.next != <span class="hljs-keyword">null</span>) &#123;
-        p.next = p.next.next;
-    &#125;
-    <span class="hljs-keyword">return</span> dummy.next;
-&#125;</code></pre>
+        ListNode fast = head;
+        ListNode slow = head;
+        <span class="hljs-keyword">while</span> (n-- &gt; <span class="hljs-number">0</span>) &#123;
+            fast = fast.next;
+        &#125;
+        <span class="hljs-comment">// 若倒数第 n 个就是第一个，则删除 head</span>
+        <span class="hljs-keyword">if</span> (fast == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">return</span> head.next;
+        &#125;
+        <span class="hljs-keyword">while</span> (fast.next != <span class="hljs-keyword">null</span>) &#123;
+            fast = fast.next;
+            slow = slow.next;
+        &#125;
+        <span class="hljs-comment">// 只要删除一个节点，跳过它</span>
+        slow.next = slow.next.next;
+        <span class="hljs-keyword">return</span> head;
+    &#125;</code></pre>
             </article>
             <hr>
             <div>

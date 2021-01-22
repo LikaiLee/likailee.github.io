@@ -623,10 +623,10 @@ public int[] maxDepthAfterSplit(String seq) &#123;
         
         <div>19. 删除链表的倒数第N个节点
 public ListNode removeNthFromEnd(ListNode head, int n) &#123;
-    ListNode dummy = new ListNode(-1, head);
-    ListNode p = dummy, q = dummy;
-    int i = 0;
-    while (q.next != null)</div>
+        if (head == null || head.next == null) &#123;
+            return null;
+        &#125;
+        ListNode fast = hea</div>
       </a>
 
       <div class="index-btm post-metas">
