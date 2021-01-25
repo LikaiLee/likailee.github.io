@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 959. 由斜杠划分区域</title>
+    <link href="/2021/01/25/LeetCode-959-regions-cut-by-slashes/"/>
+    <url>/2021/01/25/LeetCode-959-regions-cut-by-slashes/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/regions-cut-by-slashes/" target="_blank" rel="noopener">959. 由斜杠划分区域</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">regionsBySlashes</span><span class="hljs-params">(String[] grid)</span> </span>&#123;        <span class="hljs-keyword">int</span> n = grid.length;        <span class="hljs-keyword">int</span> count = n * n * <span class="hljs-number">4</span>;        UnionFind uf = <span class="hljs-keyword">new</span> UnionFind(count);        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;            <span class="hljs-keyword">char</span>[] row = grid[i].toCharArray();            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++) &#123;                <span class="hljs-comment">// 当前 grid[i][j] 的起始位置</span>                <span class="hljs-comment">//  0</span>                <span class="hljs-comment">// 3 1</span>                <span class="hljs-comment">//  2</span>                <span class="hljs-keyword">int</span> idx = (i * n + j) * <span class="hljs-number">4</span>;                <span class="hljs-comment">// 合并单元格内的格子</span>                <span class="hljs-keyword">if</span> (row[j] == <span class="hljs-string">'/'</span>) &#123;                    uf.union(idx, idx + <span class="hljs-number">3</span>);                    uf.union(idx + <span class="hljs-number">1</span>, idx + <span class="hljs-number">2</span>);                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (row[j] == <span class="hljs-string">'\\'</span>) &#123;                    uf.union(idx, idx + <span class="hljs-number">1</span>);                    uf.union(idx + <span class="hljs-number">2</span>, idx + <span class="hljs-number">3</span>);                &#125; <span class="hljs-keyword">else</span> &#123;                    uf.union(idx, idx + <span class="hljs-number">1</span>);                    uf.union(idx + <span class="hljs-number">1</span>, idx + <span class="hljs-number">2</span>);                    uf.union(idx + <span class="hljs-number">2</span>, idx + <span class="hljs-number">3</span>);                &#125;                <span class="hljs-comment">// 合并单元格之间的格子</span>                <span class="hljs-keyword">if</span> (j + <span class="hljs-number">1</span> &lt; n) &#123;                    uf.union(idx + <span class="hljs-number">1</span>, (i * n + j + <span class="hljs-number">1</span>) * <span class="hljs-number">4</span> + <span class="hljs-number">3</span>);                &#125;                <span class="hljs-keyword">if</span> (i + <span class="hljs-number">1</span> &lt; n) &#123;                    uf.union(idx + <span class="hljs-number">2</span>, ((i + <span class="hljs-number">1</span>) * n + j) * <span class="hljs-number">4</span>);                &#125;            &#125;        &#125;        <span class="hljs-keyword">return</span> uf.getCount();    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>并查集</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 989. 数组形式的整数加法</title>
     <link href="/2021/01/22/LeetCode-989-add-to-array-form-of-integer/"/>
     <url>/2021/01/22/LeetCode-989-add-to-array-form-of-integer/</url>
@@ -1027,11 +1054,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -1363,9 +1390,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -1566,9 +1593,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -2055,9 +2082,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -3260,9 +3287,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>优先队列</tag>
-      
       <tag>排序</tag>
+      
+      <tag>优先队列</tag>
       
     </tags>
     
@@ -3401,11 +3428,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -3432,9 +3459,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -3463,9 +3490,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -3583,9 +3610,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -3925,9 +3952,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -3956,9 +3983,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -5232,9 +5259,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -6484,9 +6511,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>优先队列</tag>
-      
       <tag>排序</tag>
+      
+      <tag>优先队列</tag>
       
     </tags>
     
