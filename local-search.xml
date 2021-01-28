@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 29. 两数相除</title>
+    <link href="/2021/01/28/LeetCode-29-divide-two-integers/"/>
+    <url>/2021/01/28/LeetCode-29-divide-two-integers/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/divide-two-integers/" target="_blank" rel="noopener">29. 两数相除</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">divide</span><span class="hljs-params">(<span class="hljs-keyword">int</span> dividend, <span class="hljs-keyword">int</span> divisor)</span> </span>&#123;        <span class="hljs-keyword">if</span> (divisor == <span class="hljs-number">1</span>) &#123;            <span class="hljs-keyword">return</span> dividend;        &#125;        <span class="hljs-keyword">if</span> (divisor == -<span class="hljs-number">1</span>) &#123;            <span class="hljs-keyword">if</span> (dividend == Integer.MIN_VALUE) &#123;                <span class="hljs-keyword">return</span> Integer.MAX_VALUE;            &#125;            <span class="hljs-keyword">return</span> -dividend;        &#125;        <span class="hljs-keyword">boolean</span> negative = (dividend &lt; <span class="hljs-number">0</span> &amp;&amp; divisor &gt; <span class="hljs-number">0</span>) || (divisor &lt; <span class="hljs-number">0</span> &amp;&amp; dividend &gt; <span class="hljs-number">0</span>);        <span class="hljs-keyword">long</span> a = Math.abs((<span class="hljs-keyword">long</span>) dividend);        <span class="hljs-keyword">long</span> b = Math.abs((<span class="hljs-keyword">long</span>) divisor);        <span class="hljs-keyword">int</span> res = div(a, b);        <span class="hljs-keyword">if</span> (negative) &#123;            <span class="hljs-keyword">return</span> -res;        &#125;        <span class="hljs-keyword">return</span> res;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">div</span><span class="hljs-params">(<span class="hljs-keyword">long</span> a, <span class="hljs-keyword">long</span> b)</span> </span>&#123;        <span class="hljs-keyword">if</span> (a &lt; b) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-comment">// 已经使用的 b 的总和</span>        <span class="hljs-keyword">long</span> sum = b;        <span class="hljs-comment">// 使用的 b 的个数</span>        <span class="hljs-keyword">long</span> count = <span class="hljs-number">1</span>;        <span class="hljs-keyword">while</span> (sum &lt;= a) &#123;            count &lt;&lt;= <span class="hljs-number">1</span>;            sum &lt;&lt;= <span class="hljs-number">1</span>;        &#125;        count &gt;&gt;&gt;= <span class="hljs-number">1</span>;        sum &gt;&gt;&gt;= <span class="hljs-number">1</span>;        <span class="hljs-keyword">return</span> (<span class="hljs-keyword">int</span>) (count + div(a - sum, b));    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>位运算</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 24. 两两交换链表中的节点</title>
     <link href="/2021/01/28/LeetCode-24-swap-nodes-in-pairs/"/>
     <url>/2021/01/28/LeetCode-24-swap-nodes-in-pairs/</url>
