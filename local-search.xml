@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 724. 寻找数组的中心索引</title>
+    <link href="/2021/01/28/LeetCode-724-find-pivot-index/"/>
+    <url>/2021/01/28/LeetCode-724-find-pivot-index/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/find-pivot-index/" target="_blank" rel="noopener">724. 寻找数组的中心索引</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">pivotIndex</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;        <span class="hljs-keyword">int</span> len = nums.length;        <span class="hljs-keyword">int</span>[] prevSums = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];        <span class="hljs-keyword">int</span>[] postSums = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];        <span class="hljs-comment">// [1, 7, 3, 6, 5, 6]</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;            prevSums[i] = nums[i - <span class="hljs-number">1</span>] + prevSums[i - <span class="hljs-number">1</span>];        &#125;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;            postSums[i] = nums[i + <span class="hljs-number">1</span>] + postSums[i + <span class="hljs-number">1</span>];        &#125;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;            <span class="hljs-keyword">if</span> (prevSums[i] == postSums[i]) &#123;                <span class="hljs-keyword">return</span> i;            &#125;        &#125;        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1579. 保证图可完全遍历</title>
     <link href="/2021/01/27/LeetCode-1579-remove-max-number-of-edges-to-keep-graph-fully-traversable/"/>
     <url>/2021/01/27/LeetCode-1579-remove-max-number-of-edges-to-keep-graph-fully-traversable/</url>
@@ -3341,9 +3368,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>优先队列</tag>
-      
       <tag>排序</tag>
+      
+      <tag>优先队列</tag>
       
     </tags>
     
@@ -4068,9 +4095,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -4431,9 +4458,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4460,9 +4487,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4597,9 +4624,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -5622,9 +5649,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -5732,9 +5759,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5761,9 +5788,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -5848,9 +5875,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6024,11 +6051,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6084,11 +6111,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6565,9 +6592,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>优先队列</tag>
-      
       <tag>排序</tag>
+      
+      <tag>优先队列</tag>
       
     </tags>
     
@@ -6969,9 +6996,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6998,9 +7025,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7147,11 +7174,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7294,9 +7321,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7520,9 +7547,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -7551,9 +7578,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7611,9 +7638,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7640,9 +7667,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
