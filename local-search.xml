@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 778. 水位上升的泳池中游泳</title>
+    <link href="/2021/01/30/LeetCode-778-swim-in-rising-water/"/>
+    <url>/2021/01/30/LeetCode-778-swim-in-rising-water/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/swim-in-rising-water/" target="_blank" rel="noopener">778. 水位上升的泳池中游泳</a></p><h1 id="并查集"><a class="markdownIt-Anchor" href="#并查集"></a> 并查集</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">swimInWater</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] grid)</span> </span>&#123;        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> rows = grid.length;        <span class="hljs-keyword">int</span> cols = grid[<span class="hljs-number">0</span>].length;        <span class="hljs-keyword">int</span> n = rows * cols;        List&lt;<span class="hljs-keyword">int</span>[]&gt; edges = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;                <span class="hljs-keyword">int</span> idx = i * cols + j;                <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">0</span>) &#123;                    edges.add(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;idx, idx - cols, Math.max(grid[i][j], grid[i - <span class="hljs-number">1</span>][j])&#125;);                &#125;                <span class="hljs-keyword">if</span> (j &gt; <span class="hljs-number">0</span>) &#123;                    edges.add(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;idx, idx - <span class="hljs-number">1</span>, Math.max(grid[i][j], grid[i][j - <span class="hljs-number">1</span>])&#125;);                &#125;            &#125;        &#125;        edges.sort(Comparator.comparingInt(o -&gt; o[<span class="hljs-number">2</span>]));        UnionFind uf = <span class="hljs-keyword">new</span> UnionFind(n);        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] edge : edges) &#123;            uf.union(edge[<span class="hljs-number">0</span>], edge[<span class="hljs-number">1</span>]);            res = Math.max(res, edge[<span class="hljs-number">2</span>]);            <span class="hljs-keyword">if</span> (uf.isConnected(<span class="hljs-number">0</span>, n - <span class="hljs-number">1</span>)) &#123;                <span class="hljs-keyword">return</span> res;            &#125;        &#125;        <span class="hljs-keyword">return</span> res;    &#125;</code></pre><h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">swimInWater</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] grid)</span> </span>&#123;        <span class="hljs-keyword">int</span>[][] dirs = &#123;&#123;<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;, &#123;<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>&#125;&#125;;        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> rows = grid.length;        <span class="hljs-keyword">int</span> cols = grid[<span class="hljs-number">0</span>].length;        PriorityQueue&lt;<span class="hljs-keyword">int</span>[]&gt; queue = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;(Comparator.comparingInt(o -&gt; o[<span class="hljs-number">2</span>]));        <span class="hljs-keyword">boolean</span>[][] visited = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[rows][cols];        queue.offer(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, grid[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]&#125;);        <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;            <span class="hljs-keyword">int</span>[] cur = queue.poll();            <span class="hljs-keyword">int</span> x = cur[<span class="hljs-number">0</span>];            <span class="hljs-keyword">int</span> y = cur[<span class="hljs-number">1</span>];            visited[x][y] = <span class="hljs-keyword">true</span>;            res = Math.max(res, cur[<span class="hljs-number">2</span>]);            <span class="hljs-keyword">if</span> (x == rows - <span class="hljs-number">1</span> &amp;&amp; y == cols - <span class="hljs-number">1</span>) &#123;                <span class="hljs-keyword">return</span> res;            &#125;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] dir : dirs) &#123;                <span class="hljs-keyword">int</span> nx = x + dir[<span class="hljs-number">0</span>];                <span class="hljs-keyword">int</span> ny = y + dir[<span class="hljs-number">1</span>];                <span class="hljs-keyword">if</span> (!inArea(nx, ny, rows, cols) || visited[nx][ny]) &#123;                    <span class="hljs-keyword">continue</span>;                &#125;                queue.offer(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;nx, ny, grid[nx][ny]&#125;);            &#125;        &#125;        <span class="hljs-keyword">return</span> res;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">inArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> rows, <span class="hljs-keyword">int</span> cols)</span> </span>&#123;        <span class="hljs-keyword">return</span> x &gt;= <span class="hljs-number">0</span> &amp;&amp; x &lt; rows &amp;&amp; y &gt;= <span class="hljs-number">0</span> &amp;&amp; y &lt; cols;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>BFS</tag>
+      
+      <tag>并查集</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1631. 最小体力消耗路径</title>
     <link href="/2021/01/29/LeetCode-1631-path-with-minimum-effort/"/>
     <url>/2021/01/29/LeetCode-1631-path-with-minimum-effort/</url>
@@ -1218,11 +1247,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -1554,9 +1583,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -1757,9 +1786,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2246,9 +2275,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -3592,11 +3621,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -3623,9 +3652,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -3654,9 +3683,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -3774,9 +3803,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -4116,9 +4145,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -4147,9 +4176,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -4541,9 +4570,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4570,9 +4599,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5423,9 +5452,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -5732,9 +5761,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -5842,9 +5871,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5958,9 +5987,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6134,11 +6163,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6194,11 +6223,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7079,9 +7108,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7108,9 +7137,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7257,11 +7286,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7404,9 +7433,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7630,9 +7659,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -7661,9 +7690,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7721,9 +7750,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7750,9 +7779,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
