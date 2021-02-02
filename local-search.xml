@@ -1299,11 +1299,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -1635,9 +1635,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -1838,9 +1838,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -2012,9 +2012,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2041,11 +2041,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -2072,9 +2072,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -2240,9 +2240,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -2327,9 +2327,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -3673,11 +3673,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -3704,9 +3704,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -3735,9 +3735,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -3855,9 +3855,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -4197,9 +4197,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -4228,9 +4228,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -5504,9 +5504,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -6292,7 +6292,7 @@
     <link href="/2020/09/24/LeetCode-424-longest-repeating-character-replacement/"/>
     <url>/2020/09/24/LeetCode-424-longest-repeating-character-replacement/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/" target="_blank" rel="noopener">424. 替换后的最长重复字符</a></p><p>实际上，窗口始终增大，因为要求最长子串，窗口内的字符出现次数在窗口收缩一位后，没有必要进行更新。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">characterReplacement</span><span class="hljs-params">(String s, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] chars = s.toCharArray();    <span class="hljs-keyword">int</span> len = chars.length;    <span class="hljs-comment">// 窗口内字符的出现次数</span>    <span class="hljs-keyword">int</span>[] freq = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> maxCount = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> maxLen = Integer.MIN_VALUE;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        <span class="hljs-keyword">int</span> cur = chars[right] - <span class="hljs-string">'A'</span>;        freq[cur]++;        right++;        maxCount = Math.max(maxCount, freq[cur]);        <span class="hljs-comment">// 窗口大小 - 重复字符长度 &lt;= k 个替换长度时</span>        <span class="hljs-comment">// 表示可以替换的字符还达不到 k 个，此时可以扩大窗口</span>        <span class="hljs-comment">// 收缩 left 之后，窗口内正好可替换 k 个字符</span>        <span class="hljs-comment">// while (right - left - maxCount &gt; k) &#123;</span>        <span class="hljs-keyword">if</span> (right - left - maxCount &gt; k) &#123;            freq[chars[left] - <span class="hljs-string">'A'</span>]--;            left++;        &#125;        maxLen = Math.max(maxLen, right - left);    &#125;    <span class="hljs-keyword">return</span> maxLen;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/" target="_blank" rel="noopener">424. 替换后的最长重复字符</a></p><p>实际上，窗口始终增大，因为要求最长子串，窗口内的字符出现次数在窗口收缩一位后，没有必要进行更新。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">characterReplacement</span><span class="hljs-params">(String s, <span class="hljs-keyword">int</span> k)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] str = s.toCharArray();    <span class="hljs-keyword">int</span> len = str.length;    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 窗口内字符的出现次数</span>    <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];    <span class="hljs-comment">// 窗口内同一个字符的最多出现次数</span>    <span class="hljs-keyword">int</span> maxCount = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (right &lt; len) &#123;        counts[str[right] - <span class="hljs-string">'A'</span>]++;        <span class="hljs-comment">// 只增不减，窗口内字符不一定满足要求，但窗口长度一定最长</span>        <span class="hljs-comment">// 只有当 maxCount 变大时，才会增大窗口长度</span>        maxCount = Math.max(maxCount, counts[str[right] - <span class="hljs-string">'A'</span>]);        right++;        <span class="hljs-comment">// 若窗口内 c 字符出现 maxCount，最多只能替换 k 个其他字符为 c</span>        <span class="hljs-comment">// 则最大长度 maxCount + k &lt; 窗口大小时（其他字符出现次数 &gt; k）需要左移</span>        <span class="hljs-comment">// if (right - left - maxCount &gt; k) &#123;</span>        <span class="hljs-keyword">if</span> (maxCount + k &lt; right - left) &#123;            counts[str[left] - <span class="hljs-string">'A'</span>]--;            left++;        &#125;        res = Math.max(res, right - left);    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -6839,9 +6839,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6868,9 +6868,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
