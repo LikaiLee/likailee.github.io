@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 480. 滑动窗口中位数</title>
+    <link href="/2021/02/03/LeetCode-480-sliding-window-median/"/>
+    <url>/2021/02/03/LeetCode-480-sliding-window-median/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/sliding-window-median/" target="_blank" rel="noopener">480. 滑动窗口中位数</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span>[] medianSlidingWindow(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k) &#123;        <span class="hljs-comment">// 存储比中位数小的元素，大顶堆</span>        <span class="hljs-comment">// 防止溢出</span>        PriorityQueue&lt;Integer&gt; small = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; Integer.compare(o2, o1));        <span class="hljs-comment">// 存储比中位数大的元素，小顶堆</span>        PriorityQueue&lt;Integer&gt; large = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;();        <span class="hljs-keyword">int</span> len = nums.length;        <span class="hljs-keyword">double</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">double</span>[len - k + <span class="hljs-number">1</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;            <span class="hljs-comment">// small - 1 = large</span>            <span class="hljs-keyword">if</span> (small.size() == large.size()) &#123;                large.offer(nums[i]);                small.offer(large.poll());            &#125; <span class="hljs-keyword">else</span> &#123;                small.offer(nums[i]);                large.offer(small.poll());            &#125;            <span class="hljs-keyword">int</span> j = i - k + <span class="hljs-number">1</span>;            <span class="hljs-keyword">if</span> (j &lt; <span class="hljs-number">0</span>) &#123;                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-comment">// 获取中位数</span>            res[j] = getMedian(small, large);            <span class="hljs-comment">// 删除需要移出窗口的元素</span>            <span class="hljs-keyword">int</span> erase = nums[j];            <span class="hljs-keyword">if</span> (erase &lt;= small.peek()) &#123;                small.remove(erase);            &#125; <span class="hljs-keyword">else</span> &#123;                large.remove(erase);            &#125;            <span class="hljs-comment">// 删除元素后重新维护堆</span>            balance(small, large);        &#125;        <span class="hljs-keyword">return</span> res;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">balance</span><span class="hljs-params">(PriorityQueue&lt;Integer&gt; small, PriorityQueue&lt;Integer&gt; large)</span> </span>&#123;        <span class="hljs-comment">// 保证 small 与 large 相等或比 large 多一个元素</span>        <span class="hljs-keyword">if</span> (small.size() &lt; large.size()) &#123;            small.offer(large.poll());        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (small.size() &gt; large.size() + <span class="hljs-number">1</span>) &#123;            large.offer(small.poll());        &#125;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getMedian</span><span class="hljs-params">(PriorityQueue&lt;Integer&gt; small, PriorityQueue&lt;Integer&gt; large)</span> </span>&#123;        <span class="hljs-keyword">if</span> (small.size() == large.size()) &#123;            <span class="hljs-comment">// 防止溢出</span>            <span class="hljs-keyword">return</span> small.peek() / <span class="hljs-number">2.0</span> + large.peek() / <span class="hljs-number">2.0</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">return</span> small.peek();        &#125;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>滑动窗口</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 888. 公平的糖果棒交换</title>
     <link href="/2021/02/01/LeetCode-888-fair-candy-swap/"/>
     <url>/2021/02/01/LeetCode-888-fair-candy-swap/</url>
@@ -398,9 +425,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1299,11 +1326,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -1579,9 +1606,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1635,9 +1662,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -1753,9 +1780,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>数学</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -1838,9 +1865,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2128,9 +2155,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>贪心</tag>
       
@@ -2269,9 +2296,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2327,9 +2354,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2412,9 +2439,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>贪心</tag>
       
@@ -2578,9 +2605,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -2607,9 +2634,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -3673,11 +3700,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -3704,9 +3731,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -3735,9 +3762,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -3855,9 +3882,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -4197,9 +4224,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -4228,9 +4255,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -4622,9 +4649,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4651,9 +4678,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5504,9 +5531,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -5813,9 +5840,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -5923,9 +5950,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6039,9 +6066,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6215,11 +6242,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6273,13 +6300,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6897,9 +6924,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>数学</tag>
       
@@ -6982,9 +7009,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>数学</tag>
       
@@ -7013,11 +7040,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7042,9 +7069,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7071,9 +7098,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7100,9 +7127,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7129,9 +7156,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7158,11 +7185,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7187,11 +7214,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7336,13 +7363,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7367,11 +7394,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7396,9 +7423,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7454,9 +7481,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7483,11 +7510,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7541,9 +7568,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7651,11 +7678,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -7709,11 +7736,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -7740,11 +7767,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7769,9 +7796,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -7800,11 +7827,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7829,11 +7856,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7858,9 +7885,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7885,9 +7912,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7912,9 +7939,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7939,9 +7966,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7966,9 +7993,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7993,9 +8020,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8798,9 +8825,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
