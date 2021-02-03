@@ -8,7 +8,7 @@
     <link href="/2021/02/03/LeetCode-480-sliding-window-median/"/>
     <url>/2021/02/03/LeetCode-480-sliding-window-median/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/sliding-window-median/" target="_blank" rel="noopener">480. 滑动窗口中位数</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span>[] medianSlidingWindow(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k) &#123;        <span class="hljs-comment">// 存储比中位数小的元素，大顶堆</span>        <span class="hljs-comment">// 防止溢出</span>        PriorityQueue&lt;Integer&gt; small = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; Integer.compare(o2, o1));        <span class="hljs-comment">// 存储比中位数大的元素，小顶堆</span>        PriorityQueue&lt;Integer&gt; large = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;();        <span class="hljs-keyword">int</span> len = nums.length;        <span class="hljs-keyword">double</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">double</span>[len - k + <span class="hljs-number">1</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;            <span class="hljs-comment">// small - 1 = large</span>            <span class="hljs-keyword">if</span> (small.size() == large.size()) &#123;                large.offer(nums[i]);                small.offer(large.poll());            &#125; <span class="hljs-keyword">else</span> &#123;                small.offer(nums[i]);                large.offer(small.poll());            &#125;            <span class="hljs-keyword">int</span> j = i - k + <span class="hljs-number">1</span>;            <span class="hljs-keyword">if</span> (j &lt; <span class="hljs-number">0</span>) &#123;                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-comment">// 获取中位数</span>            res[j] = getMedian(small, large);            <span class="hljs-comment">// 删除需要移出窗口的元素</span>            <span class="hljs-keyword">int</span> erase = nums[j];            <span class="hljs-keyword">if</span> (erase &lt;= small.peek()) &#123;                small.remove(erase);            &#125; <span class="hljs-keyword">else</span> &#123;                large.remove(erase);            &#125;            <span class="hljs-comment">// 删除元素后重新维护堆</span>            balance(small, large);        &#125;        <span class="hljs-keyword">return</span> res;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">balance</span><span class="hljs-params">(PriorityQueue&lt;Integer&gt; small, PriorityQueue&lt;Integer&gt; large)</span> </span>&#123;        <span class="hljs-comment">// 保证 small 与 large 相等或比 large 多一个元素</span>        <span class="hljs-keyword">if</span> (small.size() &lt; large.size()) &#123;            small.offer(large.poll());        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (small.size() &gt; large.size() + <span class="hljs-number">1</span>) &#123;            large.offer(small.poll());        &#125;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getMedian</span><span class="hljs-params">(PriorityQueue&lt;Integer&gt; small, PriorityQueue&lt;Integer&gt; large)</span> </span>&#123;        <span class="hljs-keyword">if</span> (small.size() == large.size()) &#123;            <span class="hljs-comment">// 防止溢出</span>            <span class="hljs-keyword">return</span> small.peek() / <span class="hljs-number">2.0</span> + large.peek() / <span class="hljs-number">2.0</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">return</span> small.peek();        &#125;    &#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/sliding-window-median/" target="_blank" rel="noopener">480. 滑动窗口中位数</a></p><p><a href="https://leetcode-cn.com/problems/find-median-from-data-stream/" target="_blank" rel="noopener">295. 数据流的中位数</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span>[] medianSlidingWindow(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k) &#123;        <span class="hljs-comment">// 存储比中位数小的元素，大顶堆</span>        <span class="hljs-comment">// 防止溢出</span>        PriorityQueue&lt;Integer&gt; small = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; Integer.compare(o2, o1));        <span class="hljs-comment">// 存储比中位数大的元素，小顶堆</span>        PriorityQueue&lt;Integer&gt; large = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;();        <span class="hljs-keyword">int</span> len = nums.length;        <span class="hljs-keyword">double</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">double</span>[len - k + <span class="hljs-number">1</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;            <span class="hljs-comment">// small - 1 = large</span>            <span class="hljs-keyword">if</span> (small.size() == large.size()) &#123;                large.offer(nums[i]);                small.offer(large.poll());            &#125; <span class="hljs-keyword">else</span> &#123;                small.offer(nums[i]);                large.offer(small.poll());            &#125;            <span class="hljs-keyword">int</span> j = i - k + <span class="hljs-number">1</span>;            <span class="hljs-keyword">if</span> (j &lt; <span class="hljs-number">0</span>) &#123;                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-comment">// 获取中位数</span>            res[j] = getMedian(small, large);            <span class="hljs-comment">// 删除需要移出窗口的元素</span>            <span class="hljs-keyword">int</span> erase = nums[j];            <span class="hljs-keyword">if</span> (erase &lt;= small.peek()) &#123;                small.remove(erase);            &#125; <span class="hljs-keyword">else</span> &#123;                large.remove(erase);            &#125;            <span class="hljs-comment">// 删除元素后重新维护堆</span>            balance(small, large);        &#125;        <span class="hljs-keyword">return</span> res;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">balance</span><span class="hljs-params">(PriorityQueue&lt;Integer&gt; small, PriorityQueue&lt;Integer&gt; large)</span> </span>&#123;        <span class="hljs-comment">// 保证 small 与 large 相等或比 large 多一个元素</span>        <span class="hljs-keyword">if</span> (small.size() &lt; large.size()) &#123;            small.offer(large.poll());        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (small.size() &gt; large.size() + <span class="hljs-number">1</span>) &#123;            large.offer(small.poll());        &#125;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getMedian</span><span class="hljs-params">(PriorityQueue&lt;Integer&gt; small, PriorityQueue&lt;Integer&gt; large)</span> </span>&#123;        <span class="hljs-keyword">if</span> (small.size() == large.size()) &#123;            <span class="hljs-comment">// 防止溢出</span>            <span class="hljs-keyword">return</span> small.peek() / <span class="hljs-number">2.0</span> + large.peek() / <span class="hljs-number">2.0</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">return</span> small.peek();        &#125;    &#125;</code></pre>]]></content>
     
     
     <categories>
@@ -427,9 +427,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -1608,9 +1608,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2157,9 +2157,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>贪心</tag>
       
@@ -2298,9 +2298,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2441,9 +2441,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>贪心</tag>
       
@@ -2607,9 +2607,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -2636,9 +2636,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -4156,7 +4156,7 @@
     <link href="/2020/10/30/LeetCode-295-find-median-from-data-stream/"/>
     <url>/2020/10/30/LeetCode-295-find-median-from-data-stream/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/find-median-from-data-stream/" target="_blank" rel="noopener">295. 数据流的中位数</a></p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MedianFinder</span> </span>&#123;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 总的数据个数</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">int</span> count;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 左边保存大顶堆，奇数时中位数即堆顶</span><span class="hljs-comment">     */</span>    PriorityQueue&lt;Integer&gt; maxHeap;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 右边保存小顶堆，偶数时，取堆顶求均值</span><span class="hljs-comment">     */</span>    PriorityQueue&lt;Integer&gt; minHeap;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * initialize your data structure here.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MedianFinder</span><span class="hljs-params">()</span> </span>&#123;        count = <span class="hljs-number">0</span>;        maxHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; o2 - o1);        minHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;();    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;        count++;        <span class="hljs-comment">// 1 2 3    4 5</span>        <span class="hljs-comment">// 1 2 3    4 5 6</span>        <span class="hljs-comment">// 大顶堆的堆顶 &lt;= 小顶堆堆顶，</span>        <span class="hljs-comment">// 所以要取大的值加入小顶堆，小的值加入大顶堆</span>        maxHeap.add(num);        minHeap.add(maxHeap.poll());        <span class="hljs-comment">// 当总数为奇数时，大顶堆比小顶堆多一个元素</span>        <span class="hljs-keyword">if</span> (count % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;            maxHeap.add(minHeap.poll());        &#125;    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMedian</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">if</span> (count % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> (<span class="hljs-keyword">double</span>) (maxHeap.peek() + minHeap.peek()) / <span class="hljs-number">2</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">return</span> (<span class="hljs-keyword">double</span>) maxHeap.peek();        &#125;    &#125;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/find-median-from-data-stream/" target="_blank" rel="noopener">295. 数据流的中位数</a></p><p><a href="https://leetcode-cn.com/problems/sliding-window-median/" target="_blank" rel="noopener">480. 滑动窗口中位数</a></p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MedianFinder</span> </span>&#123;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 总的数据个数</span><span class="hljs-comment">     */</span>    <span class="hljs-keyword">int</span> count;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 左边保存大顶堆，奇数时中位数即堆顶</span><span class="hljs-comment">     */</span>    PriorityQueue&lt;Integer&gt; maxHeap;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 右边保存小顶堆，偶数时，取堆顶求均值</span><span class="hljs-comment">     */</span>    PriorityQueue&lt;Integer&gt; minHeap;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * initialize your data structure here.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MedianFinder</span><span class="hljs-params">()</span> </span>&#123;        count = <span class="hljs-number">0</span>;        maxHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; o2 - o1);        minHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;();    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;        count++;        <span class="hljs-comment">// 1 2 3    4 5</span>        <span class="hljs-comment">// 1 2 3    4 5 6</span>        <span class="hljs-comment">// 大顶堆的堆顶 &lt;= 小顶堆堆顶，</span>        <span class="hljs-comment">// 所以要取大的值加入小顶堆，小的值加入大顶堆</span>        maxHeap.add(num);        minHeap.add(maxHeap.poll());        <span class="hljs-comment">// 当总数为奇数时，大顶堆比小顶堆多一个元素</span>        <span class="hljs-keyword">if</span> (count % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;            maxHeap.add(minHeap.poll());        &#125;    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMedian</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">if</span> (count % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span> (<span class="hljs-keyword">double</span>) (maxHeap.peek() + minHeap.peek()) / <span class="hljs-number">2</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">return</span> (<span class="hljs-keyword">double</span>) maxHeap.peek();        &#125;    &#125;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -6302,9 +6302,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -6926,9 +6926,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>数学</tag>
       
@@ -7011,9 +7011,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>数学</tag>
       
@@ -7042,11 +7042,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7071,9 +7071,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7100,9 +7100,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7129,9 +7129,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7158,9 +7158,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7187,9 +7187,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -7216,9 +7216,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -7365,9 +7365,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -7396,11 +7396,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7425,9 +7425,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7483,9 +7483,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7512,9 +7512,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -7570,9 +7570,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -7680,11 +7680,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -7738,9 +7738,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -7769,9 +7769,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -7798,9 +7798,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -7829,9 +7829,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -7858,9 +7858,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -7887,9 +7887,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7914,9 +7914,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7941,9 +7941,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7968,9 +7968,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7995,9 +7995,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8022,9 +8022,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8827,9 +8827,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
