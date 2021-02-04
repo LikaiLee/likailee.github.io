@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      86 字
+      75 字
     </span>
   
 
@@ -207,26 +207,24 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月25日 晚上
+                  本文最后更新于：2021年2月4日 晚上
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/maximum-average-subarray-i/" target="_blank" rel="noopener">643. 子数组最大平均数 I</a></p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMaxAverage</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
-    <span class="hljs-keyword">double</span> sum = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
     <span class="hljs-comment">// 计算前 k 个子数组和</span>
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; k; i++) &#123;
         sum += nums[i];
     &#125;
-    <span class="hljs-keyword">double</span> res = sum;
+    <span class="hljs-keyword">int</span> res = sum;
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = k; i &lt; nums.length; i++) &#123;
-        <span class="hljs-comment">// [i, i + 1, ... , i + k, i + k + 1]</span>
-        <span class="hljs-comment">// 0, 1, 2, 3, 4</span>
         sum = sum - nums[i - k] + nums[i];
         res = Math.max(res, sum);
     &#125;
-    <span class="hljs-keyword">return</span> res / k;
+    <span class="hljs-keyword">return</span> res * <span class="hljs-number">1.0</span> / k;
 &#125;</code></pre>
             </article>
             <hr>
