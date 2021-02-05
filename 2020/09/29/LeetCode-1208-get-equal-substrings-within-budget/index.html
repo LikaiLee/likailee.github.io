@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      100 字
+      96 字
     </span>
   
 
@@ -207,32 +207,34 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月29日 晚上
+                  本文最后更新于：2021年2月5日 下午
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/get-equal-substrings-within-budget/" target="_blank" rel="noopener">1208. 尽可能使字符串相等</a></p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">equalSubstring</span><span class="hljs-params">(String s, String t, <span class="hljs-keyword">int</span> maxCost)</span> </span>&#123;
-    <span class="hljs-keyword">char</span>[] sChar = s.toCharArray();
-    <span class="hljs-keyword">char</span>[] tChar = t.toCharArray();
-    <span class="hljs-keyword">int</span> len = s.length();
-    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">int</span> windowCost = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">int</span> maxLen = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">char</span>[] sChars = s.toCharArray();
+    <span class="hljs-keyword">char</span>[] tChars = t.toCharArray();
+    <span class="hljs-keyword">int</span> len = sChars.length;
+    <span class="hljs-keyword">int</span>[] costs = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+        costs[i] = Math.abs(sChars[i] - tChars[i]);
+    &#125;
+    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> cost = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">while</span> (right &lt; len) &#123;
-        <span class="hljs-comment">// 计算窗口内字符代价</span>
-        windowCost += Math.abs(sChar[right] - tChar[right]);
+        cost += costs[right];
         right++;
-        <span class="hljs-comment">// 收缩左边界</span>
-        <span class="hljs-keyword">if</span> (windowCost &gt; maxCost) &#123;
-            windowCost -= Math.abs(sChar[left] - tChar[left]);
+        <span class="hljs-keyword">if</span> (cost &gt; maxCost) &#123;
+            cost -= costs[left];
             left++;
         &#125;
-        <span class="hljs-comment">// 计算最大长度</span>
-        maxLen = Math.max(maxLen, right - left);
+        res = Math.max(res, right - left);
     &#125;
-    <span class="hljs-keyword">return</span> maxLen;
+    <span class="hljs-keyword">return</span> res;
 &#125;</code></pre>
             </article>
             <hr>
