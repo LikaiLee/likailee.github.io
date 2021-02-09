@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 992. K 个不同整数的子数组</title>
+    <link href="/2021/02/09/LeetCode-992-subarrays-with-k-different-integers/"/>
+    <url>/2021/02/09/LeetCode-992-subarrays-with-k-different-integers/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/subarrays-with-k-different-integers/" target="_blank" rel="noopener">992. K 个不同整数的子数组</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">subarraysWithKDistinct</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A, <span class="hljs-keyword">int</span> K)</span> </span>&#123;        <span class="hljs-keyword">return</span> mostDistinct(A, K) - mostDistinct(A, K - <span class="hljs-number">1</span>);    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">mostDistinct</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A, <span class="hljs-keyword">int</span> K)</span> </span>&#123;        <span class="hljs-keyword">int</span> len = A.length;        <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len + <span class="hljs-number">1</span>];        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>;        <span class="hljs-comment">// 不同整数的个数</span>        <span class="hljs-keyword">int</span> valid = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;        <span class="hljs-keyword">while</span> (right &lt; len) &#123;            <span class="hljs-comment">// 未出现过的整数</span>            <span class="hljs-keyword">if</span> (counts[A[right]] == <span class="hljs-number">0</span>) &#123;                valid++;            &#125;            counts[A[right]]++;            right++;            <span class="hljs-comment">// 需要保持窗口内最多有 k 个不同整数</span>            <span class="hljs-keyword">while</span> (valid &gt; K) &#123;                <span class="hljs-comment">// 左边需要移出窗口</span>                counts[A[left]]--;                <span class="hljs-keyword">if</span> (counts[A[left]] == <span class="hljs-number">0</span>) &#123;                    valid--;                &#125;                left++;            &#125;            <span class="hljs-comment">// &lt;= k 个整数的所有可能组合数</span>            res += right - left;        &#125;        <span class="hljs-keyword">return</span> res;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>滑动窗口</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 665. 非递减数列</title>
     <link href="/2021/02/07/LeetCode-665-non-decreasing-array/"/>
     <url>/2021/02/07/LeetCode-665-non-decreasing-array/</url>
