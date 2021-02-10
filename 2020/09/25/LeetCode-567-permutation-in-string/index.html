@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      169 字
+      123 字
     </span>
   
 
@@ -207,56 +207,40 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月25日 晚上
+                  本文最后更新于：2021年2月10日 下午
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/permutation-in-string/" target="_blank" rel="noopener">567. 字符串的排列</a></p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">checkInclusion</span><span class="hljs-params">(String s1, String s2)</span> </span>&#123;
-    <span class="hljs-keyword">char</span>[] chars1 = s1.toCharArray();
-    <span class="hljs-keyword">char</span>[] chars2 = s2.toCharArray();
-    <span class="hljs-keyword">int</span>[] window = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];
-    <span class="hljs-keyword">int</span>[] needs = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : chars1) &#123;
-        needs[c - <span class="hljs-string">'a'</span>]++;
-    &#125;
-    <span class="hljs-keyword">int</span> s1Len = chars1.length;
-    <span class="hljs-keyword">int</span> s2Len = chars2.length;
-    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">int</span> validLen = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">while</span> (right &lt; s2Len) &#123;
-        <span class="hljs-keyword">int</span> curPos = chars2[right] - <span class="hljs-string">'a'</span>;
-        <span class="hljs-keyword">if</span> (needs[curPos] == <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-keyword">char</span>[] s1Char = s1.toCharArray();
+        <span class="hljs-keyword">char</span>[] s2Char = s2.toCharArray();
+        <span class="hljs-keyword">int</span> len1 = s1Char.length;
+        <span class="hljs-keyword">int</span> len2 = s2Char.length;
+        <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];
+        <span class="hljs-comment">// 统计需要出现的字符频率</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : s1Char) &#123;
+            counts[c - <span class="hljs-string">'a'</span>]++;
+        &#125;
+        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span> (right &lt; len2) &#123;
+            <span class="hljs-keyword">int</span> i = s2Char[right] - <span class="hljs-string">'a'</span>;
+            counts[i]--;
             right++;
-            <span class="hljs-keyword">continue</span>;
-        &#125;
-        <span class="hljs-keyword">if</span> (window[curPos] &lt; needs[curPos]) &#123;
-            validLen++;
-        &#125;
-        window[curPos]++;
-        right++;
-        <span class="hljs-keyword">while</span> (validLen == s1Len) &#123;
-            <span class="hljs-comment">// 只有当前窗口长度 == s1 时，才算有效的排列</span>
-            <span class="hljs-keyword">if</span> (right - left == s1Len) &#123;
+            <span class="hljs-comment">// 若 counts[i] &lt; 0，表示 i 出现的次数过多</span>
+            <span class="hljs-comment">// 左移窗口，直到 counts[i] == 0</span>
+            <span class="hljs-keyword">while</span> (counts[i] &lt; <span class="hljs-number">0</span>) &#123;
+                counts[s2Char[left] - <span class="hljs-string">'a'</span>]++;
+                left++;
+            &#125;
+            <span class="hljs-keyword">if</span> (right - left == len1) &#123;
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
             &#125;
-            <span class="hljs-keyword">int</span> leftPos = chars2[left] - <span class="hljs-string">'a'</span>;
-            <span class="hljs-comment">// 左边字符不在排列中</span>
-            <span class="hljs-keyword">if</span> (needs[leftPos] == <span class="hljs-number">0</span>) &#123;
-                left++;
-                <span class="hljs-keyword">continue</span>;
-            &#125;
-            <span class="hljs-comment">// 左边字符在排列中，减小有效长度</span>
-            <span class="hljs-keyword">if</span> (window[leftPos] == needs[leftPos]) &#123;
-                validLen--;
-            &#125;
-            window[leftPos]--;
-            left++;
         &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-&#125;</code></pre>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    &#125;</code></pre>
             </article>
             <hr>
             <div>
