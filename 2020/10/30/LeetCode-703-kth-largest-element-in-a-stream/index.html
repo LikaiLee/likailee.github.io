@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      83 字
+      101 字
     </span>
   
 
@@ -207,35 +207,35 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月30日 晚上
+                  本文最后更新于：2021年2月11日 中午
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/kth-largest-element-in-a-stream/" target="_blank" rel="noopener">703. 数据流中的第 K 大元素</a></p>
 <pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">KthLargest</span> </span>&#123;
-    PriorityQueue&lt;Integer&gt; minHeap;
-    <span class="hljs-keyword">int</span> k;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">KthLargest</span><span class="hljs-params">(<span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
-        <span class="hljs-keyword">this</span>.k = k;
-        minHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; o1 - o2);
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;
-            minHeap.add(num);
-            <span class="hljs-keyword">if</span> (minHeap.size() &gt; k) &#123;
+        <span class="hljs-keyword">private</span> PriorityQueue&lt;Integer&gt; minHeap;
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> k;
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">KthLargest</span><span class="hljs-params">(<span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+            <span class="hljs-keyword">this</span>.k = k;
+            <span class="hljs-keyword">this</span>.minHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;();
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;
+                minHeap.add(num);
+            &#125;
+            <span class="hljs-comment">// 使堆中只存在 k 个元素，则堆顶为第 k 大的元素</span>
+            <span class="hljs-keyword">while</span> (minHeap.size() &gt; k) &#123;
                 minHeap.poll();
             &#125;
         &#125;
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> val)</span> </span>&#123;
-        minHeap.add(val);
-        <span class="hljs-keyword">if</span> (minHeap.size() &gt; k) &#123;
-            minHeap.poll();
+    
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> val)</span> </span>&#123;
+            minHeap.add(val);
+            <span class="hljs-keyword">if</span> (minHeap.size() &gt; k) &#123;
+                minHeap.poll();
+            &#125;
+            <span class="hljs-keyword">return</span> minHeap.peek();
         &#125;
-        <span class="hljs-keyword">return</span> minHeap.peek();
-    &#125;
-&#125;</code></pre>
+    &#125;</code></pre>
             </article>
             <hr>
             <div>
