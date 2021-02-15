@@ -332,12 +332,10 @@ public int longestOnes(int[] A, int K) &#123;
         <div>485. 最大连续1的个数
 public int findMaxConsecutiveOnes(int[] nums) &#123;
     int len = nums.length;
-    if (len == 0) &#123;
-        return 0;
-    &#125;
-    int count = 0;
-    int max = 0;
-    for (int num</div>
+    int left = 0;
+    int res = 0;
+    for (int i = 0; i &lt; len; i++) &#123;
+        if (nums[i] == 0) &</div>
       </a>
 
       <div class="index-btm post-metas">
