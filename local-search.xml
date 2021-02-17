@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>LeetCode 566. 重塑矩阵</title>
+    <link href="/2021/02/17/LeetCode-566-reshape-the-matrix/"/>
+    <url>/2021/02/17/LeetCode-566-reshape-the-matrix/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/reshape-the-matrix/" target="_blank" rel="noopener">566. 重塑矩阵</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[][] matrixReshape(<span class="hljs-keyword">int</span>[][] nums, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> c) &#123;    <span class="hljs-keyword">int</span> rows = nums.length;    <span class="hljs-keyword">int</span> cols = nums[<span class="hljs-number">0</span>].length;    <span class="hljs-keyword">if</span> (r * c != rows * cols) &#123;        <span class="hljs-keyword">return</span> nums;    &#125;    <span class="hljs-keyword">int</span>[][] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[r][c];    <span class="hljs-keyword">int</span> row = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> col = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] line : nums) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;            res[row][col] = line[j];            col = (col + <span class="hljs-number">1</span>) % c;            <span class="hljs-keyword">if</span> (col == <span class="hljs-number">0</span>) &#123;                row++;            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 561. 数组拆分 I</title>
     <link href="/2021/02/16/LeetCode-561-array-partition-i/"/>
     <url>/2021/02/16/LeetCode-561-array-partition-i/</url>
@@ -1899,9 +1924,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>数学</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -4768,9 +4793,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -4797,9 +4822,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5959,9 +5984,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -6069,9 +6094,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -6185,9 +6210,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -6361,11 +6386,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -6421,11 +6446,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7306,9 +7331,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7335,9 +7360,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7484,11 +7509,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7631,9 +7656,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -7857,9 +7882,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -7888,9 +7913,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7948,9 +7973,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7977,9 +8002,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
