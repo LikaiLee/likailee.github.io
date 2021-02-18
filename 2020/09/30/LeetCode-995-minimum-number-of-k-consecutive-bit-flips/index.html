@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      226 字
+      209 字
     </span>
   
 
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月30日 晚上
+                  本文最后更新于：2021年2月18日 下午
                 
               </p>
             
@@ -233,27 +233,25 @@
     <span class="hljs-keyword">return</span> count;
 &#125;</code></pre>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minKBitFlips</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A, <span class="hljs-keyword">int</span> K)</span> </span>&#123;
+    LinkedList&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
     <span class="hljs-keyword">int</span> len = A.length;
-    ArrayDeque&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
-    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        <span class="hljs-comment">// i 不在前几次的翻转子数组中</span>
-        <span class="hljs-keyword">while</span> (!queue.isEmpty() &amp;&amp; queue.peekFirst() + K &lt;= i) &#123;
+        <span class="hljs-comment">// 以队头元素为起点的子区间无法覆盖到 A[i]</span>
+        <span class="hljs-keyword">if</span> (!queue.isEmpty() &amp;&amp; queue.peekFirst() + K == i) &#123;
             queue.poll();
         &#125;
-        <span class="hljs-comment">// 在 [i - k + 1, i - 1] 翻转中</span>
-        <span class="hljs-comment">// 1 翻转奇数次后变为 0</span>
-        <span class="hljs-comment">// 0 翻转偶数次后变为 1，这两种情况需要再次翻转</span>
+        <span class="hljs-comment">// 第 i 个元素需要翻转，往后翻转 K 个元素</span>
         <span class="hljs-keyword">if</span> (queue.size() % <span class="hljs-number">2</span> == A[i]) &#123;
-            <span class="hljs-comment">// 剩下不足 K 位，无法翻转</span>
+            <span class="hljs-comment">// 从 A[i] 开始不足 K 个元素</span>
             <span class="hljs-keyword">if</span> (i + K &gt; len) &#123;
                 <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
             &#125;
-            count++;
-            queue.add(i);
+            res++;
+            queue.offer(i);
         &#125;
     &#125;
-    <span class="hljs-keyword">return</span> count;
+    <span class="hljs-keyword">return</span> res;
 &#125;</code></pre>
             </article>
             <hr>
