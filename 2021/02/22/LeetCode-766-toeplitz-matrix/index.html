@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 1438. 绝对差不超过限制的最长连续子数组 - Likai Lee</title>
+  <title>LeetCode 766. 托普利茨矩阵 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 1438. 绝对差不超过限制的最长连续子数组
+                LeetCode 766. 托普利茨矩阵
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2021-02-21 13:40">
-      2021年2月21日 下午
+    <time datetime="2021-02-22 11:55">
+      2021年2月22日 中午
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      105 字
+      58 字
     </span>
   
 
@@ -207,31 +207,23 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年2月21日 下午
+                  本文最后更新于：2021年2月22日 中午
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/" target="_blank" rel="noopener">1438. 绝对差不超过限制的最长连续子数组</a></p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestSubarray</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> limit)</span> </span>&#123;
-        <span class="hljs-keyword">int</span> len = nums.length;
-        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
-        PriorityQueue&lt;Integer&gt; minHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;();
-        PriorityQueue&lt;Integer&gt; maxHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; o2 - o1);
-        <span class="hljs-keyword">while</span> (right &lt; len) &#123;
-            minHeap.offer(nums[right]);
-            maxHeap.offer(nums[right]);
-            right++;
-            <span class="hljs-keyword">while</span> (Math.abs(minHeap.peek() - maxHeap.peek()) &gt; limit) &#123;
-                minHeap.remove(nums[left]);
-                maxHeap.remove(nums[left]);
-                left++;
+              <p><a href="https://leetcode-cn.com/problems/toeplitz-matrix/" target="_blank" rel="noopener">766. 托普利茨矩阵</a></p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isToeplitzMatrix</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] matrix)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> rows = matrix.length;
+        <span class="hljs-keyword">int</span> cols = matrix[<span class="hljs-number">0</span>].length;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; rows; i++) &#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; cols; j++) &#123;
+                <span class="hljs-keyword">if</span> (matrix[i][j] != matrix[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>]) &#123;
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+                &#125;
             &#125;
-            res = Math.max(right - left, res);
         &#125;
-        <span class="hljs-keyword">return</span> res;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
     &#125;</code></pre>
             </article>
             <hr>
@@ -251,8 +243,6 @@
                     
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
-                    
                   </div>
                 
               </div>
@@ -264,18 +254,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2021/02/22/LeetCode-766-toeplitz-matrix/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 766. 托普利茨矩阵</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2021/02/20/LeetCode-697-degree-of-an-array/">
-                        <span class="hidden-mobile">LeetCode 697. 数组的度</span>
+                      <a href="/2021/02/21/LeetCode-1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/">
+                        <span class="hidden-mobile">LeetCode 1438. 绝对差不超过限制的最长连续子数组</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

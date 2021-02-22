@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>LeetCode 766. 托普利茨矩阵</title>
+    <link href="/2021/02/22/LeetCode-766-toeplitz-matrix/"/>
+    <url>/2021/02/22/LeetCode-766-toeplitz-matrix/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/toeplitz-matrix/" target="_blank" rel="noopener">766. 托普利茨矩阵</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isToeplitzMatrix</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] matrix)</span> </span>&#123;        <span class="hljs-keyword">int</span> rows = matrix.length;        <span class="hljs-keyword">int</span> cols = matrix[<span class="hljs-number">0</span>].length;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; rows; i++) &#123;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; cols; j++) &#123;                <span class="hljs-keyword">if</span> (matrix[i][j] != matrix[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>]) &#123;                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;                &#125;            &#125;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1438. 绝对差不超过限制的最长连续子数组</title>
     <link href="/2021/02/21/LeetCode-1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/"/>
     <url>/2021/02/21/LeetCode-1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</url>
