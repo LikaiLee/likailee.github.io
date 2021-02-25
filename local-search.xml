@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>LeetCode 867. 转置矩阵</title>
+    <link href="/2021/02/25/LeetCode-867-transpose-matrix/"/>
+    <url>/2021/02/25/LeetCode-867-transpose-matrix/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/transpose-matrix/" target="_blank" rel="noopener">867. 转置矩阵</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[][] transpose(<span class="hljs-keyword">int</span>[][] A) &#123;    <span class="hljs-keyword">int</span> rows = A.length;    <span class="hljs-keyword">int</span> cols = A[<span class="hljs-number">0</span>].length;    <span class="hljs-keyword">int</span>[][] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[cols][rows];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;            res[j][i] = A[i][j];        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 832. 翻转图像</title>
     <link href="/2021/02/24/LeetCode-832-flipping-an-image/"/>
     <url>/2021/02/24/LeetCode-832-flipping-an-image/</url>
@@ -3805,9 +3830,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>优先队列</tag>
-      
       <tag>排序</tag>
+      
+      <tag>优先队列</tag>
       
     </tags>
     
@@ -7029,9 +7054,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>优先队列</tag>
-      
       <tag>排序</tag>
+      
+      <tag>优先队列</tag>
       
     </tags>
     
