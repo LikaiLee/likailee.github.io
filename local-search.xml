@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 395. 至少有K个重复字符的最长子串</title>
+    <link href="/2021/02/27/LeetCode-395-longest-substring-with-at-least-k-repeating-characters/"/>
+    <url>/2021/02/27/LeetCode-395-longest-substring-with-at-least-k-repeating-characters/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-substring-with-at-least-k-repeating-characters/" target="_blank" rel="noopener">395. 至少有K个重复字符的最长子串</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestSubstring</span><span class="hljs-params">(String s, <span class="hljs-keyword">int</span> k)</span> </span>&#123;        <span class="hljs-keyword">char</span>[] str = s.toCharArray();        <span class="hljs-keyword">return</span> partition(<span class="hljs-number">0</span>, str.length, str, k);    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">partition</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">char</span>[] str, <span class="hljs-keyword">int</span> k)</span> </span>&#123;        <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];        <span class="hljs-comment">// 统计 [left: right) 每个字母的出现次数</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = left; i &lt; right; i++) &#123;            counts[str[i] - <span class="hljs-string">'a'</span>]++;        &#125;        <span class="hljs-comment">// 记录 [left: right) 中不满足 k 次的每个位置，用来分割子串</span>        List&lt;Integer&gt; delimiters = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = left; i &lt; right; i++) &#123;            <span class="hljs-keyword">if</span> (counts[str[i] - <span class="hljs-string">'a'</span>] &lt; k) &#123;                delimiters.add(i);            &#125;        &#125;        <span class="hljs-comment">// 每个位置都满足，返回整个长度</span>        <span class="hljs-keyword">if</span> (delimiters.isEmpty()) &#123;            <span class="hljs-keyword">return</span> right - left;        &#125;        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;        <span class="hljs-comment">// 对每个子串递归求最大长度</span>        <span class="hljs-comment">// left .... | .... | .... right</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> pos : delimiters) &#123;            res = Math.max(res, partition(left, pos, str, k));            left = pos + <span class="hljs-number">1</span>;        &#125;        res = Math.max(res, partition(left, right, str, k));        <span class="hljs-keyword">return</span> res;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>分治</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1178. 猜字谜</title>
     <link href="/2021/02/26/LeetCode-1178-number-of-valid-words-for-each-puzzle/"/>
     <url>/2021/02/26/LeetCode-1178-number-of-valid-words-for-each-puzzle/</url>
@@ -1997,9 +2024,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -3112,9 +3139,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4329,9 +4356,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -4360,11 +4387,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -4592,9 +4619,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>树</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5121,9 +5148,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6285,9 +6312,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -7551,9 +7578,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -8967,9 +8994,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
