@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 304. 二维区域和检索 - 矩阵不可变</title>
+    <link href="/2021/03/02/LeetCode-304-range-sum-query-2d-immutable/"/>
+    <url>/2021/03/02/LeetCode-304-range-sum-query-2d-immutable/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/range-sum-query-2d-immutable/" target="_blank" rel="noopener">304. 二维区域和检索 - 矩阵不可变</a></p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NumMatrix</span> </span>&#123;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[][] sums;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">NumMatrix</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] matrix)</span> </span>&#123;        <span class="hljs-keyword">int</span> rows = matrix.length;        <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">return</span>;        &#125;        <span class="hljs-keyword">int</span> cols = matrix[<span class="hljs-number">0</span>].length;        sums = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[rows + <span class="hljs-number">1</span>][cols + <span class="hljs-number">1</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= rows; i++) &#123;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= cols; j++) &#123;                sums[i][j] = matrix[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + sums[i - <span class="hljs-number">1</span>][j] + sums[i][j - <span class="hljs-number">1</span>] - sums[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];            &#125;        &#125;    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">sumRegion</span><span class="hljs-params">(<span class="hljs-keyword">int</span> row1, <span class="hljs-keyword">int</span> col1, <span class="hljs-keyword">int</span> row2, <span class="hljs-keyword">int</span> col2)</span> </span>&#123;        <span class="hljs-keyword">return</span> sums[row2 + <span class="hljs-number">1</span>][col2 + <span class="hljs-number">1</span>] - sums[row2 + <span class="hljs-number">1</span>][col1] - sums[row1][col2 + <span class="hljs-number">1</span>] + sums[row1][col1];    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 303. 区域和检索 - 数组不可变</title>
     <link href="/2021/03/01/LeetCode-303-range-sum-query-immutable/"/>
     <url>/2021/03/01/LeetCode-303-range-sum-query-immutable/</url>
@@ -21,6 +48,8 @@
     <tags>
       
       <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2679,9 +2708,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7425,9 +7454,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7779,9 +7808,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8063,9 +8092,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
