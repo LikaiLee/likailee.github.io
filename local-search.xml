@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 331. 验证二叉树的前序序列化</title>
+    <link href="/2021/03/12/LeetCode-331-verify-preorder-serialization-of-a-binary-tree/"/>
+    <url>/2021/03/12/LeetCode-331-verify-preorder-serialization-of-a-binary-tree/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/verify-preorder-serialization-of-a-binary-tree/" target="_blank" rel="noopener">331. 验证二叉树的前序序列化</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidSerialization</span><span class="hljs-params">(String preorder)</span> </span>&#123;        String[] tree = preorder.split(<span class="hljs-string">","</span>);        <span class="hljs-keyword">int</span> len = tree.length;        <span class="hljs-keyword">if</span> (len == <span class="hljs-number">1</span> &amp;&amp; <span class="hljs-string">"#"</span>.equals(tree[<span class="hljs-number">0</span>])) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;        <span class="hljs-keyword">if</span> (<span class="hljs-string">"#"</span>.equals(tree[<span class="hljs-number">0</span>])) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        <span class="hljs-keyword">int</span>[] children = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];        Arrays.fill(children, <span class="hljs-number">2</span>);        LinkedList&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        stack.push(<span class="hljs-number">0</span>);        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;            <span class="hljs-comment">// 栈顶保存父节点</span>            <span class="hljs-comment">// 若没有父节点则为无效序列</span>            <span class="hljs-keyword">if</span> (stack.isEmpty()) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;            <span class="hljs-comment">// 更新父节点的孩子数量，若孩子满了需要出栈</span>            children[stack.peek()]--;            <span class="hljs-keyword">if</span> (children[stack.peek()] == <span class="hljs-number">0</span>) &#123;                stack.pop();            &#125;            <span class="hljs-comment">// 数字可以作为下一个父节点</span>            <span class="hljs-keyword">if</span> (<span class="hljs-string">"#"</span>.equals(tree[i])) &#123;                children[i] = <span class="hljs-number">0</span>;            &#125; <span class="hljs-keyword">else</span> &#123;                stack.push(i);            &#125;        &#125;        <span class="hljs-comment">// 左右节点都需要存在，则根节点的孩子最后应 == 0</span>        <span class="hljs-keyword">return</span> children[<span class="hljs-number">0</span>] == <span class="hljs-number">0</span>;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>栈</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1047. 删除字符串中的所有相邻重复项</title>
     <link href="/2021/03/09/LeetCode-1047-remove-all-adjacent-duplicates-in-string/"/>
     <url>/2021/03/09/LeetCode-1047-remove-all-adjacent-duplicates-in-string/</url>
@@ -2184,9 +2211,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -2273,9 +2300,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -2532,9 +2559,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2561,11 +2588,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2592,9 +2619,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3299,9 +3326,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -4516,9 +4543,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -4547,11 +4574,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -7359,9 +7386,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -7388,9 +7415,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -7738,9 +7765,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -9154,9 +9181,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
