@@ -8,7 +8,7 @@
     <link href="/2021/03/12/LeetCode-331-verify-preorder-serialization-of-a-binary-tree/"/>
     <url>/2021/03/12/LeetCode-331-verify-preorder-serialization-of-a-binary-tree/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/verify-preorder-serialization-of-a-binary-tree/" target="_blank" rel="noopener">331. 验证二叉树的前序序列化</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidSerialization</span><span class="hljs-params">(String preorder)</span> </span>&#123;        String[] tree = preorder.split(<span class="hljs-string">","</span>);        <span class="hljs-keyword">int</span> len = tree.length;        <span class="hljs-keyword">if</span> (len == <span class="hljs-number">1</span> &amp;&amp; <span class="hljs-string">"#"</span>.equals(tree[<span class="hljs-number">0</span>])) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;        <span class="hljs-keyword">if</span> (<span class="hljs-string">"#"</span>.equals(tree[<span class="hljs-number">0</span>])) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        <span class="hljs-keyword">int</span>[] children = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];        Arrays.fill(children, <span class="hljs-number">2</span>);        LinkedList&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        stack.push(<span class="hljs-number">0</span>);        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;            <span class="hljs-comment">// 栈顶保存父节点</span>            <span class="hljs-comment">// 若没有父节点则为无效序列</span>            <span class="hljs-keyword">if</span> (stack.isEmpty()) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;            <span class="hljs-comment">// 更新父节点的孩子数量，若孩子满了需要出栈</span>            children[stack.peek()]--;            <span class="hljs-keyword">if</span> (children[stack.peek()] == <span class="hljs-number">0</span>) &#123;                stack.pop();            &#125;            <span class="hljs-comment">// 数字可以作为下一个父节点</span>            <span class="hljs-keyword">if</span> (<span class="hljs-string">"#"</span>.equals(tree[i])) &#123;                children[i] = <span class="hljs-number">0</span>;            &#125; <span class="hljs-keyword">else</span> &#123;                stack.push(i);            &#125;        &#125;        <span class="hljs-comment">// 左右节点都需要存在，则根节点的孩子最后应 == 0</span>        <span class="hljs-keyword">return</span> children[<span class="hljs-number">0</span>] == <span class="hljs-number">0</span>;    &#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/verify-preorder-serialization-of-a-binary-tree/" target="_blank" rel="noopener">331. 验证二叉树的前序序列化</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidSerialization</span><span class="hljs-params">(String preorder)</span> </span>&#123;        <span class="hljs-keyword">if</span> (<span class="hljs-string">"#"</span>.equals(preorder)) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;        String[] nodes = preorder.split(<span class="hljs-string">","</span>);        <span class="hljs-keyword">int</span> inDegree = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> outDegree = <span class="hljs-number">0</span>;        <span class="hljs-keyword">if</span> (<span class="hljs-string">"#"</span>.equals(nodes[<span class="hljs-number">0</span>])) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            outDegree = <span class="hljs-number">2</span>;        &#125;        <span class="hljs-keyword">int</span> len = nodes.length;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;            <span class="hljs-comment">// 叶子节点和非叶子节点入度都是 1</span>            inDegree++;            <span class="hljs-comment">// 非叶子节点出度是 2</span>            <span class="hljs-keyword">if</span> (!<span class="hljs-string">"#"</span>.equals(nodes[i])) &#123;                outDegree += <span class="hljs-number">2</span>;            &#125;            <span class="hljs-keyword">if</span> (i != len - <span class="hljs-number">1</span> &amp;&amp; inDegree &gt;= outDegree) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;        &#125;        <span class="hljs-comment">// 入度 = 出度 = 边数</span>        <span class="hljs-keyword">return</span> inDegree == outDegree;    &#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidSerialization</span><span class="hljs-params">(String preorder)</span> </span>&#123;        <span class="hljs-keyword">if</span> (<span class="hljs-string">"#"</span>.equals(preorder)) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;        String[] tree = preorder.split(<span class="hljs-string">","</span>);        <span class="hljs-keyword">if</span> (<span class="hljs-string">"#"</span>.equals(tree[<span class="hljs-number">0</span>])) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        <span class="hljs-keyword">int</span> len = tree.length;        <span class="hljs-keyword">int</span>[] children = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];        Arrays.fill(children, <span class="hljs-number">2</span>);        LinkedList&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        stack.push(<span class="hljs-number">0</span>);        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;            <span class="hljs-comment">// 栈顶保存父节点</span>            <span class="hljs-comment">// 若没有父节点则为无效序列</span>            <span class="hljs-keyword">if</span> (stack.isEmpty()) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;            <span class="hljs-comment">// 更新父节点的孩子数量，若孩子满了需要出栈</span>            children[stack.peek()]--;            <span class="hljs-keyword">if</span> (children[stack.peek()] == <span class="hljs-number">0</span>) &#123;                stack.pop();            &#125;            <span class="hljs-comment">// 数字可以作为下一个父节点</span>            <span class="hljs-keyword">if</span> (<span class="hljs-string">"#"</span>.equals(tree[i])) &#123;                children[i] = <span class="hljs-number">0</span>;            &#125; <span class="hljs-keyword">else</span> &#123;                stack.push(i);            &#125;        &#125;        <span class="hljs-comment">// 左右节点都需要存在，则根节点的孩子最后应 == 0</span>        <span class="hljs-keyword">return</span> children[<span class="hljs-number">0</span>] == <span class="hljs-number">0</span>;    &#125;</code></pre>]]></content>
     
     
     <categories>
@@ -2211,9 +2211,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -2787,9 +2787,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2816,9 +2816,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3326,9 +3326,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -4543,9 +4543,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -4574,11 +4574,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -7562,9 +7562,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -7765,9 +7765,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -7916,9 +7916,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -8200,9 +8200,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>排序</tag>
       
@@ -9181,9 +9181,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     

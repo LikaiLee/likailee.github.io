@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      186 字
+      287 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      4
        分钟
     </span>
   
@@ -214,14 +214,41 @@
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/verify-preorder-serialization-of-a-binary-tree/" target="_blank" rel="noopener">331. 验证二叉树的前序序列化</a></p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidSerialization</span><span class="hljs-params">(String preorder)</span> </span>&#123;
-        String[] tree = preorder.split(<span class="hljs-string">","</span>);
-        <span class="hljs-keyword">int</span> len = tree.length;
-        <span class="hljs-keyword">if</span> (len == <span class="hljs-number">1</span> &amp;&amp; <span class="hljs-string">"#"</span>.equals(tree[<span class="hljs-number">0</span>])) &#123;
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">"#"</span>.equals(preorder)) &#123;
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
         &#125;
+        String[] nodes = preorder.split(<span class="hljs-string">","</span>);
+        <span class="hljs-keyword">int</span> inDegree = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> outDegree = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">"#"</span>.equals(nodes[<span class="hljs-number">0</span>])) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            outDegree = <span class="hljs-number">2</span>;
+        &#125;
+        <span class="hljs-keyword">int</span> len = nodes.length;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;
+            <span class="hljs-comment">// 叶子节点和非叶子节点入度都是 1</span>
+            inDegree++;
+            <span class="hljs-comment">// 非叶子节点出度是 2</span>
+            <span class="hljs-keyword">if</span> (!<span class="hljs-string">"#"</span>.equals(nodes[i])) &#123;
+                outDegree += <span class="hljs-number">2</span>;
+            &#125;
+            <span class="hljs-keyword">if</span> (i != len - <span class="hljs-number">1</span> &amp;&amp; inDegree &gt;= outDegree) &#123;
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            &#125;
+        &#125;
+        <span class="hljs-comment">// 入度 = 出度 = 边数</span>
+        <span class="hljs-keyword">return</span> inDegree == outDegree;
+    &#125;</code></pre>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidSerialization</span><span class="hljs-params">(String preorder)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">"#"</span>.equals(preorder)) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        &#125;
+        String[] tree = preorder.split(<span class="hljs-string">","</span>);
         <span class="hljs-keyword">if</span> (<span class="hljs-string">"#"</span>.equals(tree[<span class="hljs-number">0</span>])) &#123;
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
         &#125;
+        <span class="hljs-keyword">int</span> len = tree.length;
         <span class="hljs-keyword">int</span>[] children = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
         Arrays.fill(children, <span class="hljs-number">2</span>);
         LinkedList&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();

@@ -179,9 +179,10 @@
         
         <div>331. 验证二叉树的前序序列化
 public boolean isValidSerialization(String preorder) &#123;
-        String[] tree = preorder.split(",");
-        int len = tree.length;
-        if (len == 1 &amp;&amp; "#".equals(tree</div>
+        if ("#".equals(preorder)) &#123;
+            return true;
+        &#125;
+        String[] nodes = preorder.split(",</div>
       </a>
 
       <div class="index-btm post-metas">
