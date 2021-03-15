@@ -170,6 +170,56 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/25/LeetCode-130-surrounded-regions/">LeetCode 130. 被围绕的区域</a>
+
+      <a href="/2020/08/25/LeetCode-130-surrounded-regions/" class="index-excerpt">
+        
+        
+          
+        
+        <div>130. 被围绕的区域
+ DFS
+先标记边界以及和边界连通的 O，剩下的就是需要填充的格子，最后还原之前标记的格子。
+class Solution &#123;
+    int rows;
+    int cols;
+    int[][] dirs = &#123;&#123;1, 0&#125;, &#123;0, 1&#125;, &#123;-1, 0&#125;, &#123;0, -1</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-25
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/25/LeetCode-547-number-of-provinces/">LeetCode 547. 省份数量</a>
 
       <a href="/2020/08/25/LeetCode-547-number-of-provinces/" class="index-excerpt">
@@ -622,59 +672,6 @@ dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1] + prices[i])
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/21/LeetCode-337-house-robber-iii/">LeetCode 337. 打家劫舍 III</a>
-
-      <a href="/2020/08/21/LeetCode-337-house-robber-iii/" class="index-excerpt">
-        
-        
-          
-        
-        <div>337. 打家劫舍 III
- 暴力
-public int rob(TreeNode root) &#123;
-    if (root == null) &#123;
-        return 0;
-    &#125;
-    // 不 rob 孩子
-    int doNotRobChildren = root.val;
-    // rob 左孙子
-    if (root.left !</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/DFS/">DFS</a>
             
               <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
             
