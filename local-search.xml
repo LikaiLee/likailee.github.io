@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>LeetCode 73. 矩阵置零</title>
+    <link href="/2021/03/16/LeetCode-73-set-matrix-zeroes/"/>
+    <url>/2021/03/16/LeetCode-73-set-matrix-zeroes/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/set-matrix-zeroes/" target="_blank" rel="noopener">73. 矩阵置零</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setZeroes</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] matrix)</span> </span>&#123;        <span class="hljs-keyword">int</span> rows = matrix.length;        <span class="hljs-keyword">int</span> cols = matrix[<span class="hljs-number">0</span>].length;        <span class="hljs-keyword">boolean</span> row0 = <span class="hljs-keyword">false</span>;        <span class="hljs-keyword">boolean</span> col0 = <span class="hljs-keyword">false</span>;        <span class="hljs-comment">// 检查第一列含 0</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] row : matrix) &#123;            <span class="hljs-keyword">if</span> (row[<span class="hljs-number">0</span>] == <span class="hljs-number">0</span>) &#123;                col0 = <span class="hljs-keyword">true</span>;                <span class="hljs-keyword">break</span>;            &#125;        &#125;        <span class="hljs-comment">// 检查第一行含 0</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;            <span class="hljs-keyword">if</span> (matrix[<span class="hljs-number">0</span>][j] == <span class="hljs-number">0</span>) &#123;                row0 = <span class="hljs-keyword">true</span>;                <span class="hljs-keyword">break</span>;            &#125;        &#125;        <span class="hljs-comment">// 第一行和第一列作为标记位</span>        <span class="hljs-comment">// 若有 0 则该行或该列置 0</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; rows; i++) &#123;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; cols; j++) &#123;                <span class="hljs-keyword">if</span> (matrix[i][j] == <span class="hljs-number">0</span>) &#123;                    matrix[i][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;                    matrix[<span class="hljs-number">0</span>][j] = <span class="hljs-number">0</span>;                &#125;            &#125;        &#125;        <span class="hljs-comment">// 置 0</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; rows; i++) &#123;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; cols; j++) &#123;                <span class="hljs-keyword">if</span> (matrix[<span class="hljs-number">0</span>][j] == <span class="hljs-number">0</span> || matrix[i][<span class="hljs-number">0</span>] == <span class="hljs-number">0</span>) &#123;                    matrix[i][j] = <span class="hljs-number">0</span>;                &#125;            &#125;        &#125;        <span class="hljs-comment">// 额外判断第一行和第一列</span>        <span class="hljs-keyword">if</span> (row0) &#123;            Arrays.fill(matrix[<span class="hljs-number">0</span>], <span class="hljs-number">0</span>);        &#125;        <span class="hljs-keyword">if</span> (col0) &#123;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;                matrix[i][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;            &#125;        &#125;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 59. 螺旋矩阵 II</title>
     <link href="/2021/03/16/LeetCode-59-spiral-matrix-ii/"/>
     <url>/2021/03/16/LeetCode-59-spiral-matrix-ii/</url>
@@ -2667,9 +2692,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2696,11 +2721,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2727,9 +2752,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2924,9 +2949,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -7494,9 +7519,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -7523,9 +7548,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -7670,9 +7695,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -8024,9 +8049,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -8308,9 +8333,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>排序</tag>
       
