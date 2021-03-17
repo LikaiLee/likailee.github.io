@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      144 字
+      159 字
     </span>
   
 
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月22日 晚上
+                  本文最后更新于：2021年3月16日 晚上
                 
               </p>
             
@@ -226,7 +226,8 @@
     <span class="hljs-keyword">int</span> two = len - <span class="hljs-number">1</span>;
     <span class="hljs-comment">// 遍历起点</span>
     <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
-    <span class="hljs-comment">// 当 i == two 时，还差一个元素未访问</span>
+    <span class="hljs-comment">// two 位置上的元素还不确定，&gt; two 的元素都是 `2`</span>
+    <span class="hljs-comment">// 所以 i 需要遍历到 two</span>
     <span class="hljs-keyword">while</span> (i &lt;= two) &#123;
         <span class="hljs-keyword">if</span> (nums[i] == <span class="hljs-number">0</span>) &#123;
             swap(nums, i, zero);

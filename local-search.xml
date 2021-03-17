@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>LeetCode 80. 删除排序数组中的重复项 II</title>
+    <link href="/2021/03/16/LeetCode-80-remove-duplicates-from-sorted-array-ii/"/>
+    <url>/2021/03/16/LeetCode-80-remove-duplicates-from-sorted-array-ii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii/" target="_blank" rel="noopener">80. 删除排序数组中的重复项 II</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">removeDuplicates</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-comment">// 有效位</span>    <span class="hljs-keyword">int</span> end = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 有效位上数字的连续出现次数</span>    <span class="hljs-keyword">int</span> occur = <span class="hljs-number">1</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">if</span> (nums[i] == nums[end]) &#123;            occur++;            <span class="hljs-comment">// 出现次数 &lt;= 2，nums[i] 有效，否则 end 保持不变</span>            <span class="hljs-keyword">if</span> (occur &lt;= <span class="hljs-number">2</span>) &#123;                end++;                nums[end] = nums[i];            &#125;        &#125;        <span class="hljs-comment">// 不连续时重置</span>        <span class="hljs-keyword">else</span> &#123;            end++;            nums[end] = nums[i];            occur = <span class="hljs-number">1</span>;        &#125;    &#125;    <span class="hljs-keyword">return</span> end + <span class="hljs-number">1</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 73. 矩阵置零</title>
     <link href="/2021/03/16/LeetCode-73-set-matrix-zeroes/"/>
     <url>/2021/03/16/LeetCode-73-set-matrix-zeroes/</url>
@@ -1757,9 +1782,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>并查集</tag>
       
@@ -1950,9 +1975,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -2344,9 +2369,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -2433,9 +2458,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -3123,9 +3148,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -3399,9 +3424,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -3459,9 +3484,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3714,9 +3739,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4676,9 +4701,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -4707,11 +4732,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -4939,9 +4964,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>树</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5242,9 +5267,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -5302,9 +5327,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5331,9 +5356,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6493,9 +6518,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -6603,9 +6628,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -6719,9 +6744,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -6895,11 +6920,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -6955,11 +6980,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7119,7 +7144,7 @@
     <link href="/2020/09/22/LeetCode-75-sort-colors/"/>
     <url>/2020/09/22/LeetCode-75-sort-colors/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/sort-colors/" target="_blank" rel="noopener">75. 颜色分类</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sortColors</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-comment">// 0,0,0,.zero.1,1,1,1,1.two.2,2,2,2,2,len</span>    <span class="hljs-comment">// [0, zero) 0</span>    <span class="hljs-comment">// [zero, i) 1</span>    <span class="hljs-comment">// [two, len) 2</span>    <span class="hljs-comment">// `0` 的边界从 0 开始</span>    <span class="hljs-keyword">int</span> zero = <span class="hljs-number">0</span>;    <span class="hljs-comment">// `2` 的边界从最后一个元素开始</span>    <span class="hljs-keyword">int</span> two = len - <span class="hljs-number">1</span>;    <span class="hljs-comment">// 遍历起点</span>    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 当 i == two 时，还差一个元素未访问</span>    <span class="hljs-keyword">while</span> (i &lt;= two) &#123;        <span class="hljs-keyword">if</span> (nums[i] == <span class="hljs-number">0</span>) &#123;            swap(nums, i, zero);            zero++;            i++;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[i] == <span class="hljs-number">1</span>) &#123;            i++;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[i] == <span class="hljs-number">2</span>) &#123;            <span class="hljs-comment">// 此时不需要 i++，否则交换过来的 nums[i] 未判断</span>            swap(nums, i, two);            two--;        &#125;    &#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/sort-colors/" target="_blank" rel="noopener">75. 颜色分类</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sortColors</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-comment">// 0,0,0,.zero.1,1,1,1,1.two.2,2,2,2,2,len</span>    <span class="hljs-comment">// [0, zero) 0</span>    <span class="hljs-comment">// [zero, i) 1</span>    <span class="hljs-comment">// [two, len) 2</span>    <span class="hljs-comment">// `0` 的边界从 0 开始</span>    <span class="hljs-keyword">int</span> zero = <span class="hljs-number">0</span>;    <span class="hljs-comment">// `2` 的边界从最后一个元素开始</span>    <span class="hljs-keyword">int</span> two = len - <span class="hljs-number">1</span>;    <span class="hljs-comment">// 遍历起点</span>    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;    <span class="hljs-comment">// two 位置上的元素还不确定，&gt; two 的元素都是 `2`</span>    <span class="hljs-comment">// 所以 i 需要遍历到 two</span>    <span class="hljs-keyword">while</span> (i &lt;= two) &#123;        <span class="hljs-keyword">if</span> (nums[i] == <span class="hljs-number">0</span>) &#123;            swap(nums, i, zero);            zero++;            i++;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[i] == <span class="hljs-number">1</span>) &#123;            i++;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[i] == <span class="hljs-number">2</span>) &#123;            <span class="hljs-comment">// 此时不需要 i++，否则交换过来的 nums[i] 未判断</span>            swap(nums, i, two);            two--;        &#125;    &#125;</code></pre>]]></content>
     
     
     <categories>
@@ -7840,9 +7865,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7869,9 +7894,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7898,9 +7923,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7913,7 +7938,7 @@
     <link href="/2020/09/08/LeetCode-115-distinct-subsequences/"/>
     <url>/2020/09/08/LeetCode-115-distinct-subsequences/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/distinct-subsequences/" target="_blank" rel="noopener">115. 不同的子序列</a></p><h1 id="回溯"><a class="markdownIt-Anchor" href="#回溯"></a> 回溯</h1><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;    Map&lt;String, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numDistinct</span><span class="hljs-params">(String s, String t)</span> </span>&#123;        backtrack(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, s, t);        <span class="hljs-keyword">return</span> count;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> sPos, <span class="hljs-keyword">int</span> tPos, String s, String t)</span> </span>&#123;        <span class="hljs-comment">// t 匹配完成</span>        <span class="hljs-keyword">if</span> (tPos == t.length()) &#123;            count++;            <span class="hljs-keyword">return</span>;        &#125;        <span class="hljs-comment">// s 到达终点</span>        <span class="hljs-keyword">if</span> (sPos == s.length()) &#123;            <span class="hljs-keyword">return</span>;        &#125;        <span class="hljs-comment">// 记忆化</span>        String key = sPos + <span class="hljs-string">"@"</span> + tPos;        <span class="hljs-keyword">if</span> (map.containsKey(key)) &#123;            count += map.get(key);            <span class="hljs-keyword">return</span>;        &#125;        <span class="hljs-keyword">int</span> pre = count;        <span class="hljs-comment">// 当前字符相等，进入下一个字符</span>        <span class="hljs-comment">// s, t 同时向后</span>        <span class="hljs-keyword">if</span> (s.charAt(sPos) == t.charAt(tPos)) &#123;            backtrack(sPos + <span class="hljs-number">1</span>, tPos + <span class="hljs-number">1</span>, s, t);        &#125;        <span class="hljs-comment">// s 向后，t 不变</span>        backtrack(sPos + <span class="hljs-number">1</span>, tPos, s, t);        <span class="hljs-comment">// 存储本地回溯的 count 增量</span>        <span class="hljs-keyword">int</span> diff = count - pre;        map.put(key, diff);    &#125;&#125;</code></pre><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numDistinct</span><span class="hljs-params">(String s, String t)</span> </span>&#123;    <span class="hljs-keyword">int</span> rows = t.length();    <span class="hljs-keyword">int</span> cols = s.length();    <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span> || cols == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[rows + <span class="hljs-number">1</span>][cols + <span class="hljs-number">1</span>];    Arrays.fill(dp[<span class="hljs-number">0</span>], <span class="hljs-number">1</span>);    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= rows; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= cols; j++) &#123;            <span class="hljs-keyword">if</span> (t.charAt(i - <span class="hljs-number">1</span>) != s.charAt(j - <span class="hljs-number">1</span>)) &#123;                <span class="hljs-comment">// 不相等：去除 s[j]，取 s[:j - 1] 和 t[:i] 的相同序列数</span>                dp[i][j] = dp[i][j - <span class="hljs-number">1</span>];            &#125; <span class="hljs-keyword">else</span> &#123;                <span class="hljs-comment">// s[j] 可取，可不取</span>                <span class="hljs-comment">// 若取 s[j]，因为 s[j] == t[i]，比较 s[:j - 1] 和 t[:i - 1]</span>                <span class="hljs-comment">// 若不取 s[j]，比较 s[:j - 1] 和 t[:i]</span>                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + dp[i][j - <span class="hljs-number">1</span>];            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> dp[rows][cols];&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/distinct-subsequences/" target="_blank" rel="noopener">115. 不同的子序列</a></p><h1 id="dfs"><a class="markdownIt-Anchor" href="#dfs"></a> DFS</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numDistinct</span><span class="hljs-params">(String s, String t)</span> </span>&#123;    <span class="hljs-keyword">if</span> (<span class="hljs-string">""</span>.equals(t)) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;    &#125;    <span class="hljs-keyword">if</span> (<span class="hljs-string">""</span>.equals(s)) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">int</span> lenS = s.length();    <span class="hljs-keyword">int</span> lenT = t.length();    <span class="hljs-keyword">int</span>[][] cache = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[lenS][lenT];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] row : cache) &#123;        Arrays.fill(row, -<span class="hljs-number">1</span>);    &#125;    dfs(lenS - <span class="hljs-number">1</span>, lenT - <span class="hljs-number">1</span>, cache, s.toCharArray(), t.toCharArray());    <span class="hljs-keyword">return</span> cache[lenS - <span class="hljs-number">1</span>][lenT - <span class="hljs-number">1</span>];&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j, <span class="hljs-keyword">int</span>[][] cache, <span class="hljs-keyword">char</span>[] s, <span class="hljs-keyword">char</span>[] t)</span> </span>&#123;    <span class="hljs-comment">// t == ""，s 可为任意字符串，只要从 s 取出 "" 即可</span>    <span class="hljs-keyword">if</span> (j &lt; <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;    &#125;    <span class="hljs-comment">// s == ""，只有 t == "" 才能匹配</span>    <span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    &#125;    <span class="hljs-keyword">if</span> (cache[i][j] != -<span class="hljs-number">1</span>) &#123;        <span class="hljs-keyword">return</span> cache[i][j];    &#125;    <span class="hljs-comment">// 末尾字符相等，s[i] 可取或不取</span>    <span class="hljs-keyword">if</span> (s[i] == t[j]) &#123;        cache[i][j] = dfs(i - <span class="hljs-number">1</span>, j - <span class="hljs-number">1</span>, cache, s, t) + dfs(i - <span class="hljs-number">1</span>, j, cache, s, t);    &#125;    <span class="hljs-comment">// 末尾字符不等，s[i] 不可取</span>    <span class="hljs-keyword">else</span> &#123;        cache[i][j] = dfs(i - <span class="hljs-number">1</span>, j, cache, s, t);    &#125;    <span class="hljs-keyword">return</span> cache[i][j];&#125;</code></pre><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numDistinct</span><span class="hljs-params">(String s, String t)</span> </span>&#123;    <span class="hljs-keyword">int</span> lenS = s.length();    <span class="hljs-keyword">int</span> lenT = t.length();    <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[lenT + <span class="hljs-number">1</span>][lenS + <span class="hljs-number">1</span>];    Arrays.fill(dp[<span class="hljs-number">0</span>], <span class="hljs-number">1</span>);    <span class="hljs-keyword">char</span>[] ss = s.toCharArray();    <span class="hljs-keyword">char</span>[] tt = t.toCharArray();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= lenT; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= lenS; j++) &#123;            <span class="hljs-keyword">if</span> (ss[j - <span class="hljs-number">1</span>] == tt[i - <span class="hljs-number">1</span>]) &#123;                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + dp[i][j - <span class="hljs-number">1</span>];            &#125; <span class="hljs-keyword">else</span> &#123;                dp[i][j] = dp[i][j - <span class="hljs-number">1</span>];            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> dp[lenT][lenS];&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -7927,9 +7952,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
+      <tag>DFS</tag>
       
-      <tag>回溯</tag>
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -8018,11 +8043,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -8165,9 +8190,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -8391,9 +8416,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -8422,9 +8447,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8482,9 +8507,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8511,9 +8536,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -9314,9 +9339,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
