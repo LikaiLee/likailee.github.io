@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      91 字
+      109 字
     </span>
   
 
@@ -207,28 +207,30 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年11月5日 晚上
+                  本文最后更新于：2021年3月18日 晚上
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/reverse-linked-list-ii/" target="_blank" rel="noopener">92. 反转链表 II</a></p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">reverseBetween</span><span class="hljs-params">(ListNode head, <span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> n)</span> </span>&#123;
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">reverseBetween</span><span class="hljs-params">(ListNode head, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;
     ListNode dummy = <span class="hljs-keyword">new</span> ListNode(-<span class="hljs-number">1</span>);
     dummy.next = head;
-    ListNode link = dummy;
-    ListNode tail = dummy.next;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; m; i++) &#123;
-        link = link.next;
-        tail = tail.next;
+    ListNode holder = dummy;
+    ListNode sentinel = dummy.next;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; left; i++) &#123;
+        holder = holder.next;
+        sentinel = sentinel.next;
     &#125;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = m; i &lt; n; i++) &#123;
-        <span class="hljs-comment">// 头插法：插入到 link 后</span>
-        ListNode rm = tail.next;
-        tail.next = tail.next.next;
-        rm.next = link.next;
-        <span class="hljs-comment">// link.next 一直在变</span>
-        link.next = rm;
+    <span class="hljs-comment">// # -&gt; holder -&gt; sentinel -&gt; 3 -&gt; 2 -&gt; 1 -&gt; #</span>
+    <span class="hljs-comment">// 每次移动 sentinel 后的元素到 holder 后</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = left; i &lt; right; i++) &#123;
+        ListNode target = sentinel.next;
+        <span class="hljs-comment">// 取出 target</span>
+        sentinel.next = target.next;
+        <span class="hljs-comment">// 将 target 链接到 holder 后</span>
+        target.next = holder.next;
+        holder.next = target;
     &#125;
     <span class="hljs-keyword">return</span> dummy.next;
 &#125;</code></pre>
