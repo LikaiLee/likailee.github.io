@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 150. 逆波兰表达式求值</title>
+    <link href="/2021/03/20/LeetCode-150-evaluate-reverse-polish-notation/"/>
+    <url>/2021/03/20/LeetCode-150-evaluate-reverse-polish-notation/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/" target="_blank" rel="noopener">150. 逆波兰表达式求值</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">evalRPN</span><span class="hljs-params">(String[] tokens)</span> </span>&#123;    LinkedList&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();    <span class="hljs-keyword">for</span> (String token : tokens) &#123;        <span class="hljs-keyword">if</span> (<span class="hljs-string">"+"</span>.equals(token)) &#123;            <span class="hljs-keyword">int</span> num1 = stack.pop();            <span class="hljs-keyword">int</span> num2 = stack.pop();            stack.push(num1 + num2);        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">"-"</span>.equals(token)) &#123;            <span class="hljs-keyword">int</span> num1 = stack.pop();            <span class="hljs-keyword">int</span> num2 = stack.pop();            stack.push(num2 - num1);        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">"*"</span>.equals(token)) &#123;            <span class="hljs-keyword">int</span> num1 = stack.pop();            <span class="hljs-keyword">int</span> num2 = stack.pop();            stack.push(num1 * num2);        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">"/"</span>.equals(token)) &#123;            <span class="hljs-keyword">int</span> num1 = stack.pop();            <span class="hljs-keyword">int</span> num2 = stack.pop();            stack.push(num2 / num1);        &#125; <span class="hljs-keyword">else</span> &#123;            stack.push(Integer.parseInt(token));        &#125;    &#125;    <span class="hljs-keyword">return</span> stack.pop();&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>栈</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1603. 设计停车系统</title>
     <link href="/2021/03/19/LeetCode-1603-design-parking-system/"/>
     <url>/2021/03/19/LeetCode-1603-design-parking-system/</url>
@@ -2483,9 +2510,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>数学</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -4498,9 +4525,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -4556,9 +4583,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -4989,9 +5016,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -5518,9 +5545,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -6682,9 +6709,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     

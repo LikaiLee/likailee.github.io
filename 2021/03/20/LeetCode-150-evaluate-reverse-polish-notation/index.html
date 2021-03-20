@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 105. 从前序与中序遍历序列构造二叉树 - Likai Lee</title>
+  <title>LeetCode 150. 逆波兰表达式求值 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 105. 从前序与中序遍历序列构造二叉树
+                LeetCode 150. 逆波兰表达式求值
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-11-03 21:52">
-      2020年11月3日 晚上
+    <time datetime="2021-03-20 19:32">
+      2021年3月20日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      228 字
+      113 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      2
        分钟
     </span>
   
@@ -207,39 +207,36 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年11月3日 晚上
+                  本文最后更新于：2021年3月20日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" target="_blank" rel="noopener">105. 从前序与中序遍历序列构造二叉树</a></p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">buildTree</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] preorder, <span class="hljs-keyword">int</span>[] inorder)</span> </span>&#123;
-    <span class="hljs-comment">// preorder = [3  ,9,  20,15,7]</span>
-    <span class="hljs-comment">// inorder = [9, 3,  15,20,7]</span>
-    <span class="hljs-comment">// 缓存 每个结点在 inorder 出现的位置，快速划分左右子树</span>
-    Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; inorder.length; i++) &#123;
-        map.put(inorder[i], i);
+              <p><a href="https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/" target="_blank" rel="noopener">150. 逆波兰表达式求值</a></p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">evalRPN</span><span class="hljs-params">(String[] tokens)</span> </span>&#123;
+    LinkedList&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
+    <span class="hljs-keyword">for</span> (String token : tokens) &#123;
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">"+"</span>.equals(token)) &#123;
+            <span class="hljs-keyword">int</span> num1 = stack.pop();
+            <span class="hljs-keyword">int</span> num2 = stack.pop();
+            stack.push(num1 + num2);
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">"-"</span>.equals(token)) &#123;
+            <span class="hljs-keyword">int</span> num1 = stack.pop();
+            <span class="hljs-keyword">int</span> num2 = stack.pop();
+            stack.push(num2 - num1);
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">"*"</span>.equals(token)) &#123;
+            <span class="hljs-keyword">int</span> num1 = stack.pop();
+            <span class="hljs-keyword">int</span> num2 = stack.pop();
+            stack.push(num1 * num2);
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">"/"</span>.equals(token)) &#123;
+            <span class="hljs-keyword">int</span> num1 = stack.pop();
+            <span class="hljs-keyword">int</span> num2 = stack.pop();
+            stack.push(num2 / num1);
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            stack.push(Integer.parseInt(token));
+        &#125;
     &#125;
-    <span class="hljs-keyword">return</span> build(preorder, <span class="hljs-number">0</span>, preorder.length - <span class="hljs-number">1</span>, inorder, <span class="hljs-number">0</span>, inorder.length - <span class="hljs-number">1</span>, map);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">private</span> TreeNode <span class="hljs-title">build</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] preorder, <span class="hljs-keyword">int</span> pStart, <span class="hljs-keyword">int</span> pEnd, <span class="hljs-keyword">int</span>[] inorder, <span class="hljs-keyword">int</span> iStart, <span class="hljs-keyword">int</span> iEnd, Map&lt;Integer, Integer&gt; map)</span> </span>&#123;
-    <span class="hljs-comment">// 起点 &gt; 终点，不存在结点</span>
-    <span class="hljs-keyword">if</span> (pStart &gt; pEnd) &#123;
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
-    &#125;
-    <span class="hljs-comment">// 每次都以 pStart 构造根节点</span>
-    <span class="hljs-keyword">int</span> rootVal = preorder[pStart];
-    TreeNode root = <span class="hljs-keyword">new</span> TreeNode(rootVal);
-    <span class="hljs-comment">// 以 rootVal 分界，划分左右子树</span>
-    <span class="hljs-keyword">int</span> rootPosInOrder = map.get(rootVal);
-    <span class="hljs-keyword">int</span> leftNodesNum = rootPosInOrder - iStart;
-    <span class="hljs-comment">// 左子树（9）：        [pStart + 1, pStart + leftNodesNum], [iStart, rootPosInOrder - 1]</span>
-    <span class="hljs-comment">// 右子树（20, 15, 7）：[pStart + leftNodesNum + 1, pEnd],       [rootPosInOrder + 1, iEnd]</span>
-    root.left = build(preorder, pStart + <span class="hljs-number">1</span>, pStart + leftNodesNum, inorder, iStart, rootPosInOrder - <span class="hljs-number">1</span>, map);
-    root.right = build(preorder, pStart + leftNodesNum + <span class="hljs-number">1</span>, pEnd, inorder, rootPosInOrder + <span class="hljs-number">1</span>, iEnd, map);
-    <span class="hljs-keyword">return</span> root;
+    <span class="hljs-keyword">return</span> stack.pop();
 &#125;</code></pre>
             </article>
             <hr>
@@ -259,11 +256,7 @@
                     
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%A0%91/">树</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%88%86%E6%B2%BB/">分治</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E9%80%92%E5%BD%92/">递归</a>
+                      <a class="hover-with-bg" href="/tags/%E6%A0%88/">栈</a>
                     
                   </div>
                 
@@ -276,18 +269,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/11/04/LeetCode-57-insert-interval/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 57. 插入区间</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/11/03/LeetCode-257-binary-tree-paths/">
-                        <span class="hidden-mobile">LeetCode 257. 二叉树的所有路径</span>
+                      <a href="/2021/03/19/LeetCode-1603-design-parking-system/">
+                        <span class="hidden-mobile">LeetCode 1603. 设计停车系统</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
