@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      230 字
+      224 字
     </span>
   
 
@@ -242,39 +242,37 @@
 &#125;</code></pre>
 <h1 id="使用原链表"><a class="markdownIt-Anchor" href="#使用原链表"></a> 使用原链表</h1>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">addTwoNumbers</span><span class="hljs-params">(ListNode l1, ListNode l2)</span> </span>&#123;
-        ListNode head = l1;
-        <span class="hljs-keyword">int</span> carry = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;
-            <span class="hljs-keyword">int</span> sum = l1.val + l2.val + carry;
-            l1.val = sum % <span class="hljs-number">10</span>;
-            carry = sum / <span class="hljs-number">10</span>;
-            <span class="hljs-keyword">if</span> (l1.next == <span class="hljs-keyword">null</span> || l2.next == <span class="hljs-keyword">null</span>) &#123;
-                <span class="hljs-keyword">break</span>;
-            &#125;
-            l1 = l1.next;
-            l2 = l2.next;
+    ListNode head = l1;
+    <span class="hljs-keyword">int</span> carry = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;
+        <span class="hljs-keyword">int</span> sum = l1.val + l2.val + carry;
+        l1.val = sum % <span class="hljs-number">10</span>;
+        carry = sum / <span class="hljs-number">10</span>;
+        <span class="hljs-keyword">if</span> (l1.next == <span class="hljs-keyword">null</span> || l2.next == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">break</span>;
         &#125;
-        <span class="hljs-comment">// l2 还有则接到 l1 后面</span>
-        <span class="hljs-keyword">if</span> (l2.next != <span class="hljs-keyword">null</span>) &#123;
-            l1.next = l2.next;
+        l1 = l1.next;
+        l2 = l2.next;
+    &#125;
+    <span class="hljs-comment">// l2 还有则接到 l1 后面</span>
+    <span class="hljs-keyword">if</span> (l2.next != <span class="hljs-keyword">null</span>) &#123;
+        l1.next = l2.next;
+    &#125;
+    <span class="hljs-keyword">while</span> (l1.next != <span class="hljs-keyword">null</span>) &#123;
+        <span class="hljs-keyword">int</span> sum = l1.next.val + carry;
+        l1.next.val = sum % <span class="hljs-number">10</span>;
+        carry = sum / <span class="hljs-number">10</span>;
+        l1 = l1.next;
+        <span class="hljs-keyword">if</span> (carry == <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">break</span>;
         &#125;
-        <span class="hljs-keyword">if</span> (l1.next != <span class="hljs-keyword">null</span>) &#123;
-            <span class="hljs-keyword">while</span> (l1.next != <span class="hljs-keyword">null</span>) &#123;
-                <span class="hljs-keyword">int</span> sum = l1.next.val + carry;
-                l1.next.val = sum % <span class="hljs-number">10</span>;
-                carry = sum / <span class="hljs-number">10</span>;
-                l1 = l1.next;
-                <span class="hljs-keyword">if</span> (carry == <span class="hljs-number">0</span>) &#123;
-                    <span class="hljs-keyword">break</span>;
-                &#125;
-            &#125;
-        &#125;
-        <span class="hljs-comment">// 还有进位</span>
-        <span class="hljs-keyword">if</span> (carry &gt; <span class="hljs-number">0</span>) &#123;
-            l1.next = <span class="hljs-keyword">new</span> ListNode(carry);
-        &#125;
-        <span class="hljs-keyword">return</span> head;
-    &#125;</code></pre>
+    &#125;
+    <span class="hljs-comment">// 还有进位</span>
+    <span class="hljs-keyword">if</span> (carry &gt; <span class="hljs-number">0</span>) &#123;
+        l1.next = <span class="hljs-keyword">new</span> ListNode(carry);
+    &#125;
+    <span class="hljs-keyword">return</span> head;
+&#125;</code></pre>
             </article>
             <hr>
             <div>
