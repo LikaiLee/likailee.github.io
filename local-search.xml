@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 83. 删除排序链表中的重复元素</title>
+    <link href="/2021/03/26/LeetCode-83-remove-duplicates-from-sorted-list/"/>
+    <url>/2021/03/26/LeetCode-83-remove-duplicates-from-sorted-list/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/" target="_blank" rel="noopener">83. 删除排序链表中的重复元素</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">deleteDuplicates</span><span class="hljs-params">(ListNode head)</span> </span>&#123;    ListNode dummy = <span class="hljs-keyword">new</span> ListNode(-<span class="hljs-number">101</span>);    ListNode tail = dummy;    <span class="hljs-keyword">while</span> (head != <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">if</span> (head.val != tail.val) &#123;            tail.next = head;            tail = tail.next;        &#125;        head = head.next;    &#125;    tail.next = <span class="hljs-keyword">null</span>;    <span class="hljs-keyword">return</span> dummy.next;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 82. 删除排序链表中的重复元素</title>
     <link href="/2021/03/25/LeetCode-82-remove-duplicates-from-sorted-list-ii/"/>
     <url>/2021/03/25/LeetCode-82-remove-duplicates-from-sorted-list-ii/</url>
@@ -2564,9 +2591,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>数学</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -2823,9 +2850,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2852,11 +2879,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2883,9 +2910,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -7650,9 +7677,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -7679,9 +7706,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
