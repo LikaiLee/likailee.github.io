@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 173. 二叉搜索树迭代器</title>
+    <link href="/2021/03/28/LeetCode-173-binary-search-tree-iterator/"/>
+    <url>/2021/03/28/LeetCode-173-binary-search-tree-iterator/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/binary-search-tree-iterator/" target="_blank" rel="noopener">173. 二叉搜索树迭代器</a></p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BSTIterator</span> </span>&#123;    LinkedList&lt;Integer&gt; list = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">BSTIterator</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;        Deque&lt;TreeNode&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        <span class="hljs-keyword">while</span> (root != <span class="hljs-keyword">null</span> || !stack.isEmpty()) &#123;            <span class="hljs-keyword">while</span> (root != <span class="hljs-keyword">null</span>) &#123;                stack.push(root);                root = root.left;            &#125;            TreeNode cur = stack.pop();            list.add(cur.val);            root = cur.right;        &#125;    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">next</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> list.removeFirst();    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasNext</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">return</span> !list.isEmpty();    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 83. 删除排序链表中的重复元素</title>
     <link href="/2021/03/26/LeetCode-83-remove-duplicates-from-sorted-list/"/>
     <url>/2021/03/26/LeetCode-83-remove-duplicates-from-sorted-list/</url>
@@ -4370,9 +4397,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>优先队列</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5097,9 +5124,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -7594,9 +7621,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>优先队列</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -7737,9 +7764,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>数学</tag>
       
       <tag>栈</tag>
       
@@ -7822,9 +7849,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>数学</tag>
       
       <tag>栈</tag>
       
