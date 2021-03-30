@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      780 字
+      710 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12
+      11
        分钟
     </span>
   
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月30日 晚上
+                  本文最后更新于：2021年3月30日 晚上
                 
               </p>
             
@@ -285,63 +285,50 @@
 <li>堆顶元素即为第 <code>K</code> 大的元素</li>
 </ol>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findKthLargest</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = nums.length;
-    <span class="hljs-comment">// 将数组整理成堆</span>
-    heapify(nums);
-
-    <span class="hljs-comment">// 循环不变量：区间 [0, i] 堆有序</span>
-    <span class="hljs-comment">// 每次调整都把最大的元素放到后面</span>
-    <span class="hljs-comment">// 因此要找到第 K 大的元素只需要遍历 K 次</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">1</span>; i &gt; len - <span class="hljs-number">1</span> - k; ) &#123;
-        <span class="hljs-comment">// 把堆顶元素（当前最大）交换到数组末尾</span>
-        swap(nums, <span class="hljs-number">0</span>, i);
-        <span class="hljs-comment">// 逐步减少堆有序的部分</span>
-        i--;
-        <span class="hljs-comment">// 下标 0 位置下沉操作，使得区间 [0, i] 堆有序</span>
-        siftDown(nums, <span class="hljs-number">0</span>, i);
-    &#125;
-    <span class="hljs-keyword">return</span> nums[len - k];
+    <span class="hljs-comment">// 只要排序到倒数第 K 个元素</span>
+    heapSort(nums, nums.length - <span class="hljs-number">1</span>, nums.length - k);
+    <span class="hljs-keyword">return</span> nums[nums.length - k];
 &#125;
 
-<span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * 将数组整理成堆（堆有序）</span>
-<span class="hljs-comment"> *</span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> nums</span>
-<span class="hljs-comment"> */</span>
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">heapify</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = nums.length;
-    <span class="hljs-comment">// 只需要从 i = (len - 1) / 2 这个位置开始逐层下移</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = (len - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
-        siftDown(nums, i, len - <span class="hljs-number">1</span>);
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">heapSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> end, <span class="hljs-keyword">int</span> target)</span> </span>&#123;
+    <span class="hljs-comment">// 建立初始堆</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = end / <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
+        shiftDown(nums, i, end);
+    &#125;
+    <span class="hljs-comment">// 对 [target:end] 建立大顶堆</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = end; i &gt;= target; i--) &#123;
+        <span class="hljs-comment">// 堆顶为当前最大，交换到后面</span>
+        swap(nums, i, <span class="hljs-number">0</span>);
+        <span class="hljs-comment">// 每次调整堆顶</span>
+        shiftDown(nums, <span class="hljs-number">0</span>, i - <span class="hljs-number">1</span>);
     &#125;
 &#125;
 
-<span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> nums</span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> k    当前下沉元素的下标</span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> end  [0, end] 是 nums 的有效部分</span>
-<span class="hljs-comment"> */</span>
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">siftDown</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> end)</span> </span>&#123;
-    <span class="hljs-keyword">while</span> (<span class="hljs-number">2</span> * k &lt; end) &#123;
-        <span class="hljs-keyword">int</span> j = <span class="hljs-number">2</span> * k + <span class="hljs-number">1</span>;
-        <span class="hljs-comment">// 左结点 &lt; 右结点，j 指向右结点</span>
-        <span class="hljs-keyword">if</span> (j &lt; end &amp;&amp; nums[j + <span class="hljs-number">1</span>] &gt; nums[j]) &#123;
-            j++;
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">shiftDown</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> end)</span> </span>&#123;
+    <span class="hljs-comment">// 向下调整</span>
+    <span class="hljs-keyword">while</span> (i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span> &lt;= end) &#123;
+        <span class="hljs-comment">// 左孩子</span>
+        <span class="hljs-keyword">int</span> child = i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>;
+        <span class="hljs-comment">// 左孩子 &lt; 右孩子，比较右孩子</span>
+        <span class="hljs-keyword">if</span> (child + <span class="hljs-number">1</span> &lt;= end &amp;&amp; nums[child] &lt; nums[child + <span class="hljs-number">1</span>]) &#123;
+            child++;
         &#125;
-        <span class="hljs-comment">// 子结点大于父结点</span>
-        <span class="hljs-keyword">if</span> (nums[j] &gt; nums[k]) &#123;
-            swap(nums, j, k);
-        &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-comment">// 当前元素 &lt; 某个孩子节点，则交换并调整交换后的孩子节点</span>
+        <span class="hljs-keyword">if</span> (nums[i] &lt; nums[child]) &#123;
+            swap(nums, i, child);
+        &#125;
+        <span class="hljs-comment">// 当前元素已经有序，不需要调整</span>
+        <span class="hljs-keyword">else</span> &#123;
             <span class="hljs-keyword">break</span>;
         &#125;
-        k = j;
+        i = child;
     &#125;
 &#125;
 
 <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> temp = nums[i];
+    <span class="hljs-keyword">int</span> t = nums[i];
     nums[i] = nums[j];
-    nums[j] = temp;
+    nums[j] = t;
 &#125;</code></pre>
             </article>
             <hr>
