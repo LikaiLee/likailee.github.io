@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 142. 环形链表 II - Likai Lee</title>
+  <title>LeetCode 141. 环形链表 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 142. 环形链表 II
+                LeetCode 141. 环形链表
               
             </span>
 
@@ -154,7 +154,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2021-03-31 19:45">
+    <time datetime="2021-03-31 19:47">
       2021年3月31日 晚上
     </time>
   </div>
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      115 字
+      49 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      1
        分钟
     </span>
   
@@ -212,34 +212,21 @@
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/linked-list-cycle-ii/" target="_blank" rel="noopener">142. 环形链表 II</a></p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">detectCycle</span><span class="hljs-params">(ListNode head)</span> </span>&#123;
-        <span class="hljs-comment">/**</span>
-<span class="hljs-comment">         * slow = a</span>
-<span class="hljs-comment">         * fast = 2 * slow = a + a = a + n * circle</span>
-<span class="hljs-comment">         * =&gt; slow = a = n * circle</span>
-<span class="hljs-comment">         * b              -&gt; startPoint</span>
-<span class="hljs-comment">         * b + n * circle -&gt; startPoint</span>
-<span class="hljs-comment">         * =&gt; slow + b == startPoint</span>
-<span class="hljs-comment">         * =&gt; slow 再走 b 步到达入口 &lt;=&gt; 从起点走 b 步和 slow 相遇</span>
-<span class="hljs-comment">         */</span>
-        ListNode slow = head;
+              <p><a href="https://leetcode-cn.com/problems/linked-list-cycle/" target="_blank" rel="noopener">141. 环形链表</a></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasCycle</span><span class="hljs-params">(ListNode head)</span> </span>&#123;
         ListNode fast = head;
-        <span class="hljs-keyword">do</span> &#123;
-            <span class="hljs-keyword">if</span> (fast == <span class="hljs-keyword">null</span> || fast.next == <span class="hljs-keyword">null</span>) &#123;
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
-            &#125;
-            slow = slow.next;
+        ListNode slow = head;
+        <span class="hljs-keyword">while</span> (fast != <span class="hljs-keyword">null</span> &amp;&amp; fast.next != <span class="hljs-keyword">null</span>) &#123;
             fast = fast.next.next;
-        &#125; <span class="hljs-keyword">while</span> (slow != fast);
-        <span class="hljs-comment">// 走 b 步直到和 slow 相遇</span>
-        fast = head;
-        <span class="hljs-keyword">while</span> (fast != slow) &#123;
             slow = slow.next;
-            fast = fast.next;
+            <span class="hljs-keyword">if</span> (fast == slow) &#123;
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+            &#125;
         &#125;
-        <span class="hljs-keyword">return</span> slow;
-    &#125;</code></pre>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    &#125;
+&#125;</code></pre>
             </article>
             <hr>
             <div>
@@ -271,18 +258,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/31/LeetCode-141-linked-list-cycle/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 141. 环形链表</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2021/03/28/LeetCode-173-binary-search-tree-iterator/">
-                        <span class="hidden-mobile">LeetCode 173. 二叉搜索树迭代器</span>
+                      <a href="/2021/03/31/LeetCode-142-linked-list-cycle-ii/">
+                        <span class="hidden-mobile">LeetCode 142. 环形链表 II</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
