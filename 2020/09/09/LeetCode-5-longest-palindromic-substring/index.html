@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      497 字
+      490 字
     </span>
   
 
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月21日 晚上
+                  本文最后更新于：2021年3月31日 晚上
                 
               </p>
             
@@ -233,39 +233,36 @@
 <p>状态：<code>dp[i][j]</code> - <code>s[i:j]</code> 是否为回文串<br />
 状态转移方程：<code>dp[i][j] = s[i] == s[j] and dp[i + 1][j - 1]</code></p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(String s)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> len = s.length();
-    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;
-    &#125;
-    <span class="hljs-keyword">boolean</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[len][len];
-    <span class="hljs-comment">// 起点</span>
-    <span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;
-    <span class="hljs-comment">// 回文长度</span>
-    <span class="hljs-keyword">int</span> maxLen = <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">char</span>[] chars = s.toCharArray();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; len; j++) &#123;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; j; i++) &#123;
-            <span class="hljs-comment">// 两侧不等，一定无法构成回文</span>
-            <span class="hljs-keyword">if</span> (chars[i] != chars[j]) &#123;
-                dp[i][j] = <span class="hljs-keyword">false</span>;
-            &#125; <span class="hljs-keyword">else</span> &#123;
-                    <span class="hljs-comment">// i, j 之间的子串只有 0 个或 1 个字符</span>
-                <span class="hljs-keyword">if</span> (j - i &lt;= <span class="hljs-number">2</span>) &#123;
-                    dp[i][j] = <span class="hljs-keyword">true</span>;
-                &#125; <span class="hljs-keyword">else</span> &#123;
-                    <span class="hljs-comment">// 两侧相等，看子串是不是回文</span>
-                    dp[i][j] = dp[i + <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">""</span>.equals(s)) &#123;
+            <span class="hljs-keyword">return</span> s;
+        &#125;
+        <span class="hljs-keyword">int</span> len = s.length();
+        <span class="hljs-keyword">char</span>[] str = s.toCharArray();
+        <span class="hljs-keyword">boolean</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[len][len];
+        <span class="hljs-keyword">int</span> maxLen = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; len; j++) &#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= j; i++) &#123;
+                <span class="hljs-comment">// 首尾相等，看中间</span>
+                <span class="hljs-keyword">if</span> (str[i] == str[j]) &#123;
+                    <span class="hljs-comment">// 除去首尾的中间字符 &lt;= 1 个，为回文</span>
+                    <span class="hljs-keyword">if</span> (j - i &lt;= <span class="hljs-number">1</span>) &#123;
+                        dp[i][j] = <span class="hljs-keyword">true</span>;
+                    &#125; 
+                    <span class="hljs-comment">// 除去首尾的中间字符 &gt; 1 个，看中间是否为回文</span>
+                    <span class="hljs-keyword">else</span> &#123;
+                        dp[i][j] = dp[i + <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];
+                    &#125;
+                &#125;
+                <span class="hljs-comment">// 更新最长的回文起始位置</span>
+                <span class="hljs-keyword">if</span> (dp[i][j] &amp;&amp; j - i + <span class="hljs-number">1</span> &gt; maxLen) &#123;
+                    maxLen = j - i + <span class="hljs-number">1</span>;
+                    start = i;
                 &#125;
             &#125;
-            <span class="hljs-comment">// 更新最长回文位置</span>
-            <span class="hljs-keyword">if</span> (dp[i][j] &amp;&amp; j - i + <span class="hljs-number">1</span> &gt; maxLen) &#123;
-                maxLen = j - i + <span class="hljs-number">1</span>;
-                start = i;
-            &#125;
         &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> s.substring(start, start + maxLen);
-&#125;</code></pre>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> String(str, start, maxLen);
+    &#125;</code></pre>
 <h1 id="中心扩散"><a class="markdownIt-Anchor" href="#中心扩散"></a> 中心扩散</h1>
 <p>尝试以每个字符和每个字符间的间隙为中心，向两端扩散。</p>
 <p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200909134124.jpeg" srcset="/img/loading.gif" alt="" /></p>

@@ -2245,11 +2245,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -2581,9 +2581,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -2784,9 +2784,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -3273,9 +3273,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -4478,9 +4478,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>优先队列</tag>
-      
       <tag>排序</tag>
+      
+      <tag>优先队列</tag>
       
     </tags>
     
@@ -4619,11 +4619,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -4650,9 +4650,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -4681,9 +4681,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -4801,9 +4801,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -5143,9 +5143,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -5174,9 +5174,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -5568,9 +5568,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5597,9 +5597,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6450,9 +6450,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -6759,9 +6759,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -6869,9 +6869,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6985,9 +6985,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7161,11 +7161,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7221,11 +7221,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7702,9 +7702,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>优先队列</tag>
-      
       <tag>排序</tag>
+      
+      <tag>优先队列</tag>
       
     </tags>
     
@@ -8063,7 +8063,7 @@
     <link href="/2020/09/09/LeetCode-5-longest-palindromic-substring/"/>
     <url>/2020/09/09/LeetCode-5-longest-palindromic-substring/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-palindromic-substring/" target="_blank" rel="noopener">5. 最长回文子串</a></p><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><ul><li><p>如果一个字符串的头尾两个字符都不相等，那么这个字符串一定不是回文串；</p></li><li><p>如果一个字符串的头尾两个字符相等，才有必要继续判断下去。</p><ul><li><p>如果里面的子串是回文，整体就是回文串；</p></li><li><p>如果里面的子串不是回文串，整体就不是回文串。</p></li></ul></li></ul><p>状态：<code>dp[i][j]</code> - <code>s[i:j]</code> 是否为回文串<br />状态转移方程：<code>dp[i][j] = s[i] == s[j] and dp[i + 1][j - 1]</code></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(String s)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = s.length();    <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;    &#125;    <span class="hljs-keyword">boolean</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[len][len];    <span class="hljs-comment">// 起点</span>    <span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 回文长度</span>    <span class="hljs-keyword">int</span> maxLen = <span class="hljs-number">1</span>;    <span class="hljs-keyword">char</span>[] chars = s.toCharArray();    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; len; j++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; j; i++) &#123;            <span class="hljs-comment">// 两侧不等，一定无法构成回文</span>            <span class="hljs-keyword">if</span> (chars[i] != chars[j]) &#123;                dp[i][j] = <span class="hljs-keyword">false</span>;            &#125; <span class="hljs-keyword">else</span> &#123;                    <span class="hljs-comment">// i, j 之间的子串只有 0 个或 1 个字符</span>                <span class="hljs-keyword">if</span> (j - i &lt;= <span class="hljs-number">2</span>) &#123;                    dp[i][j] = <span class="hljs-keyword">true</span>;                &#125; <span class="hljs-keyword">else</span> &#123;                    <span class="hljs-comment">// 两侧相等，看子串是不是回文</span>                    dp[i][j] = dp[i + <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];                &#125;            &#125;            <span class="hljs-comment">// 更新最长回文位置</span>            <span class="hljs-keyword">if</span> (dp[i][j] &amp;&amp; j - i + <span class="hljs-number">1</span> &gt; maxLen) &#123;                maxLen = j - i + <span class="hljs-number">1</span>;                start = i;            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> s.substring(start, start + maxLen);&#125;</code></pre><h1 id="中心扩散"><a class="markdownIt-Anchor" href="#中心扩散"></a> 中心扩散</h1><p>尝试以每个字符和每个字符间的间隙为中心，向两端扩散。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200909134124.jpeg" srcset="/img/loading.gif" alt="" /></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(String s)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] str = s.toCharArray();    <span class="hljs-keyword">int</span> len = str.length;    <span class="hljs-keyword">int</span> maxLen = <span class="hljs-number">1</span>;    <span class="hljs-keyword">int</span> begin = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123;        <span class="hljs-comment">// 奇数扩散，以 s[i] 为中心</span>        <span class="hljs-keyword">int</span>[] res1 = centerSpread(str, i, i);        <span class="hljs-comment">// 偶数扩散，以 s[i], s[i + 1] 为中心</span>        <span class="hljs-keyword">int</span>[] res2 = centerSpread(str, i, i + <span class="hljs-number">1</span>);        <span class="hljs-keyword">int</span>[] res = res1[<span class="hljs-number">1</span>] &gt; res2[<span class="hljs-number">1</span>] ? res1 : res2;        <span class="hljs-comment">// 更新长度</span>        <span class="hljs-keyword">if</span> (res[<span class="hljs-number">1</span>] &gt; maxLen) &#123;            maxLen = res[<span class="hljs-number">1</span>];            begin = res[<span class="hljs-number">0</span>];        &#125;    &#125;    <span class="hljs-keyword">return</span> s.substring(begin, begin + maxLen);&#125;<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] centerSpread(<span class="hljs-keyword">char</span>[] str, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right) &#123;    <span class="hljs-keyword">int</span> len = str.length;    <span class="hljs-comment">// 结束循环时，str[left] != str[right] 或越界</span>    <span class="hljs-comment">// 取 str(left:right)</span>    <span class="hljs-keyword">while</span> (left &gt; <span class="hljs-number">0</span> &amp;&amp; right &lt; len) &#123;        <span class="hljs-keyword">if</span> (str[left] != str[right]) &#123;            <span class="hljs-keyword">break</span>;        &#125;        left--;        right++;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;left + <span class="hljs-number">1</span>, right - left - <span class="hljs-number">1</span>&#125;;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/longest-palindromic-substring/" target="_blank" rel="noopener">5. 最长回文子串</a></p><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><ul><li><p>如果一个字符串的头尾两个字符都不相等，那么这个字符串一定不是回文串；</p></li><li><p>如果一个字符串的头尾两个字符相等，才有必要继续判断下去。</p><ul><li><p>如果里面的子串是回文，整体就是回文串；</p></li><li><p>如果里面的子串不是回文串，整体就不是回文串。</p></li></ul></li></ul><p>状态：<code>dp[i][j]</code> - <code>s[i:j]</code> 是否为回文串<br />状态转移方程：<code>dp[i][j] = s[i] == s[j] and dp[i + 1][j - 1]</code></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(String s)</span> </span>&#123;        <span class="hljs-keyword">if</span> (<span class="hljs-string">""</span>.equals(s)) &#123;            <span class="hljs-keyword">return</span> s;        &#125;        <span class="hljs-keyword">int</span> len = s.length();        <span class="hljs-keyword">char</span>[] str = s.toCharArray();        <span class="hljs-keyword">boolean</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[len][len];        <span class="hljs-keyword">int</span> maxLen = <span class="hljs-number">1</span>;        <span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; len; j++) &#123;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= j; i++) &#123;                <span class="hljs-comment">// 首尾相等，看中间</span>                <span class="hljs-keyword">if</span> (str[i] == str[j]) &#123;                    <span class="hljs-comment">// 除去首尾的中间字符 &lt;= 1 个，为回文</span>                    <span class="hljs-keyword">if</span> (j - i &lt;= <span class="hljs-number">1</span>) &#123;                        dp[i][j] = <span class="hljs-keyword">true</span>;                    &#125;                     <span class="hljs-comment">// 除去首尾的中间字符 &gt; 1 个，看中间是否为回文</span>                    <span class="hljs-keyword">else</span> &#123;                        dp[i][j] = dp[i + <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];                    &#125;                &#125;                <span class="hljs-comment">// 更新最长的回文起始位置</span>                <span class="hljs-keyword">if</span> (dp[i][j] &amp;&amp; j - i + <span class="hljs-number">1</span> &gt; maxLen) &#123;                    maxLen = j - i + <span class="hljs-number">1</span>;                    start = i;                &#125;            &#125;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> String(str, start, maxLen);    &#125;</code></pre><h1 id="中心扩散"><a class="markdownIt-Anchor" href="#中心扩散"></a> 中心扩散</h1><p>尝试以每个字符和每个字符间的间隙为中心，向两端扩散。</p><p><img src="https://raw.githubusercontent.com/LikaiLee/likailee.github.io/img/20200909134124.jpeg" srcset="/img/loading.gif" alt="" /></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(String s)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] str = s.toCharArray();    <span class="hljs-keyword">int</span> len = str.length;    <span class="hljs-keyword">int</span> maxLen = <span class="hljs-number">1</span>;    <span class="hljs-keyword">int</span> begin = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123;        <span class="hljs-comment">// 奇数扩散，以 s[i] 为中心</span>        <span class="hljs-keyword">int</span>[] res1 = centerSpread(str, i, i);        <span class="hljs-comment">// 偶数扩散，以 s[i], s[i + 1] 为中心</span>        <span class="hljs-keyword">int</span>[] res2 = centerSpread(str, i, i + <span class="hljs-number">1</span>);        <span class="hljs-keyword">int</span>[] res = res1[<span class="hljs-number">1</span>] &gt; res2[<span class="hljs-number">1</span>] ? res1 : res2;        <span class="hljs-comment">// 更新长度</span>        <span class="hljs-keyword">if</span> (res[<span class="hljs-number">1</span>] &gt; maxLen) &#123;            maxLen = res[<span class="hljs-number">1</span>];            begin = res[<span class="hljs-number">0</span>];        &#125;    &#125;    <span class="hljs-keyword">return</span> s.substring(begin, begin + maxLen);&#125;<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] centerSpread(<span class="hljs-keyword">char</span>[] str, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right) &#123;    <span class="hljs-keyword">int</span> len = str.length;    <span class="hljs-comment">// 结束循环时，str[left] != str[right] 或越界</span>    <span class="hljs-comment">// 取 str(left:right)</span>    <span class="hljs-keyword">while</span> (left &gt; <span class="hljs-number">0</span> &amp;&amp; right &lt; len) &#123;        <span class="hljs-keyword">if</span> (str[left] != str[right]) &#123;            <span class="hljs-keyword">break</span>;        &#125;        left--;        right++;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;left + <span class="hljs-number">1</span>, right - left - <span class="hljs-number">1</span>&#125;;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -8106,9 +8106,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8135,9 +8135,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8284,11 +8284,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8431,9 +8431,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8657,9 +8657,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -8688,9 +8688,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8748,9 +8748,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8777,9 +8777,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
