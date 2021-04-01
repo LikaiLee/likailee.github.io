@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 1006. 笨阶乘</title>
+    <link href="/2021/04/01/LeetCode-1006-clumsy-factorial/"/>
+    <url>/2021/04/01/LeetCode-1006-clumsy-factorial/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/clumsy-factorial/" target="_blank" rel="noopener">1006. 笨阶乘</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">clumsy</span><span class="hljs-params">(<span class="hljs-keyword">int</span> N)</span> </span>&#123;        <span class="hljs-comment">// 10 * 9 / 8 + 7 - 6 * 5 / 4 + 3 - 2 * 1</span>        Deque&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        <span class="hljs-keyword">int</span> op = -<span class="hljs-number">1</span>;        <span class="hljs-keyword">while</span> (N &gt; <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">switch</span> (op) &#123;                <span class="hljs-comment">// '*</span>                <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:                    stack.push(stack.pop() * N);                    <span class="hljs-keyword">break</span>;                <span class="hljs-comment">// '/'</span>                <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:                    stack.push(stack.pop() / N);                    <span class="hljs-keyword">break</span>;                <span class="hljs-comment">// '-'</span>                <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:                    stack.push(-N);                    <span class="hljs-keyword">break</span>;                <span class="hljs-comment">// '+'</span>                <span class="hljs-keyword">default</span>:                    stack.push(N);                    <span class="hljs-keyword">break</span>;            &#125;            op = (op + <span class="hljs-number">1</span>) % <span class="hljs-number">4</span>;            N--;        &#125;        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;        <span class="hljs-keyword">while</span> (!stack.isEmpty()) &#123;            res += stack.pop();        &#125;        <span class="hljs-keyword">return</span> res;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>栈</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 236. 二叉树的最近公共祖先</title>
     <link href="/2021/03/31/LeetCode-236-lowest-common-ancestor-of-a-binary-tree/"/>
     <url>/2021/03/31/LeetCode-236-lowest-common-ancestor-of-a-binary-tree/</url>
@@ -2245,11 +2272,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2581,9 +2608,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -2784,9 +2811,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -3273,9 +3300,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -3555,9 +3582,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3839,11 +3866,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>栈</tag>
+      
       <tag>双指针</tag>
       
       <tag>排序</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -4478,9 +4505,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>优先队列</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4619,11 +4646,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -4650,9 +4677,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -4681,9 +4708,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -4801,9 +4828,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -5143,9 +5170,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -5174,9 +5201,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -5568,9 +5595,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5597,9 +5624,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5790,9 +5817,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -5935,9 +5962,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6074,9 +6101,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>栈</tag>
+      
+      <tag>贪心</tag>
       
       <tag>单调栈</tag>
       
@@ -6105,9 +6132,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>栈</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -6450,9 +6477,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -6759,11 +6786,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
+      <tag>栈</tag>
       
       <tag>动态规划</tag>
       
-      <tag>栈</tag>
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6869,9 +6896,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -6985,9 +7012,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -7161,11 +7188,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -7221,11 +7248,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7702,9 +7729,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>优先队列</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -7845,11 +7872,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>栈</tag>
+      
       <tag>字符串</tag>
       
       <tag>数学</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -7930,11 +7957,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>栈</tag>
+      
       <tag>字符串</tag>
       
       <tag>数学</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -8106,9 +8133,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8135,9 +8162,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8222,9 +8249,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -8253,9 +8280,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
       <tag>单调栈</tag>
       
@@ -8284,11 +8311,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -8344,11 +8371,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>栈</tag>
+      
       <tag>字符串</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -8431,9 +8458,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -8657,11 +8684,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
+      <tag>栈</tag>
       
       <tag>字符串</tag>
       
-      <tag>栈</tag>
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8688,9 +8715,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8717,9 +8744,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>队列</tag>
       
@@ -8748,9 +8775,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8777,9 +8804,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
