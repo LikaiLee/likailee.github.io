@@ -226,8 +226,9 @@ public boolean containsNearbyDuplicate(int[] nums, int k) &#123;
         <div>23. 合并K个升序链表
  小顶堆
 public ListNode mergeKLists(ListNode[] lists) &#123;
-    PriorityQueue&lt;ListNode&gt; maxHeap = new PriorityQueue&lt;&gt;((o1, o2) -&gt; o1.val - o2.val);
-    ListNode dummy = new L</div>
+     ListNode dummy = new ListNode(-1);
+     ListNode tail = dummy;
+     PriorityQueue&lt;ListNode&gt; minHeap = new PriorityQueu</div>
       </a>
 
       <div class="index-btm post-metas">
