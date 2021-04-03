@@ -5263,9 +5263,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -5749,7 +5749,7 @@
     <link href="/2020/10/23/LeetCode-234-palindrome-linked-list/"/>
     <url>/2020/10/23/LeetCode-234-palindrome-linked-list/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/palindrome-linked-list/" target="_blank" rel="noopener">234. 回文链表</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(ListNode head)</span> </span>&#123;    <span class="hljs-keyword">if</span> (head == <span class="hljs-keyword">null</span> || head.next == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;    <span class="hljs-comment">// 1 0 1</span>    <span class="hljs-comment">// 翻转后的链表头部</span>    ListNode reversedHead = <span class="hljs-keyword">null</span>;    <span class="hljs-comment">// 保存 需要翻转的 slow</span>    ListNode preSlow = head;    ListNode slow = head, fast = head;    <span class="hljs-keyword">while</span> (fast != <span class="hljs-keyword">null</span> &amp;&amp; fast.next != <span class="hljs-keyword">null</span>) &#123;        preSlow = slow;        <span class="hljs-comment">// 快慢指针移动</span>        slow = slow.next;        fast = fast.next.next;        <span class="hljs-comment">// 快慢指针移动完再翻转当前的 slow</span>        preSlow.next = reversedHead;        reversedHead = preSlow;    &#125;    <span class="hljs-comment">// 奇数个结点，slow 需要跳过中点进行回文判断</span>    <span class="hljs-keyword">if</span> (fast != <span class="hljs-keyword">null</span>) &#123;        slow = slow.next;    &#125;    <span class="hljs-keyword">while</span> (slow != <span class="hljs-keyword">null</span> &amp;&amp; reversedHead != <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">if</span> (slow.val != reversedHead.val) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        slow = slow.next;        reversedHead = reversedHead.next;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/palindrome-linked-list/" target="_blank" rel="noopener">234. 回文链表</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(ListNode head)</span> </span>&#123;        <span class="hljs-keyword">if</span> (head == <span class="hljs-keyword">null</span> || head.next == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;        <span class="hljs-comment">// 1-&gt;2-&gt;2-&gt;1</span>        <span class="hljs-comment">// 1-&gt;0-&gt;1</span>        ListNode slow = head;        ListNode fast = head;        ListNode reverseHead = <span class="hljs-keyword">null</span>;        ListNode slowTmp;        <span class="hljs-keyword">while</span> (fast != <span class="hljs-keyword">null</span> &amp;&amp; fast.next != <span class="hljs-keyword">null</span>) &#123;            slowTmp = slow;            <span class="hljs-comment">// 快慢指针先移动，防止丢失节点</span>            slow = slow.next;            fast = fast.next.next;            <span class="hljs-comment">// 反转先前的 slow</span>            slowTmp.next = reverseHead;            reverseHead = slowTmp;        &#125;        <span class="hljs-comment">// 此时 slow 为中点，slow 之前的节点已经反转</span>        <span class="hljs-comment">// 奇数个节点，中点不需要比较</span>        <span class="hljs-keyword">if</span> (fast != <span class="hljs-keyword">null</span>) &#123;            slow = slow.next;        &#125;        <span class="hljs-comment">// slow 代表后半部分，reverseHead 代表反转后的前半部分</span>        <span class="hljs-keyword">while</span> (slow != <span class="hljs-keyword">null</span> &amp;&amp; reverseHead != <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">if</span> (slow.val != reverseHead.val) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;            slow = slow.next;            reverseHead = reverseHead.next;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;</code></pre>]]></content>
     
     
     <categories>
@@ -6132,9 +6132,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>栈</tag>
       
       <tag>单调栈</tag>
       
@@ -6163,9 +6163,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
