@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      246 字
+      236 字
     </span>
   
 
@@ -207,7 +207,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年1月7日 晚上
+                  本文最后更新于：2021年4月3日 晚上
                 
               </p>
             
@@ -254,39 +254,30 @@
 &#125;</code></pre>
 <h1 id="不同步栈"><a class="markdownIt-Anchor" href="#不同步栈"></a> 不同步栈</h1>
 <pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MinStack</span> </span>&#123;
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * 存储实际的栈元素</span>
-<span class="hljs-comment">     */</span>
-    ArrayDeque&lt;Integer&gt; dataStack;
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * 存储最小值</span>
-<span class="hljs-comment">     */</span>
-    ArrayDeque&lt;Integer&gt; minStack;
+    Deque&lt;Integer&gt; dataStack;
+    Deque&lt;Integer&gt; minStack;
 
     <span class="hljs-comment">/**</span>
 <span class="hljs-comment">     * initialize your data structure here.</span>
 <span class="hljs-comment">     */</span>
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MinStack</span><span class="hljs-params">()</span> </span>&#123;
-        dataStack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
-        minStack = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
+        dataStack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
+        minStack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
     &#125;
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;
-        dataStack.push(x);
-        <span class="hljs-comment">// 入栈元素 &lt;= min，则加入最小栈</span>
-        <span class="hljs-keyword">if</span> (!minStack.isEmpty()) &#123;
-            <span class="hljs-keyword">if</span> (x &lt;= getMin()) &#123;
-                minStack.push(x);
-            &#125;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            minStack.push(x);
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-keyword">int</span> val)</span> </span>&#123;
+        dataStack.push(val);
+        <span class="hljs-comment">// 入栈元素 &lt;= 最小值</span>
+        <span class="hljs-comment">// [0, 1, 0] 需要重复最小值，否则 0 pop() 后栈为空</span>
+        <span class="hljs-keyword">if</span> (minStack.isEmpty() || val &lt;= getMin()) &#123;
+            minStack.push(val);
         &#125;
     &#125;
 
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>&#123;
         <span class="hljs-keyword">int</span> top = dataStack.pop();
-        <span class="hljs-comment">// 出栈元素即为最小值，更新最小值</span>
-        <span class="hljs-keyword">if</span> (top == getMin()) &#123;
+        <span class="hljs-comment">// 出栈的即为最小值</span>
+        <span class="hljs-keyword">if</span> (!minStack.isEmpty() &amp;&amp; top == getMin()) &#123;
             minStack.pop();
         &#125;
     &#125;
