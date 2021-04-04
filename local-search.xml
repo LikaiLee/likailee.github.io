@@ -8,7 +8,7 @@
     <link href="/2021/04/04/LeetCode-781-rabbits-in-forest/"/>
     <url>/2021/04/04/LeetCode-781-rabbits-in-forest/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/rabbits-in-forest/" target="_blank" rel="noopener">781. 森林中的兔子</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numRabbits</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] answers)</span> </span>&#123;    <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">1000</span>];    <span class="hljs-keyword">int</span>[] used = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">1000</span>];    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> ans : answers) &#123;        used[ans]++;        <span class="hljs-comment">// 出现 0 次，只有一个元素</span>        <span class="hljs-keyword">if</span> (ans == <span class="hljs-number">0</span>) &#123;            res += <span class="hljs-number">1</span>;        &#125;         <span class="hljs-comment">// 第一次出现 ans</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (counts[ans] == <span class="hljs-number">0</span>) &#123;            counts[ans] = ans + <span class="hljs-number">1</span>;            res += counts[ans];        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (counts[ans] &gt; <span class="hljs-number">0</span>) &#123;            <span class="hljs-comment">// ans 已经全部出现了，需要重置</span>            <span class="hljs-keyword">if</span> (used[ans] == (ans + <span class="hljs-number">1</span>)) &#123;                counts[ans] = <span class="hljs-number">0</span>;                used[ans] = <span class="hljs-number">0</span>;            &#125;        &#125;    &#125;    <span class="hljs-comment">// [2,1,2,2,2,2,2,2,1,1]</span>    <span class="hljs-comment">//  3 2     3     3   2</span>    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/rabbits-in-forest/" target="_blank" rel="noopener">781. 森林中的兔子</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">numRabbits</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] answers)</span> </span>&#123;    <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">1000</span>];    <span class="hljs-keyword">int</span>[] used = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">1000</span>];    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> ans : answers) &#123;        used[ans]++;        <span class="hljs-comment">// 出现 0 次，只有一个元素</span>        <span class="hljs-keyword">if</span> (ans == <span class="hljs-number">0</span>) &#123;            res += <span class="hljs-number">1</span>;        &#125;        <span class="hljs-comment">// 第一次出现 ans</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (counts[ans] == <span class="hljs-number">0</span>) &#123;            counts[ans] = ans + <span class="hljs-number">1</span>;            res += counts[ans];        &#125;        <span class="hljs-comment">// ans 已经全部出现了，需要重置</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (used[ans] == (ans + <span class="hljs-number">1</span>)) &#123;            counts[ans] = <span class="hljs-number">0</span>;            used[ans] = <span class="hljs-number">0</span>;        &#125;    &#125;    <span class="hljs-comment">// [2,1,2,2,2,2,2,2,1,1]</span>    <span class="hljs-comment">//  3 2     3     3   2</span>    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -2330,11 +2330,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -2666,9 +2666,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -2784,9 +2784,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>数学</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -2869,9 +2869,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -3358,9 +3358,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -4704,11 +4704,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -4735,9 +4735,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -4766,9 +4766,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -4886,9 +4886,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -5228,9 +5228,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -5259,9 +5259,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -5653,9 +5653,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5682,9 +5682,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6535,9 +6535,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -6844,9 +6844,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -6954,9 +6954,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7070,9 +7070,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7246,11 +7246,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7306,11 +7306,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7932,9 +7932,9 @@
       
       <tag>字符串</tag>
       
-      <tag>栈</tag>
-      
       <tag>数学</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -8017,9 +8017,9 @@
       
       <tag>字符串</tag>
       
-      <tag>栈</tag>
-      
       <tag>数学</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -8191,9 +8191,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8220,9 +8220,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8369,11 +8369,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8516,9 +8516,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8742,9 +8742,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -8773,9 +8773,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8833,9 +8833,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8862,9 +8862,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
