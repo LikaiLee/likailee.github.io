@@ -74,9 +74,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>栈</tag>
       
       <tag>单调栈</tag>
       
@@ -2695,9 +2695,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -3043,9 +3043,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3072,11 +3072,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -3103,9 +3103,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3271,9 +3271,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -3300,9 +3300,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3640,9 +3640,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -3810,9 +3810,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -5027,9 +5027,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -5058,11 +5058,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -5653,9 +5653,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -5682,9 +5682,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5875,9 +5875,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>栈</tag>
       
       <tag>单调栈</tag>
       
@@ -6550,7 +6550,7 @@
     <link href="/2020/10/12/LeetCode-4-median-of-two-sorted-arrays/"/>
     <url>/2020/10/12/LeetCode-4-median-of-two-sorted-arrays/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/" target="_blank" rel="noopener">4. 寻找两个正序数组的中位数</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMedianSortedArrays</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2)</span> </span>&#123;    <span class="hljs-keyword">int</span> m = nums1.length, n = nums2.length;    <span class="hljs-keyword">int</span> len = m + n;    <span class="hljs-comment">// nums1, nums2 对应指针</span>    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 上一次遍历到的数，当前遍历到的数</span>    <span class="hljs-keyword">int</span> prev = -<span class="hljs-number">1</span>, cur = -<span class="hljs-number">1</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt;= len / <span class="hljs-number">2</span>; k++) &#123;        prev = cur;        <span class="hljs-comment">// 在两个数组中取小的数往后移</span>        <span class="hljs-keyword">if</span> (i == m) &#123;            <span class="hljs-comment">// nums1 遍历完成</span>            cur = nums2[j++];        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (j == n) &#123;            <span class="hljs-comment">// nums2 遍历完成</span>            cur = nums1[i++];        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums1[i] &lt; nums2[j]) &#123;            cur = nums1[i++];        &#125; <span class="hljs-keyword">else</span> &#123;            cur = nums2[j++];        &#125;    &#125;    <span class="hljs-keyword">if</span> (len % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">return</span> (prev + cur) / <span class="hljs-number">2.0</span>;    &#125; <span class="hljs-keyword">else</span> &#123;        <span class="hljs-keyword">return</span> cur;    &#125;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/" target="_blank" rel="noopener">4. 寻找两个正序数组的中位数</a></p><pre><code class="hljs java"> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMedianSortedArrays</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2)</span> </span>&#123;        <span class="hljs-comment">// 使 nums1 的元素个数更少</span>        <span class="hljs-keyword">if</span> (nums1.length &gt; nums2.length) &#123;            <span class="hljs-keyword">int</span>[] t = nums1;            nums1 = nums2;            nums2 = t;        &#125;        <span class="hljs-keyword">int</span> len1 = nums1.length;        <span class="hljs-keyword">int</span> len2 = nums2.length;        <span class="hljs-comment">// 左边的元素个数</span>        <span class="hljs-keyword">int</span> leftCount = (len1 + len2 + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;        <span class="hljs-comment">// 在 nums1 中找分割线，nums1 左边 i 个元素，</span>        <span class="hljs-comment">// 则 nums2 左边 leftCount - i 个元素</span>        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> right = len1;        <span class="hljs-comment">/**</span><span class="hljs-comment">         * 在 [0, len1] 中搜索左边元素的个数</span><span class="hljs-comment">         * 当满足 nums1[i - 1] &lt;= nums2[j] 时，可以正确分割数组，说明 i - 1 之前的都是最小的，</span><span class="hljs-comment">         * 可以抛弃这些最小的元素，增大左边的元素数量，也就是继续增大 i</span><span class="hljs-comment">         *</span><span class="hljs-comment">         * 当不满足 nums1[i - 1] &lt;= nums2[j] 时，说明左边元素太多了，不能正确分割两个数组</span><span class="hljs-comment">         * 需要减少左边的元素数量，也就是减小 i</span><span class="hljs-comment">         * 直到 left == right 时，两个数组都被正确分割</span><span class="hljs-comment">         */</span>        <span class="hljs-keyword">while</span> (left &lt; right) &#123;            <span class="hljs-comment">// i + j 则为中点左边的所有元素个数</span>            <span class="hljs-comment">// nums1 左边的元素个数，则 nums[i - 1] 为 nums1 分割线左边的最大元素</span>            <span class="hljs-comment">// nums1: ,,, i - 1 | i ,,,</span>            <span class="hljs-keyword">int</span> i = left + (right - left + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;            <span class="hljs-comment">// nums2 左边的元素个数</span>            <span class="hljs-comment">// nums2: ,,, j - 1 | j ,,,</span>            <span class="hljs-keyword">int</span> j = leftCount - i;            <span class="hljs-comment">// 分割线需要满足 nums1[i - 1] &lt;= nums2[j] &amp;&amp; nums2[j - 1] &lt;= nums1[i]</span>            <span class="hljs-comment">// nums1[i - 1] 太大，需要则缩小 i，使 nums1[i - 1] &lt;= nums2[j] 成立</span>            <span class="hljs-keyword">if</span> (nums1[i - <span class="hljs-number">1</span>] &gt; nums2[j]) &#123;                right = i - <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> &#123;                left = i;            &#125;        &#125;        <span class="hljs-keyword">int</span> i = left + (right - left + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;        <span class="hljs-keyword">int</span> j = leftCount - i;        <span class="hljs-comment">// 左边最大</span>        <span class="hljs-keyword">int</span> leftMax1 = i == <span class="hljs-number">0</span> ? Integer.MIN_VALUE : nums1[i - <span class="hljs-number">1</span>];        <span class="hljs-keyword">int</span> leftMax2 = j == <span class="hljs-number">0</span> ? Integer.MIN_VALUE : nums2[j - <span class="hljs-number">1</span>];        <span class="hljs-comment">// 右边最小</span>        <span class="hljs-keyword">int</span> rightMin1 = i == len1 ? Integer.MAX_VALUE : nums1[i];        <span class="hljs-keyword">int</span> rightMin2 = j == len2 ? Integer.MAX_VALUE : nums2[j];        <span class="hljs-comment">// 奇数：左边最大的为中点</span>        <span class="hljs-keyword">if</span> (((len1 + len2) &amp; <span class="hljs-number">1</span>) == <span class="hljs-number">1</span>) &#123;            <span class="hljs-keyword">return</span> Math.max(leftMax1, leftMax2);        &#125;        <span class="hljs-comment">// 偶数：左边最大和右边最小求均值</span>        <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">return</span> (<span class="hljs-keyword">double</span>) (Math.max(leftMax1, leftMax2) + Math.min(rightMin1, rightMin2)) / <span class="hljs-number">2</span>;        &#125;    &#125;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -6844,11 +6844,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>双指针</tag>
       
       <tag>栈</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -6954,9 +6954,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -7070,9 +7070,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -7246,11 +7246,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -7306,11 +7306,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7870,9 +7870,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7899,9 +7899,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -7930,9 +7930,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>栈</tag>
       
       <tag>数学</tag>
       
@@ -8015,9 +8015,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>栈</tag>
       
       <tag>数学</tag>
       
@@ -8046,9 +8046,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8191,9 +8191,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8220,9 +8220,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8249,9 +8249,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -8278,9 +8278,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -8307,9 +8307,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>栈</tag>
       
       <tag>单调栈</tag>
       
@@ -8369,11 +8369,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -8400,9 +8400,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8429,11 +8429,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>字符串</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -8516,9 +8516,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -8684,9 +8684,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -8742,11 +8742,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>双指针</tag>
       
       <tag>栈</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -8773,9 +8773,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8802,9 +8802,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>栈</tag>
       
       <tag>队列</tag>
       
@@ -8833,9 +8833,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8862,9 +8862,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -9665,9 +9665,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
