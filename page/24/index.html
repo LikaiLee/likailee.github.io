@@ -468,11 +468,12 @@ public int getMinimumDifference(TreeNode root) &#123;
           
         
         <div>4. 寻找两个正序数组的中位数
- class Solution &#123;
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) &#123;
-        // 使 nums1 的元素个数更少
-        if (nums1.length &gt; nums2.length) &#123;
-         </div>
+ 双指针 O(m + n)
+public double findMedianSortedArrays(int[] nums1, int[] nums2) &#123;
+    int m = nums1.length, n = nums2.length;
+    int len = m + n;
+    // nums1, nums2 对应指针
+    int i </div>
       </a>
 
       <div class="index-btm post-metas">

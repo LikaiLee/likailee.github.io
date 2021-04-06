@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      467 字
+      617 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      9
        分钟
     </span>
   
@@ -213,6 +213,36 @@
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/" target="_blank" rel="noopener">4. 寻找两个正序数组的中位数</a></p>
+<h1 id="双指针-om-n"><a class="markdownIt-Anchor" href="#双指针-om-n"></a> 双指针 O(m + n)</h1>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMedianSortedArrays</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> m = nums1.length, n = nums2.length;
+    <span class="hljs-keyword">int</span> len = m + n;
+    <span class="hljs-comment">// nums1, nums2 对应指针</span>
+    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;
+    <span class="hljs-comment">// 上一次遍历到的数，当前遍历到的数</span>
+    <span class="hljs-keyword">int</span> prev = -<span class="hljs-number">1</span>, cur = -<span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt;= len / <span class="hljs-number">2</span>; k++) &#123;
+        prev = cur;
+        <span class="hljs-comment">// 在两个数组中取小的数往后移</span>
+        <span class="hljs-keyword">if</span> (i == m) &#123;
+            <span class="hljs-comment">// nums1 遍历完成</span>
+            cur = nums2[j++];
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (j == n) &#123;
+            <span class="hljs-comment">// nums2 遍历完成</span>
+            cur = nums1[i++];
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums1[i] &lt; nums2[j]) &#123;
+            cur = nums1[i++];
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            cur = nums2[j++];
+        &#125;
+    &#125;
+    <span class="hljs-keyword">if</span> (len % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-keyword">return</span> (prev + cur) / <span class="hljs-number">2.0</span>;
+    &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-keyword">return</span> cur;
+    &#125;
+&#125;</code></pre>
+<h1 id="二分-ologm-n"><a class="markdownIt-Anchor" href="#二分-ologm-n"></a> 二分 O(log(m + n))</h1>
 <pre><code class="hljs java"> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMedianSortedArrays</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2)</span> </span>&#123;
         <span class="hljs-comment">// 使 nums1 的元素个数更少</span>
@@ -236,6 +266,7 @@
 <span class="hljs-comment">         *</span>
 <span class="hljs-comment">         * 当不满足 nums1[i - 1] &lt;= nums2[j] 时，说明左边元素太多了，不能正确分割两个数组</span>
 <span class="hljs-comment">         * 需要减少左边的元素数量，也就是减小 i</span>
+<span class="hljs-comment">         * </span>
 <span class="hljs-comment">         * 直到 left == right 时，两个数组都被正确分割</span>
 <span class="hljs-comment">         */</span>
         <span class="hljs-keyword">while</span> (left &lt; right) &#123;
@@ -268,7 +299,7 @@
         &#125;
         <span class="hljs-comment">// 偶数：左边最大和右边最小求均值</span>
         <span class="hljs-keyword">else</span> &#123;
-            <span class="hljs-keyword">return</span> (<span class="hljs-keyword">double</span>) (Math.max(leftMax1, leftMax2) + Math.min(rightMin1, rightMin2)) / <span class="hljs-number">2</span>;
+            <span class="hljs-keyword">return</span> (Math.max(leftMax1, leftMax2) + Math.min(rightMin1, rightMin2)) / <span class="hljs-number">2.0</span>;
         &#125;
     &#125;
 &#125;</code></pre>
