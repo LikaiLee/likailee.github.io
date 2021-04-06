@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>LeetCode 80. 删除有序数组中的重复项 II</title>
+    <link href="/2021/04/06/LeetCode-80-remove-duplicates-from-sorted-array-ii/"/>
+    <url>/2021/04/06/LeetCode-80-remove-duplicates-from-sorted-array-ii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii/" target="_blank" rel="noopener">80. 删除有序数组中的重复项 II</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">removeDuplicates</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;        <span class="hljs-keyword">int</span> len = nums.length;        <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">2</span>) &#123;            <span class="hljs-keyword">return</span> len;        &#125;        <span class="hljs-keyword">int</span> j = <span class="hljs-number">2</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; len; i++) &#123;            <span class="hljs-comment">// 连续两个相等，直接跳过 nums[i]</span>            <span class="hljs-keyword">if</span> (nums[j - <span class="hljs-number">1</span>] == nums[i] &amp;&amp; nums[j - <span class="hljs-number">2</span>] == nums[i]) &#123;                <span class="hljs-keyword">continue</span>;            &#125;            nums[j++] = nums[i];        &#125;        <span class="hljs-keyword">return</span> j;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 781. 森林中的兔子</title>
     <link href="/2021/04/04/LeetCode-781-rabbits-in-forest/"/>
     <url>/2021/04/04/LeetCode-781-rabbits-in-forest/</url>
@@ -49,9 +74,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -310,31 +335,6 @@
     <url>/2021/03/19/LeetCode-1603-design-parking-system/</url>
     
     <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/design-parking-system/" target="_blank" rel="noopener">1603. 设计停车系统</a></p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ParkingSystem</span> </span>&#123;        <span class="hljs-keyword">int</span> big;    <span class="hljs-keyword">int</span> medium;    <span class="hljs-keyword">int</span> small;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ParkingSystem</span><span class="hljs-params">(<span class="hljs-keyword">int</span> big, <span class="hljs-keyword">int</span> medium, <span class="hljs-keyword">int</span> small)</span> </span>&#123;        <span class="hljs-keyword">this</span>.big = big;        <span class="hljs-keyword">this</span>.medium = medium;        <span class="hljs-keyword">this</span>.small = small;    &#125;        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">addCar</span><span class="hljs-params">(<span class="hljs-keyword">int</span> carType)</span> </span>&#123;        <span class="hljs-keyword">if</span> (carType == <span class="hljs-number">1</span>) &#123;            <span class="hljs-keyword">return</span> big-- &gt; <span class="hljs-number">0</span>;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (carType == <span class="hljs-number">2</span>) &#123;            <span class="hljs-keyword">return</span> medium-- &gt; <span class="hljs-number">0</span>;        &#125; <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">return</span> small-- &gt; <span class="hljs-number">0</span>;        &#125;    &#125;&#125;</code></pre>]]></content>
-    
-    
-    <categories>
-      
-      <category>算法</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>LeetCode</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>LeetCode 80. 删除排序数组中的重复项 II</title>
-    <link href="/2021/03/16/LeetCode-80-remove-duplicates-from-sorted-array-ii/"/>
-    <url>/2021/03/16/LeetCode-80-remove-duplicates-from-sorted-array-ii/</url>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii/" target="_blank" rel="noopener">80. 删除排序数组中的重复项 II</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">removeDuplicates</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = nums.length;    <span class="hljs-comment">// 有效位</span>    <span class="hljs-keyword">int</span> end = <span class="hljs-number">0</span>;    <span class="hljs-comment">// 有效位上数字的连续出现次数</span>    <span class="hljs-keyword">int</span> occur = <span class="hljs-number">1</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">if</span> (nums[i] == nums[end]) &#123;            occur++;            <span class="hljs-comment">// 出现次数 &lt;= 2，nums[i] 有效，否则 end 保持不变</span>            <span class="hljs-keyword">if</span> (occur &lt;= <span class="hljs-number">2</span>) &#123;                end++;                nums[end] = nums[i];            &#125;        &#125;        <span class="hljs-comment">// 不连续时重置</span>        <span class="hljs-keyword">else</span> &#123;            end++;            nums[end] = nums[i];            occur = <span class="hljs-number">1</span>;        &#125;    &#125;    <span class="hljs-keyword">return</span> end + <span class="hljs-number">1</span>;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -2695,9 +2695,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -2784,9 +2784,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -3043,9 +3043,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3072,11 +3072,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3103,9 +3103,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3271,9 +3271,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3300,9 +3300,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3640,9 +3640,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3810,9 +3810,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5027,9 +5027,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -5058,11 +5058,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -5875,9 +5875,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -6846,9 +6846,9 @@
       
       <tag>双指针</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7870,9 +7870,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -7899,9 +7899,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -7930,11 +7930,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>栈</tag>
+      
       <tag>字符串</tag>
       
       <tag>数学</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -8015,11 +8015,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>栈</tag>
+      
       <tag>字符串</tag>
       
       <tag>数学</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -8046,9 +8046,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -8249,9 +8249,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -8278,9 +8278,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -8307,9 +8307,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -8400,9 +8400,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -8429,11 +8429,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>栈</tag>
+      
       <tag>字符串</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -8684,9 +8684,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>排序</tag>
       
@@ -8744,9 +8744,9 @@
       
       <tag>双指针</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8802,9 +8802,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>队列</tag>
       
@@ -9665,9 +9665,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
