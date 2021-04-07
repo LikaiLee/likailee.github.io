@@ -603,7 +603,8 @@ public int findMin(int[] nums) &#123;
         <div>81. 搜索旋转排序数组 II
 本题加入重复数字，所以在判断哪一部分有序时，若 nums[left] == nums[mid] 可能出现判断不出来的情况，一开始一直卡着，后来发现只要丢弃一个重复数字，则下一次就可成功判断。
 public boolean search(int[] nums, int target) &#123;
-        if (nums.length == 0) &#123</div>
+        int left = 0;
+        int r</div>
       </a>
 
       <div class="index-btm post-metas">
