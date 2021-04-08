@@ -2164,9 +2164,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>并查集</tag>
       
@@ -2357,9 +2357,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -2372,7 +2372,7 @@
     <link href="/2020/12/30/LeetCode-101-symmetric-tree/"/>
     <url>/2020/12/30/LeetCode-101-symmetric-tree/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/symmetric-tree/" target="_blank" rel="noopener">101. 对称二叉树</a></p><h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isSymmetric</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span> || (root.left == <span class="hljs-keyword">null</span> &amp;&amp; root.right == <span class="hljs-keyword">null</span>)) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     *     1</span><span class="hljs-comment">     *    / \</span><span class="hljs-comment">     *   2   2</span><span class="hljs-comment">     *  / \ / \</span><span class="hljs-comment">     * 3  4 4  3</span><span class="hljs-comment">     */</span>    LinkedList&lt;TreeNode&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();    queue.add(root.left);    queue.add(root.right);    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;        TreeNode left = queue.poll();        TreeNode right = queue.poll();        <span class="hljs-keyword">if</span> (left == <span class="hljs-keyword">null</span> &amp;&amp; right == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">continue</span>;        &#125;        <span class="hljs-comment">// 有一个为 null || 结点值不等</span>        <span class="hljs-keyword">if</span> (left == <span class="hljs-keyword">null</span> || right == <span class="hljs-keyword">null</span> || left.val != right.val) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        <span class="hljs-comment">// 左左 3, 右右 3</span>        queue.add(left.left);        queue.add(right.right);        <span class="hljs-comment">// 左右 4, 右左 4</span>        queue.add(left.right);        queue.add(right.left);    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;&#125;</code></pre><h1 id="dfs"><a class="markdownIt-Anchor" href="#dfs"></a> DFS</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isSymmetric</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;    <span class="hljs-keyword">return</span> dfs(root.left, root.right);&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode left, TreeNode right)</span> </span>&#123;    <span class="hljs-keyword">if</span> (left == <span class="hljs-keyword">null</span> &amp;&amp; right == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;    <span class="hljs-keyword">if</span> (left == <span class="hljs-keyword">null</span> || right == <span class="hljs-keyword">null</span> || left.val != right.val) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-keyword">return</span> dfs(left.left, right.right) &amp;&amp; dfs(left.right, right.left);&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/symmetric-tree/" target="_blank" rel="noopener">101. 对称二叉树</a></p><h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isSymmetric</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span> || (root.left == <span class="hljs-keyword">null</span> &amp;&amp; root.right == <span class="hljs-keyword">null</span>)) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     *     1</span><span class="hljs-comment">     *    / \</span><span class="hljs-comment">     *   2   2</span><span class="hljs-comment">     *  / \ / \</span><span class="hljs-comment">     * 3  4 4  3</span><span class="hljs-comment">     */</span>    LinkedList&lt;TreeNode&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();    queue.add(root.left);    queue.add(root.right);    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;        TreeNode left = queue.poll();        TreeNode right = queue.poll();        <span class="hljs-keyword">if</span> (left == <span class="hljs-keyword">null</span> &amp;&amp; right == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">continue</span>;        &#125;        <span class="hljs-comment">// 有一个为 null || 结点值不等</span>        <span class="hljs-keyword">if</span> (left == <span class="hljs-keyword">null</span> || right == <span class="hljs-keyword">null</span> || left.val != right.val) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        <span class="hljs-comment">// 左左 3, 右右 3</span>        queue.add(left.left);        queue.add(right.right);        <span class="hljs-comment">// 左右 4, 右左 4</span>        queue.add(left.right);        queue.add(right.left);    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;&#125;</code></pre><h1 id="dfs"><a class="markdownIt-Anchor" href="#dfs"></a> DFS</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isSymmetric</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;        <span class="hljs-comment">/**</span><span class="hljs-comment">         *     1</span><span class="hljs-comment">         *    / \</span><span class="hljs-comment">         *   2   2</span><span class="hljs-comment">         *  / \ / \</span><span class="hljs-comment">         * 3  4 4  3</span><span class="hljs-comment">         */</span>        <span class="hljs-keyword">return</span> dfs(root.left, root.right);    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode left, TreeNode right)</span> </span>&#123;        <span class="hljs-comment">// 只有 root 一个节点</span>        <span class="hljs-keyword">if</span> (left == <span class="hljs-keyword">null</span> &amp;&amp; right == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;        <span class="hljs-comment">// left，right 有一个为空，或值不等</span>        <span class="hljs-keyword">if</span> (left == <span class="hljs-keyword">null</span> || right == <span class="hljs-keyword">null</span> || left.val != right.val) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        <span class="hljs-keyword">return</span> dfs(left.left, right.right) &amp;&amp; dfs(left.right, right.left);    &#125;</code></pre>]]></content>
     
     
     <categories>
@@ -3099,9 +3099,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3128,11 +3128,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -3159,9 +3159,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -3530,9 +3530,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -3806,9 +3806,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -3982,9 +3982,9 @@
       
       <tag>双指针</tag>
       
-      <tag>排序</tag>
-      
       <tag>栈</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4121,9 +4121,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5649,9 +5649,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -7926,9 +7926,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7955,9 +7955,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
@@ -7988,9 +7988,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>栈</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -8073,9 +8073,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>栈</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
