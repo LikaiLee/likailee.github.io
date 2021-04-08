@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 56. 验证二叉搜索树</title>
+    <link href="/2021/04/08/LeetCode-56-validate-binary-search-tree/"/>
+    <url>/2021/04/08/LeetCode-56-validate-binary-search-tree/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/validate-binary-search-tree/" target="_blank" rel="noopener">98. 验证二叉搜索树</a></p><h1 id="dfs"><a class="markdownIt-Anchor" href="#dfs"></a> DFS</h1><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-keyword">long</span> prev = Long.MIN_VALUE;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidBST</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;        <span class="hljs-keyword">if</span> (!isValidBST(root.left)) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        <span class="hljs-keyword">if</span> (root.val &lt;= prev) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        prev = root.val;        <span class="hljs-keyword">return</span> isValidBST(root.right);    &#125;&#125;</code></pre><h1 id="栈"><a class="markdownIt-Anchor" href="#栈"></a> 栈</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidBST</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    Deque&lt;TreeNode&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();    TreeNode prev = <span class="hljs-keyword">null</span>;    <span class="hljs-keyword">while</span> (root != <span class="hljs-keyword">null</span> || !stack.isEmpty()) &#123;        <span class="hljs-keyword">while</span> (root != <span class="hljs-keyword">null</span>) &#123;            stack.push(root);            root = root.left;        &#125;        TreeNode top = stack.pop();        <span class="hljs-keyword">if</span> (prev != <span class="hljs-keyword">null</span> &amp;&amp; top.val &lt;= prev.val) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        prev = top;        root = top.right;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 80. 删除有序数组中的重复项 II</title>
     <link href="/2021/04/06/LeetCode-80-remove-duplicates-from-sorted-array-ii/"/>
     <url>/2021/04/06/LeetCode-80-remove-duplicates-from-sorted-array-ii/</url>
@@ -3924,9 +3951,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
       <tag>排序</tag>
       
@@ -4563,9 +4590,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>优先队列</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -6020,9 +6047,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -6846,9 +6873,9 @@
       
       <tag>动态规划</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -7787,9 +7814,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>优先队列</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -8338,9 +8365,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
       <tag>单调栈</tag>
       
@@ -8744,9 +8771,9 @@
       
       <tag>字符串</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
