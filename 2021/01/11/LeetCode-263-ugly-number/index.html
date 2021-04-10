@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      51 字
+      57 字
     </span>
   
 
@@ -207,26 +207,28 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年1月11日 晚上
+                  本文最后更新于：2021年4月10日 晚上
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/ugly-number/" target="_blank" rel="noopener">263. 丑数</a></p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isUgly</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;
-    <span class="hljs-keyword">if</span> (num &lt;= <span class="hljs-number">0</span>) &#123;
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isUgly</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (n &lt;= <span class="hljs-number">0</span>) &#123;
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
     &#125;
-    <span class="hljs-keyword">if</span> (num % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">return</span> isUgly(num / <span class="hljs-number">2</span>);
+    <span class="hljs-keyword">while</span> (n &gt; <span class="hljs-number">1</span>) &#123;
+        <span class="hljs-keyword">if</span> (n % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) &#123;
+            n /= <span class="hljs-number">2</span>;
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (n % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>) &#123;
+            n /= <span class="hljs-number">3</span>;
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (n % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>) &#123;
+            n /= <span class="hljs-number">5</span>;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        &#125;
     &#125;
-    <span class="hljs-keyword">if</span> (num % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">return</span> isUgly(num / <span class="hljs-number">3</span>);
-    &#125;
-    <span class="hljs-keyword">if</span> (num % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">return</span> isUgly(num / <span class="hljs-number">5</span>);
-    &#125;
-    <span class="hljs-keyword">return</span> num == <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
 &#125;</code></pre>
             </article>
             <hr>

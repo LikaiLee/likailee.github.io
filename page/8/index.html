@@ -178,14 +178,14 @@
           
         
         <div>263. 丑数
-public boolean isUgly(int num) &#123;
-    if (num &lt;= 0) &#123;
+public boolean isUgly(int n) &#123;
+    if (n &lt;= 0) &#123;
         return false;
     &#125;
-    if (num % 2 == 0) &#123;
-        return isUgly(num / 2);
-    &#125;
-    if (num % 3 == 0)</div>
+    while (n &gt; 1) &#123;
+        if (n % 2 == 0) &#123;
+            n /= 2;
+        &#125; els</div>
       </a>
 
       <div class="index-btm post-metas">
