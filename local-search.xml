@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 179. 最大数</title>
+    <link href="/2021/04/12/LeetCode-179-largest-number/"/>
+    <url>/2021/04/12/LeetCode-179-largest-number/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/largest-number/" target="_blank" rel="noopener">179. 最大数</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">largestNumber</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;        <span class="hljs-keyword">int</span> len = nums.length;        String[] strs = <span class="hljs-keyword">new</span> String[len];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;            strs[i] = String.valueOf(nums[i]);        &#125;        Arrays.sort(strs, (o1, o2) -&gt; (o2 + o1).compareTo(o1 + o2));        StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();        <span class="hljs-keyword">for</span> (String str : strs) &#123;            sb.append(str);        &#125;        <span class="hljs-keyword">if</span> (sb.charAt(<span class="hljs-number">0</span>) == <span class="hljs-string">'0'</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-string">"0"</span>;        &#125;        <span class="hljs-keyword">return</span> sb.toString();    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 264. 丑数 II</title>
     <link href="/2021/04/12/LeetCode-264-ugly-number-ii/"/>
     <url>/2021/04/12/LeetCode-264-ugly-number-ii/</url>
@@ -1512,9 +1539,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2693,9 +2720,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3242,9 +3269,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>贪心</tag>
       
@@ -3383,9 +3410,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3526,9 +3553,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>贪心</tag>
       
@@ -3692,9 +3719,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -3721,9 +3748,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -4007,9 +4034,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
       <tag>排序</tag>
       
@@ -6103,9 +6130,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6929,9 +6956,9 @@
       
       <tag>动态规划</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7387,9 +7414,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -8011,13 +8038,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
+      <tag>字符串</tag>
       
       <tag>栈</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -8096,13 +8123,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
+      <tag>字符串</tag>
       
       <tag>栈</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -8127,11 +8154,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8156,9 +8183,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -8185,9 +8212,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -8214,9 +8241,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -8243,9 +8270,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -8272,9 +8299,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -8301,9 +8328,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -8421,9 +8448,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
       <tag>单调栈</tag>
       
@@ -8450,9 +8477,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -8481,11 +8508,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8510,9 +8537,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -8568,9 +8595,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -8597,9 +8624,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>滑动窗口</tag>
       
@@ -8655,9 +8682,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -8765,11 +8792,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -8823,13 +8850,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
+      <tag>字符串</tag>
       
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8854,9 +8881,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -8883,9 +8910,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -8914,9 +8941,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -8943,9 +8970,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -8972,9 +8999,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8999,9 +9026,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9026,9 +9053,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9053,9 +9080,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9080,9 +9107,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9107,9 +9134,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9912,9 +9939,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
