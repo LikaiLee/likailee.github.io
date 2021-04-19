@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      336 字
+      521 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      8
        分钟
     </span>
   
@@ -207,13 +207,56 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月23日 晚上
+                  本文最后更新于：2021年4月19日 晚上
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/minimum-window-substring/" target="_blank" rel="noopener">76. 最小覆盖子串</a></p>
 <p>使用一个计数器统计窗口内目标字符的出现次数，当满足要求时，移动 left，并更新最小长度，若移除的字符为目标字符，则计数器也要减小。</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">minWindow</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
+       <span class="hljs-comment">// s = "ADOBECODEBANC", t = "ABC"</span>
+       <span class="hljs-keyword">char</span>[] sChars = s.toCharArray();
+       <span class="hljs-keyword">char</span>[] tChars = t.toCharArray();
+       <span class="hljs-keyword">int</span> sLen = sChars.length;
+       <span class="hljs-keyword">int</span> tLen = tChars.length;
+       <span class="hljs-keyword">if</span> (sLen &lt; tLen) &#123;
+           <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;
+       &#125;
+       <span class="hljs-keyword">int</span>[] needs = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">128</span>];
+       <span class="hljs-keyword">int</span>[] window = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">128</span>];
+       <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : tChars) &#123;
+           needs[c - <span class="hljs-string">'A'</span>]++;
+       &#125;
+       <span class="hljs-keyword">int</span> validLen = <span class="hljs-number">0</span>;
+       <span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>;
+       <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
+       <span class="hljs-keyword">int</span> minLen = Integer.MAX_VALUE;
+       <span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;
+       <span class="hljs-keyword">while</span> (right &lt; sLen) &#123;
+           <span class="hljs-keyword">char</span> cur = sChars[right];
+           <span class="hljs-comment">// 需要 right &amp;&amp; right 次数还不满足</span>
+           <span class="hljs-keyword">if</span> (needs[cur - <span class="hljs-string">'A'</span>] &gt; <span class="hljs-number">0</span> &amp;&amp; ++window[cur - <span class="hljs-string">'A'</span>] &lt;= needs[cur - <span class="hljs-string">'A'</span>]) &#123;
+               validLen++;
+           &#125;
+           right++;
+           <span class="hljs-keyword">while</span> (left &lt; right &amp;&amp; validLen &gt;= tLen) &#123;
+               <span class="hljs-keyword">if</span> (right - left &lt; minLen) &#123;
+                   minLen = Math.min(right - left, minLen);
+                   start = left;
+               &#125;
+               <span class="hljs-comment">// 需要 left &amp;&amp; 有效的 left 被删除</span>
+               <span class="hljs-keyword">if</span> (needs[sChars[left] - <span class="hljs-string">'A'</span>] &gt; <span class="hljs-number">0</span> &amp;&amp; --window[sChars[left] - <span class="hljs-string">'A'</span>] &lt; needs[sChars[left] - <span class="hljs-string">'A'</span>]) &#123;
+                   validLen--;
+               &#125;
+               left++;
+           &#125;
+       &#125;
+       <span class="hljs-keyword">if</span> (minLen == Integer.MAX_VALUE) &#123;
+           <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;
+       &#125;
+       <span class="hljs-keyword">return</span> s.substring(start, start + minLen);
+   &#125;</code></pre>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">minWindow</span><span class="hljs-params">(String s, String t)</span> </span>&#123;
     <span class="hljs-keyword">char</span>[] sChar = s.toCharArray();
     <span class="hljs-keyword">char</span>[] tChar = t.toCharArray();
