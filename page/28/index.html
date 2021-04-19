@@ -576,12 +576,13 @@ public int[] plusOne(int[] digits) &#123;
         
         <div>27. 移除元素
 public int removeElement(int[] nums, int val) &#123;
-    int j = 0;
-    int len = nums.length;
     int i = 0;
-    while (i &lt; len) &#123;
-        if (nums[i] != val) &#123;
-            nums</div>
+    for (int num : nums) &#123;
+        if (num != val) &#123;
+            nums[i++] = num;
+        &#125;
+    &#125;
+    r</div>
       </a>
 
       <div class="index-btm post-metas">
