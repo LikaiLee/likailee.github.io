@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 297. 二叉树的序列化与反序列化</title>
+    <link href="/2021/04/21/LeetCode-297-serialize-and-deserialize-binary-tree/"/>
+    <url>/2021/04/21/LeetCode-297-serialize-and-deserialize-binary-tree/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/" target="_blank" rel="noopener">297. 二叉树的序列化与反序列化</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Codec</span> </span>&#123;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String NIL = <span class="hljs-string">"#"</span>;    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String DELIMETER = <span class="hljs-string">","</span>;    <span class="hljs-comment">// Encodes a tree to a single string.</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">serialize</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;        &#125;        StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();        Deque&lt;TreeNode&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        queue.offer(root);        <span class="hljs-comment">// 层次遍历</span>        <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;            TreeNode cur = queue.poll();            <span class="hljs-keyword">if</span> (cur != <span class="hljs-keyword">null</span>) &#123;                sb.append(cur.val);                queue.offer(cur.left);                queue.offer(cur.right);            &#125; <span class="hljs-keyword">else</span> &#123;                sb.append(NIL);            &#125;            sb.append(DELIMETER);        &#125;        sb.deleteCharAt(sb.length() - <span class="hljs-number">1</span>);        <span class="hljs-keyword">return</span> sb.toString();    &#125;    <span class="hljs-comment">// Decodes your encoded data to tree.</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">deserialize</span><span class="hljs-params">(String data)</span> </span>&#123;        System.out.println(data);        <span class="hljs-keyword">if</span> (<span class="hljs-string">""</span>.equals(data)) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;        &#125;        Deque&lt;TreeNode&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        String[] str = data.split(DELIMETER);        TreeNode root = <span class="hljs-keyword">new</span> TreeNode(Integer.parseInt(str[<span class="hljs-number">0</span>]));        queue.offer(root);        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; str.length;) &#123;            TreeNode cur = queue.poll();            <span class="hljs-keyword">if</span> (!NIL.equals(str[i])) &#123;                cur.left = <span class="hljs-keyword">new</span> TreeNode(Integer.parseInt(str[i]));                queue.offer(cur.left);            &#125;            i++;            <span class="hljs-keyword">if</span> (i &lt; str.length &amp;&amp; !NIL.equals(str[i])) &#123;                cur.right = <span class="hljs-keyword">new</span> TreeNode(Integer.parseInt(str[i]));                queue.offer(cur.right);            &#125;            i++;        &#125;        <span class="hljs-keyword">return</span> root;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 220. 存在重复元素 III</title>
     <link href="/2021/04/17/LeetCode-220-contains-duplicate-iii/"/>
     <url>/2021/04/17/LeetCode-220-contains-duplicate-iii/</url>
@@ -2948,9 +2975,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -4090,9 +4117,9 @@
       
       <tag>双指针</tag>
       
-      <tag>排序</tag>
-      
       <tag>栈</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
