@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>LeetCode 377. 组合总和 Ⅳ</title>
+    <link href="/2021/04/24/LeetCode-377-combination-sum-iv/"/>
+    <url>/2021/04/24/LeetCode-377-combination-sum-iv/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/combination-sum-iv/" target="_blank" rel="noopener">377. 组合总和 Ⅳ</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">combinationSum4</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> target)</span> </span>&#123;    <span class="hljs-comment">// dp[i]: 和为 i 的组合方案数</span>    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[target + <span class="hljs-number">1</span>];    <span class="hljs-comment">// 和为 0，只能什么都不选，只有一种方案</span>    dp[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= target; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;            <span class="hljs-comment">// dp[i] 删除 num 后，</span>            <span class="hljs-comment">// 只要在 i - num 的基础上加上 num，就可形成一种方案</span>            <span class="hljs-keyword">if</span> (i &gt;= num) &#123;                dp[i] += dp[i - num];            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> dp[target];&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>背包</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 368. 最大整除子集</title>
     <link href="/2021/04/23/LeetCode-368-largest-divisible-subset/"/>
     <url>/2021/04/23/LeetCode-368-largest-divisible-subset/</url>
@@ -2326,9 +2355,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>并查集</tag>
       
@@ -2519,9 +2548,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -3261,9 +3290,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3290,11 +3319,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3321,9 +3350,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3692,9 +3721,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -3968,9 +3997,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4283,9 +4312,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5782,9 +5811,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -8059,9 +8088,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -8088,9 +8117,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -8121,9 +8150,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>栈</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -8206,9 +8235,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>栈</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
