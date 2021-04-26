@@ -4,11 +4,38 @@
   
   
   <entry>
+    <title>LeetCode 221. 最大正方形</title>
+    <link href="/2021/04/26/LeetCode-221-maximal-square/"/>
+    <url>/2021/04/26/LeetCode-221-maximal-square/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/maximal-square/" target="_blank" rel="noopener">221. 最大正方形</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maximalSquare</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] matrix)</span> </span>&#123;       <span class="hljs-keyword">int</span> rows = matrix.length;       <span class="hljs-keyword">int</span> cols = matrix[<span class="hljs-number">0</span>].length;       <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[rows + <span class="hljs-number">1</span>][cols + <span class="hljs-number">1</span>];       <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;       <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= rows; i++) &#123;           <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= cols; j++) &#123;               <span class="hljs-keyword">if</span> (matrix[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] == <span class="hljs-string">'1'</span>) &#123;                   dp[i][j] = Math.min(Math.min(dp[i - <span class="hljs-number">1</span>][j], dp[i][j - <span class="hljs-number">1</span>]), dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>]) + <span class="hljs-number">1</span>;                   res = Math.max(res, dp[i][j]);               &#125;           &#125;       &#125;       <span class="hljs-keyword">return</span> res * res;   &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1011. 在 D 天内送达包裹的能力</title>
     <link href="/2021/04/26/LeetCode-1011-capacity-to-ship-packages-within-d-days/"/>
     <url>/2021/04/26/LeetCode-1011-capacity-to-ship-packages-within-d-days/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/capacity-to-ship-packages-within-d-days/" target="_blank" rel="noopener">1011. 在 D 天内送达包裹的能力</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">shipWithinDays</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] weights, <span class="hljs-keyword">int</span> D)</span> </span>&#123;        <span class="hljs-comment">// [1,2,3,4,5,6,7,8,9,10], D = 5</span>        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> weight : weights) &#123;            <span class="hljs-comment">// 右边界为所有货物重量之和</span>            right += weight;            <span class="hljs-comment">// 左边界为最大的货物重量，需要保证最大重量能装载</span>            left = Math.max(left, weight);        &#125;        <span class="hljs-keyword">while</span> (left &lt; right) &#123;            <span class="hljs-keyword">int</span> mid = left + (right - left + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;            <span class="hljs-comment">// 每天最大载重为 mid 时需要的天数</span>            <span class="hljs-keyword">int</span> day = dayOfMaxWeight(weights, mid);            <span class="hljs-comment">// 需要的天数 &gt;= D，需要增大载重，使天数减少</span>            <span class="hljs-keyword">if</span> (day &gt;= D) &#123;                left = mid;            &#125;            <span class="hljs-comment">// 需要的天数 &lt; D，减小载重，增大天数</span>            <span class="hljs-keyword">else</span>  &#123;                right = mid - <span class="hljs-number">1</span>;            &#125;        &#125;        <span class="hljs-keyword">return</span> left;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dayOfMaxWeight</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] weights, <span class="hljs-keyword">int</span> maxWeight)</span> </span>&#123;        <span class="hljs-keyword">int</span> day = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> loaded = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> weight : weights) &#123;            loaded += weight;            <span class="hljs-keyword">if</span> (loaded &gt;= maxWeight) &#123;                day++;                loaded = weight;            &#125;        &#125;        <span class="hljs-keyword">return</span> day;    &#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/capacity-to-ship-packages-within-d-days/" target="_blank" rel="noopener">1011. 在 D 天内送达包裹的能力</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">shipWithinDays</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] weights, <span class="hljs-keyword">int</span> D)</span> </span>&#123;        <span class="hljs-comment">// [1,2,3,4,5,6,7,8,9,10], D = 5</span>        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> weight : weights) &#123;            <span class="hljs-comment">// 右边界为所有货物重量之和</span>            right += weight;            <span class="hljs-comment">// 左边界为最大的货物重量，需要保证最大重量能装载</span>            left = Math.max(left, weight);        &#125;        <span class="hljs-keyword">while</span> (left &lt; right) &#123;            <span class="hljs-keyword">int</span> mid = left + (right - left + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;            <span class="hljs-comment">// 每天最大载重为 mid 时需要的天数</span>            <span class="hljs-keyword">int</span> day = dayOfMaxWeight(weights, mid);            <span class="hljs-comment">// System.out.println(left + "," + mid + ", " + right + ", day = " + day);</span>            <span class="hljs-comment">// 需要的天数 &gt; D，需要增大载重，使天数减少</span>            <span class="hljs-keyword">if</span> (day &gt; D) &#123;                left = mid;            &#125;            <span class="hljs-comment">// 需要的天数 &lt;= D，减小载重，增大天数</span>            <span class="hljs-comment">// 目标是使每天的装载最小，当 day == D 时，应减小装载量</span>            <span class="hljs-keyword">else</span>  &#123;                right = mid - <span class="hljs-number">1</span>;            &#125;        &#125;        <span class="hljs-keyword">return</span> left;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dayOfMaxWeight</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] weights, <span class="hljs-keyword">int</span> maxWeight)</span> </span>&#123;        <span class="hljs-keyword">int</span> day = <span class="hljs-number">1</span>;        <span class="hljs-keyword">int</span> loaded = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> weight : weights) &#123;            loaded += weight;            <span class="hljs-keyword">if</span> (loaded &gt;= maxWeight) &#123;                day++;                loaded = weight;            &#125;        &#125;        <span class="hljs-keyword">return</span> day;    &#125;</code></pre>]]></content>
     
     
     <categories>
@@ -375,9 +402,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -3085,9 +3112,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>数学</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -3941,9 +3968,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5925,9 +5952,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5954,9 +5981,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6147,9 +6174,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -7116,11 +7143,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
       
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7226,9 +7253,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7342,9 +7369,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7518,11 +7545,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7578,11 +7605,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8202,9 +8229,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>数学</tag>
       
@@ -8287,9 +8314,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>数学</tag>
       
@@ -8463,9 +8490,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8492,9 +8519,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8579,9 +8606,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -8641,11 +8668,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8701,11 +8728,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>栈</tag>
+      
       <tag>字符串</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -8788,9 +8815,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9014,11 +9041,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
       
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9045,9 +9072,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9074,9 +9101,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>队列</tag>
       
@@ -9105,9 +9132,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9134,9 +9161,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
