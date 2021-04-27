@@ -4,11 +4,38 @@
   
   
   <entry>
+    <title>LeetCode 938. 二叉搜索树的范围和</title>
+    <link href="/2021/04/27/LeetCode-938-range-sum-of-bst/"/>
+    <url>/2021/04/27/LeetCode-938-range-sum-of-bst/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/range-sum-of-bst/" target="_blank" rel="noopener">938. 二叉搜索树的范围和</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rangeSumBST</span><span class="hljs-params">(TreeNode root, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        &#125;        <span class="hljs-comment">// root &lt; min，root 太小，求右子树之和</span>        <span class="hljs-keyword">if</span> (root.val &lt; low) &#123;            <span class="hljs-keyword">return</span> rangeSumBST(root.right, low, high);        &#125;        <span class="hljs-comment">// root &gt; max，root 太大，求左子树之和</span>        <span class="hljs-keyword">if</span> (root.val &gt; high) &#123;            <span class="hljs-keyword">return</span> rangeSumBST(root.left, low, high);        &#125;        <span class="hljs-comment">// min &lt;= root &lt;= max，求 root + 左右子树之和</span>        <span class="hljs-keyword">return</span> root.val + rangeSumBST(root.left, low, high) + rangeSumBST(root.right, low, high);    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 114. 二叉树展开为链表</title>
     <link href="/2021/04/26/LeetCode-114-flatten-binary-tree-to-linked-list/"/>
     <url>/2021/04/26/LeetCode-114-flatten-binary-tree-to-linked-list/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/" target="_blank" rel="noopener">114. 二叉树展开为链表</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">flatten</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span>;        &#125;        flatten(root.left);        flatten(root.right);        <span class="hljs-comment">// 保存原来的右子树</span>        TreeNode oldRight = root.right;        <span class="hljs-comment">// 左子树连到右子树上</span>        root.right = root.left;        <span class="hljs-comment">// 左子树置空</span>        root.left = <span class="hljs-keyword">null</span>;        <span class="hljs-comment">// 连接原来的右子树</span>        <span class="hljs-keyword">while</span> (root.right != <span class="hljs-keyword">null</span>) &#123;            root = root.right;        &#125;        root.right = oldRight;    &#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/" target="_blank" rel="noopener">114. 二叉树展开为链表</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">flatten</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span>;        &#125;        flatten(root.left);        flatten(root.right);        <span class="hljs-comment">// 保存原来的右子树</span>        TreeNode oldRight = root.right;        <span class="hljs-comment">// 左子树连到右子树上</span>        root.right = root.left;        <span class="hljs-comment">// 左子树置空</span>        root.left = <span class="hljs-keyword">null</span>;        <span class="hljs-comment">// 连接原来的右子树</span>        <span class="hljs-keyword">while</span> (root.right != <span class="hljs-keyword">null</span>) &#123;            root = root.right;        &#125;        root.right = oldRight;    &#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">flatten</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-keyword">return</span>;        &#125;        Deque&lt;TreeNode&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        stack.push(root);        <span class="hljs-keyword">while</span> (!stack.isEmpty()) &#123;            TreeNode cur = stack.pop();            <span class="hljs-keyword">if</span> (cur.right != <span class="hljs-keyword">null</span>) &#123;                stack.push(cur.right);            &#125;            <span class="hljs-keyword">if</span> (cur.left != <span class="hljs-keyword">null</span>) &#123;                stack.push(cur.left);            &#125;            <span class="hljs-keyword">if</span> (cur != root) &#123;                root.right = cur;                root.left = <span class="hljs-keyword">null</span>;                root = root.right;            &#125;        &#125;    &#125;</code></pre>]]></content>
     
     
     <categories>
@@ -321,9 +348,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>分治</tag>
-      
       <tag>二分</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -429,9 +456,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -3050,9 +3077,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -3139,9 +3166,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>数学</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -3398,9 +3425,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3427,11 +3454,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3458,9 +3485,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3966,9 +3993,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -4136,9 +4163,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -4889,9 +4916,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>优先队列</tag>
-      
       <tag>排序</tag>
+      
+      <tag>优先队列</tag>
       
     </tags>
     
@@ -5353,9 +5380,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -5384,11 +5411,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -6172,9 +6199,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -7143,9 +7170,9 @@
       
       <tag>双指针</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -8084,9 +8111,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>优先队列</tag>
-      
       <tag>排序</tag>
+      
+      <tag>优先队列</tag>
       
     </tags>
     
@@ -8167,9 +8194,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -8196,9 +8223,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -8227,9 +8254,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>数学</tag>
       
@@ -8312,9 +8339,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>数学</tag>
       
@@ -8546,9 +8573,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -8575,9 +8602,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -8604,9 +8631,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -8726,11 +8753,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>栈</tag>
+      
       <tag>字符串</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -9041,9 +9068,9 @@
       
       <tag>双指针</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9099,9 +9126,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>队列</tag>
       
@@ -9962,9 +9989,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
