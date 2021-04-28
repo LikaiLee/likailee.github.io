@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      341 字
+      329 字
     </span>
   
 
@@ -207,19 +207,19 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月14日 晚上
+                  本文最后更新于：2021年4月28日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/jump-game-ii/" target="_blank" rel="noopener">45. 跳跃游戏 II</a></p>
+              <p><a href="https://leetcode-cn.com/problems/video-stitching/" target="_blank" rel="noopener">1024. 视频拼接</a></p>
+<p><a href="https://leetcode-cn.com/problems/jump-game-ii/" target="_blank" rel="noopener">45. 跳跃游戏 II</a></p>
 <p>本题在 <a href="https://leetcode-cn.com/problems/jump-game/" target="_blank" rel="noopener">55. 跳跃游戏</a> 基础上加了个最小次数，其实也是计算每个位置能跳到的最远距离，关键在于要保存上一次的最远边界，用来判断跳跃的次数。</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">jump</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
-        <span class="hljs-keyword">int</span> pos = <span class="hljs-number">0</span>;
         <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
         <span class="hljs-keyword">int</span> begin = <span class="hljs-number">0</span>;
         <span class="hljs-keyword">int</span> end = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">while</span> (pos &lt; nums.length - <span class="hljs-number">1</span>) &#123;
+        <span class="hljs-keyword">while</span> (end &lt; nums.length - <span class="hljs-number">1</span>) &#123;
             <span class="hljs-comment">// 本次能跳到的最远位置</span>
             <span class="hljs-keyword">int</span> max = pos;
             <span class="hljs-comment">// 每次都在 [begin, end] 区间里找到能跳到的最远位置</span>
@@ -229,35 +229,34 @@
             &#125;
             <span class="hljs-comment">// 更新下一次跳的区间</span>
             begin = end + <span class="hljs-number">1</span>;
-            end = max;
             <span class="hljs-comment">// 更新最远位置</span>
-            pos = max;
+            end = max;
             count++;
         &#125;
         <span class="hljs-keyword">return</span> count;
     &#125;</code></pre>
 <p>优化：计算从每个位置能跳到的最远距离。每次最远，最终最远，则跳跃次数最少。</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">jump</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
-        <span class="hljs-comment">// 一次跳跃可到达的最远位置</span>
-        <span class="hljs-keyword">int</span> end = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;
-            <span class="hljs-comment">// 若上一次已到达终点，则结束</span>
-            <span class="hljs-keyword">if</span> (end == nums.length - <span class="hljs-number">1</span>) &#123;
-                <span class="hljs-keyword">return</span> count;
-            &#125;
-            <span class="hljs-comment">// 计算从第 i 个位置起跳的最远位置</span>
-            max = Math.max(max, i + nums[i]);
-
-            <span class="hljs-comment">// 一次跳跃到达终点，更新跳跃次数和下一次的跳跃边界</span>
-            <span class="hljs-keyword">if</span> (end == i) &#123;
-                count++;
-                end = max;
-            &#125;
+    <span class="hljs-keyword">int</span> len = nums.length;
+    <span class="hljs-comment">// 当前区间能到达的最远距离</span>
+    <span class="hljs-keyword">int</span> curMax = <span class="hljs-number">0</span>;
+    <span class="hljs-comment">// 到达 curMax 后，下一区间的最远距离</span>
+    <span class="hljs-keyword">int</span> nextMax = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+        <span class="hljs-comment">// 当前区间已经能到达终点</span>
+        <span class="hljs-keyword">if</span> (curMax &gt;= len - <span class="hljs-number">1</span>) &#123;
+            <span class="hljs-keyword">return</span> count;
         &#125;
-        <span class="hljs-keyword">return</span> count;
-    &#125;</code></pre>
+        nextMax = Math.max(i + nums[i], nextMax);
+        <span class="hljs-comment">// 到达当前区间的最远距离</span>
+        <span class="hljs-keyword">if</span> (i == curMax) &#123;
+            curMax = nextMax;
+            count++;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> count;
+&#125;</code></pre>
             </article>
             <hr>
             <div>
