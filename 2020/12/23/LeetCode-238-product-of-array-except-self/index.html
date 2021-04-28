@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      219 字
+      180 字
     </span>
   
 
@@ -207,12 +207,29 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月23日 晚上
+                  本文最后更新于：2021年4月28日 晚上
                 
               </p>
             
             <article class="markdown-body">
               <p><a href="https://leetcode-cn.com/problems/product-of-array-except-self/" target="_blank" rel="noopener">238. 除自身以外数组的乘积</a></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] productExceptSelf(<span class="hljs-keyword">int</span>[] nums) &#123;
+    <span class="hljs-keyword">int</span> len = nums.length;
+    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
+    <span class="hljs-keyword">int</span> left = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+        res[i] = left;
+        <span class="hljs-comment">// 用于右边的积</span>
+        left *= nums[i];
+    &#125;
+    <span class="hljs-keyword">int</span> right = nums[len - <span class="hljs-number">1</span>];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
+        res[i] *= right;
+        <span class="hljs-comment">// 用于左边的积</span>
+        right *= nums[i];
+    &#125;
+    <span class="hljs-keyword">return</span> res;
+&#125;</code></pre>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] productExceptSelf(<span class="hljs-keyword">int</span>[] nums) &#123;
     <span class="hljs-keyword">int</span> len = nums.length;
     <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
@@ -227,26 +244,6 @@
         <span class="hljs-comment">// res[i]: nums[i] 左边乘积，rightProduct 保存右边乘积</span>
         res[i] = res[i] * rightProduct;
         rightProduct *= nums[i];
-    &#125;
-    <span class="hljs-keyword">return</span> res;
-&#125;</code></pre>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] productExceptSelf(<span class="hljs-keyword">int</span>[] nums) &#123;
-    <span class="hljs-keyword">int</span> len = nums.length;
-    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
-    <span class="hljs-keyword">int</span>[] forward = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
-    <span class="hljs-keyword">int</span>[] backward = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
-    forward[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
-    <span class="hljs-comment">// 从前往后，nums[i] 之前的乘积</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;
-        forward[i] = nums[i - <span class="hljs-number">1</span>] * forward[i - <span class="hljs-number">1</span>];
-    &#125;
-    backward[len - <span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;
-    <span class="hljs-comment">// 从后往前，nums[i] 之后的乘积</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
-        backward[i] = nums[i + <span class="hljs-number">1</span>] * backward[i + <span class="hljs-number">1</span>];
-    &#125;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
-        res[i] = forward[i] * backward[i];
     &#125;
     <span class="hljs-keyword">return</span> res;
 &#125;</code></pre>
