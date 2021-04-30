@@ -8,7 +8,7 @@
     <link href="/2021/04/30/LeetCode-25-reverse-nodes-in-k-group/"/>
     <url>/2021/04/30/LeetCode-25-reverse-nodes-in-k-group/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/" target="_blank" rel="noopener">25. K 个一组翻转链表</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">reverseKGroup</span><span class="hljs-params">(ListNode head, <span class="hljs-keyword">int</span> k)</span> </span>&#123;        <span class="hljs-comment">// [1,2,3,4,5], k = 2</span>        <span class="hljs-comment">// [2,1,4,3,5]</span>        ListNode dummy = <span class="hljs-keyword">new</span> ListNode(-<span class="hljs-number">1</span>);        ListNode tail = dummy;        <span class="hljs-keyword">int</span> len = <span class="hljs-number">0</span>;        ListNode node = head;        <span class="hljs-keyword">while</span> (node != <span class="hljs-keyword">null</span>) &#123;            node = node.next;            len++;        &#125;        <span class="hljs-comment">// 分组数</span>        <span class="hljs-keyword">int</span> group = len / k;        <span class="hljs-keyword">while</span> (head != <span class="hljs-keyword">null</span> &amp;&amp; group &gt; <span class="hljs-number">0</span>) &#123;            ListNode groupHead = <span class="hljs-keyword">null</span>;            ListNode groupTail = <span class="hljs-keyword">null</span>;            <span class="hljs-comment">// 翻转 k 个</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; k; i++) &#123;                <span class="hljs-keyword">if</span> (groupTail == <span class="hljs-keyword">null</span>) &#123;                    groupTail = head;                &#125;                ListNode next = head.next;                head.next = groupHead;                groupHead = head;                head = next;            &#125;            <span class="hljs-comment">// 翻转后的链表组成新的链表</span>            tail.next = groupHead;            tail = groupTail;            group--;        &#125;        tail.next = head;        <span class="hljs-keyword">return</span> dummy.next;    &#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">reverseKGroup</span><span class="hljs-params">(ListNode head, <span class="hljs-keyword">int</span> k)</span> </span>&#123;        <span class="hljs-comment">// [1,2,3,4,5], k = 2</span>        <span class="hljs-comment">// [2,1,4,3,5]</span>        ListNode dummy = <span class="hljs-keyword">new</span> ListNode(-<span class="hljs-number">1</span>);        ListNode tail = dummy;        ListNode groupTail = head;        ListNode groupHead = head;        <span class="hljs-keyword">while</span> (groupTail != <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-comment">// 找到分组的尾节点</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; k &amp;&amp; groupTail != <span class="hljs-keyword">null</span>; i++) &#123;                groupTail = groupTail.next;            &#125;            <span class="hljs-comment">// 没有 k 个节点</span>            <span class="hljs-keyword">if</span> (groupTail == <span class="hljs-keyword">null</span>) &#123;                <span class="hljs-keyword">break</span>;            &#125;            <span class="hljs-comment">// 断开分组</span>            ListNode next = groupTail.next;            groupTail.next = <span class="hljs-keyword">null</span>;            <span class="hljs-comment">// 翻转分组并连接到结果链表的尾部</span>            tail.next = reverse(groupHead);            tail = groupHead;            <span class="hljs-comment">// 连接断开的链表</span>            tail.next = next;            <span class="hljs-comment">// next 作为新的起点继续分组</span>            groupHead = next;            groupTail = next;        &#125;        <span class="hljs-keyword">return</span> dummy.next;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> ListNode <span class="hljs-title">reverse</span><span class="hljs-params">(ListNode head)</span> </span>&#123;        ListNode newHead = <span class="hljs-keyword">null</span>;        <span class="hljs-keyword">while</span> (head != <span class="hljs-keyword">null</span>) &#123;            ListNode next = head.next;            head.next = newHead;            newHead = head;            head = next;        &#125;        <span class="hljs-keyword">return</span> newHead;    &#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/" target="_blank" rel="noopener">25. K 个一组翻转链表</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">reverseKGroup</span><span class="hljs-params">(ListNode head, <span class="hljs-keyword">int</span> k)</span> </span>&#123;        <span class="hljs-comment">// [1,2,3,4,5], k = 2</span>        <span class="hljs-comment">// [2,1,4,3,5]</span>        ListNode dummy = <span class="hljs-keyword">new</span> ListNode(-<span class="hljs-number">1</span>);        ListNode tail = head;        <span class="hljs-keyword">int</span> len = <span class="hljs-number">0</span>;        <span class="hljs-keyword">while</span> (tail != <span class="hljs-keyword">null</span>) &#123;            tail = tail.next;            len++;        &#125;        tail = dummy;        <span class="hljs-comment">// 分组数</span>        <span class="hljs-keyword">int</span> group = len / k;        <span class="hljs-keyword">while</span> (group &gt; <span class="hljs-number">0</span>) &#123;            ListNode groupHead = <span class="hljs-keyword">null</span>;            ListNode groupTail = head;            <span class="hljs-comment">// 翻转分组</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; k; i++) &#123;                ListNode next = head.next;                head.next = groupHead;                groupHead = head;                head = next;            &#125;            <span class="hljs-comment">// 翻转后的分组连接到结果链表尾部</span>            tail.next = groupHead;            tail = groupTail;            group--;        &#125;        tail.next = head;        <span class="hljs-keyword">return</span> dummy.next;    &#125;</code></pre><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">reverseKGroup</span><span class="hljs-params">(ListNode head, <span class="hljs-keyword">int</span> k)</span> </span>&#123;        <span class="hljs-comment">// [1,2,3,4,5], k = 2</span>        <span class="hljs-comment">// [2,1,4,3,5]</span>        ListNode dummy = <span class="hljs-keyword">new</span> ListNode(-<span class="hljs-number">1</span>);        ListNode tail = dummy;        ListNode groupTail = head;        ListNode groupHead = head;        <span class="hljs-keyword">while</span> (groupTail != <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-comment">// 找到分组的尾节点</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; k &amp;&amp; groupTail != <span class="hljs-keyword">null</span>; i++) &#123;                groupTail = groupTail.next;            &#125;            <span class="hljs-comment">// 没有 k 个节点</span>            <span class="hljs-keyword">if</span> (groupTail == <span class="hljs-keyword">null</span>) &#123;                <span class="hljs-keyword">break</span>;            &#125;            <span class="hljs-comment">// 断开分组</span>            ListNode next = groupTail.next;            groupTail.next = <span class="hljs-keyword">null</span>;            <span class="hljs-comment">// 翻转分组并连接到结果链表的尾部</span>            tail.next = reverse(groupHead);            tail = groupHead;            <span class="hljs-comment">// 连接断开的链表</span>            tail.next = next;            <span class="hljs-comment">// next 作为新的起点继续分组</span>            groupHead = next;            groupTail = next;        &#125;        <span class="hljs-keyword">return</span> dummy.next;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> ListNode <span class="hljs-title">reverse</span><span class="hljs-params">(ListNode head)</span> </span>&#123;        ListNode newHead = <span class="hljs-keyword">null</span>;        <span class="hljs-keyword">while</span> (head != <span class="hljs-keyword">null</span>) &#123;            ListNode next = head.next;            head.next = newHead;            newHead = head;            head = next;        &#125;        <span class="hljs-keyword">return</span> newHead;    &#125;</code></pre>]]></content>
     
     
     <categories>
@@ -76,11 +76,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -3210,9 +3210,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -4296,9 +4296,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -5513,9 +5513,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -5544,11 +5544,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -6110,9 +6110,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -6139,9 +6139,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -6963,9 +6963,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>二分</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7075,9 +7075,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>二分</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7104,9 +7104,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>二分</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7133,9 +7133,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>二分</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7162,9 +7162,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>二分</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7245,9 +7245,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>二分</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7301,9 +7301,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -7411,9 +7411,9 @@
     
     <tags>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -7527,9 +7527,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -7703,11 +7703,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>动态规划</tag>
       
     </tags>
     
@@ -7763,11 +7763,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -7854,11 +7854,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>二分</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>二分</tag>
       
     </tags>
     
@@ -8358,9 +8358,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>双指针</tag>
-      
       <tag>二分</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8648,9 +8648,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8677,9 +8677,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8706,9 +8706,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -8735,9 +8735,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -8826,11 +8826,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>字符串</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -8973,9 +8973,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>滑动窗口</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>滑动窗口</tag>
       
     </tags>
     
@@ -9002,9 +9002,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -9199,9 +9199,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
       <tag>栈</tag>
       
@@ -9230,9 +9230,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -9290,9 +9290,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -9319,9 +9319,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -10122,9 +10122,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
