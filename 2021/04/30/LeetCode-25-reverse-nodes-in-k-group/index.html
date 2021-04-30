@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 365. 水壶问题 - Likai Lee</title>
+  <title>LeetCode 25. K 个一组翻转链表 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 365. 水壶问题
+                LeetCode 25. K 个一组翻转链表
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-12-17 20:43">
-      2020年12月17日 晚上
+    <time datetime="2021-04-30 19:40">
+      2021年4月30日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      358 字
+      297 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      5
        分钟
     </span>
   
@@ -207,83 +207,86 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月17日 晚上
+                  本文最后更新于：2021年4月30日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/water-and-jug-problem/" target="_blank" rel="noopener">365. 水壶问题</a></p>
-<p>BFS 超时了。</p>
-<h1 id="数学"><a class="markdownIt-Anchor" href="#数学"></a> 数学</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canMeasureWater</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> z)</span> </span>&#123;
-    <span class="hljs-keyword">if</span> (x + y &lt; z) &#123;
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-    &#125;
-    <span class="hljs-keyword">if</span> (x == <span class="hljs-number">0</span> || y == <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">return</span> z == <span class="hljs-number">0</span> || x + y == z;
-    &#125;
-    <span class="hljs-comment">// ax + by = z, z 是 x, y 的最大公约数</span>
-    <span class="hljs-keyword">return</span> z % gcd(x, y) == <span class="hljs-number">0</span>;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">gcd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> reminder = x % y;
-    <span class="hljs-keyword">while</span> (reminder != <span class="hljs-number">0</span>) &#123;
-        x = y;
-        y = reminder;
-        reminder = x % y;
-    &#125;
-    <span class="hljs-keyword">return</span> y;
-&#125;</code></pre>
-<h1 id="bfs"><a class="markdownIt-Anchor" href="#bfs"></a> BFS</h1>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canMeasureWater</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> z)</span> </span>&#123;
-        Set&lt;String&gt; visited = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
-        LinkedList&lt;<span class="hljs-keyword">int</span>[]&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
-        queue.add(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;);
-        visited.add(<span class="hljs-string">"0,0"</span>);
-        <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;
-            <span class="hljs-keyword">int</span>[] cur = queue.poll();
-            <span class="hljs-comment">// 两个水壶容量满足要求</span>
-            <span class="hljs-keyword">if</span> (cur[<span class="hljs-number">0</span>] + cur[<span class="hljs-number">1</span>] == z) &#123;
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-            &#125;
-            List&lt;<span class="hljs-keyword">int</span>[]&gt; nextStates = getNextStates(cur, x, y);
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] state : nextStates) &#123;
-                String key = getIdentifier(state);
-                <span class="hljs-keyword">if</span> (visited.contains(key)) &#123;
-                    <span class="hljs-keyword">continue</span>;
-                &#125;
-                visited.add(key);
-                queue.add(state);
-            &#125;
+              <p><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/" target="_blank" rel="noopener">25. K 个一组翻转链表</a></p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">reverseKGroup</span><span class="hljs-params">(ListNode head, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
+        <span class="hljs-comment">// [1,2,3,4,5], k = 2</span>
+        <span class="hljs-comment">// [2,1,4,3,5]</span>
+        ListNode dummy = <span class="hljs-keyword">new</span> ListNode(-<span class="hljs-number">1</span>);
+        ListNode tail = dummy;
+        <span class="hljs-keyword">int</span> len = <span class="hljs-number">0</span>;
+        ListNode node = head;
+        <span class="hljs-keyword">while</span> (node != <span class="hljs-keyword">null</span>) &#123;
+            node = node.next;
+            len++;
         &#125;
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        <span class="hljs-comment">// 分组数</span>
+        <span class="hljs-keyword">int</span> group = len / k;
+        <span class="hljs-keyword">while</span> (head != <span class="hljs-keyword">null</span> &amp;&amp; group &gt; <span class="hljs-number">0</span>) &#123;
+            ListNode groupHead = <span class="hljs-keyword">null</span>;
+            ListNode groupTail = <span class="hljs-keyword">null</span>;
+            <span class="hljs-comment">// 翻转 k 个</span>
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; k; i++) &#123;
+                <span class="hljs-keyword">if</span> (groupTail == <span class="hljs-keyword">null</span>) &#123;
+                    groupTail = head;
+                &#125;
+                ListNode next = head.next;
+                head.next = groupHead;
+                groupHead = head;
+                head = next;
+            &#125;
+            <span class="hljs-comment">// 翻转后的链表组成新的链表</span>
+            tail.next = groupHead;
+            tail = groupTail;
+            group--;
+        &#125;
+        tail.next = head;
+        <span class="hljs-keyword">return</span> dummy.next;
+    &#125;</code></pre>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">reverseKGroup</span><span class="hljs-params">(ListNode head, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
+        <span class="hljs-comment">// [1,2,3,4,5], k = 2</span>
+        <span class="hljs-comment">// [2,1,4,3,5]</span>
+        ListNode dummy = <span class="hljs-keyword">new</span> ListNode(-<span class="hljs-number">1</span>);
+        ListNode tail = dummy;
+        ListNode groupTail = head;
+        ListNode groupHead = head;
+        <span class="hljs-keyword">while</span> (groupTail != <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-comment">// 找到分组的尾节点</span>
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; k &amp;&amp; groupTail != <span class="hljs-keyword">null</span>; i++) &#123;
+                groupTail = groupTail.next;
+            &#125;
+            <span class="hljs-comment">// 没有 k 个节点</span>
+            <span class="hljs-keyword">if</span> (groupTail == <span class="hljs-keyword">null</span>) &#123;
+                <span class="hljs-keyword">break</span>;
+            &#125;
+            <span class="hljs-comment">// 断开分组</span>
+            ListNode next = groupTail.next;
+            groupTail.next = <span class="hljs-keyword">null</span>;
+            <span class="hljs-comment">// 翻转分组并连接到结果链表的尾部</span>
+            tail.next = reverse(groupHead);
+            tail = groupHead;
+            <span class="hljs-comment">// 连接断开的链表</span>
+            tail.next = next;
+            <span class="hljs-comment">// next 作为新的起点继续分组</span>
+            groupHead = next;
+            groupTail = next;
+        &#125;
+        <span class="hljs-keyword">return</span> dummy.next;
     &#125;
 
-    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">getIdentifier</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] state)</span> </span>&#123;
-        <span class="hljs-keyword">return</span> state[<span class="hljs-number">0</span>] + <span class="hljs-string">","</span> + state[<span class="hljs-number">1</span>];
-    &#125;
-
-    <span class="hljs-keyword">private</span> List&lt;<span class="hljs-keyword">int</span>[]&gt; getNextStates(<span class="hljs-keyword">int</span>[] cur, <span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y) &#123;
-        List&lt;<span class="hljs-keyword">int</span>[]&gt; states = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
-        <span class="hljs-comment">// 装满任意一个水壶</span>
-        <span class="hljs-keyword">int</span>[] s1 = &#123;x, cur[<span class="hljs-number">1</span>]&#125;;
-        <span class="hljs-keyword">int</span>[] s2 = &#123;cur[<span class="hljs-number">0</span>], y&#125;;
-        <span class="hljs-comment">// 清空任意一个水壶</span>
-        <span class="hljs-keyword">int</span>[] s3 = &#123;<span class="hljs-number">0</span>, cur[<span class="hljs-number">1</span>]&#125;;
-        <span class="hljs-keyword">int</span>[] s4 = &#123;cur[<span class="hljs-number">0</span>], <span class="hljs-number">0</span>&#125;;
-        <span class="hljs-comment">// 从一个水壶向另外一个水壶倒水，直到装满或者倒空 3(1) 5(4)</span>
-        <span class="hljs-keyword">int</span> canPour1 = Math.min(x - cur[<span class="hljs-number">0</span>], cur[<span class="hljs-number">1</span>]);
-        <span class="hljs-keyword">int</span>[] s5 = &#123;cur[<span class="hljs-number">0</span>] + canPour1, cur[<span class="hljs-number">1</span>] - canPour1&#125;;
-        <span class="hljs-keyword">int</span> canPour2 = Math.min(y - cur[<span class="hljs-number">1</span>], cur[<span class="hljs-number">0</span>]);
-        <span class="hljs-keyword">int</span>[] s6 = &#123;cur[<span class="hljs-number">0</span>] - canPour2, cur[<span class="hljs-number">1</span>] + canPour2&#125;;
-        states.add(s1);
-        states.add(s2);
-        states.add(s3);
-        states.add(s4);
-        states.add(s5);
-        states.add(s6);
-        <span class="hljs-keyword">return</span> states;
+    <span class="hljs-function"><span class="hljs-keyword">private</span> ListNode <span class="hljs-title">reverse</span><span class="hljs-params">(ListNode head)</span> </span>&#123;
+        ListNode newHead = <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">while</span> (head != <span class="hljs-keyword">null</span>) &#123;
+            ListNode next = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = next;
+        &#125;
+        <span class="hljs-keyword">return</span> newHead;
     &#125;</code></pre>
             </article>
             <hr>
@@ -303,9 +306,7 @@
                     
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/BFS/">BFS</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
+                      <a class="hover-with-bg" href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
                     
                   </div>
                 
@@ -318,18 +319,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/12/18/LeetCode-389-find-the-difference/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 389. 找不同</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/12/16/LeetCode-690-employee-importance/">
-                        <span class="hidden-mobile">LeetCode 690. 员工的重要性</span>
+                      <a href="/2021/04/30/LeetCode-137-single-number-ii/">
+                        <span class="hidden-mobile">LeetCode 137. 只出现一次的数字 II</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
