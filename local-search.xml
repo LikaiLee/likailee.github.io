@@ -4,11 +4,42 @@
   
   
   <entry>
+    <title>LeetCode 403. 青蛙过河</title>
+    <link href="/2021/04/30/LeetCode-403-frog-jump/"/>
+    <url>/2021/04/30/LeetCode-403-frog-jump/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/frog-jump/" target="_blank" rel="noopener">403. 青蛙过河</a></p><h1 id="记忆化-dfs"><a class="markdownIt-Anchor" href="#记忆化-dfs"></a> 记忆化 DFS</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canCross</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] stones)</span> </span>&#123;        <span class="hljs-comment">// [0,1,3,5,6,8,12,17]</span>        <span class="hljs-comment">// [0,1,2,3,4,8,9,11]</span>        <span class="hljs-keyword">int</span> len = stones.length;        Set&lt;Integer&gt; stonePos = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> pos : stones) &#123;            stonePos.add(pos);        &#125;        <span class="hljs-keyword">int</span>[] moves = &#123;-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;;        Map&lt;String, Boolean&gt; cache = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();        <span class="hljs-keyword">return</span> backtrack(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, stones[len - <span class="hljs-number">1</span>], moves, stonePos, cache);    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> pos, <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> end, <span class="hljs-keyword">int</span>[] moves, Set&lt;Integer&gt; stonePos, Map&lt;String, Boolean&gt; cache)</span> </span>&#123;        String key = pos + <span class="hljs-string">"-"</span> + k;        <span class="hljs-keyword">if</span> (cache.containsKey(key)) &#123;            <span class="hljs-keyword">return</span> cache.get(key);        &#125;        <span class="hljs-comment">// 到达最后一个石头</span>        <span class="hljs-keyword">if</span> (pos == end) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> move : moves) &#123;            <span class="hljs-keyword">int</span> nextK = k + move;            <span class="hljs-keyword">int</span> nextPos = pos + nextK;            <span class="hljs-comment">// 下一个位置无效</span>            <span class="hljs-keyword">if</span> (nextPos == pos || !stonePos.contains(nextPos)) &#123;                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-keyword">if</span> (backtrack(nextPos, nextK, end, moves, stonePos, cache)) &#123;                cache.put(key, <span class="hljs-keyword">true</span>);                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;            &#125;        &#125;        cache.put(key, <span class="hljs-keyword">false</span>);        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;</code></pre><h1 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canCross</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] stones)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = stones.length;    <span class="hljs-comment">// dp[i][k]: 从某一个位置跳 k 步是否能到 i</span>    <span class="hljs-keyword">boolean</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[len][len];    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-keyword">true</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i - <span class="hljs-number">1</span>; j &gt;= <span class="hljs-number">0</span>; j--) &#123;            <span class="hljs-comment">// 从 j 到 i 需要 k 步</span>            <span class="hljs-comment">// 因此跳到 j 可能需要 k + 1，k，k - 1 步</span>            <span class="hljs-keyword">int</span> k = stones[i] - stones[j];            <span class="hljs-keyword">if</span> (k &gt; j + <span class="hljs-number">1</span>) &#123;                <span class="hljs-keyword">break</span>;            &#125;            <span class="hljs-comment">// j: k + 1 =&gt; 少 1 步  = k</span>            <span class="hljs-comment">// j: k     =&gt; 保持不变  = k</span>            <span class="hljs-comment">// j: k - 1 =&gt; 多 1 步  = k</span>            dp[i][k] = dp[j][k - <span class="hljs-number">1</span>] || dp[j][k] || dp[j][k + <span class="hljs-number">1</span>];            <span class="hljs-keyword">if</span> (i == len - <span class="hljs-number">1</span> &amp;&amp; dp[i][k]) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;&#125;</code></pre><h1 id="记忆化-bfs"><a class="markdownIt-Anchor" href="#记忆化-bfs"></a> 记忆化 BFS</h1><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canCross</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] stones)</span> </span>&#123;        <span class="hljs-comment">// [0,1,3,5,6,8,12,17]</span>        <span class="hljs-comment">// [0,1,2,3,4,8,9,11]</span>        <span class="hljs-keyword">int</span> len = stones.length;        Set&lt;Integer&gt; stonePos = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> pos : stones) &#123;            stonePos.add(pos);        &#125;        <span class="hljs-keyword">int</span>[] moves = &#123;-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;;        Map&lt;String, Boolean&gt; visited = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();        Deque&lt;<span class="hljs-keyword">int</span>[]&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        queue.offer(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;);        <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;            <span class="hljs-keyword">int</span>[] cur = queue.poll();            <span class="hljs-keyword">int</span> curPos = cur[<span class="hljs-number">0</span>];            <span class="hljs-keyword">int</span> curK = cur[<span class="hljs-number">1</span>];            <span class="hljs-comment">// 到达终点</span>            <span class="hljs-keyword">if</span> (curPos == stones[len - <span class="hljs-number">1</span>]) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;            &#125;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> move : moves) &#123;                <span class="hljs-keyword">int</span> nextK = curK + move;                <span class="hljs-keyword">int</span> nextPos = curPos + nextK;                String key = nextPos + <span class="hljs-string">"-"</span> + nextK;                <span class="hljs-comment">// 位置有效 &amp;&amp; 未访问过</span>                <span class="hljs-keyword">if</span> (stonePos.contains(nextPos) &amp;&amp; nextPos != curPos &amp;&amp; !visited.containsKey(key)) &#123;                    queue.offer(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;nextPos, nextK&#125;);                    visited.put(key, <span class="hljs-keyword">true</span>);                &#125;            &#125;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>BFS</tag>
+      
+      <tag>DFS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>36 进制加法</title>
     <link href="/2021/04/29/36-plus/"/>
     <url>/2021/04/29/36-plus/</url>
     
-    <content type="html"><![CDATA[<p>每个字符转成十进制，相加时每 36 位进位。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;        String num1 = <span class="hljs-string">"1"</span>;        String num2 = <span class="hljs-string">"zz"</span>;        <span class="hljs-keyword">char</span>[] s1 = num1.toCharArray();        <span class="hljs-keyword">char</span>[] s2 = num2.toCharArray();        <span class="hljs-keyword">int</span> carry = <span class="hljs-number">0</span>;        StringBuilder res = <span class="hljs-keyword">new</span> StringBuilder();        <span class="hljs-keyword">int</span> i = s1.length - <span class="hljs-number">1</span>, j = s2.length - <span class="hljs-number">1</span>;        <span class="hljs-keyword">while</span> (i &gt;= <span class="hljs-number">0</span> || j &gt;= <span class="hljs-number">0</span> || carry &gt; <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">int</span> sum = carry;            <span class="hljs-comment">// num1 字符</span>            <span class="hljs-keyword">if</span> (i &gt;= <span class="hljs-number">0</span>) &#123;                sum += toDecimal(s1[i]);                i--;            &#125;            <span class="hljs-comment">// num2 字符</span>            <span class="hljs-keyword">if</span> (j &gt;= <span class="hljs-number">0</span>) &#123;                sum += toDecimal(s2[j]);                j--;            &#125;            <span class="hljs-comment">// 保留位</span>            <span class="hljs-keyword">int</span> hold = sum % <span class="hljs-number">36</span>;            res.insert(<span class="hljs-number">0</span>, to36Char(hold));            <span class="hljs-comment">// 进位</span>            carry = sum / <span class="hljs-number">36</span>;        &#125;        System.out.println(res.toString());    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 10 进制数字 =&gt; 36 进制字符</span><span class="hljs-comment">     *</span><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> num</span><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">char</span> <span class="hljs-title">to36Char</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;        <span class="hljs-keyword">if</span> (num &lt; <span class="hljs-number">10</span>) &#123;            <span class="hljs-keyword">return</span> (<span class="hljs-keyword">char</span>) (num + <span class="hljs-string">'0'</span>);        &#125;        <span class="hljs-keyword">return</span> (<span class="hljs-keyword">char</span>) (<span class="hljs-string">'a'</span> + (num - <span class="hljs-number">10</span>));    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 36 进制字符 =&gt; 10 进制数字</span><span class="hljs-comment">     *</span><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> c</span><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">toDecimal</span><span class="hljs-params">(<span class="hljs-keyword">char</span> c)</span> </span>&#123;        <span class="hljs-keyword">if</span> (Character.isDigit(c)) &#123;            <span class="hljs-keyword">return</span> c - <span class="hljs-string">'0'</span>;        &#125;        <span class="hljs-keyword">return</span> c - <span class="hljs-string">'a'</span> + <span class="hljs-number">10</span>;    &#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<p>每个字符转成十进制，相加时每 36 位进位。</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;        String num1 = <span class="hljs-string">"1b"</span>;        String num2 = <span class="hljs-string">"2x"</span>;        <span class="hljs-keyword">char</span>[] s1 = num1.toCharArray();        <span class="hljs-keyword">char</span>[] s2 = num2.toCharArray();        <span class="hljs-keyword">int</span> carry = <span class="hljs-number">0</span>;        StringBuilder res = <span class="hljs-keyword">new</span> StringBuilder();        <span class="hljs-keyword">int</span> i = s1.length - <span class="hljs-number">1</span>, j = s2.length - <span class="hljs-number">1</span>;        <span class="hljs-keyword">while</span> (i &gt;= <span class="hljs-number">0</span> || j &gt;= <span class="hljs-number">0</span> || carry &gt; <span class="hljs-number">0</span>) &#123;            <span class="hljs-keyword">int</span> sum = carry;            <span class="hljs-comment">// num1 字符</span>            <span class="hljs-keyword">if</span> (i &gt;= <span class="hljs-number">0</span>) &#123;                sum += toDecimal(s1[i]);                i--;            &#125;            <span class="hljs-comment">// num2 字符</span>            <span class="hljs-keyword">if</span> (j &gt;= <span class="hljs-number">0</span>) &#123;                sum += toDecimal(s2[j]);                j--;            &#125;            <span class="hljs-comment">// 保留位</span>            <span class="hljs-keyword">int</span> hold = sum % <span class="hljs-number">36</span>;            res.insert(<span class="hljs-number">0</span>, to36Char(hold));            <span class="hljs-comment">// 进位</span>            carry = sum / <span class="hljs-number">36</span>;        &#125;        System.out.println(res.toString());    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 10 进制数字 =&gt; 36 进制字符</span><span class="hljs-comment">     *</span><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> num</span><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">char</span> <span class="hljs-title">to36Char</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;        <span class="hljs-keyword">if</span> (num &lt; <span class="hljs-number">10</span>) &#123;            <span class="hljs-keyword">return</span> (<span class="hljs-keyword">char</span>) (num + <span class="hljs-string">'0'</span>);        &#125;        <span class="hljs-keyword">return</span> (<span class="hljs-keyword">char</span>) (<span class="hljs-string">'a'</span> + (num - <span class="hljs-number">10</span>));    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 36 进制字符 =&gt; 10 进制数字</span><span class="hljs-comment">     *</span><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> c</span><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">toDecimal</span><span class="hljs-params">(<span class="hljs-keyword">char</span> c)</span> </span>&#123;        <span class="hljs-keyword">if</span> (Character.isDigit(c)) &#123;            <span class="hljs-keyword">return</span> c - <span class="hljs-string">'0'</span>;        &#125;        <span class="hljs-keyword">return</span> c - <span class="hljs-string">'a'</span> + <span class="hljs-number">10</span>;    &#125;</code></pre>]]></content>
     
     
     <categories>
@@ -1859,9 +1890,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -2538,9 +2569,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>并查集</tag>
       
@@ -2731,9 +2762,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -3040,9 +3071,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3589,9 +3620,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>贪心</tag>
       
@@ -3730,9 +3761,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3873,9 +3904,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>贪心</tag>
       
@@ -3904,9 +3935,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4010,9 +4041,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -4039,9 +4070,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -4151,9 +4182,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4325,9 +4356,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
       <tag>排序</tag>
       
@@ -4466,9 +4497,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5965,9 +5996,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -6025,9 +6056,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6054,9 +6085,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -6392,9 +6423,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -7216,11 +7247,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>双指针</tag>
+      
       <tag>动态规划</tag>
       
       <tag>栈</tag>
-      
-      <tag>双指针</tag>
       
     </tags>
     
@@ -7326,9 +7357,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -7442,9 +7473,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7618,11 +7649,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7676,13 +7707,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8300,9 +8331,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -8385,9 +8416,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -8416,11 +8447,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8445,9 +8476,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -8474,9 +8505,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -8503,9 +8534,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -8532,9 +8563,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -8561,11 +8592,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8590,11 +8621,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8710,9 +8741,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
       <tag>单调栈</tag>
       
@@ -8739,13 +8770,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8770,11 +8801,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8799,9 +8830,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -8857,9 +8888,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -8886,11 +8917,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -8944,9 +8975,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
@@ -9054,11 +9085,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -9112,13 +9143,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -9143,11 +9174,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9172,9 +9203,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -9203,11 +9234,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9232,11 +9263,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9261,9 +9292,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9288,9 +9319,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9315,9 +9346,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9342,9 +9373,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9369,9 +9400,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9396,9 +9427,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -10201,9 +10232,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>LeetCode</tag>
+      
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
