@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 740. 删除并获得点数</title>
+    <link href="/2021/05/05/LeetCode-740-delete-and-earn/"/>
+    <url>/2021/05/05/LeetCode-740-delete-and-earn/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/delete-and-earn/" target="_blank" rel="noopener">740. 删除并获得点数</a></p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">deleteAndEarn</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;        <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;            max = Math.max(max, num);        &#125;        <span class="hljs-keyword">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[max + <span class="hljs-number">1</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;            counts[num]++;        &#125;        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[max + <span class="hljs-number">1</span>][<span class="hljs-number">2</span>];        <span class="hljs-comment">// dp[i][0]: 删除 i</span>        <span class="hljs-comment">// dp[i][1]: 不删除 i</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= max; i++) &#123;            <span class="hljs-comment">// 删除 i，i - 1 不能删</span>            dp[i][<span class="hljs-number">0</span>] = dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>] + i * counts[i];            <span class="hljs-comment">// 不删除 i，i - 1 可删可不删</span>            dp[i][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>]);        &#125;        <span class="hljs-keyword">return</span> Math.max(dp[max][<span class="hljs-number">0</span>], dp[max][<span class="hljs-number">1</span>]);    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 25. K 个一组翻转链表</title>
     <link href="/2021/04/30/LeetCode-25-reverse-nodes-in-k-group/"/>
     <url>/2021/04/30/LeetCode-25-reverse-nodes-in-k-group/</url>
@@ -4410,9 +4437,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
       <tag>排序</tag>
       
@@ -5285,9 +5312,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -5343,9 +5370,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -6477,9 +6504,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -7303,9 +7330,9 @@
       
       <tag>动态规划</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8795,9 +8822,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
       <tag>单调栈</tag>
       
@@ -9201,9 +9228,9 @@
       
       <tag>字符串</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
