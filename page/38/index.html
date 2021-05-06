@@ -170,6 +170,58 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/20/LeetCode-1143-longest-common-subsequence/">LeetCode 1143. 最长公共子序列</a>
+
+      <a href="/2020/08/20/LeetCode-1143-longest-common-subsequence/" class="index-excerpt">
+        
+        
+          
+        
+        <div>1143. 最长公共子序列
+
+base: 两个字符串中有一个为空，则 dp[0][j] = 0 或 dp[i][0] = 0
+状态：dp[i][j] -&gt; str1[:i] 和 str[:j] 的最长序列
+转移：
+
+比较位置：str[:i], str[:j] || str1[:i-1], str2[:j] || str1[:i], str2[:j-1]
+若 i, j 位置相等，直接 + 1
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-20
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/19/LeetCode-322-coin-change/">LeetCode 322. 零钱兑换</a>
 
       <a href="/2020/08/19/LeetCode-322-coin-change/" class="index-excerpt">
@@ -605,57 +657,6 @@ public int search(int[] nums, int target) &#123;
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>&nbsp;2020-08-17
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/16/LeetCode-367.%20valid-perfect-square/">LeetCode 367. 有效的完全平方数</a>
-
-      <a href="/2020/08/16/LeetCode-367.%20valid-perfect-square/" class="index-excerpt">
-        
-        
-          
-        
-        <div>367. 有效的完全平方数
-两种解法都击败 100%
- 二分法
-public boolean isPerfectSquare(int num) &#123;
-    if (num == 0) &#123;
-        return true;
-    &#125;
-    long left = 1;
-    long right = num / 2;
-    while (left &lt</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-16
           </div>
         
         
