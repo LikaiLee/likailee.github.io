@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>剑指 Offer 05. 替换空格</title>
+    <link href="/2021/05/08/LeetCode-offer-05-ti-huan-kong-ge-lcof/"/>
+    <url>/2021/05/08/LeetCode-offer-05-ti-huan-kong-ge-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/" target="_blank" rel="noopener">剑指 Offer 05. 替换空格</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">replaceSpace</span><span class="hljs-params">(String s)</span> </span>&#123;        StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();        String BLANK = <span class="hljs-string">"%20"</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : s.toCharArray()) &#123;            <span class="hljs-keyword">if</span> (c == <span class="hljs-string">' '</span>) &#123;                sb.append(BLANK);            &#125; <span class="hljs-keyword">else</span> &#123;                sb.append(c);            &#125;        &#125;        <span class="hljs-keyword">return</span> sb.toString();    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>字符串</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 04. 二维数组中的查找</title>
     <link href="/2021/05/08/LeetCode-offer-04-er-wei-shu-zu-zhong-de-cha-zhao-lcof/"/>
     <url>/2021/05/08/LeetCode-offer-04-er-wei-shu-zu-zhong-de-cha-zhao-lcof/</url>
@@ -2760,9 +2787,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>并查集</tag>
       
@@ -2953,9 +2980,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4126,9 +4153,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4373,9 +4400,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4688,9 +4715,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5422,9 +5449,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -5480,9 +5507,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -6187,9 +6214,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
