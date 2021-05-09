@@ -375,10 +375,11 @@ public int maximalSquare(char[][] matrix) &#123;
         
         <div>1011. 在 D 天内送达包裹的能力
 public int shipWithinDays(int[] weights, int D) &#123;
-        // [1,2,3,4,5,6,7,8,9,10], D = 5
-        int left = 0;
         int right = 0;
-        for (int weight : weights) &#12</div>
+        int left = 0;
+        for (int w : weights) &#123;
+            // 左边界为最大的货物重量，需要保证最大重量能装载
+    </div>
       </a>
 
       <div class="index-btm post-metas">
