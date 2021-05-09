@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 1482. minimum-number-of-days-to-make-m-bouquets</title>
+    <link href="/2021/05/09/LeetCode-1482-minimum-number-of-days-to-make-m-bouquets/"/>
+    <url>/2021/05/09/LeetCode-1482-minimum-number-of-days-to-make-m-bouquets/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/minimum-number-of-days-to-make-m-bouquets/" target="_blank" rel="noopener">1482. 制作 m 束花所需的最少天数</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minDays</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] bloomDay, <span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> k)</span> </span>&#123;        <span class="hljs-keyword">if</span> (bloomDay.length &lt; m * k) &#123;            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;        &#125;        <span class="hljs-keyword">int</span> left = Integer.MAX_VALUE;        <span class="hljs-keyword">int</span> right = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> day : bloomDay) &#123;            <span class="hljs-comment">// 最少需要的天数</span>            left = Math.min(left, day);            <span class="hljs-comment">// 最多需要的天数</span>            right = Math.max(right, day);        &#125;        <span class="hljs-keyword">while</span> (left &lt; right) &#123;            <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;            <span class="hljs-comment">// 计算 mid 天能获得几束花，k 朵花组成一束</span>            <span class="hljs-keyword">int</span> bouquets = flowersInDay(mid, bloomDay, k);            <span class="hljs-comment">// mid 天不能获取 m 束花，需要增大天数</span>            <span class="hljs-keyword">if</span> (bouquets &lt; m) &#123;                left = mid + <span class="hljs-number">1</span>;            &#125; <span class="hljs-keyword">else</span> &#123;                right = mid;            &#125;        &#125;        <span class="hljs-keyword">return</span> left;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">flowersInDay</span><span class="hljs-params">(<span class="hljs-keyword">int</span> day, <span class="hljs-keyword">int</span>[] bloomDay, <span class="hljs-keyword">int</span> k)</span> </span>&#123;        <span class="hljs-keyword">int</span> bouquets = <span class="hljs-number">0</span>;        <span class="hljs-comment">// 连续的花朵数，看能否有 k 朵组成一束花</span>        <span class="hljs-keyword">int</span> flowers = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> d : bloomDay) &#123;            <span class="hljs-comment">// day 天内不能开花</span>            <span class="hljs-keyword">if</span> (d &gt; day) &#123;                flowers = <span class="hljs-number">0</span>;                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-comment">// 连续 k 朵组成一束花</span>            <span class="hljs-keyword">if</span> (++flowers == k) &#123;                bouquets++;                flowers = <span class="hljs-number">0</span>;            &#125;        &#125;        <span class="hljs-keyword">return</span> bouquets;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>二分</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 05. 替换空格</title>
     <link href="/2021/05/08/LeetCode-offer-05-ti-huan-kong-ge-lcof/"/>
     <url>/2021/05/08/LeetCode-offer-05-ti-huan-kong-ge-lcof/</url>
@@ -2787,9 +2814,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>并查集</tag>
       
@@ -2980,9 +3007,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4153,9 +4180,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4400,9 +4427,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4715,9 +4742,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -6214,9 +6241,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -7127,9 +7154,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -7239,9 +7266,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -7268,9 +7295,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -7297,9 +7324,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -7326,9 +7353,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -7409,9 +7436,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -8018,11 +8045,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -8522,9 +8549,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -8553,9 +8580,9 @@
       
       <tag>字符串</tag>
       
-      <tag>数学</tag>
-      
       <tag>栈</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -8638,9 +8665,9 @@
       
       <tag>字符串</tag>
       
-      <tag>数学</tag>
-      
       <tag>栈</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
