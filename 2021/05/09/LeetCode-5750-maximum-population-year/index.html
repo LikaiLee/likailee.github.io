@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 44. 通配符匹配 - Likai Lee</title>
+  <title>LeetCode 5750. 人口最多的年份 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 44. 通配符匹配
+                LeetCode 5750. 人口最多的年份
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-09 19:28">
-      2020年9月9日 晚上
+    <time datetime="2021-05-09 14:51">
+      2021年5月9日 下午
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      163 字
+      112 字
     </span>
   
 
@@ -207,40 +207,36 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月9日 晚上
+                  本文最后更新于：2021年5月9日 下午
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/wildcard-matching/" target="_blank" rel="noopener">44. 通配符匹配</a></p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isMatch</span><span class="hljs-params">(String s, String p)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> rows = p.length();
-    <span class="hljs-keyword">int</span> cols = s.length();
-    <span class="hljs-keyword">char</span>[] sChars = s.toCharArray();
-    <span class="hljs-keyword">char</span>[] pChars = p.toCharArray();
-    <span class="hljs-keyword">boolean</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[rows + <span class="hljs-number">1</span>][cols + <span class="hljs-number">1</span>];
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-keyword">true</span>;
-    <span class="hljs-comment">// 若以 '*' 开始，则 p 可以匹配 空串</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= rows; i++) &#123;
-        <span class="hljs-keyword">if</span> (pChars[i - <span class="hljs-number">1</span>] == <span class="hljs-string">'*'</span>) &#123;
-            dp[i][<span class="hljs-number">0</span>] = <span class="hljs-keyword">true</span>;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            <span class="hljs-keyword">break</span>;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= rows; i++) &#123;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= cols; j++) &#123;
-            <span class="hljs-comment">// 对应字符匹配 || p[j] == '?' 可匹配任意字符</span>
-            <span class="hljs-keyword">if</span> (sChars[j - <span class="hljs-number">1</span>] == pChars[i - <span class="hljs-number">1</span>] || pChars[i - <span class="hljs-number">1</span>] == <span class="hljs-string">'?'</span>) &#123;
-                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];
-            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pChars[i - <span class="hljs-number">1</span>] == <span class="hljs-string">'*'</span>) &#123;
-                <span class="hljs-comment">// '*' 可匹配任意长度</span>
-                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j] || dp[i][j - <span class="hljs-number">1</span>];
+              <p><a href="https://leetcode-cn.com/problems/maximum-population-year/" target="_blank" rel="noopener">5750. 人口最多的年份</a></p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maximumPopulation</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] logs)</span> </span>&#123;
+        <span class="hljs-comment">// [[1950,1961],[1960,1971],[1970,1981]]</span>
+        Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] log : logs) &#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = log[<span class="hljs-number">0</span>]; i &lt; log[<span class="hljs-number">1</span>]; i++) &#123;
+                <span class="hljs-keyword">int</span> count = map.getOrDefault(i, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>;
+                map.put(i, count);
             &#125;
         &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> dp[rows][cols];
-&#125;</code></pre>
+        <span class="hljs-keyword">int</span> resYear = Integer.MAX_VALUE;
+        <span class="hljs-keyword">int</span> resCount = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (Map.Entry&lt;Integer, Integer&gt; e : map.entrySet()) &#123;
+            <span class="hljs-keyword">int</span> year = e.getKey();
+            <span class="hljs-keyword">int</span> count = e.getValue();
+            <span class="hljs-keyword">if</span> (count == resCount) &#123;
+                resYear = Math.min(resYear, year);
+                resCount = count;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (count &gt; resCount) &#123;
+                resYear = year;
+                resCount = count;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> resYear;
+    &#125;</code></pre>
             </article>
             <hr>
             <div>
@@ -257,11 +253,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-                    
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
                     
                   </div>
                 
@@ -274,18 +268,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/10/LeetCode-583-delete-operation-for-two-strings/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 583. 两个字符串的删除操作</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/09/LeetCode-10-regular-expression-matching/">
-                        <span class="hidden-mobile">LeetCode 10. 正则表达式匹配</span>
+                      <a href="/2021/05/09/LeetCode-1482-minimum-number-of-days-to-make-m-bouquets/">
+                        <span class="hidden-mobile">LeetCode 1482. minimum-number-of-days-to-make-m-bouquets</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -170,6 +170,56 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/09/02/LeetCode-541-reverse-string-ii/">LeetCode 541. 反转字符串 II</a>
+
+      <a href="/2020/09/02/LeetCode-541-reverse-string-ii/" class="index-excerpt">
+        
+        
+          
+        
+        <div>541. 反转字符串 II
+public String reverseStr(String s, int k) &#123;
+    char[] chars = s.toCharArray();
+    int len = chars.length;
+    int i = 0;
+    while (i &lt; len) &#123;
+        // 对 (i, i + k) 之间的字</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-09-02
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/09/02/LeetCode-344-reverse-string/">LeetCode 344. 反转字符串</a>
 
       <a href="/2020/09/02/LeetCode-344-reverse-string/" class="index-excerpt">
@@ -205,9 +255,9 @@ public void reverseString(char[] s) &#123;
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
             
@@ -257,9 +307,9 @@ public void reverseString(char[] s) &#123;
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
             
           </div>
         
@@ -306,9 +356,9 @@ public class Solution &#123;
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
             
           </div>
         
@@ -356,9 +406,9 @@ public int firstUniqChar(String s) &#123;
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
             
           </div>
         
@@ -403,9 +453,9 @@ public int numJewelsInStones(String J, String S) &#123;
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
             
           </div>
         
@@ -451,9 +501,9 @@ public int lengthOfLastWord(String s) &#123;
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
             
           </div>
         
@@ -497,9 +547,9 @@ public String toLowerCase(String str) &#123;
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
             
           </div>
         
@@ -610,56 +660,6 @@ class Solution &#123;
               <a href="/tags/DFS/">DFS</a>
             
               <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/29/LeetCode-7-reverse-integer/">LeetCode 7. 整数反转</a>
-
-      <a href="/2020/08/29/LeetCode-7-reverse-integer/" class="index-excerpt">
-        
-        
-          
-        
-        <div>7. 整数反转
-public int reverse(int x) &#123;
-    int res = 0;
-    while (x != 0) &#123;
-        // 个位数
-        int pop = x % 10;
-        // 去除个位数
-        x = x / 10;
-        if (res &gt; Integer.MAX_VALUE</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-29
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
             
           </div>
         
