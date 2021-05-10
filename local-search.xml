@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>剑指 Offer 12. 矩阵中的路径</title>
+    <link href="/2021/05/10/LeetCode-offer-12-ju-zhen-zhong-de-lu-jing-lcof/"/>
+    <url>/2021/05/10/LeetCode-offer-12-ju-zhen-zhong-de-lu-jing-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof/" target="_blank" rel="noopener">剑指 Offer 12. 矩阵中的路径</a></p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-keyword">int</span>[][] moves = &#123;&#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;, &#123;<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>&#125;, &#123;<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;&#125;;    <span class="hljs-keyword">int</span> rows;    <span class="hljs-keyword">int</span> cols;    <span class="hljs-keyword">int</span> len;    <span class="hljs-keyword">boolean</span>[][] visited;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">exist</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] board, String word)</span> </span>&#123;        <span class="hljs-keyword">this</span>.len = word.length();        <span class="hljs-keyword">this</span>.rows = board.length;        <span class="hljs-keyword">this</span>.cols = board[<span class="hljs-number">0</span>].length;        <span class="hljs-keyword">this</span>.visited = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[rows][cols];        <span class="hljs-keyword">char</span>[] str = word.toCharArray();        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;                <span class="hljs-keyword">if</span> (dfs(<span class="hljs-number">0</span>, i, j, board, str)) &#123;                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;                &#125;            &#125;        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> cur, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j, <span class="hljs-keyword">char</span>[][] board, <span class="hljs-keyword">char</span>[] str)</span> </span>&#123;        <span class="hljs-keyword">if</span> (cur == len - <span class="hljs-number">1</span> &amp;&amp; str[cur] == board[i][j]) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;        <span class="hljs-keyword">if</span> (str[cur] != board[i][j]) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        visited[i][j] = <span class="hljs-keyword">true</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] move : moves) &#123;            <span class="hljs-keyword">int</span> nx = i + move[<span class="hljs-number">0</span>];            <span class="hljs-keyword">int</span> ny = j + move[<span class="hljs-number">1</span>];            <span class="hljs-keyword">if</span> (!inArea(nx, ny) || visited[nx][ny]) &#123;                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-keyword">if</span> (dfs(cur + <span class="hljs-number">1</span>, nx, ny, board, str)) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;            &#125;        &#125;        visited[i][j] = <span class="hljs-keyword">false</span>;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">inArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;        <span class="hljs-keyword">return</span> x &gt;= <span class="hljs-number">0</span> &amp;&amp; x &lt; rows &amp;&amp; y &gt;= <span class="hljs-number">0</span> &amp;&amp; y &lt; cols;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>回溯</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 11. 旋转数组的最小数字</title>
     <link href="/2021/05/10/LeetCode-offer-11-xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/"/>
     <url>/2021/05/10/LeetCode-offer-11-xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/</url>
@@ -3088,9 +3115,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>并查集</tag>
       
@@ -3281,9 +3308,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4023,9 +4050,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4052,11 +4079,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -4083,9 +4110,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4454,9 +4481,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4701,9 +4728,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5016,9 +5043,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5514,9 +5541,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>优先队列</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -6515,9 +6542,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -8709,9 +8736,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>优先队列</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -8792,9 +8819,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8821,9 +8848,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>二分</tag>
       
