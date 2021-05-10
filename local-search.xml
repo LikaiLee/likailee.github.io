@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 872. 叶子相似的树</title>
+    <link href="/2021/05/10/LeetCode-872-leaf-similar-trees/"/>
+    <url>/2021/05/10/LeetCode-872-leaf-similar-trees/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/leaf-similar-trees/" target="_blank" rel="noopener">872. 叶子相似的树</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">leafSimilar</span><span class="hljs-params">(TreeNode root1, TreeNode root2)</span> </span>&#123;    List&lt;Integer&gt; list1 = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    List&lt;Integer&gt; list2 = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    getLeaf(root1, list1);    getLeaf(root2, list2);    <span class="hljs-keyword">if</span> (list1.size() != list2.size()) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>, len = list1.size();    <span class="hljs-keyword">while</span> (i &lt; len) &#123;        <span class="hljs-keyword">if</span> (!list1.get(i).equals(list2.get(j))) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        &#125;        i++;        j++;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;&#125;<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getLeaf</span><span class="hljs-params">(TreeNode root, List&lt;Integer&gt; list)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span>;    &#125;    <span class="hljs-keyword">if</span> (root.left == <span class="hljs-keyword">null</span> &amp;&amp; root.right == <span class="hljs-keyword">null</span>) &#123;        list.add(root.val);        <span class="hljs-keyword">return</span>;    &#125;    getLeaf(root.left, list);    getLeaf(root.right, list);&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 5753. 有向图中最大颜色值</title>
     <link href="/2021/05/09/LeetCode-5753-largest-color-value-in-a-directed-graph/"/>
     <url>/2021/05/09/LeetCode-5753-largest-color-value-in-a-directed-graph/</url>
