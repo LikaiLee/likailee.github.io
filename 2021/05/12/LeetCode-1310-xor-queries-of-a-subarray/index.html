@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 44. 通配符匹配 - Likai Lee</title>
+  <title>LeetCode 1310. 子数组异或查询 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 44. 通配符匹配
+                LeetCode 1310. 子数组异或查询
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-09 19:28">
-      2020年9月9日 晚上
+    <time datetime="2021-05-12 18:18">
+      2021年5月12日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      163 字
+      75 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      1
        分钟
     </span>
   
@@ -207,40 +207,24 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月9日 晚上
+                  本文最后更新于：2021年5月12日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/wildcard-matching/" target="_blank" rel="noopener">44. 通配符匹配</a></p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isMatch</span><span class="hljs-params">(String s, String p)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> rows = p.length();
-    <span class="hljs-keyword">int</span> cols = s.length();
-    <span class="hljs-keyword">char</span>[] sChars = s.toCharArray();
-    <span class="hljs-keyword">char</span>[] pChars = p.toCharArray();
-    <span class="hljs-keyword">boolean</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[rows + <span class="hljs-number">1</span>][cols + <span class="hljs-number">1</span>];
-    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-keyword">true</span>;
-    <span class="hljs-comment">// 若以 '*' 开始，则 p 可以匹配 空串</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= rows; i++) &#123;
-        <span class="hljs-keyword">if</span> (pChars[i - <span class="hljs-number">1</span>] == <span class="hljs-string">'*'</span>) &#123;
-            dp[i][<span class="hljs-number">0</span>] = <span class="hljs-keyword">true</span>;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            <span class="hljs-keyword">break</span>;
+              <p><a href="https://leetcode-cn.com/problems/xor-queries-of-a-subarray/" target="_blank" rel="noopener">1310. 子数组异或查询</a></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] xorQueries(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span>[][] queries) &#123;
+        <span class="hljs-keyword">int</span> len = arr.length;
+        <span class="hljs-keyword">int</span>[] sums = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len + <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len; i++) &#123;
+            sums[i] = sums[i - <span class="hljs-number">1</span>] ^ arr[i - <span class="hljs-number">1</span>];
         &#125;
-    &#125;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= rows; i++) &#123;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= cols; j++) &#123;
-            <span class="hljs-comment">// 对应字符匹配 || p[j] == '?' 可匹配任意字符</span>
-            <span class="hljs-keyword">if</span> (sChars[j - <span class="hljs-number">1</span>] == pChars[i - <span class="hljs-number">1</span>] || pChars[i - <span class="hljs-number">1</span>] == <span class="hljs-string">'?'</span>) &#123;
-                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];
-            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pChars[i - <span class="hljs-number">1</span>] == <span class="hljs-string">'*'</span>) &#123;
-                <span class="hljs-comment">// '*' 可匹配任意长度</span>
-                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j] || dp[i][j - <span class="hljs-number">1</span>];
-            &#125;
+        <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[queries.length];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; queries.length; i++) &#123;
+            res[i] = sums[queries[i][<span class="hljs-number">0</span>]] ^ sums[queries[i][<span class="hljs-number">1</span>] + <span class="hljs-number">1</span>];
         &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> dp[rows][cols];
-&#125;</code></pre>
+        <span class="hljs-keyword">return</span> res;
+    &#125;</code></pre>
             </article>
             <hr>
             <div>
@@ -257,11 +241,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-                    
                       <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+                      <a class="hover-with-bg" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
                     
                   </div>
                 
@@ -274,18 +256,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/10/LeetCode-583-delete-operation-for-two-strings/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 583. 两个字符串的删除操作</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/09/LeetCode-10-regular-expression-matching/">
-                        <span class="hidden-mobile">LeetCode 10. 正则表达式匹配</span>
+                      <a href="/2021/05/11/LeetCode-1734-decode-xored-permutation/">
+                        <span class="hidden-mobile">LeetCode 1734. 解码异或后的排列</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
