@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>LeetCode 3. 无重复字符的最长子串 - Likai Lee</title>
+  <title>剑指 Offer 29. 顺时针打印矩阵 - Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                LeetCode 3. 无重复字符的最长子串
+                剑指 Offer 29. 顺时针打印矩阵
               
             </span>
 
@@ -154,8 +154,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-04 21:36">
-      2020年9月4日 晚上
+    <time datetime="2021-05-14 20:05">
+      2021年5月14日 晚上
     </time>
   </div>
 
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      302 字
+      195 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      3
        分钟
     </span>
   
@@ -207,37 +207,54 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月30日 晚上
+                  本文最后更新于：2021年5月14日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <p><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="noopener">3. 无重复字符的最长子串</a></p>
-<p>判断重复：使用 <code>map</code> 保存当前字符最后一次出现的位置，若重复，则根据该位置更新区间的起点。</p>
-<p>起点取 <code>max</code> 的原因：始终保证 <code>start</code> 不会左移，否则若 <code>start &lt; map[c]</code>时，直接赋值 <code>start = map[c]</code>，会导致左移，可能无法过滤重复值。</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(String s)</span> </span>&#123;
-    <span class="hljs-keyword">if</span> (s.length() == <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-    &#125;
-    <span class="hljs-comment">// value 表示字符 c 最后一次出现的位置</span>
-    Map&lt;Character, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
-    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
-    <span class="hljs-comment">// [start, end] 区间内的元素都是不重复的</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>, end = <span class="hljs-number">0</span>; end &lt; s.length(); end++) &#123;
-        <span class="hljs-keyword">char</span> c = s.charAt(end);
-        <span class="hljs-comment">// 若出现重复，则重新计算 start 位置</span>
-        <span class="hljs-keyword">if</span> (map.containsKey(c)) &#123;
-            <span class="hljs-comment">// 取 max 的原因：始终保证 start 不会左移，若左移可能无法过滤重复值</span>
-            <span class="hljs-comment">// e.g. ...a1...b1....a2...a3....b2... </span>
-            <span class="hljs-comment">// 当到达 b2，此时 start = a3, b = b1, 若不取 max, start = b1 + 1, 导致 a 重复</span>
-            start = Math.max(start, map.get(c) + <span class="hljs-number">1</span>);
+              <p><a href="https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/" target="_blank" rel="noopener">剑指 Offer 29. 顺时针打印矩阵</a></p>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-keyword">int</span> rows;
+    <span class="hljs-keyword">int</span> cols;
+    <span class="hljs-keyword">int</span> len;
+    <span class="hljs-keyword">boolean</span>[][] visited;
+    <span class="hljs-keyword">int</span>[][] moves = &#123;&#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;, &#123;-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>&#125;, &#123;<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;&#125;;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] spiralOrder(<span class="hljs-keyword">int</span>[][] matrix) &#123;
+        rows = matrix.length;
+        <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">0</span>];
         &#125;
-        <span class="hljs-comment">// 每次都会更新最大的区间</span>
-        res = Math.max(res, end - start + <span class="hljs-number">1</span>);
-        <span class="hljs-comment">// 更新 c 的最新位置，若下次出现重复的 c，则 start 从 map[c] + 1 开始计算</span>
-        map.put(c, end);
+        cols = matrix[<span class="hljs-number">0</span>].length;
+        <span class="hljs-keyword">if</span> (cols == <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">0</span>];
+        &#125;
+        visited = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[rows][cols];
+        len = rows * cols;
+        <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
+        dfs(matrix, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, res);
+        <span class="hljs-keyword">return</span> res;
     &#125;
-    <span class="hljs-keyword">return</span> res;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] matrix, <span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> dir, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span>[] res)</span> </span>&#123;
+        res[i] = matrix[x][y];
+        <span class="hljs-keyword">if</span> (i == len - <span class="hljs-number">1</span>) &#123;
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        visited[x][y] = <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">int</span> nx = x + moves[dir][<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">int</span> ny = y + moves[dir][<span class="hljs-number">1</span>];
+        <span class="hljs-keyword">while</span> (notInArea(nx, ny) || visited[nx][ny]) &#123;
+            dir = (dir + <span class="hljs-number">1</span>) % <span class="hljs-number">4</span>;
+            nx = x + moves[dir][<span class="hljs-number">0</span>];
+            ny = y + moves[dir][<span class="hljs-number">1</span>];
+        &#125;
+        dfs(matrix, nx, ny, dir, i + <span class="hljs-number">1</span>, res);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">notInArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> x &lt; <span class="hljs-number">0</span> || x &gt;= rows || y &lt; <span class="hljs-number">0</span> || y &gt;= cols;
+    &#125;
 &#125;</code></pre>
             </article>
             <hr>
@@ -255,11 +272,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
+                      <a class="hover-with-bg" href="/tags/DFS/">DFS</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
+                      <a class="hover-with-bg" href="/tags/%E5%89%91%E6%8C%87-Offer/">剑指 Offer</a>
                     
                   </div>
                 
@@ -272,18 +287,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/05/LeetCode-91-Decode-Ways/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 91. 解码方法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/04/LeetCode-300-longest-increasing-subsequence/">
-                        <span class="hidden-mobile">LeetCode 300. 最长上升子序列</span>
+                      <a href="/2021/05/14/LeetCode-offer-28-dui-cheng-de-er-cha-shu-lcof/">
+                        <span class="hidden-mobile">剑指 Offer 28. 对称的二叉树</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
