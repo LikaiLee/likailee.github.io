@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>剑指 Offer 27. 二叉树的镜像</title>
+    <link href="/2021/05/14/LeetCode-offer-27-er-cha-shu-de-jing-xiang-lcof/"/>
+    <url>/2021/05/14/LeetCode-offer-27-er-cha-shu-de-jing-xiang-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof/" target="_blank" rel="noopener">剑指 Offer 27. 二叉树的镜像</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">mirrorTree</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span> || (root.left == <span class="hljs-keyword">null</span> &amp;&amp; root.right == <span class="hljs-keyword">null</span>)) &#123;            <span class="hljs-keyword">return</span> root;        &#125;        TreeNode t = root.left;        root.left = root.right;        root.right = t;        mirrorTree(root.left);        mirrorTree(root.right);        <span class="hljs-keyword">return</span> root;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>树</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 26. 树的子结构</title>
     <link href="/2021/05/13/LeetCode-offer-26-shu-de-zi-jie-gou-lcof/"/>
     <url>/2021/05/13/LeetCode-offer-26-shu-de-zi-jie-gou-lcof/</url>
@@ -4318,9 +4345,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -4347,11 +4374,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -4378,9 +4405,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -9087,9 +9114,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -9116,9 +9143,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -9149,9 +9176,9 @@
       
       <tag>字符串</tag>
       
-      <tag>数学</tag>
-      
       <tag>栈</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -9234,9 +9261,9 @@
       
       <tag>字符串</tag>
       
-      <tag>数学</tag>
-      
       <tag>栈</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
