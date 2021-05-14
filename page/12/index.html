@@ -170,6 +170,104 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2021/01/13/LeetCode-401-binary-watch/">LeetCode 401. 二进制手表</a>
+
+      <a href="/2021/01/13/LeetCode-401-binary-watch/" class="index-excerpt">
+        
+        
+          
+        
+        <div>401. 二进制手表
+表可真好看！🤮
+public List&lt;String&gt; readBinaryWatch(int num) &#123;
+        int[] bits = &#123;1, 2, 4, 8, 16, 32&#125;;
+        Set&lt;String&gt; res = new HashSet&lt;&gt;();
+        for (i</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-01-13
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2021/01/13/LeetCode-371-sum-of-two-integers/">LeetCode 371. 两整数之和</a>
+
+      <a href="/2021/01/13/LeetCode-371-sum-of-two-integers/" class="index-excerpt">
+        
+        
+          
+        
+        <div>371. 两整数之和
+public int getSum(int a, int b) &#123;
+    // 无进位加法
+    int sum = a ^ b;
+    // 计算进位
+    int withCarry = (a &amp; b) &lt;&lt; 1;
+    while (withCarry != 0) &#123;
+        int t = sum ^ with</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-01-13
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2021/01/12/LeetCode-310-minimum-height-trees/">LeetCode 310. 最小高度树</a>
 
       <a href="/2021/01/12/LeetCode-310-minimum-height-trees/" class="index-excerpt">
@@ -542,101 +640,6 @@ public int[] decode(int[] encoded, int first) &#123;
               <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2021/01/10/LeetCode-228-summary-ranges/">LeetCode 228. 汇总区间</a>
-
-      <a href="/2021/01/10/LeetCode-228-summary-ranges/" class="index-excerpt">
-        
-        
-          
-        
-        <div>228. 汇总区间
-public List&lt;String&gt; summaryRanges(int[] nums) &#123;
-    List&lt;String&gt; res = new ArrayList&lt;&gt;();
-    int len = nums.length;
-    int start = 0;
-    for (int i = 1; i &lt;= len</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-01-10
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2021/01/08/LeetCode-203-remove-linked-list-elements/">LeetCode 203. 移除链表元素</a>
-
-      <a href="/2021/01/08/LeetCode-203-remove-linked-list-elements/" class="index-excerpt">
-        
-        
-          
-        
-        <div>203. 移除链表元素
-public ListNode removeElements(ListNode head, int val) &#123;
-    ListNode dummy = new ListNode(-1);
-    dummy.next = head;
-    ListNode tail = dummy;
-    while (head != null) &#123;
-     </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-01-08
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
             
           </div>
         

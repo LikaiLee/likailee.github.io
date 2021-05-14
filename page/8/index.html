@@ -170,6 +170,102 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2021/03/01/LeetCode-303-range-sum-query-immutable/">LeetCode 303. 区域和检索 - 数组不可变</a>
+
+      <a href="/2021/03/01/LeetCode-303-range-sum-query-immutable/" class="index-excerpt">
+        
+        
+          
+        
+        <div>303. 区域和检索 - 数组不可变
+class NumArray &#123;
+    private final int[] sums;
+
+    public NumArray(int[] nums) &#123;
+        int len = nums.length;
+        sums = new int[len + 1];
+        for (int i = 1; i</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-03-01
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2021/02/28/LeetCode-896-monotonic-array/">LeetCode 896. 单调数列</a>
+
+      <a href="/2021/02/28/LeetCode-896-monotonic-array/" class="index-excerpt">
+        
+        
+          
+        
+        <div>896. 单调数列
+public boolean isMonotonic(int[] A) &#123;
+    int len = A.length;
+    if (len &lt; 2) &#123;
+        return true;
+    &#125;
+    int dir = A[1] - A[0];
+    for (int i = 2; i &lt; len; i++) </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-02-28
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2021/02/27/LeetCode-395-longest-substring-with-at-least-k-repeating-characters/">LeetCode 395. 至少有K个重复字符的最长子串</a>
 
       <a href="/2021/02/27/LeetCode-395-longest-substring-with-at-least-k-repeating-characters/" class="index-excerpt">
@@ -524,93 +620,6 @@ public int[][] matrixReshape(int[][] nums, int r, int c) &#123;
               <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
             
           </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2021/02/16/LeetCode-561-array-partition-i/">LeetCode 561. 数组拆分 I</a>
-
-      <a href="/2021/02/16/LeetCode-561-array-partition-i/" class="index-excerpt">
-        
-        
-          
-        
-        <div>561. 数组拆分 I
-public int arrayPairSum(int[] nums) &#123;
-    int len = nums.length;
-    Arrays.sort(nums);
-    int sum = 0;
-    for (int i = 0; i &lt; len; i += 2) &#123;
-        sum += nums[i];
-    &#1</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-02-16
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2021/02/14/LeetCode-765-couples-holding-hands/">LeetCode 765. 情侣牵手</a>
-
-      <a href="/2021/02/14/LeetCode-765-couples-holding-hands/" class="index-excerpt">
-        
-        
-          
-        
-        <div>765. 情侣牵手
-public int minSwapsCouples(int[] row) &#123;
-        int len = row.length;
-        // 总的情侣对数
-        // 每一对情侣看成并查集里的一个节点
-        int n = len / 2;
-        UnionFind uf = new UnionFind(n);
-   </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-02-14
-          </div>
-        
         
         
           <div class="post-meta">

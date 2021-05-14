@@ -170,6 +170,105 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/11/17/LeetCode-617-merge-two-binary-trees/">LeetCode 617. 合并二叉树</a>
+
+      <a href="/2020/11/17/LeetCode-617-merge-two-binary-trees/" class="index-excerpt">
+        
+        
+          
+        
+        <div>617. 合并二叉树
+public TreeNode mergeTrees(TreeNode t1, TreeNode t2) &#123;
+    if (t1 == null) &#123;
+        return t2;
+    &#125;
+    if (t2 == null) &#123;
+        return t1;
+    &#125;
+    // t1, t2 都</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-11-17
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E6%A0%91/">树</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/11/17/LeetCode-647-palindromic-substrings/">LeetCode 647. 回文子串</a>
+
+      <a href="/2020/11/17/LeetCode-647-palindromic-substrings/" class="index-excerpt">
+        
+        
+          
+        
+        <div>647. 回文子串
+public int countSubstrings(String s) &#123;
+    char[] str = s.toCharArray();
+    int len = str.length;
+    boolean[][] dp = new boolean[len][len];
+    int count = 0;
+    // 按列填 dp table
+   </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-11-17
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/11/17/LeetCode-1030-matrix-cells-in-distance-order/">LeetCode 1030. 距离顺序排列矩阵单元格</a>
 
       <a href="/2020/11/17/LeetCode-1030-matrix-cells-in-distance-order/" class="index-excerpt">
@@ -547,103 +646,6 @@ public int[] sortArrayByParityII(int[] A) &#123;
               <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/11/12/LeetCode-905-sort-array-by-parity/">LeetCode 905. 按奇偶排序数组</a>
-
-      <a href="/2020/11/12/LeetCode-905-sort-array-by-parity/" class="index-excerpt">
-        
-        
-          
-        
-        <div>905. 按奇偶排序数组
-public int[] sortArrayByParity(int[] A) &#123;
-    int i = 0, j = A.length - 1;
-    while (i &lt; j) &#123;
-        while (i &lt; j &amp;&amp; A[i] % 2 == 0) &#123;
-            i++;
-     </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-11-12
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/11/11/LeetCode-60-permutation-sequence/">LeetCode 60. 排列序列</a>
-
-      <a href="/2020/11/11/LeetCode-60-permutation-sequence/" class="index-excerpt">
-        
-        
-          
-        
-        <div>60. 排列序列
-public String getPermutation(int n, int k) &#123;
-    boolean[] used = new boolean[n + 1];
-    int[] factorial = calcFact(n);
-    StringBuilder path = new StringBuilder();
-    dfs(0, k, n, us</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-11-11
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
-            
-              <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
             
           </div>
         
