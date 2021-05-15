@@ -170,6 +170,113 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/10/26/LeetCode-622-design-circular-queue/">LeetCode 622. 设计循环队列</a>
+
+      <a href="/2020/10/26/LeetCode-622-design-circular-queue/" class="index-excerpt">
+        
+        
+          
+        
+        <div>622. 设计循环队列
+class MyCircularQueue &#123;
+    private int capacity;
+    /**
+     * 指向队头存储元素的位置
+     */
+    private int front;
+    /**
+     * 指向队尾存储元素的下一个位置
+     */
+    private int rear;
+    private int</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-10-26
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E9%98%9F%E5%88%97/">队列</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/10/26/LeetCode-621-task-scheduler/">LeetCode 621. 任务调度器</a>
+
+      <a href="/2020/10/26/LeetCode-621-task-scheduler/" class="index-excerpt">
+        
+        
+          
+        
+        <div>621. 任务调度器
+ 排序
+public int leastInterval(char[] tasks, int n) &#123;
+    int[] counts = new int[26];
+    // 统计每个任务的数量
+    for (char task : tasks) &#123;
+        counts[task - 'A']++;
+    &#125;
+    // </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-10-26
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+            
+              <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+            
+              <a href="/tags/%E9%98%9F%E5%88%97/">队列</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/10/26/LeetCode-1365-how-many-numbers-are-smaller-than-the-current-number/">LeetCode 1365. 有多少小于当前数字的数字</a>
 
       <a href="/2020/10/26/LeetCode-1365-how-many-numbers-are-smaller-than-the-current-number/" class="index-excerpt">
@@ -563,110 +670,11 @@ public List&lt;Integer&gt; partitionLabels(String S) &#123;
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/10/21/LeetCode-925-long-pressed-name/">LeetCode 925. 长按键入</a>
-
-      <a href="/2020/10/21/LeetCode-925-long-pressed-name/" class="index-excerpt">
-        
-        
-          
-        
-        <div>925. 长按键入
-public boolean isLongPressedName(String name, String typed) &#123;
-    char[] names = name.toCharArray();
-    char[] types = typed.toCharArray();
-    int len1 = names.length;
-    int len2 = </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-10-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/10/20/LeetCode-901-online-stock-span/">LeetCode 901. 股票价格跨度</a>
-
-      <a href="/2020/10/20/LeetCode-901-online-stock-span/" class="index-excerpt">
-        
-        
-          
-        
-        <div>901. 股票价格跨度
-class StockSpanner &#123;
-    ArrayDeque&lt;Integer&gt; stack;
-    ArrayDeque&lt;Integer&gt; weights;
-    public StockSpanner() &#123;
-        // 同步保存 price 之前有多少个比 price 小
-        weights</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-10-20
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-              <a href="/tags/%E6%A0%88/">栈</a>
-            
-              <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/">单调栈</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/25/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" href="/page/27/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/25/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/27/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

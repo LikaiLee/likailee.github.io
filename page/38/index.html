@@ -170,6 +170,101 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/31/LeetCode-771-jewels-and-stones/">LeetCode 771. 宝石与石头</a>
+
+      <a href="/2020/08/31/LeetCode-771-jewels-and-stones/" class="index-excerpt">
+        
+        
+          
+        
+        <div>771. 宝石与石头
+public int numJewelsInStones(String J, String S) &#123;
+    int count = 0;
+    char[] js = J.toCharArray();
+    char[] ss = S.toCharArray();
+    Set&lt;Character&gt; set = new HashSet&lt;&g</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-31
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/31/LeetCode-58-length-of-last-word/">LeetCode 58. 最后一个单词的长度</a>
+
+      <a href="/2020/08/31/LeetCode-58-length-of-last-word/" class="index-excerpt">
+        
+        
+          
+        
+        <div>58. 最后一个单词的长度
+需要注意最后一个字符为空的情况。
+public int lengthOfLastWord(String s) &#123;
+    int end = s.length() - 1;
+    // 找到末尾不为空的字符位置
+    while (end &gt;= 0 &amp;&amp; s.charAt(end) == ' ') &#123;
+        end</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-31
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/31/LeetCode-709-to-lower-case/">LeetCode 709. 转换成小写字母</a>
 
       <a href="/2020/08/31/LeetCode-709-to-lower-case/" class="index-excerpt">
@@ -202,9 +297,9 @@ public String toLowerCase(String str) &#123;
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
             
           </div>
         
@@ -597,110 +692,11 @@ n &amp; (n - 1)
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/27/LeetCode-191-number-of-1-bits/">LeetCode 191. 位1的个数</a>
-
-      <a href="/2020/08/27/LeetCode-191-number-of-1-bits/" class="index-excerpt">
-        
-        
-          
-        
-        <div>191. 位1的个数
- 解法一
-任何数字 &amp; 1 都会获得这个数字的最低位，因此只要 mask 左移就能获取每个数字的最低位。
-public int hammingWeight(int n) &#123;
-    int count = 0;
-    int mask = 1;
-    // 32 位整数
-    for (int i = 0; i &lt; 32; i++) &#123;</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-27
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/27/LeetCode-773-sliding-puzzle/">LeetCode 773. 滑动谜题</a>
-
-      <a href="/2020/08/27/LeetCode-773-sliding-puzzle/" class="index-excerpt">
-        
-        
-          
-        
-        <div>773. 滑动谜题
- 解法一
-需要注意棋盘的深拷贝。
-class Solution &#123;
-    public int slidingPuzzle(int[][] board) &#123;
-        int rows = board.length;
-        int cols = board[0].length;
-        Node start = null;
-    </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-27
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/BFS/">BFS</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/37/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" href="/page/39/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/37/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/39/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
