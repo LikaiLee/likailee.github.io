@@ -170,6 +170,54 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/17/LeetCode-74-search-a-2d-matrix/">LeetCode 74. 搜索二维矩阵</a>
+
+      <a href="/2020/08/17/LeetCode-74-search-a-2d-matrix/" class="index-excerpt">
+        
+        
+          
+        
+        <div>74. 搜索二维矩阵
+一开始用 i = mid / rows 计算行数，导致位置计算不正确。
+public boolean searchMatrix(int[][] matrix, int target) &#123;
+        int rows = matrix.length;
+        if (rows == 0) &#123;
+            return false;
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-17
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/17/LeetCode-33-search-in-rotated-sorted-array/">LeetCode 33. 搜索旋转排序数组</a>
 
       <a href="/2020/08/17/LeetCode-33-search-in-rotated-sorted-array/" class="index-excerpt">
@@ -605,63 +653,6 @@ public boolean lemonadeChange(int[] bills) &#123;
               <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/11/LeetCode-529-minesweeper/">LeetCode 529. 扫雷游戏</a>
-
-      <a href="/2020/08/11/LeetCode-529-minesweeper/" class="index-excerpt">
-        
-        
-          
-        
-        <div>529. 扫雷游戏
- DFS
-
-找周围的雷和进入下一层递归都是在 八个方向 游走。
-
-典型的 DFS。
-若 click 位置为 M，标记返回，否则进入递归。
-需要注意的是新的位置不能越界，且未被标记过。
-
-若周围有雷，遍历周围的八个位置，找到雷的数量，标记后返回
-若周围没有雷，标记为 B，遍历周围八个位置，进入递归。
-
-int[][] dirs = &#123;
-            // 上：</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-11
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/BFS/">BFS</a>
-            
-              <a href="/tags/DFS/">DFS</a>
             
           </div>
         
