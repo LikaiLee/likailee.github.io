@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>剑指 Offer 32 - II. 从上到下打印二叉树 II</title>
+    <link href="/2021/05/17/LeetCode-offer-32-2-cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/"/>
+    <url>/2021/05/17/LeetCode-offer-32-2-cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/" target="_blank" rel="noopener">剑指 Offer 32 - II. 从上到下打印二叉树 II</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;        List&lt;List&lt;Integer&gt;&gt; nodes = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();        Deque&lt;TreeNode&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        <span class="hljs-keyword">if</span> (root != <span class="hljs-keyword">null</span>) &#123;            queue.offer(root);        &#125;        <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;            <span class="hljs-keyword">int</span> size = queue.size();            List&lt;Integer&gt; level = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(size);            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++) &#123;                TreeNode cur = queue.poll();                level.add(cur.val);                <span class="hljs-keyword">if</span> (cur.left != <span class="hljs-keyword">null</span>) &#123;                    queue.offer(cur.left);                &#125;                <span class="hljs-keyword">if</span> (cur.right != <span class="hljs-keyword">null</span>) &#123;                    queue.offer(cur.right);                &#125;            &#125;            nodes.add(level);        &#125;        <span class="hljs-keyword">return</span> nodes;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>树</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 32 - I. 从上到下打印二叉树</title>
     <link href="/2021/05/17/LeetCode-offer-32-1-cong-shang-dao-xia-da-yin-er-cha-shu-lcof/"/>
     <url>/2021/05/17/LeetCode-offer-32-1-cong-shang-dao-xia-da-yin-er-cha-shu-lcof/</url>
@@ -3545,9 +3572,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>排序</tag>
+      
+      <tag>贪心</tag>
       
       <tag>并查集</tag>
       
@@ -3738,9 +3765,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>排序</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -4911,9 +4938,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>排序</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -5158,9 +5185,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>排序</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -5332,9 +5359,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
       <tag>排序</tag>
       
@@ -5473,9 +5500,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>排序</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -6207,9 +6234,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -6265,9 +6292,9 @@
       
       <tag>树</tag>
       
-      <tag>递归</tag>
-      
       <tag>分治</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -6972,9 +6999,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>排序</tag>
+      
+      <tag>贪心</tag>
       
       <tag>队列</tag>
       
@@ -7399,9 +7426,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -8225,9 +8252,9 @@
       
       <tag>动态规划</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -9717,9 +9744,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
       <tag>单调栈</tag>
       
@@ -10123,9 +10150,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
