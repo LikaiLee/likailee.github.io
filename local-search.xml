@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>剑指 Offer 35. 复杂链表的复制</title>
+    <link href="/2021/05/17/LeetCode-offer-35-fu-za-lian-biao-de-fu-zhi-lcof/"/>
+    <url>/2021/05/17/LeetCode-offer-35-fu-za-lian-biao-de-fu-zhi-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/" target="_blank" rel="noopener">剑指 Offer 35. 复杂链表的复制</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> Node <span class="hljs-title">copyRandomList</span><span class="hljs-params">(Node head)</span> </span>&#123;    <span class="hljs-keyword">if</span> (head == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;    &#125;    <span class="hljs-comment">// a -&gt; a1 -&gt; b -&gt; b1 -&gt; c -&gt; c1</span>    <span class="hljs-comment">// 拷贝 next</span>    Node cur = head;    <span class="hljs-keyword">while</span> (cur != <span class="hljs-keyword">null</span>) &#123;        Node next = cur.next;        <span class="hljs-comment">// 复制 cur：</span>        Node copy = <span class="hljs-keyword">new</span> Node(cur.val);        <span class="hljs-comment">// 在 a, b 之间插入 a 的复制节点</span>        cur.next = copy;        copy.next = next;        cur = next;    &#125;    cur = head;    <span class="hljs-comment">// 设置 random</span>    <span class="hljs-keyword">while</span> (cur != <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">if</span> (cur.random != <span class="hljs-keyword">null</span>) &#123;            <span class="hljs-comment">// a1 的 random = a 的 random 的拷贝，即 a.random.next</span>            cur.next.random = cur.random.next;        &#125;        cur = cur.next.next;    &#125;    <span class="hljs-comment">// 拆分链表</span>    cur = head;    Node newHead = cur.next;    Node tail = newHead;    <span class="hljs-comment">// cur -&gt; tail -&gt; null</span>    <span class="hljs-keyword">while</span> (tail.next != <span class="hljs-keyword">null</span>) &#123;        cur.next = cur.next.next;        cur = cur.next;        tail.next = tail.next.next;        tail = tail.next;    &#125;    <span class="hljs-comment">// 原链表的尾节点置空</span>    cur.next = <span class="hljs-keyword">null</span>;    <span class="hljs-keyword">return</span> newHead;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>链表</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 34. 二叉树中和为某一值的路径</title>
     <link href="/2021/05/17/LeetCode-offer-34-er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/"/>
     <url>/2021/05/17/LeetCode-offer-34-er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/</url>
