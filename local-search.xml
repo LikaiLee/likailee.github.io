@@ -4,6 +4,62 @@
   
   
   <entry>
+    <title>剑指 Offer 36. 二叉搜索树与双向链表</title>
+    <link href="/2021/05/18/LeetCode-offer-36-er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/"/>
+    <url>/2021/05/18/LeetCode-offer-36-er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/" target="_blank" rel="noopener">剑指 Offer 36. 二叉搜索树与双向链表</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> Node <span class="hljs-title">treeToDoublyList</span><span class="hljs-params">(Node root)</span> </span>&#123;        <span class="hljs-comment">// List&lt;Node&gt; nodes = new ArrayList&lt;&gt;();</span>        Node head = <span class="hljs-keyword">null</span>;        Node tail = <span class="hljs-keyword">null</span>;        Deque&lt;Node&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        <span class="hljs-keyword">while</span> (root != <span class="hljs-keyword">null</span> || !stack.isEmpty()) &#123;            <span class="hljs-keyword">while</span> (root != <span class="hljs-keyword">null</span>) &#123;                stack.push(root);                root = root.left;            &#125;            Node cur = stack.pop();            <span class="hljs-keyword">if</span> (head == <span class="hljs-keyword">null</span>) &#123;                head = cur;                tail = head;            &#125; <span class="hljs-keyword">else</span> &#123;                <span class="hljs-comment">// tail &lt;-&gt; cur</span>                cur.left = tail;                tail.right = cur;                tail = cur;            &#125;            root = cur.right;        &#125;        <span class="hljs-keyword">if</span> (head != <span class="hljs-keyword">null</span>) &#123;            head.left = tail;            tail.right = head;        &#125;        <span class="hljs-keyword">return</span> head;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>树</tag>
+      
+      <tag>链表</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>LeetCode 1442. 形成两个异或相等数组的三元组数目</title>
+    <link href="/2021/05/18/LeetCode-1442-count-triplets-that-can-form-two-arrays-of-equal-xor/"/>
+    <url>/2021/05/18/LeetCode-1442-count-triplets-that-can-form-two-arrays-of-equal-xor/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/" target="_blank" rel="noopener">1442. 形成两个异或相等数组的三元组数目</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">countTriplets</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr)</span> </span>&#123;    <span class="hljs-keyword">int</span> len = arr.length;    <span class="hljs-keyword">int</span>[] xor = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len + <span class="hljs-number">1</span>];    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len; i++) &#123;        xor[i] = xor[i - <span class="hljs-number">1</span>] ^ arr[i - <span class="hljs-number">1</span>];    &#125;    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;    <span class="hljs-comment">// a = arr[i] ^ arr[i + 1] ^ ... ^ arr[j - 1]</span>    <span class="hljs-comment">// b = arr[j] ^ arr[j + 1] ^ ... ^ arr[k]</span>    <span class="hljs-comment">// a == b =&gt; a ^ b == 0 =&gt; xor[k] - xor[i - 1] = 0</span>    <span class="hljs-comment">// i 到 k 的异或 = 0，则 j 可以取 i...k 中的任意位置</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; len; k++) &#123;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; k; i++) &#123;            <span class="hljs-keyword">if</span> (xor[k + <span class="hljs-number">1</span>] - xor[i] == <span class="hljs-number">0</span>) &#123;                res += k - i;            &#125;        &#125;    &#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>位运算</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 35. 复杂链表的复制</title>
     <link href="/2021/05/17/LeetCode-offer-35-fu-za-lian-biao-de-fu-zhi-lcof/"/>
     <url>/2021/05/17/LeetCode-offer-35-fu-za-lian-biao-de-fu-zhi-lcof/</url>
@@ -1646,9 +1702,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -3902,11 +3958,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -4238,9 +4294,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -4356,9 +4412,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>数学</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -4441,9 +4497,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -4930,9 +4986,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -5183,9 +5239,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -5467,9 +5523,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
       <tag>排序</tag>
       
@@ -6106,9 +6162,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>优先队列</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -6247,11 +6303,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>树</tag>
+      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
-      
-      <tag>树</tag>
       
     </tags>
     
@@ -6278,9 +6334,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -6309,9 +6365,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>分治</tag>
       
@@ -6429,9 +6485,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -6771,9 +6827,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -6802,9 +6858,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
       <tag>回溯</tag>
       
@@ -7389,9 +7445,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -7534,9 +7590,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -8049,9 +8105,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>DFS</tag>
-      
       <tag>树</tag>
+      
+      <tag>DFS</tag>
       
     </tags>
     
@@ -8358,11 +8414,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>栈</tag>
+      
       <tag>动态规划</tag>
       
       <tag>双指针</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -9301,9 +9357,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>优先队列</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -9444,9 +9500,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>数学</tag>
       
@@ -9529,9 +9585,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>数学</tag>
       
@@ -9821,9 +9877,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -9852,9 +9908,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
       <tag>单调栈</tag>
       
@@ -9943,11 +9999,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>栈</tag>
+      
       <tag>字符串</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -10256,11 +10312,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>栈</tag>
+      
       <tag>字符串</tag>
       
       <tag>双指针</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -10316,9 +10372,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>队列</tag>
       
