@@ -170,6 +170,57 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/21/LeetCode-198-house-robber/">LeetCode 198. 打家劫舍</a>
+
+      <a href="/2020/08/21/LeetCode-198-house-robber/" class="index-excerpt">
+        
+        
+          
+        
+        <div>198. 打家劫舍
+状态：dp[i] 第 i 个数结尾的最大子序列和
+转移：
+
+不偷 nums[i], dp[i] = dp[i - 1]
+偷 nums[i - 2], dp[i] = dp[i - 2] + nums[i - 1]
+
+public int rob(int[] nums) &#123;
+    int len = nums.length;
+    if (len == 0) &#1</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-21
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/08/21/LeetCode-152-maximum-product-subarray/">LeetCode 152. 乘积最大子数组</a>
 
       <a href="/2020/08/21/LeetCode-152-maximum-product-subarray/" class="index-excerpt">
@@ -619,56 +670,6 @@ public int findMin(int[] nums) &#123;
         int left = 0;
         int right = nums.length - 1;
       </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-08-17
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/08/17/LeetCode-153-find-minimum-in-rotated-sorted-array/">LeetCode 153. 寻找旋转排序数组中的最小值</a>
-
-      <a href="/2020/08/17/LeetCode-153-find-minimum-in-rotated-sorted-array/" class="index-excerpt">
-        
-        
-          
-        
-        <div>153. 寻找旋转排序数组中的最小值
-第一次通过的代码：
-public int findMin(int[] nums) &#123;
-    if (nums.length == 0) &#123;
-        return -1;
-    &#125;
-    int min = Integer.MAX_VALUE;
-    int left = 0;
-    int right = num</div>
       </a>
 
       <div class="index-btm post-metas">

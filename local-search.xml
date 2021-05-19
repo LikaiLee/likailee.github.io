@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>剑指 Offer 45. 把数组排成最小的数</title>
+    <link href="/2021/05/19/LeetCode-offer-45-ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/"/>
+    <url>/2021/05/19/LeetCode-offer-45-ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/" target="_blank" rel="noopener">剑指 Offer 45. 把数组排成最小的数</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">minNumber</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;        <span class="hljs-comment">// 3'30 &gt; 30'3 =&gt; 30 3</span>        <span class="hljs-keyword">int</span> len = nums.length;        String[] str = <span class="hljs-keyword">new</span> String[len];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;            str[i] = String.valueOf(nums[i]);        &#125;        <span class="hljs-comment">// Arrays.sort(str, (o1, o2) -&gt; (o1 + o2).compareTo(o2 + o1));</span>        quickSort(str, <span class="hljs-number">0</span>, len - <span class="hljs-number">1</span>);        StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();        <span class="hljs-keyword">for</span> (String s : str) &#123;            sb.append(s);        &#125;        <span class="hljs-keyword">return</span> sb.toString();    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">quickSort</span><span class="hljs-params">(String[] str, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;        <span class="hljs-keyword">if</span> (low &gt;= high) &#123;            <span class="hljs-keyword">return</span>;        &#125;        <span class="hljs-keyword">int</span> pivotPos = partition(str, low, high);        quickSort(str, low, pivotPos - <span class="hljs-number">1</span>);        quickSort(str, pivotPos + <span class="hljs-number">1</span>, high);    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">partition</span><span class="hljs-params">(String[] str, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;        String pivot = str[low];        <span class="hljs-keyword">while</span> (low &lt; high) &#123;            <span class="hljs-keyword">while</span> (low &lt; high &amp;&amp; lessEqThan(pivot, str[high])) &#123;                high--;            &#125;            str[low] = str[high];            <span class="hljs-keyword">while</span> (low &lt; high &amp;&amp; lessEqThan(str[low], pivot)) &#123;                low++;            &#125;            str[high] = str[low];        &#125;        str[low] = pivot;        <span class="hljs-keyword">return</span> low;    &#125;    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">lessEqThan</span><span class="hljs-params">(String x, String y)</span> </span>&#123;        <span class="hljs-comment">// 30'3 &lt; 3'30 =&gt; 30 3</span>        <span class="hljs-comment">// x + y &lt; y + x 不交换</span>        <span class="hljs-keyword">return</span> (x + y).compareTo(y + x) &lt;= <span class="hljs-number">0</span>;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>排序</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 41. 数据流中的中位数</title>
     <link href="/2021/05/19/LeetCode-offer-41-shu-ju-liu-zhong-de-zhong-wei-shu-lcof/"/>
     <url>/2021/05/19/LeetCode-offer-41-shu-ju-liu-zhong-de-zhong-wei-shu-lcof/</url>
@@ -51,9 +78,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>优先队列</tag>
-      
       <tag>位运算</tag>
+      
+      <tag>优先队列</tag>
       
     </tags>
     
@@ -4524,9 +4551,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>数学</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -5635,9 +5662,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
       <tag>排序</tag>
       
@@ -7702,9 +7729,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -8528,9 +8555,9 @@
       
       <tag>动态规划</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -9614,9 +9641,9 @@
       
       <tag>字符串</tag>
       
-      <tag>栈</tag>
-      
       <tag>数学</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -9699,9 +9726,9 @@
       
       <tag>字符串</tag>
       
-      <tag>栈</tag>
-      
       <tag>数学</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -10020,9 +10047,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
       <tag>单调栈</tag>
       
@@ -10426,9 +10453,9 @@
       
       <tag>字符串</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
