@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>剑指 Offer 41. 数据流中的中位数</title>
+    <link href="/2021/05/19/LeetCode-offer-41-shu-ju-liu-zhong-de-zhong-wei-shu-lcof/"/>
+    <url>/2021/05/19/LeetCode-offer-41-shu-ju-liu-zhong-de-zhong-wei-shu-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/shu-ju-liu-zhong-de-zhong-wei-shu-lcof/" target="_blank" rel="noopener">剑指 Offer 41. 数据流中的中位数</a></p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MedianFinder</span> </span>&#123;    <span class="hljs-keyword">private</span> PriorityQueue&lt;Integer&gt; maxHeap;    <span class="hljs-keyword">private</span> PriorityQueue&lt;Integer&gt; minHeap;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * initialize your data structure here.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MedianFinder</span><span class="hljs-params">()</span> </span>&#123;        maxHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; o2 - o1);        minHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;();    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;        <span class="hljs-comment">// 两个堆大小相等，已经有偶数个元素，需要选小的元素加入大顶堆</span>        <span class="hljs-keyword">if</span> (maxHeap.size() == minHeap.size()) &#123;            minHeap.offer(num);            maxHeap.offer(minHeap.poll());        &#125;        <span class="hljs-comment">// 大小不等，已经有奇数个元素</span>        <span class="hljs-keyword">else</span> &#123;            maxHeap.offer(num);            minHeap.offer(maxHeap.poll());        &#125;    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMedian</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">if</span> (maxHeap.size() == minHeap.size()) &#123;            <span class="hljs-keyword">return</span> (maxHeap.peek() + minHeap.peek()) / <span class="hljs-number">2.0</span>;        &#125;        <span class="hljs-keyword">return</span> maxHeap.peek();    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>堆</tag>
+      
+      <tag>优先队列</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1738. 找出第 K 大的异或坐标值</title>
     <link href="/2021/05/19/LeetCode-1738-find-kth-largest-xor-coordinate-value/"/>
     <url>/2021/05/19/LeetCode-1738-find-kth-largest-xor-coordinate-value/</url>
@@ -21,6 +50,8 @@
     <tags>
       
       <tag>LeetCode</tag>
+      
+      <tag>优先队列</tag>
       
       <tag>位运算</tag>
       
@@ -4493,9 +4524,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>数学</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -5009,9 +5040,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -9583,9 +9614,9 @@
       
       <tag>字符串</tag>
       
-      <tag>栈</tag>
-      
       <tag>数学</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -9668,9 +9699,9 @@
       
       <tag>字符串</tag>
       
-      <tag>栈</tag>
-      
       <tag>数学</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -9697,9 +9728,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -10051,9 +10082,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -10335,9 +10366,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
       
       <tag>排序</tag>
       
