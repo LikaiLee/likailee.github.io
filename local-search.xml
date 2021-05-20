@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 692. 前 K 个高频单词</title>
+    <link href="/2021/05/20/LeetCode-692-top-k-frequent-words/"/>
+    <url>/2021/05/20/LeetCode-692-top-k-frequent-words/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/top-k-frequent-words/" target="_blank" rel="noopener">692. 前 K 个高频单词</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">topKFrequent</span><span class="hljs-params">(String[] words, <span class="hljs-keyword">int</span> k)</span> </span>&#123;        Map&lt;String, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();        PriorityQueue&lt;Map.Entry&lt;String, Integer&gt;&gt; maxHeap = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; &#123;            <span class="hljs-keyword">int</span> c1 = o1.getValue();            <span class="hljs-keyword">int</span> c2 = o2.getValue();            <span class="hljs-keyword">if</span> (c1 == c2) &#123;                <span class="hljs-comment">// 出现次数相同，按字母顺序排序</span>                <span class="hljs-keyword">return</span> o1.getKey().compareTo(o2.getKey());            &#125; <span class="hljs-keyword">else</span> &#123;                <span class="hljs-keyword">return</span> c2 - c1;            &#125;        &#125;);        <span class="hljs-keyword">for</span> (String word : words) &#123;            <span class="hljs-keyword">int</span> count = map.getOrDefault(word, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>;            map.put(word, count);        &#125;        <span class="hljs-keyword">for</span> (Map.Entry&lt;String, Integer&gt; e : map.entrySet()) &#123;            maxHeap.offer(e);        &#125;        List&lt;String&gt; res = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; k; i++) &#123;            res.add(maxHeap.poll().getKey());        &#125;        <span class="hljs-keyword">return</span> res;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>优先队列</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 48. 最长不含重复字符的子字符串</title>
     <link href="/2021/05/19/LeetCode-offer-48-zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/"/>
     <url>/2021/05/19/LeetCode-offer-48-zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/</url>
@@ -20,11 +47,11 @@
     
     <tags>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>剑指 Offer</tag>
       
@@ -1413,11 +1440,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3960,9 +3987,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>并查集</tag>
       
@@ -4153,9 +4180,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -4182,11 +4209,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -4518,9 +4545,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -4547,9 +4574,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -4721,9 +4748,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -4895,9 +4922,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -4924,11 +4951,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -4955,9 +4982,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -5210,9 +5237,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -5326,9 +5353,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5573,9 +5600,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5633,9 +5660,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -5888,9 +5915,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -6527,11 +6554,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -6558,9 +6585,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -6589,9 +6616,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>分治</tag>
       
@@ -6709,9 +6736,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -6850,9 +6877,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -6881,11 +6908,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -7051,9 +7078,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -7082,9 +7109,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
       <tag>回溯</tag>
       
@@ -7387,9 +7414,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -8329,9 +8356,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>树</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>树</tag>
       
     </tags>
     
@@ -9637,9 +9664,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -9666,9 +9693,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -10016,9 +10043,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -10045,9 +10072,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -10312,9 +10339,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -11432,9 +11459,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
