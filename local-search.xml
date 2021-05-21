@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>剑指 Offer 56 - I. 数组中数字出现的次数</title>
+    <link href="/2021/05/21/LeetCode-offer-56-1-shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/"/>
+    <url>/2021/05/21/LeetCode-offer-56-1-shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/" target="_blank" rel="noopener">剑指 Offer 56 - I. 数组中数字出现的次数</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] singleNumbers(<span class="hljs-keyword">int</span>[] nums) &#123;    <span class="hljs-keyword">int</span> xor = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;        xor ^= num;    &#125;    <span class="hljs-comment">// 两个不同的数至少有一位不同，</span>    <span class="hljs-comment">// 1111 ^ 1001 = 0110，结果为 1 的位表示该位置上 a, b 不同</span>    <span class="hljs-comment">// 按不同的位将所有的数分成两组，相同的数会分在同一组内，而 a, b 会分在不同的组</span>    <span class="hljs-comment">// 每组组内异或后结果就是 a, b</span>    <span class="hljs-keyword">int</span> mask = <span class="hljs-number">1</span>;    <span class="hljs-comment">// 找到 xor 中为 1 的位</span>    <span class="hljs-keyword">while</span> ((xor &amp; mask) == <span class="hljs-number">0</span>) &#123;        mask &lt;&lt;= <span class="hljs-number">1</span>;    &#125;    <span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> b = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;        <span class="hljs-keyword">if</span> ((num &amp; mask) == <span class="hljs-number">0</span>) &#123;            a ^= num;        &#125; <span class="hljs-keyword">else</span> &#123;            b ^= num;        &#125;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;a, b&#125;;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>位运算</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>LeetCode 260. 只出现一次的数字 III</title>
+    <link href="/2021/05/21/LeetCode-260-single-number-iii/"/>
+    <url>/2021/05/21/LeetCode-260-single-number-iii/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/single-number-iii/" target="_blank" rel="noopener">260. 只出现一次的数字 III</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] singleNumber(<span class="hljs-keyword">int</span>[] nums) &#123;    <span class="hljs-keyword">int</span> xor = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;        xor ^= num;    &#125;    <span class="hljs-comment">// 两个不同的数至少有一位不同，</span>    <span class="hljs-comment">// 1111 ^ 1001 = 0110，结果为 1 的位表示该位置上 a, b 不同</span>    <span class="hljs-comment">// 按不同的位将所有的数分成两组，相同的数会分在同一组内，而 a, b 会分在不同的组</span>    <span class="hljs-comment">// 每组组内异或后结果就是 a, b</span>    <span class="hljs-keyword">int</span> mask = <span class="hljs-number">1</span>;    <span class="hljs-comment">// 找到 xor 中为 1 的位</span>    <span class="hljs-keyword">while</span> ((xor &amp; mask) == <span class="hljs-number">0</span>) &#123;        mask &lt;&lt;= <span class="hljs-number">1</span>;    &#125;    <span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>;    <span class="hljs-keyword">int</span> b = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;        <span class="hljs-keyword">if</span> ((num &amp; mask) == <span class="hljs-number">0</span>) &#123;            a ^= num;        &#125; <span class="hljs-keyword">else</span> &#123;            b ^= num;        &#125;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;a, b&#125;;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>位运算</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 56 - II. 数组中数字出现的次数 II</title>
     <link href="/2021/05/21/LeetCode-offer-56-2-shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/"/>
     <url>/2021/05/21/LeetCode-offer-56-2-shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/</url>
@@ -3524,9 +3578,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -4705,9 +4759,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -5254,9 +5308,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>贪心</tag>
       
@@ -5395,9 +5449,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -5538,9 +5592,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>贪心</tag>
       
@@ -5675,9 +5729,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>排序</tag>
       
@@ -5704,9 +5758,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -9314,9 +9368,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
@@ -9938,9 +9992,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -10023,9 +10077,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -10054,11 +10108,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -10083,9 +10137,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -10112,9 +10166,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -10141,9 +10195,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -10170,9 +10224,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -10199,9 +10253,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -10228,9 +10282,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -10377,9 +10431,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
@@ -10408,11 +10462,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
     </tags>
     
@@ -10437,9 +10491,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -10495,9 +10549,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -10524,9 +10578,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>滑动窗口</tag>
       
@@ -10582,9 +10636,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       
@@ -10692,11 +10746,11 @@
     
     <tags>
       
+      <tag>字符串</tag>
+      
       <tag>LeetCode</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>字符串</tag>
       
       <tag>排序</tag>
       
@@ -10750,9 +10804,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -10781,9 +10835,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -10810,9 +10864,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>栈</tag>
       
@@ -10841,9 +10895,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -10870,9 +10924,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>双指针</tag>
       
@@ -10899,9 +10953,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -10926,9 +10980,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -10953,9 +11007,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -10980,9 +11034,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -11007,9 +11061,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -11034,9 +11088,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
     </tags>
     
@@ -11839,9 +11893,9 @@
     
     <tags>
       
-      <tag>LeetCode</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>LeetCode</tag>
       
       <tag>动态规划</tag>
       

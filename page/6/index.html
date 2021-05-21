@@ -170,6 +170,100 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2021/05/09/LeetCode-5752-maximum-subarray-min-product/">LeetCode 5752. 子数组最小乘积的最大值</a>
+
+      <a href="/2021/05/09/LeetCode-5752-maximum-subarray-min-product/" class="index-excerpt">
+        
+        
+          
+        
+        <div>5752. 子数组最小乘积的最大值
+public int maxSumMinProduct(int[] nums) &#123;
+        // [3,1,5,6, 4, 2]
+        //  0 3 4 9 15 19 21
+        int len = nums.length;
+        int[] nums1 = new int[len + 2];
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-05-09
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/">单调栈</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2021/05/09/LeetCode-5751-maximum-distance-between-a-pair-of-values/">LeetCode 5751. 下标对中的最大距离</a>
+
+      <a href="/2021/05/09/LeetCode-5751-maximum-distance-between-a-pair-of-values/" class="index-excerpt">
+        
+        
+          
+        
+        <div>5751. 下标对中的最大距离
+public int maxDistance(int[] nums1, int[] nums2) &#123;
+        int res = 0;
+        for (int i = 0; i &lt; nums1.length; i++) &#123;
+            int j = binarySearch(nums1[i], i, nums</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-05-09
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2021/05/09/LeetCode-5750-maximum-population-year/">LeetCode 5750. 人口最多的年份</a>
 
       <a href="/2021/05/09/LeetCode-5750-maximum-population-year/" class="index-excerpt">
@@ -543,101 +637,6 @@ class Solution &#123;
               <a href="/tags/LeetCode/">LeetCode</a>
             
               <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2021/04/30/LeetCode-25-reverse-nodes-in-k-group/">LeetCode 25. K 个一组翻转链表</a>
-
-      <a href="/2021/04/30/LeetCode-25-reverse-nodes-in-k-group/" class="index-excerpt">
-        
-        
-          
-        
-        <div>25. K 个一组翻转链表
-public ListNode reverseKGroup(ListNode head, int k) &#123;
-        // [1,2,3,4,5], k = 2
-        // [2,1,4,3,5]
-        ListNode dummy = new ListNode(-1);
-        ListNode tail = head;
- </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-04-30
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2021/04/30/LeetCode-137-single-number-ii/">LeetCode 137. 只出现一次的数字 II</a>
-
-      <a href="/2021/04/30/LeetCode-137-single-number-ii/" class="index-excerpt">
-        
-        
-          
-        
-        <div>137. 只出现一次的数字 II
-public int singleNumber(int[] nums) &#123;
-        // 统计 num 每一位的出现次数
-        int[] counts = new int[32];
-        for (int num : nums) &#123;
-            for (int i = 31; i &gt;= 0; i</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-04-30
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
             
           </div>
         
