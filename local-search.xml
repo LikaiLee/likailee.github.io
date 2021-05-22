@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>LeetCode 810. 黑板异或游戏</title>
+    <link href="/2021/05/22/LeetCode-810-chalkboard-xor-game/"/>
+    <url>/2021/05/22/LeetCode-810-chalkboard-xor-game/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/chalkboard-xor-game/" target="_blank" rel="noopener">810. 黑板异或游戏</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">xorGame</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;    <span class="hljs-keyword">int</span> xor = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;            xor ^= num;        &#125;    <span class="hljs-keyword">return</span> xor == <span class="hljs-number">0</span> || nums.length % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>位运算</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 56 - I. 数组中数字出现的次数</title>
     <link href="/2021/05/21/LeetCode-offer-56-1-shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/"/>
     <url>/2021/05/21/LeetCode-offer-56-1-shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/</url>
@@ -9996,9 +10023,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>数学</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -10081,9 +10108,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>数学</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
