@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Likai Lee">
   <meta name="keywords" content="">
-  <title>归档 - Likai Lee</title>
+  <title>Likai Lee</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -42,7 +42,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -130,20 +130,24 @@
 </nav>
 
     <div class="view intro-2" id="background" parallax=true
-         style="background: url('/img/bg/3.jpg') no-repeat center center;
+         style="background: url('/img/bg/index.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                归档
+                Take a shot, chase the sun, found the beautiful.
               
             </span>
 
             
           </div>
 
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
           
         </div>
       </div>
@@ -154,73 +158,53 @@
     
       <div class="container nopadding-md">
         <div class="py-5" id="board"
-          >
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
-<style>
-  .post-item {
-    padding-left: 20px;
-    line-height: 38px;
-  }
-  .post-item .post-time {
-    display: inline-block;
-    width: 66px;
-    color: #666;
-  }
-  .post-item .post-cate {
-    display: inline-block;
-    padding: 0 10px;
-    color: #337ab7;
-  }
-  .post-item .post-cate .cate {
-    padding: 0 6px;
-    background: #337ab7;
-    color: #fff;
-    border-radius: 4px;
-  }
-  .post-item .post-cate .cate:hover {
-    background: #429ae6;
-  }
-  .post-item .post-tags {
-    display: inline-block;
-    color: #8fa3ec;
-  }
-  .post-item .post-tags .tag {
-    padding: 0 6px;
-    background: #8fa3ec;
-    color: #fff;
-    border-radius: 4px;
-  }
-  .post-item .post-tags .tag:hover {
-    background: #a8b6ea;
-  }
-</style>
-<div class="list-group">
-  <p class="h4">共计 461 篇文章</p>
-  
-    <!-- 年份 -->
+
+
+  <div class="row mx-auto index-card">
     
-      
-      <hr>
-      <p class="h4">2018</p>
     
-    <div class="post-item">
-      <!-- 时间 -->
-      <span class="post-time">12-28 </span>
-      <!-- 标题 -->
-      <a class="post-title" href="/2018/12/28/overview/">
-        <b>Overview</b>
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2018/12/28/overview/">Overview</a>
+
+      <a href="/2018/12/28/overview/" class="index-excerpt">
+        
+        
+          
+        
+        <div>During the past six months, I was focusing on preparing for the entrance exam of postgraduate schools, owing to that, I could barely write posts or sorting out my blog. What’s worse, I figured out tha</div>
       </a>
-      <!-- 目录 -->
-      
-      <!-- 标签 -->
-      
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2018-12-28
+          </div>
+        
+        
+        
+      </div>
     </div>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/46/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/45/">45</a><a class="page-number" href="/page/46/">46</a><span class="page-number current">47</span>
+    </span>
+  </nav>
   
-</div>
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 

@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>剑指 Offer 60. n 个骰子的点数</title>
+    <link href="/2021/05/24/LeetCode-offer-60-nge-tou-zi-de-dian-shu-lcof/"/>
+    <url>/2021/05/24/LeetCode-offer-60-nge-tou-zi-de-dian-shu-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof/" target="_blank" rel="noopener">剑指 Offer 60. n 个骰子的点数</a></p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span>[] dicesProbability(<span class="hljs-keyword">int</span> n) &#123;        <span class="hljs-comment">// dp[n][i]: n 个骰子，朝上的点数之和为 i 的出现次数</span>        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n + <span class="hljs-number">1</span>][<span class="hljs-number">6</span> * n + <span class="hljs-number">1</span>];        <span class="hljs-comment">// 只有 1 个骰子，[1, 6] 每个数字的出现次数都为 1 次</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">6</span>; i++) &#123;            dp[<span class="hljs-number">1</span>][i] = <span class="hljs-number">1</span>;        &#125;        <span class="hljs-comment">// 骰子数：2 ~ n</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) &#123;            <span class="hljs-comment">// i 个骰子所有可能的点数之和：最小的和为 i，最大为 6 * i</span>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i; j &lt;= <span class="hljs-number">6</span> * i; j++) &#123;                <span class="hljs-comment">// 第 i 个骰子可以从第 i - 1 个转移而来，i - 1 个骰子的点数和为 j - [1, 6]</span>                <span class="hljs-comment">// e.g. dp[3][8] &lt;= 2 个骰子的情况下，点数和为 8 - [1, 6]，即 dp[2][8 - k]</span>                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">1</span>; k &lt;= <span class="hljs-number">6</span> &amp;&amp; j - k &gt;= <span class="hljs-number">1</span>; k++) &#123;                    <span class="hljs-comment">// 点数和至少为 1，j - k &gt;= 1</span>                    dp[i][j] += dp[i - <span class="hljs-number">1</span>][j - k];                &#125;            &#125;        &#125;        <span class="hljs-comment">// n 个骰子的组合数</span>        <span class="hljs-keyword">double</span> combination = Math.pow(<span class="hljs-number">6</span>, n);        <span class="hljs-comment">// n 个骰子，组合后的范围 = [n, 6 * n]</span>        <span class="hljs-comment">// 最小 = 每个都是 1，最大 = 每个都是 6</span>        <span class="hljs-keyword">double</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">double</span>[<span class="hljs-number">6</span> * n - n + <span class="hljs-number">1</span>];        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = n, j = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">6</span> * n; i++) &#123;            res[j++] = dp[n][i] / combination;        &#125;        <span class="hljs-keyword">return</span> res;    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>动态规划</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 58 - I. 翻转单词顺序</title>
     <link href="/2021/05/24/LeetCode-offer-58-1-fan-zhuan-dan-ci-shun-xu-lcof/"/>
     <url>/2021/05/24/LeetCode-offer-58-1-fan-zhuan-dan-ci-shun-xu-lcof/</url>
@@ -386,11 +413,11 @@
     
     <tags>
       
+      <tag>哈希表</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>哈希表</tag>
       
       <tag>剑指 Offer</tag>
       
@@ -1829,9 +1856,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>数学</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -4326,9 +4353,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>并查集</tag>
       
@@ -4519,9 +4546,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5002,9 +5029,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>BFS</tag>
-      
       <tag>数学</tag>
+      
+      <tag>BFS</tag>
       
     </tags>
     
@@ -5261,9 +5288,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5290,11 +5317,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -5321,9 +5348,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -5692,9 +5719,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -5939,9 +5966,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -6113,9 +6140,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
       <tag>排序</tag>
       
@@ -6254,9 +6281,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
     </tags>
     
@@ -7753,9 +7780,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>排序</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>排序</tag>
       
       <tag>队列</tag>
       
@@ -8180,9 +8207,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -9006,9 +9033,9 @@
       
       <tag>动态规划</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -9891,9 +9918,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -10003,9 +10030,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -10032,11 +10059,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>双指针</tag>
       
       <tag>二分</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -10065,9 +10092,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>数学</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -10150,9 +10177,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>数学</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -10471,9 +10498,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
       <tag>单调栈</tag>
       
@@ -10877,9 +10904,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>栈</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
