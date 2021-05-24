@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>剑指 Offer 58 - I. 翻转单词顺序</title>
+    <link href="/2021/05/24/LeetCode-offer-58-1-fan-zhuan-dan-ci-shun-xu-lcof/"/>
+    <url>/2021/05/24/LeetCode-offer-58-1-fan-zhuan-dan-ci-shun-xu-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/fan-zhuan-dan-ci-shun-xu-lcof/" target="_blank" rel="noopener">剑指 Offer 58 - I. 翻转单词顺序</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">reverseWords</span><span class="hljs-params">(String s)</span> </span>&#123;        Deque&lt;String&gt; deque = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        <span class="hljs-keyword">char</span>[] str = s.toCharArray();        <span class="hljs-keyword">int</span> len = str.length;        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;        StringBuilder word = <span class="hljs-keyword">new</span> StringBuilder();        <span class="hljs-keyword">while</span> (i &lt; len) &#123;            <span class="hljs-comment">// 遇到空格将前一个单词入栈</span>            <span class="hljs-keyword">if</span> (str[i] == <span class="hljs-string">' '</span> &amp;&amp; word.length() &gt; <span class="hljs-number">0</span>) &#123;                deque.addFirst(word.toString());                word.setLength(<span class="hljs-number">0</span>);            &#125;            <span class="hljs-comment">// 去除多余的空格</span>            <span class="hljs-keyword">while</span> (i &lt; len &amp;&amp; str[i] == <span class="hljs-string">' '</span>) &#123;                i++;            &#125;            <span class="hljs-keyword">if</span> (i == len) &#123;                <span class="hljs-keyword">break</span>;            &#125;            word.append(str[i]);            i++;        &#125;        <span class="hljs-comment">// 最后一个</span>        <span class="hljs-keyword">if</span> (word.length() &gt; <span class="hljs-number">0</span>) &#123;            deque.addFirst(word.toString());            word.setLength(<span class="hljs-number">0</span>);        &#125;        <span class="hljs-keyword">return</span> String.join(<span class="hljs-string">" "</span>, deque);    &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>字符串</tag>
+      
+      <tag>栈</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 1707. 与数组中元素的最大异或值</title>
     <link href="/2021/05/23/LeetCode-1707-maximum-xor-with-an-element-from-array/"/>
     <url>/2021/05/23/LeetCode-1707-maximum-xor-with-an-element-from-array/</url>
@@ -7784,9 +7813,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7813,9 +7842,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -8290,9 +8319,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>栈</tag>
+      
+      <tag>贪心</tag>
       
       <tag>单调栈</tag>
       
@@ -8321,9 +8350,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>贪心</tag>
-      
       <tag>栈</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -8637,9 +8666,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -8749,9 +8778,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -8778,9 +8807,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -8807,9 +8836,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -8836,9 +8865,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -8919,9 +8948,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -8975,9 +9004,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>栈</tag>
       
@@ -9174,9 +9203,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -9350,11 +9379,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -9410,11 +9439,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -9501,11 +9530,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>二分</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -10005,9 +10034,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>二分</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>二分</tag>
       
     </tags>
     
@@ -10036,9 +10065,9 @@
       
       <tag>字符串</tag>
       
-      <tag>数学</tag>
-      
       <tag>栈</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -10121,9 +10150,9 @@
       
       <tag>字符串</tag>
       
-      <tag>数学</tag>
-      
       <tag>栈</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -10295,9 +10324,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -10324,9 +10353,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -10473,11 +10502,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -10620,9 +10649,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -10846,9 +10875,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -10877,9 +10906,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -10937,9 +10966,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -10966,9 +10995,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
