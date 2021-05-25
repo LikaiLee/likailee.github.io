@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>剑指 Offer 62. 圆圈中最后剩下的数字</title>
+    <link href="/2021/05/25/LeetCode-offer-62-yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/"/>
+    <url>/2021/05/25/LeetCode-offer-62-yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/" target="_blank" rel="noopener">剑指 Offer 62. 圆圈中最后剩下的数字</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lastRemaining</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> m)</span> </span>&#123;    <span class="hljs-keyword">int</span> pos = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) &#123;        pos = (pos + m) % i;    &#125;    <span class="hljs-keyword">return</span> pos;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>动态规划</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 61. 扑克牌中的顺子</title>
     <link href="/2021/05/25/LeetCode-offer-61-bu-ke-pai-zhong-de-shun-zi-lcof/"/>
     <url>/2021/05/25/LeetCode-offer-61-bu-ke-pai-zhong-de-shun-zi-lcof/</url>
@@ -5070,9 +5097,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>数学</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -6181,9 +6208,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
       <tag>排序</tag>
       
@@ -8248,9 +8275,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -9074,9 +9101,9 @@
       
       <tag>动态规划</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -10539,9 +10566,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
       <tag>单调栈</tag>
       
@@ -10945,9 +10972,9 @@
       
       <tag>字符串</tag>
       
-      <tag>双指针</tag>
-      
       <tag>栈</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
