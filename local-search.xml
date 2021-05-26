@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>LeetCode 1190. 反转每对括号间的子串</title>
+    <link href="/2021/05/26/LeetCode-1190-reverse-substrings-between-each-pair-of-parentheses/"/>
+    <url>/2021/05/26/LeetCode-1190-reverse-substrings-between-each-pair-of-parentheses/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/reverse-substrings-between-each-pair-of-parentheses/" target="_blank" rel="noopener">1190. 反转每对括号间的子串</a></p><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">reverseParentheses</span><span class="hljs-params">(String s)</span> </span>&#123;        Deque&lt;Character&gt; deque = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        Deque&lt;Character&gt; tmp = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : s.toCharArray()) &#123;            <span class="hljs-keyword">if</span> (c == <span class="hljs-string">')'</span>) &#123;                <span class="hljs-keyword">while</span> (!deque.isEmpty() &amp;&amp; deque.peek() != <span class="hljs-string">'('</span>) &#123;                    tmp.addLast(deque.pop());                &#125;                deque.pop();                <span class="hljs-keyword">while</span> (!tmp.isEmpty()) &#123;                    deque.push(tmp.pollFirst());                &#125;            &#125; <span class="hljs-keyword">else</span> &#123;                deque.push(c);            &#125;        &#125;        StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();        <span class="hljs-keyword">while</span> (!deque.isEmpty()) &#123;            sb.append(deque.pollLast());        &#125;        <span class="hljs-keyword">return</span> sb.toString();    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>栈</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>剑指 Offer 68 - I. 二叉搜索树的最近公共祖先</title>
+    <link href="/2021/05/25/LeetCode-offer-68-1-er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/"/>
+    <url>/2021/05/25/LeetCode-offer-68-1-er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/" target="_blank" rel="noopener">剑指 Offer 68 - I. 二叉搜索树的最近公共祖先</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">lowestCommonAncestor</span><span class="hljs-params">(TreeNode root, TreeNode p, TreeNode q)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;    &#125;    <span class="hljs-keyword">if</span> (root.val &lt; p.val &amp;&amp; root.val &lt; q.val) &#123;        <span class="hljs-keyword">return</span> lowestCommonAncestor(root.right, p, q);    &#125;    <span class="hljs-keyword">if</span> (root.val &gt; p.val &amp;&amp; root.val &gt; q.val) &#123;        <span class="hljs-keyword">return</span> lowestCommonAncestor(root.left, p, q);    &#125;    <span class="hljs-keyword">return</span> root;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>树</tag>
+      
+      <tag>剑指 Offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 66. 构建乘积数组</title>
     <link href="/2021/05/25/LeetCode-offer-66-gou-jian-cheng-ji-shu-zu-lcof/"/>
     <url>/2021/05/25/LeetCode-offer-66-gou-jian-cheng-ji-shu-zu-lcof/</url>
@@ -176,9 +230,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>剑指 Offer</tag>
       
@@ -558,11 +612,11 @@
     
     <tags>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>剑指 Offer</tag>
       
@@ -1951,11 +2005,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2464,9 +2518,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -5085,9 +5139,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -5433,9 +5487,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -5462,11 +5516,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>滑动窗口</tag>
       
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -5493,9 +5547,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -6001,9 +6055,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -6171,9 +6225,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -7160,9 +7214,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>递归</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -7218,9 +7272,9 @@
       
       <tag>树</tag>
       
-      <tag>分治</tag>
-      
       <tag>递归</tag>
+      
+      <tag>分治</tag>
       
     </tags>
     
@@ -7388,9 +7442,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -7419,11 +7473,11 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
       
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -8207,9 +8261,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -9178,9 +9232,9 @@
       
       <tag>双指针</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -10175,9 +10229,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -10204,9 +10258,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>二分</tag>
       
@@ -10235,9 +10289,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>数学</tag>
       
@@ -10320,9 +10374,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>数学</tag>
       
@@ -10554,9 +10608,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>BFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -10583,9 +10637,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -10612,9 +10666,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>栈</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>单调栈</tag>
       
@@ -10734,11 +10788,11 @@
       
       <tag>LeetCode</tag>
       
+      <tag>栈</tag>
+      
       <tag>字符串</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -10850,9 +10904,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>二分</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -11049,9 +11103,9 @@
       
       <tag>双指针</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -11107,9 +11161,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>栈</tag>
+      
+      <tag>字符串</tag>
       
       <tag>队列</tag>
       
@@ -11970,9 +12024,9 @@
       
       <tag>LeetCode</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>DFS</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     

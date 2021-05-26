@@ -170,6 +170,100 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2021/05/20/LeetCode-offer-49-chou-shu-lcof/">剑指 Offer 49. 丑数</a>
+
+      <a href="/2021/05/20/LeetCode-offer-49-chou-shu-lcof/" class="index-excerpt">
+        
+        
+          
+        
+        <div>剑指 Offer 49. 丑数
+public int nthUglyNumber(int n) &#123;
+    int[] dp = new int[n];
+    dp[0] = 1;
+    int p2 = 0, p3 = 0, p5 = 0;
+    for (int i = 1; i &lt; n; i++) &#123;
+        int n2 = dp[p2] * 2;
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-05-20
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            
+              <a href="/tags/%E5%89%91%E6%8C%87-Offer/">剑指 Offer</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2021/05/20/LeetCode-692-top-k-frequent-words/">LeetCode 692. 前 K 个高频单词</a>
+
+      <a href="/2021/05/20/LeetCode-692-top-k-frequent-words/" class="index-excerpt">
+        
+        
+          
+        
+        <div>692. 前 K 个高频单词
+public List&lt;String&gt; topKFrequent(String[] words, int k) &#123;
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+        PriorityQueue&lt;Map.Entry&lt;String, Intege</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-05-20
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">优先队列</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2021/05/19/LeetCode-offer-48-zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/">剑指 Offer 48. 最长不含重复字符的子字符串</a>
 
       <a href="/2021/05/19/LeetCode-offer-48-zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/" class="index-excerpt">
@@ -203,11 +297,11 @@ public int lengthOfLongestSubstring(String s) &#123;
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
-            
               <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
             
               <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+            
+              <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
             
               <a href="/tags/%E5%89%91%E6%8C%87-Offer/">剑指 Offer</a>
             
@@ -543,102 +637,6 @@ public String[] permutation(String s) &#123;
               <a href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
             
               <a href="/tags/%E5%89%91%E6%8C%87-Offer/">剑指 Offer</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2021/05/18/LeetCode-offer-36-er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/">剑指 Offer 36. 二叉搜索树与双向链表</a>
-
-      <a href="/2021/05/18/LeetCode-offer-36-er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/" class="index-excerpt">
-        
-        
-          
-        
-        <div>剑指 Offer 36. 二叉搜索树与双向链表
-public Node treeToDoublyList(Node root) &#123;
-        // List&lt;Node&gt; nodes = new ArrayList&lt;&gt;();
-        Node head = null;
-        Node tail = null;
-        Deque&lt</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-05-18
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%A0%91/">树</a>
-            
-              <a href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
-            
-              <a href="/tags/%E5%89%91%E6%8C%87-Offer/">剑指 Offer</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2021/05/18/LeetCode-1442-count-triplets-that-can-form-two-arrays-of-equal-xor/">LeetCode 1442. 形成两个异或相等数组的三元组数目</a>
-
-      <a href="/2021/05/18/LeetCode-1442-count-triplets-that-can-form-two-arrays-of-equal-xor/" class="index-excerpt">
-        
-        
-          
-        
-        <div>1442. 形成两个异或相等数组的三元组数目
-public int countTriplets(int[] arr) &#123;
-    int len = arr.length;
-    int[] xor = new int[len + 1];
-    for (int i = 1; i &lt;= len; i++) &#123;
-        xor[i] = xor[i - 1] ^</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-05-18
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LeetCode/">LeetCode</a>
-            
-              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
             
           </div>
         
