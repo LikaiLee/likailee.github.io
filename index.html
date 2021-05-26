@@ -464,13 +464,14 @@ class Solution &#123;
           
         
         <div>剑指 Offer 62. 圆圈中最后剩下的数字
-public int lastRemaining(int n, int m) &#123;
-    int pos = 0;
-    for (int i = 2; i &lt;= n; i++) &#123;
-        pos = (pos + m) % i;
-    &#125;
-    return pos;
-&#125;</div>
+
+最后剩下的元素位置为 0。
+从 N = 7 反推 N = 8 时最后一个元素的位置。
+…
+从 N = 1 (f(1) = 0) 反推 N = 2 时最后一个元素的位置。
+f(N)=(f(N−1)+m) % Nf(N) = (f(N - 1) + m)~\%~N
+f(N)=(f(N−1)+m) % N
+public int lastRemaining</div>
       </a>
 
       <div class="index-btm post-metas">
