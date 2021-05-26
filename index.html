@@ -469,9 +469,8 @@ class Solution &#123;
 从 N = 7 反推 N = 8 时最后一个元素的位置。
 …
 从 N = 1 (f(1) = 0) 反推 N = 2 时最后一个元素的位置。
-f(N)=(f(N−1)+m) % Nf(N) = (f(N - 1) + m)~\%~N
-f(N)=(f(N−1)+m) % N
-public int lastRemaining</div>
+G 的当前位置 f(N - 1) 是上一次 f(N) 删除第 m 个元素后，整个数组左移 m 位的结果，因此只要将当前数组右移 m 位就能知道 G 的原位置。
+f(N)=(f(N−</div>
       </a>
 
       <div class="index-btm post-metas">
