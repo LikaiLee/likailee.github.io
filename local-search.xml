@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>LeetCode 415. 字符串相加</title>
+    <link href="/2021/05/27/LeetCode-415-add-strings/"/>
+    <url>/2021/05/27/LeetCode-415-add-strings/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/add-strings/" target="_blank" rel="noopener">415. 字符串相加</a></p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">addStrings</span><span class="hljs-params">(String num1, String num2)</span> </span>&#123;    <span class="hljs-keyword">char</span>[] str1 = num1.toCharArray();    <span class="hljs-keyword">char</span>[] str2 = num2.toCharArray();    <span class="hljs-keyword">int</span> i = str1.length - <span class="hljs-number">1</span>;    <span class="hljs-keyword">int</span> j = str2.length - <span class="hljs-number">1</span>;    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();    <span class="hljs-keyword">int</span> carry = <span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> (i &gt;= <span class="hljs-number">0</span> || j &gt;= <span class="hljs-number">0</span> || carry &gt; <span class="hljs-number">0</span>) &#123;        <span class="hljs-keyword">int</span> a = i &gt;= <span class="hljs-number">0</span> ? str1[i--] - <span class="hljs-string">'0'</span> : <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> b = j &gt;= <span class="hljs-number">0</span> ? str2[j--] - <span class="hljs-string">'0'</span> : <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> sum = a + b + carry;        sb.insert(<span class="hljs-number">0</span>, sum % <span class="hljs-number">10</span>);        carry = sum / <span class="hljs-number">10</span>;    &#125;    <span class="hljs-keyword">return</span> sb.toString();&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 43. 1～n 整数中 1 出现的次数</title>
     <link href="/2021/05/26/LeetCode-offer-43-1nzheng-shu-zhong-1chu-xian-de-ci-shu-lcof/"/>
     <url>/2021/05/26/LeetCode-offer-43-1nzheng-shu-zhong-1chu-xian-de-ci-shu-lcof/</url>
