@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Likai Lee">
+  <meta name="keywords" content="">
+  <title>LeetCode 773. 滑动谜题 - Likai Lee</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Likai Lee</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/bg/1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                LeetCode 773. 滑动谜题
+              
+            </span>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<div class="page-content">
+  <p><a href="https://leetcode-cn.com/problems/sliding-puzzle/" target="_blank" rel="noopener">773. 滑动谜题</a></p>
+<h1 id="解法一"><a class="markdownIt-Anchor" href="#解法一"></a> 解法一</h1>
+<p>需要注意棋盘的深拷贝。</p>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">slidingPuzzle</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] board)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> rows = board.length;
+        <span class="hljs-keyword">int</span> cols = board[<span class="hljs-number">0</span>].length;
+        Node start = <span class="hljs-keyword">null</span>;
+        String startBoardStr = <span class="hljs-string">""</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; i++) &#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; j++) &#123;
+                <span class="hljs-keyword">if</span> (board[i][j] == <span class="hljs-number">0</span>) &#123;
+                    startBoardStr = Arrays.deepToString(board);
+                    start = <span class="hljs-keyword">new</span> Node(i, j, board.clone(), startBoardStr);
+                &#125;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">if</span> (start == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+        &#125;
+        <span class="hljs-keyword">int</span>[][] dirs = &#123;&#123;<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;, &#123;<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>&#125;&#125;;
+        String target = Arrays.deepToString(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[][]&#123;&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;, &#123;<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>&#125;&#125;);
+        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+        Set&lt;String&gt; used = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+        Queue&lt;Node&gt; queue = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
+        queue.add(start);
+        used.add(startBoardStr);
+
+        <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;
+            count++;
+            <span class="hljs-keyword">int</span> size = queue.size();
+            <span class="hljs-keyword">while</span> (size-- &gt; <span class="hljs-number">0</span>) &#123;
+                Node curNode = queue.poll();
+                String curBoardStr = curNode.boardStr;
+                System.out.println(curBoardStr);
+                <span class="hljs-keyword">if</span> (target.equals(curBoardStr)) &#123;
+                    <span class="hljs-keyword">return</span> count - <span class="hljs-number">1</span>;
+                &#125;
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] dir : dirs) &#123;
+                    <span class="hljs-keyword">int</span> newX = curNode.zeroX + dir[<span class="hljs-number">0</span>];
+                    <span class="hljs-keyword">int</span> newY = curNode.zeroY + dir[<span class="hljs-number">1</span>];
+                    <span class="hljs-comment">// 越界</span>
+                    <span class="hljs-keyword">if</span> (!inArea(newX, newY, rows, cols)) &#123;
+                        <span class="hljs-keyword">continue</span>;
+                    &#125;
+                    <span class="hljs-keyword">int</span>[][] newBoard = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[rows][cols];
+                    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] line : curNode.board) &#123;
+                        newBoard[i++] = line.clone();
+                    &#125;
+                    <span class="hljs-comment">// 交换数字</span>
+                    newBoard[curNode.zeroX][curNode.zeroY] = newBoard[newX][newY];
+                    newBoard[newX][newY] = <span class="hljs-number">0</span>;
+                    String newBoardStr = Arrays.deepToString(newBoard);
+                    <span class="hljs-comment">// 已被使用</span>
+                    <span class="hljs-keyword">if</span> (used.contains(newBoardStr)) &#123;
+                        <span class="hljs-keyword">continue</span>;
+                    &#125;
+                    <span class="hljs-comment">// 加入队列并标记</span>
+                    queue.add(<span class="hljs-keyword">new</span> Node(newX, newY, newBoard, newBoardStr));
+                    used.add(newBoardStr);
+                &#125;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">inArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> rows, <span class="hljs-keyword">int</span> cols)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> x &gt;= <span class="hljs-number">0</span> &amp;&amp; x &lt; rows &amp;&amp; y &gt;= <span class="hljs-number">0</span> &amp;&amp; y &lt; cols;
+    &#125;
+
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;
+    <span class="hljs-keyword">int</span> zeroX;
+    <span class="hljs-keyword">int</span> zeroY;
+    <span class="hljs-keyword">int</span>[][] board;
+    String boardStr;
+
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Node</span><span class="hljs-params">(<span class="hljs-keyword">int</span> zeroX, <span class="hljs-keyword">int</span> zeroY, <span class="hljs-keyword">int</span>[][] board, String boardStr)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.zeroX = zeroX;
+        <span class="hljs-keyword">this</span>.zeroY = zeroY;
+        <span class="hljs-keyword">this</span>.board = board;
+        <span class="hljs-keyword">this</span>.boardStr = boardStr;
+    &#125;
+&#125;</code></pre>
+<h1 id="解法二"><a class="markdownIt-Anchor" href="#解法二"></a> 解法二</h1>
+<p>把二维数组映射为字符串，每次移动一个数字就相当于交换字符，省去了很多边界判断。</p>
+<pre><code class="hljs java">String TARGET = <span class="hljs-string">"123450"</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">slidingPuzzle</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] board)</span> </span>&#123;
+    <span class="hljs-keyword">int</span>[][] dirs = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[][]&#123;&#123;<span class="hljs-number">1</span>, <span class="hljs-number">3</span>&#125;, &#123;<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>&#125;, &#123;<span class="hljs-number">1</span>, <span class="hljs-number">5</span>&#125;, &#123;<span class="hljs-number">0</span>, <span class="hljs-number">4</span>&#125;, &#123;<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>&#125;, &#123;<span class="hljs-number">2</span>, <span class="hljs-number">4</span>&#125;&#125;;
+    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] row : board) &#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : row) &#123;
+            sb.append(num);
+        &#125;
+    &#125;
+    String start = sb.toString();
+    <span class="hljs-keyword">if</span> (TARGET.equals(start)) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    &#125;
+    Set&lt;String&gt; used = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+    Queue&lt;String&gt; queue = <span class="hljs-keyword">new</span> ArrayDeque&lt;&gt;();
+    queue.add(start);
+    used.add(start);
+
+    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;
+        count++;
+        <span class="hljs-keyword">int</span> size = queue.size();
+        <span class="hljs-keyword">while</span> (size-- &gt; <span class="hljs-number">0</span>) &#123;
+            String cur = queue.poll();
+            <span class="hljs-keyword">if</span> (TARGET.equals(cur)) &#123;
+                <span class="hljs-keyword">return</span> count - <span class="hljs-number">1</span>;
+            &#125;
+            <span class="hljs-keyword">char</span>[] arr = cur.toCharArray();
+            <span class="hljs-comment">// 一定会找到 0，不用特判</span>
+            <span class="hljs-keyword">int</span> zeroIdx = cur.indexOf(<span class="hljs-string">'0'</span>);
+            <span class="hljs-keyword">int</span>[] moves = dirs[zeroIdx];
+            <span class="hljs-comment">// 尝试交换每个位置</span>
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> next : moves) &#123;
+                <span class="hljs-comment">// 交换 0</span>
+                arr[zeroIdx] = arr[next];
+                arr[next] = <span class="hljs-string">'0'</span>;
+                <span class="hljs-comment">// 若未出现过，则加入队列</span>
+                String candidate = String.valueOf(arr);
+                <span class="hljs-keyword">if</span> (!used.contains(candidate)) &#123;
+                    queue.add(candidate);
+                    used.add(candidate);
+                &#125;
+                <span class="hljs-comment">// 还原</span>
+                arr[next] = arr[zeroIdx];
+                arr[zeroIdx] = <span class="hljs-string">'0'</span>;
+            &#125;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+&#125;</code></pre>
+</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <!-- <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> -->
+      Crafted with
+      <i class="iconfont icon-love" style="color: #f30;"></i>
+      by <a href="https://github.com/likailee" target="_blank" rel="noopener">Likai Lee</a>
+      | &copy; 2017 - 2021
+      <!-- <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a> -->
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?66c61a5fd59052d1b39d89c246846ae5";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Likai Lee">
+  <meta name="keywords" content="">
+  <title>LeetCode 321. 拼接最大数 - Likai Lee</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Likai Lee</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/bg/1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                LeetCode 321. 拼接最大数
+              
+            </span>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<div class="page-content">
+  <p><a href="https://leetcode-cn.com/problems/create-maximum-number/" target="_blank" rel="noopener">321. 拼接最大数</a></p>
+<p><a href="https://leetcode-cn.com/problems/remove-k-digits/" target="_blank" rel="noopener">402. 移掉K位数字</a></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] maxNumber(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2, <span class="hljs-keyword">int</span> k) &#123;
+    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[k];
+    <span class="hljs-keyword">int</span> len1 = nums1.length, len2 = nums2.length;
+    <span class="hljs-comment">// nums1 最多可取 k 个或全部取 (k &gt;= len1)</span>
+    <span class="hljs-keyword">int</span> end = Math.min(k, len1);
+    <span class="hljs-comment">// nums1 最少可取 k - len2 个或一个都不取 (k - len2 &lt;= 0)</span>
+    <span class="hljs-keyword">int</span> start = Math.max(<span class="hljs-number">0</span>, k - len2);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = start; i &lt;= end; i++) &#123;
+        <span class="hljs-comment">// 从 nums1 取 i 个，num2 取 k - i 个</span>
+        <span class="hljs-keyword">int</span>[] subSeq1 = maxSubsequence(nums1, i);
+        <span class="hljs-keyword">int</span>[] subSeq2 = maxSubsequence(nums2, k - i);
+        <span class="hljs-comment">// 合并两个子序列</span>
+        <span class="hljs-keyword">int</span>[] tmp = merge(subSeq1, subSeq2);
+        <span class="hljs-comment">// 取最终结果</span>
+        <span class="hljs-keyword">if</span> (compare(tmp, <span class="hljs-number">0</span>, res, <span class="hljs-number">0</span>)) &#123;
+            System.arraycopy(tmp, <span class="hljs-number">0</span>, res, <span class="hljs-number">0</span>, k);
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> res;
+&#125;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 合并两个子序列</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> subSeq1</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> subSeq2</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] merge(<span class="hljs-keyword">int</span>[] subSeq1, <span class="hljs-keyword">int</span>[] subSeq2) &#123;
+    <span class="hljs-keyword">int</span> len1 = subSeq1.length, len2 = subSeq2.length;
+    <span class="hljs-keyword">int</span> len = len1 + len2;
+    <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[len];
+    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; len; k++) &#123;
+        <span class="hljs-keyword">if</span> (compare(subSeq1, i, subSeq2, j)) &#123;
+            res[k] = subSeq1[i++];
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            res[k] = subSeq2[j++];
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> res;
+&#125;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 比较两个数组</span>
+<span class="hljs-comment"> * 对应位置上的元素大的数组更大，否则长度长的那个数组大</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> nums1</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> start1</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> nums2</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> start2</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@return</span> true if nums1 &gt; nums2</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">compare</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span> start1, <span class="hljs-keyword">int</span>[] nums2, <span class="hljs-keyword">int</span> start2)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> len1 = nums1.length, len2 = nums2.length;
+    <span class="hljs-keyword">while</span> (start1 &lt; len1 &amp;&amp; start2 &lt; len2) &#123;
+        <span class="hljs-keyword">if</span> (nums1[start1] &gt; nums2[start2]) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums1[start1] &lt; nums2[start2]) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            start1++;
+            start2++;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> len1 - start1 &gt; len2 - start2;
+&#125;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 求 nums 中 n 个最大子序列</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> nums</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> n</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] maxSubsequence(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> n) &#123;
+    <span class="hljs-comment">// 需要删除的位数</span>
+    <span class="hljs-keyword">int</span> dropNum = nums.length - n;
+    <span class="hljs-keyword">int</span>[] stack = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[nums.length];
+    <span class="hljs-comment">// 栈顶元素的位置</span>
+    <span class="hljs-keyword">int</span> top = -<span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;
+        <span class="hljs-comment">// 栈顶 &lt; nums[i] &amp;&amp; 可删除，则出栈</span>
+        <span class="hljs-keyword">while</span> (top &gt;= <span class="hljs-number">0</span> &amp;&amp; dropNum &gt; <span class="hljs-number">0</span> &amp;&amp; stack[top] &lt; num) &#123;
+            top--;
+            dropNum--;
+        &#125;
+        stack[++top] = num;
+    &#125;
+    <span class="hljs-comment">// 删除的位数不够</span>
+    <span class="hljs-keyword">while</span> (dropNum-- &gt; <span class="hljs-number">0</span>) &#123;
+        top--;
+    &#125;
+    <span class="hljs-comment">// 返回 n 个子序列</span>
+    <span class="hljs-keyword">return</span> Arrays.copyOfRange(stack, <span class="hljs-number">0</span>, n);
+&#125;</code></pre>
+</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <!-- <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> -->
+      Crafted with
+      <i class="iconfont icon-love" style="color: #f30;"></i>
+      by <a href="https://github.com/likailee" target="_blank" rel="noopener">Likai Lee</a>
+      | &copy; 2017 - 2021
+      <!-- <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a> -->
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?66c61a5fd59052d1b39d89c246846ae5";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
